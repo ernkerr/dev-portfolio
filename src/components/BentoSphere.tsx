@@ -1,39 +1,59 @@
-// const BentoShere = () => {
-//   return (
-//     // Outer Container (Centers the Grid)
-//     // flex layout
-//     // horizontally center content
-//     // & vertically
-//     // makes container as tall as the entire screen height
-//     <div className="flex justify-center items-center h-screen">
-//       {/* // grid-cols-2 creates a grid w/ 2 columns */}
-//       <div className="grid grid-cols-2 gap-4">
-//         {/* // bento box styling */}
-//         <div className=" bg-blue-500 flex items-center justify-center rounded-lg shadow-md">
-//           Erin Kerr
-//         </div>
-//       </div>
-//     </div>
-//     // grid layout for bento boxes
-//   );
-// };
+// project 0: Nav bar (ERIN KERR in left side, PROJECTS< ABOUT & CONTACT ON LEFT)
 
 // project 1:
 
 // project 2:
 
-// project 3:
+// project 3: List of projects
+// carpoolio: link to page that goes through
 
 // project 4:
 
-// project 5:
+// project 5: Contact Me
+
+// project 6: Currently Listening.. (pull spotify API & connect to my account)
+
+// project 7: Local Time (SAN FRANCISCO HH:MM )
+
+// project 8: Github?
+
+// project 9: Disco Mode
+
+// project 10: Light / Dark Toggle
 
 const BentoSphere = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-slate-900">
-      <div className="grid h-full w-full grid-cols-12 grid-rows-10 gap-3 p-20 xl:m-64 lg:m-32 md:m-16">
-        <div className="col-span-12 row-span-1 bg-blue-500 flex items-center justify-center rounded-lg shadow-md">
-          ERIN KERR
+      <div className="grid h-full w-full grid-cols-12 grid-rows-9 gap-3 p-20 xl:m-32 lg:m-16 md:m-8">
+        <div className="col-span-12 row-span-1 bg-blue-600 flex items-center rounded-lg shadow-md">
+          <nav className="flex justify-between w-full items-center m-10">
+            <a
+              href="/"
+              className="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-blue-500 hover:text-white rounded-lg"
+            >
+              ERIN KERR
+            </a>
+            <div className="flex align-end">
+              <a
+                href="#"
+                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
+              >
+                PROJECTS
+              </a>
+              <a
+                href="#"
+                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
+              >
+                ABOUT
+              </a>
+              <a
+                href="#"
+                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
+              >
+                CONTACT
+              </a>
+            </div>
+          </nav>
         </div>
 
         <div className="col-span-5 row-span-4 bg-blue-500 flex items-center justify-center rounded-lg shadow-md">

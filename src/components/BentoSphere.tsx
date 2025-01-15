@@ -290,10 +290,10 @@ const BentoSphere = () => {
               </div>
             </nav>
           </div>
-          <div className="col-span-5 row-span-4 bg-blue-500 flex items-center justify-center rounded-lg shadow-md">
+          <div className="col-span-5 row-span-4 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             Project 1
           </div>
-          <div className="col-span-3 row-span-4 bg-green-500 flex items-center justify-center rounded-lg shadow-md">
+          <div className="col-span-3 row-span-4 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             <Image
               src={ern}
               alt="A photo of the author Erin Kerr"
@@ -309,22 +309,38 @@ const BentoSphere = () => {
               className="rounded-lg"
             />
           </div>
-          <div className="col-span-4 row-span-6 bg-red-500 flex items-center justify-center rounded-lg shadow-md">
-            Project 3
+          <div className="col-span-4 row-span-6 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
+            PROJECTS
           </div>
-          <div className="col-span-4 row-span-3 bg-yellow-500 flex items-center justify-center rounded-lg shadow-md">
+          <div className="col-span-4 row-span-3 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             Project 4
           </div>
-          <div className="col-span-4 row-span-4 bg-blue-500 flex items-center justify-center rounded-lg shadow-md">
-            Project 5
+          <div className="col-span-4 row-span-4 bg-blue-500  flex justify-start items-end rounded-lg shadow-md">
+            <div className={`text-white text-5xl m-3`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                />
+              </svg>
+              Contact <br /> Me
+            </div>
           </div>
-          <div className="col-span-4 row-span-1 bg-green-500 flex items-center justify-center rounded-lg shadow-md">
+          <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             Project 6
           </div>
-          <div className="col-span-4 row-span-1 bg-red-500 flex items-center justify-center rounded-lg shadow-md">
+          <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             Project 7
           </div>
-          <div className="col-span-1 row-span-1 bg-yellow-500 flex items-center justify-center rounded-lg shadow-md">
+          <div className="col-span-1 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             Project 8
           </div>
           {/* disco mode */}
@@ -333,7 +349,7 @@ const BentoSphere = () => {
               {discoMode ? "Turn Off Disco Mode" : "Disco Mode 🪩"}
             </button>
           </div>
-          <div className="col-span-2 row-span-1 bg-green-500 flex items-center justify-center rounded-lg shadow-md">
+          <div className="col-span-2 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             Project 10
           </div>
         </div>

@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Script from "next/script";
 import Image from "next/image";
 import ern from "../../public/erin.jpg";
+import disco from "../../public/disco.svg";
 
 import DarkModeToggle from "./DarkModeToggle";
+import Disco from "./Disco";
 
 // project 0: Nav bar (ERIN KERR in left side, PROJECTS< ABOUT & CONTACT ON LEFT)
 
@@ -348,10 +351,10 @@ const BentoSphere = () => {
           {/* disco mode */}
           <div className="col-span-1 row-span-1 bg-blue-500 flex items-center justify-center rounded-lg shadow-md">
             <button onClick={toggleDiscoMode} className=" text-white text-sm">
-              {discoMode ? "Turn Off Disco Mode" : "Disco Mode 🪩"}
+              <Disco />
             </button>
           </div>
-          <div className="col-span-2 row-span-1 dark:bg-slate-800 flex items-center justify-center rounded-lg shadow-md">
+          <div className="col-span-2 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             <DarkModeToggle />
           </div>
         </div>

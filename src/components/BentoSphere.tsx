@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
+
+import ern from "../../public/erin.jpg";
 
 // project 0: Nav bar (ERIN KERR in left side, PROJECTS< ABOUT & CONTACT ON LEFT)
 
@@ -291,7 +294,20 @@ const BentoSphere = () => {
             Project 1
           </div>
           <div className="col-span-3 row-span-4 bg-green-500 flex items-center justify-center rounded-lg shadow-md">
-            Project 2
+            <Image
+              src={ern}
+              alt="A photo of the author Erin Kerr"
+              width={600}
+              height={600}
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                minHeight: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+              className="rounded-lg"
+            />
           </div>
           <div className="col-span-4 row-span-6 bg-red-500 flex items-center justify-center rounded-lg shadow-md">
             Project 3

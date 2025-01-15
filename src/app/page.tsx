@@ -1,12 +1,12 @@
 import Image from "next/image";
-import BentoSphere from "../components/BentoSphere";
+import BentoGrid from "../components/BentoGrid";
 
 export default function Home() {
   // use the parametri equation of an eclipse
 
   return (
     <div>
-      <BentoSphere />
+      <BentoGrid />
     </div>
   );
 }

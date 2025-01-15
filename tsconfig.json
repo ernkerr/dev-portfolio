@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/BentoSphere.tsx"
+    "src/components/BentoGrid.tsx"
   ],
   "exclude": ["node_modules"]
 }

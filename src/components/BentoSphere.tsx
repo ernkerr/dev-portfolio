@@ -9,6 +9,8 @@ import disco from "../../public/disco.svg";
 import DarkModeToggle from "./DarkModeToggle";
 import Disco from "./Disco";
 
+import { pressStart, poiretOne } from "../../public/fonts/fonts";
+
 // project 0: Nav bar (ERIN KERR in left side, PROJECTS< ABOUT & CONTACT ON LEFT)
 
 // project 1:
@@ -294,8 +296,13 @@ const BentoSphere = () => {
               </div>
             </nav>
           </div>
-          <div className="col-span-5 row-span-4 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
-            Project 1
+          <div className="col-span-5 row-span-4 bg-blue-600 flex items-end flex-start rounded-lg shadow-md text-white text-xl">
+            <div className="flex flex-col m-6">
+              <div className={`${poiretOne.className} text-4xl`}>
+                Designer &
+              </div>
+              <div className={pressStart.className}>Front End Developer</div>
+            </div>
           </div>
           <div className="col-span-3 row-span-4 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             <Image

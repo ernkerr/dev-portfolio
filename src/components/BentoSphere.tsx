@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-
 import ern from "../../public/erin.jpg";
+
+import DarkModeToggle from "./DarkModeToggle";
 
 // project 0: Nav bar (ERIN KERR in left side, PROJECTS< ABOUT & CONTACT ON LEFT)
 
@@ -55,7 +56,7 @@ const BentoSphere = () => {
 
   return (
     <div
-      className="relative flex justify-center items-center h-screen bg-slate-900 perspective-[2000px]"
+      className="relative flex justify-center items-center h-screen bg-slate-100 dark:bg-slate-900 perspective-[2000px]"
       // disco mode
       // onMouseMove={(e) => {
       //   if (discoMode) {
@@ -307,6 +308,7 @@ const BentoSphere = () => {
                 objectPosition: "center",
               }}
               className="rounded-lg"
+              priority
             />
           </div>
           <div className="col-span-4 row-span-6 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
@@ -349,8 +351,8 @@ const BentoSphere = () => {
               {discoMode ? "Turn Off Disco Mode" : "Disco Mode 🪩"}
             </button>
           </div>
-          <div className="col-span-2 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
-            Project 10
+          <div className="col-span-2 row-span-1 dark:bg-slate-800 flex items-center justify-center rounded-lg shadow-md">
+            <DarkModeToggle />
           </div>
         </div>
       )}

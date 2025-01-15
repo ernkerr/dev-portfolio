@@ -10,19 +10,10 @@ import DarkModeToggle from "./DarkModeToggle";
 import Disco from "./Disco";
 
 import { pressStart, poiretOne } from "../../public/fonts/fonts";
-
-// project 0: Nav bar (ERIN KERR in left side, PROJECTS< ABOUT & CONTACT ON LEFT)
-
-// project 1:
-
-// project 2:
+import Projects from "./Projects";
 
 // project 3: List of projects
 // carpoolio: link to page that goes through
-
-// project 4:
-
-// project 5: Contact Me
 
 // project 6: Currently Listening.. (pull spotify API & connect to my account)
 
@@ -31,8 +22,6 @@ import { pressStart, poiretOne } from "../../public/fonts/fonts";
 // project 8: Github?
 
 // project 9: Disco Mode
-
-// project 10: Light / Dark Toggle
 
 const BentoSphere = () => {
   const [discoMode, setDiscoMode] = useState(false); // state to manage disco mode
@@ -77,7 +66,7 @@ const BentoSphere = () => {
         <>
           {/* Disco Mode Toggle */}
           <div
-            className="absolute top-0 left-0 w-60 h-80 bg-gray-700 flex items-center justify-center rounded-lg shadow-md text-white cursor-pointer"
+            className="absolute top-0 left-0 w-40 h-80 bg-gray-700 flex items-center justify-center rounded-lg shadow-md text-white cursor-pointer"
             onClick={toggleDiscoMode}
           >
             {discoMode ? "Turn Off Disco Mode 🪩" : "Disco Mode "}
@@ -90,11 +79,85 @@ const BentoSphere = () => {
               transition: "transform 0.1s ease-out",
             }}
           >
+            {/* Center cap - top */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-full shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateX(90deg) translateZ(380px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top Cap
+            </div>
+            {/* Row 1 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(18deg) rotateX(58.5deg) translateZ(380px) translateY(0px) ",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 1 - 1
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%)  rotateY(90deg)  translateY(0px) rotateX(58.5deg)translateZ(380px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 1 - 2
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%)  rotateY(162deg)  translateY(0px) rotateX(58.5deg)translateZ(380px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 1 - 3
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%)  rotateY(234deg)  translateY(0px) rotateX(58.5deg)translateZ(380px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 1 - 4
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%)  rotateY(306deg)  translateY(0px) rotateX(58.5deg)translateZ(380px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 1 - 5
+            </div>
             {/* Project 1 */}
             <div
-              className="absolute w-60 h-40 bg-blue-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-blue-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
-                transform: "translate(-50%, -50%) translateZ(400px)",
+                transform: "translate(-50%, -50%) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -104,10 +167,10 @@ const BentoSphere = () => {
             </div>{" "}
             {/* Project 2 */}
             <div
-              className="absolute w-60 h-40 bg-green-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-green-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(36deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(36deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -117,10 +180,10 @@ const BentoSphere = () => {
             </div>{" "}
             {/* Project 3 */}
             <div
-              className="absolute w-60 h-40 bg-red-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-red-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(72deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(72deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -130,10 +193,10 @@ const BentoSphere = () => {
             </div>
             {/* Project 4 */}
             <div
-              className="absolute w-60 h-40 bg-yellow-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-yellow-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(108deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(108deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -143,10 +206,10 @@ const BentoSphere = () => {
             </div>
             {/* Project 5 */}
             <div
-              className="absolute w-60 h-40 bg-purple-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-purple-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(144deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(144deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -156,10 +219,10 @@ const BentoSphere = () => {
             </div>
             {/* Project 6 */}
             <div
-              className="absolute w-60 h-40 bg-pink-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-pink-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(180deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(180deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -169,10 +232,10 @@ const BentoSphere = () => {
             </div>
             {/* Project 7 */}
             <div
-              className="absolute w-60 h-40 bg-teal-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-teal-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(216deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(216deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -182,10 +245,10 @@ const BentoSphere = () => {
             </div>
             {/* Project 8 */}
             <div
-              className="absolute w-60 h-40 bg-indigo-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-indigo-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(252deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(252deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -196,10 +259,10 @@ const BentoSphere = () => {
             {/* disco mode */}
             {/* Disco Mode Toggle */}
             <div
-              className="absolute w-60 h-80 bg-gray-700 flex items-center justify-center rounded-lg shadow-md text-white cursor-pointer"
+              className="absolute w-40 h-40 bg-gray-700 flex items-center justify-center rounded-lg shadow-md text-white cursor-pointer"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(288deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(288deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -210,10 +273,10 @@ const BentoSphere = () => {
             </div>
             {/* Project 10 */}
             <div
-              className="absolute w-60 h-40 bg-orange-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-orange-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateY(324deg) translateZ(400px)",
+                  "translate(-50%, -50%) rotateY(324deg) translateZ(425px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -221,10 +284,10 @@ const BentoSphere = () => {
             >
               Project 10
             </div>
-            {/* Top Row (angled upward) */}
+            {/* Second Row (angled upward) */}
             {/* Top 1 */}
             <div
-              className="absolute w-60 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
                   "translate(-50%, -50%) rotateX(45deg) translateZ(400px) translateY(100px) rotateY(0deg)",
@@ -237,10 +300,10 @@ const BentoSphere = () => {
             </div>
             {/* Top 2 */}
             <div
-              className="absolute w-60 h-40 bg-gray-600 flex items-center justify-center rounded-lg shadow-md text-white"
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
-                  "translate(-50%, -50%) rotateX(45deg) translateY(100px) translateZ(400px) translateX(300px)  rotateY(0deg) ",
+                  "translate(-50%, -50%) rotateY(36deg) rotateX(45deg) translateZ(400px)  translateY(100px)",
                 left: "50%",
                 top: "50%",
                 backfaceVisibility: "hidden",
@@ -248,10 +311,114 @@ const BentoSphere = () => {
             >
               Top 2
             </div>
+            {/* Top 3 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(72deg) rotateX(45deg) translateZ(400px) translateY(100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top 3
+            </div>
+            {/* Top 4 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(108deg) rotateX(45deg) translateZ(400px) translateY(100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top 4
+            </div>
+            {/* Top 5 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(144deg) rotateX(45deg) translateZ(400px) translateY(100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top 5
+            </div>
+            {/* Top 6 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(180deg) rotateX(45deg) translateZ(400px) translateY(100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top 6
+            </div>
+            {/* Top 7 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(216deg) rotateX(45deg) translateZ(400px) translateY(100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top 7
+            </div>
+            {/* Top 8 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(252deg) rotateX(45deg) translateZ(400px) translateY(100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top 8
+            </div>
+            {/* Top 9 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(288deg) rotateX(45deg) translateZ(400px) translateY(100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top 9
+            </div>
+            {/* Top 10 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(324deg) rotateX(45deg) translateZ(400px) translateY(100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Top 10
+            </div>
             {/* Bottom Row (angled downward) */}
             {/* Bottom 1 */}
-            <div
-              className="absolute w-60 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+            {/* <div
+              className="absolute w-40 h-60 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
               style={{
                 transform:
                   "translate(-50%, -50%) rotateX(-45deg)  translateY(100px) translateZ(400px)rotateY(0deg)",
@@ -261,6 +428,202 @@ const BentoSphere = () => {
               }}
             >
               Bottom 1
+            </div> */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 1
+            </div>
+            {/* Bottom 2 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(36deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 2
+            </div>
+            {/* Bottom 3 */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(72deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 3
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(108deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 4
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(144deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 5
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(180deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 6
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(216deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 7
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(252deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 8
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(288deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 9
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(324deg) rotateX(-45deg) translateZ(400px) translateY(-100px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom 10
+            </div>
+            {/* very bottom row  */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(18deg) rotateX(-58.5deg) translateZ(380px) translateY(0px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 5 - 1
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(90deg) rotateX(-58.5deg) translateZ(380px) translateY(0px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 5 - 2
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(162deg) rotateX(-58.5deg) translateZ(380px) translateY(0px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 5 - 3
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(234deg) rotateX(-58.5deg) translateZ(380px) translateY(0px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 5 - 4
+            </div>
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-lg shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateY(306deg) rotateX(-58.5deg) translateZ(380px) translateY(0px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Row 5 - 4
+            </div>
+            {/* Center cap - bottom */}
+            <div
+              className="absolute w-40 h-40 bg-gray-500 flex items-center justify-center rounded-full shadow-md text-white"
+              style={{
+                transform:
+                  "translate(-50%, -50%) rotateX(-90deg) translateZ(380px)",
+                left: "50%",
+                top: "50%",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              Bottom Cap
             </div>
           </div>
         </>
@@ -321,8 +684,8 @@ const BentoSphere = () => {
               priority
             />
           </div>
-          <div className="col-span-4 row-span-6 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
-            PROJECTS
+          <div className="col-span-4 row-span-6 bg-blue-600 flex items-center justify-center rounded-lg shadow-md text-white">
+            <Projects />
           </div>
           <div className="col-span-4 row-span-3 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             Project 4

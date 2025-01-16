@@ -12,6 +12,7 @@ import Disco from "./Disco";
 import { pressStart, poiretOne } from "../../public/fonts/fonts";
 import Projects from "./Projects";
 import DiscoMode from "./DiscoMode";
+import CurrentlyListening from "./CurrentlyListening";
 
 // project 3: List of projects
 // carpoolio: link to page that goes through
@@ -126,8 +127,9 @@ const BentoGrid = () => {
               Contact <br /> Me
             </div>
           </div>
-          <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
-            Project 6
+          <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md text-white">
+            Currently Listening
+            <CurrentlyListening />
           </div>
           <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
             Project 7

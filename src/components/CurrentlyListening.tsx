@@ -56,11 +56,25 @@ export default function CurrentlyListening() {
 
   // check if the artist name is too long
   useEffect(() => {
-    if (textRef.current) {
-      const isTextOverflowing =
-        textRef.current.scrollWidth > textRef.current.clientWidth;
-      setIsOverflowing(isTextOverflowing);
-    }
+    const checkOverflow = () => {
+      if (textRef.current) {
+        const isTextOverflowing =
+          textRef.current.scrollWidth > textRef.current.clientWidth;
+        setIsOverflowing(isTextOverflowing);
+        console.log("Overflow detected:", isTextOverflowing); // Debugging
+      }
+    };
+
+    // Delay to ensure DOM is fully rendered
+    const timeout = setTimeout(checkOverflow, 100);
+
+    // Listen for window resizing
+    window.addEventListener("resize", checkOverflow);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("resize", checkOverflow);
+    };
   }, [currentSong]);
 
   //   flex items-center justify-center
@@ -71,8 +85,8 @@ export default function CurrentlyListening() {
         <Image
           src={currentSong.image_url}
           alt={currentSong.title || "No song playing"}
-          height={100}
-          width={100}
+          height={75}
+          width={75}
           style={{
             maxWidth: "100%",
             maxHeight: "100%",
@@ -84,29 +98,55 @@ export default function CurrentlyListening() {
       )}
 
       <div className="flex flex-col">
-        <h1 className="text-sm">
+        <h1 className="text-sm mb-2">
           {isListening
             ? "Currently Listening To..."
             : "Nothing is playing right now"}
         </h1>
 
-        <h2 className="text-sm">
-          {isListening ? currentSong?.title : currentSong?.title}{" "}
-        </h2>
         <div
           ref={textRef}
-          className="overflow-hidden text-sm"
+          className="overflow-hidden text-md"
           style={{
             whiteSpace: "nowrap",
             position: "relative",
-            maxWidth: "150px",
+            maxWidth: "250px",
+          }}
+        >
+          {isOverflowing ? (
+            <div
+              style={{
+                display: "inline-block",
+                animation: "scroll-text 20s linear infinite",
+              }}
+            >
+              <span style={{ paddingRight: "1rem" }}>{currentSong?.title}</span>
+              <span style={{ paddingRight: "1rem" }}>{currentSong?.title}</span>
+            </div>
+          ) : (
+            <span>{currentSong?.title}</span>
+          )}
+        </div>
+
+        {/* <h2 className="text-md">
+          {isListening ? currentSong?.title : currentSong?.title}{" "}
+        </h2> */}
+
+        <div
+          ref={textRef}
+          className="overflow-hidden text-sm mb-1"
+          style={{
+            whiteSpace: "nowrap",
+            position: "relative",
+            minWidth: "250px",
+            maxWidth: "250px",
           }}
         >
           <div
             style={{
               display: "inline-flex",
               animation: isOverflowing
-                ? "scroll-text 15s linear infinite"
+                ? "scroll-text 20s linear infinite"
                 : "none",
               transform: isOverflowing ? "translateX(0%)" : "none", // ⛔ No movement if not overflowing
             }}
@@ -121,15 +161,15 @@ export default function CurrentlyListening() {
             )}
           </div>
 
-          {isListening && (
+          {/* {isListening && (
             <p className="text-xs">
               Listening on:{" "}
               {currentSong?.device_name || currentSong?.device_type}
             </p>
-          )}
+          )} */}
         </div>
       </div>
-      <div className="flex  m-2">
+      <div className="m-3">
         <Image src={`/spotify.png`} alt="SpotifyLogo" height={50} width={50} />
       </div>
 

@@ -126,7 +126,7 @@ const getCurrentDevice = async (access_token) => {
 
     // name changes
     const deviceName = activeDevice.name.toLowerCase().includes("iphone")
-      ? "ern's mobile device"
+      ? "ern's phone"
       : activeDevice.name.toLowerCase();
 
     return {

@@ -36,10 +36,7 @@ const BentoGrid = () => {
   };
 
   return (
-    <div
-      className="relative flex justify-center items-center h-screen bg-slate-100 dark:bg-slate-900 perspective-[2000px]"
-      // disco mode
-    >
+    <div className="relative flex justify-center items-center h-screen bg-slate-100 dark:bg-slate-900 perspective-[2000px]">
       {discoMode ? (
         <div>
           <DiscoMode discoMode={discoMode} toggleDiscoMode={toggleDiscoMode} />
@@ -127,7 +124,7 @@ const BentoGrid = () => {
               Contact <br /> Me
             </div>
           </div>
-          <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md text-white">
+          <div className="col-span-4 row-span-1 bg-blue-600 rounded-lg shadow-md text-white">
             <CurrentlyListening />
           </div>
           <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">

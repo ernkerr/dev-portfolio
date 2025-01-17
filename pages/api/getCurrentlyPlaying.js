@@ -78,7 +78,6 @@ const getCurrentlyPlaying = async (access_token) => {
         Authorization: `Bearer ${access_token}`,
       },
     });
-    console.log("📡 Now Playing Response Status:", response.status);
 
     if (response.status === 204 || response.status > 400) {
       console.warn("⚠️ No song is currently playing or error occurred.");
@@ -106,21 +105,22 @@ export default async function handler(req, res) {
       return res.status(200).json({ isPlaying: false });
     }
 
-    // Safely access song details
-    const albumImageUrl = song.item.album?.images?.[0]?.url || "";
-    const artist =
-      song.item.artists?.map((artist) => artist.name).join(", ") ||
-      "Unknown Artist";
-    const isPlaying = song.is_playing;
-    const songUrl = song.item.external_urls?.spotify || "";
-    const title = song.item.name || "Unknown Title";
+    // // Safely access song details
+    // const albumImageUrl = song.item.album?.images?.[0]?.url || "";
+    // const artist =
+    //   song.item.artists?.map((artist) => artist.name).join(", ") ||
+    //   "Unknown Artist";
+    // const isPlaying = song.is_playing;
+    // const songUrl = song.item.external_urls?.spotify || "";
+    // const title = song.item.name || "Unknown Title";
 
     res.status(200).json({
-      albumImageUrl,
-      artist,
-      isPlaying,
-      songUrl,
-      title,
+      isPlaying: song.is_playing,
+      title: song.item.name,
+      artists: song.item.artists.map((artist) => artist.name),
+      albumImageUrl: song.item.album.images[0]?.url || "",
+      deviceType: song.device?.type || "computer",
+      deviceName: song.device?.name, // ex "ern's airpods"
     });
   } catch (error) {
     console.error("Error fetching now playing:", error);

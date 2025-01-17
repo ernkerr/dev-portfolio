@@ -128,7 +128,6 @@ const BentoGrid = () => {
             </div>
           </div>
           <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md text-white">
-            Currently Listening
             <CurrentlyListening />
           </div>
           <div className="col-span-4 row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">

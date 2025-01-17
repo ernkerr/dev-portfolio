@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 interface Song {
@@ -7,13 +7,16 @@ interface Song {
   image_url: string;
   device_type: string;
   device_name: string;
+  volume_percent: string;
 }
 
 export default function CurrentlyListening() {
   const [isListening, setIsListening] = useState(false);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [lastSong, setLastSong] = useState<Song | null>(null);
-  // Track the last song
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  const textRef = useRef<HTMLDivElement>(null);
 
   const getCurrentlyListening = async () => {
     const res = await fetch("/api/getCurrentlyPlaying");
@@ -28,16 +31,18 @@ export default function CurrentlyListening() {
         image_url: data.albumImageUrl, //str
         device_type: data.deviceType, //
         device_name: data.deviceName, //
+        volume_percent: data.volumePercent,
       });
+      console.log("volume_percent ", data.volumePercent);
     }
 
     // check if spotify is playing
     if (data.isPlaying) {
       setIsListening(true);
-      console.log(`Currently playing: ${data.title} by ${data.artist}`);
+      setLastSong(currentSong);
+      console.log(`Last Song: ${lastSong?.title}`);
     } else {
       setIsListening(false);
-      setLastSong(currentSong);
       console.log("Nothing is playing right now.");
     }
   };
@@ -48,6 +53,15 @@ export default function CurrentlyListening() {
     const interval = setInterval(getCurrentlyListening, 10000); // Poll every 10 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
+
+  // check if the artist name is too long
+  useEffect(() => {
+    if (textRef.current) {
+      const isTextOverflowing =
+        textRef.current.scrollWidth > textRef.current.clientWidth;
+      setIsOverflowing(isTextOverflowing);
+    }
+  }, [currentSong]);
 
   //   flex items-center justify-center
 
@@ -70,35 +84,54 @@ export default function CurrentlyListening() {
       )}
 
       <div className="flex flex-col">
-        <h1 className="text-xl">Currently Listening...</h1>
-        <h2 className="text-lg">{currentSong?.title || lastSong?.title}</h2>
+        <h1 className="text-sm">
+          {isListening
+            ? "Currently Listening To..."
+            : "Nothing is playing right now"}
+        </h1>
+
+        <h2 className="text-sm">
+          {isListening ? currentSong?.title : currentSong?.title}{" "}
+        </h2>
         <div
-          className="overflow-hidden ..."
+          ref={textRef}
+          className="overflow-hidden text-sm"
           style={{
             whiteSpace: "nowrap",
             position: "relative",
+            maxWidth: "150px",
           }}
         >
-          <p
+          <div
             style={{
-              display: "inline-block",
-              animation: "scroll-text 10s linear infinite",
+              display: "inline-flex",
+              animation: isOverflowing
+                ? "scroll-text 15s linear infinite"
+                : "none",
+              transform: isOverflowing ? "translateX(0%)" : "none", // ⛔ No movement if not overflowing
             }}
           >
-            {currentSong?.artists?.join(", ")}
-          </p>
+            <span style={{ paddingRight: "1rem" }}>
+              {currentSong?.artists?.join(", ")}
+            </span>
+            {isOverflowing && (
+              <span style={{ paddingRight: "1rem" }}>
+                {currentSong?.artists?.join(", ")}
+              </span>
+            )}
+          </div>
+
+          {isListening && (
+            <p className="text-xs">
+              Listening on:{" "}
+              {currentSong?.device_name || currentSong?.device_type}
+            </p>
+          )}
         </div>
       </div>
-      <div className="flex justify-self-end m-2">
+      <div className="flex  m-2">
         <Image src={`/spotify.png`} alt="SpotifyLogo" height={50} width={50} />
       </div>
-
-      {/* ) : (
-        <div>
-          <h1>Not Currently Playing...</h1>
-          <h2>Last listened to:</h2>
-        </div>
-      )} */}
 
       {/* Marquee Animation */}
       <style jsx>{`
@@ -107,7 +140,7 @@ export default function CurrentlyListening() {
             transform: translateX(0%);
           }
           100% {
-            transform: translateX(-100%);
+            transform: translateX(-50%);
           }
         }
       `}</style>

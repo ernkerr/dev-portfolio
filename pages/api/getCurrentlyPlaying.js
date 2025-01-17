@@ -7,12 +7,14 @@ const token_endpoint = "https://accounts.spotify.com/api/token";
 const now_playing_endpoint =
   "https://api.spotify.com/v1/me/player/currently-playing";
 
+const device_endpoint = "https://api.spotify.com/v1/me/player/devices";
+
 // credentials from environment variables
 const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
-let accessToken;
+let accessToken = null;
 let tokenCreatedAt;
 
 // get new access token from refresh token
@@ -70,7 +72,7 @@ const getAccessToken = async () => {
 //
 // get currently playing song
 const getCurrentlyPlaying = async (access_token) => {
-  console.log("🎵 Fetching currently playing song...");
+  // console.log("🎵 Fetching currently playing song...");
 
   try {
     const response = await fetch(now_playing_endpoint, {
@@ -84,11 +86,58 @@ const getCurrentlyPlaying = async (access_token) => {
       return null;
     }
     const song = await response.json();
-    console.log("🎶 Now Playing Data:", song);
 
     return song;
   } catch (error) {
-    console.error("🚨 Error fetching now playing song:", error);
+    console.warn("⚠️ No song is currently playing or error occurred.");
+    return null;
+  }
+};
+
+// get the active device
+const getCurrentDevice = async (access_token) => {
+  console.log("fetching active device");
+
+  try {
+    const response = await fetch(device_endpoint, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    const data = await response.json();
+
+    // console.log("📦 Device API Response Data:", JSON.stringify(data, null, 2));
+
+    if (response.status === 204 || response.status > 400) {
+      console.warn(
+        "⚠️ No device is currently being used or an error occurred."
+      );
+      return null;
+    }
+
+    // find the active device:
+    const activeDevice = data.devices.find((device) => device.is_active);
+
+    if (!activeDevice || data.devices.length === 0) {
+      console.warn("⚠️ No active device found.");
+      return null;
+    }
+
+    // name changes
+    const deviceName = activeDevice.name.toLowerCase().includes("iphone")
+      ? "ern's mobile device"
+      : activeDevice.name.toLowerCase();
+
+    return {
+      name: deviceName,
+      is_active: activeDevice.is_active,
+      volume_percent: activeDevice.volume_percent,
+    };
+  } catch (error) {
+    console.warn(
+      "⚠️ an error occurred while trying to retrieve the active device"
+    );
     return null;
   }
 };
@@ -99,28 +148,21 @@ export default async function handler(req, res) {
   try {
     const access_token = await getAccessToken();
     const song = await getCurrentlyPlaying(access_token);
+    const device = await getCurrentDevice(access_token);
 
     // If no song is playing or the data is invalid
     if (!song || !song.is_playing || !song.item) {
       return res.status(200).json({ isPlaying: false });
     }
 
-    // // Safely access song details
-    // const albumImageUrl = song.item.album?.images?.[0]?.url || "";
-    // const artist =
-    //   song.item.artists?.map((artist) => artist.name).join(", ") ||
-    //   "Unknown Artist";
-    // const isPlaying = song.is_playing;
-    // const songUrl = song.item.external_urls?.spotify || "";
-    // const title = song.item.name || "Unknown Title";
-
     res.status(200).json({
       isPlaying: song.is_playing,
       title: song.item.name,
       artists: song.item.artists.map((artist) => artist.name),
       albumImageUrl: song.item.album.images[0]?.url || "",
-      deviceType: song.device?.type || "computer",
-      deviceName: song.device?.name, // ex "ern's airpods"
+      deviceName: device?.name || "No active device",
+      isActive: device?.is_active || false,
+      volumePercent: device?.volume_percent || 60,
     });
   } catch (error) {
     console.error("Error fetching now playing:", error);

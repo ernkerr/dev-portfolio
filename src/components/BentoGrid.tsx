@@ -48,26 +48,26 @@ const BentoGrid = () => {
             <nav className="flex justify-between w-full items-center m-10">
               <a
                 href="/"
-                className="px-3 py-2 text-sm font-medium text-gray-300 hover:bg-blue-500 hover:text-white rounded-lg"
+                className="px-3 py-2 text-lg font-medium text-gray-300 hover:bg-blue-500 hover:text-white rounded-lg"
               >
                 ERIN KERR
               </a>
               <div className="flex align-end">
                 <a
                   href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
+                  className="rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
                 >
                   PROJECTS
                 </a>
                 <a
                   href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
+                  className="rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
                 >
                   ABOUT
                 </a>
                 <a
                   href="#"
-                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
+                  className="rounded-md px-3 py-2 text-lg font-medium text-gray-300 hover:bg-blue-500 hover:text-white"
                 >
                   CONTACT
                 </a>
@@ -103,7 +103,7 @@ const BentoGrid = () => {
             <Projects />
           </div>
           <div className="col-span-4 row-span-3 bg-blue-600 flex items-center justify-center rounded-lg shadow-md">
-            Project 4
+            BLOGS
           </div>
           <div className="col-span-4 row-span-4 bg-blue-500  flex justify-start items-end rounded-lg shadow-md">
             <div className={`text-white text-5xl m-3`}>
@@ -149,3 +149,22 @@ const BentoGrid = () => {
 };
 
 export default BentoGrid;
+
+// photo:
+// on hover: I'm Erin. A Designer, builder, and problem solver
+
+// About Me
+// my friends call me ern
+// bento
+//
+
+// who is erin kerr:
+// docs
+// plants
+// headphones
+// dicsco balls
+// bright electric blue
+
+// tips:
+// use semantic html
+// keep archive

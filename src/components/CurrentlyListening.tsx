@@ -50,7 +50,8 @@ export default function CurrentlyListening() {
   // check if I'm listening
   useEffect(() => {
     getCurrentlyListening(); // get current song once when the component mounts
-    const interval = setInterval(getCurrentlyListening, 10000); // Poll every 10 seconds
+    // const interval = setInterval(getCurrentlyListening, 10000); // Poll every 10 seconds
+    const interval = setInterval(getCurrentlyListening, 1000000000); // Poll every 10 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
@@ -187,3 +188,39 @@ export default function CurrentlyListening() {
     </div>
   );
 }
+
+// font-medium
+
+// TODO:
+// Check overflow for title and artist (not for both!)
+//   useEffect(() => {
+//     const checkOverflow = (ref: React.RefObject<HTMLDivElement>, setter: (value: boolean) => void) => {
+//       if (ref.current) {
+//         const isOverflowing = ref.current.scrollWidth > ref.current.clientWidth;
+//         setter(isOverflowing);
+//         console.log("Overflow detected:", isOverflowing);
+//       }
+//     };
+
+//     const timeout = setTimeout(() => {
+//       checkOverflow(titleRef, setIsTitleOverflowing);
+//       checkOverflow(artistRef, setIsArtistOverflowing);
+//     }, 100);
+
+//     window.addEventListener("resize", () => {
+//       checkOverflow(titleRef, setIsTitleOverflowing);
+//       checkOverflow(artistRef, setIsArtistOverflowing);
+//     });
+
+//     return () => {
+//       clearTimeout(timeout);
+//       window.removeEventListener("resize", () => {
+//         checkOverflow(titleRef, setIsTitleOverflowing);
+//         checkOverflow(artistRef, setIsArtistOverflowing);
+//       });
+//     };
+//   }, [currentSong]);
+
+//Two Refs: titleRef for the song title, artistRef for the artist names.
+// Two States: isTitleOverflowing and isArtistOverflowing to check each independently.
+// Independent Overflow Checks: Each section scrolls only if it overflows.

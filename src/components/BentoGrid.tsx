@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Script from "next/script";
+import Link from "next/link";
 import Image from "next/image";
 import ern from "../../public/erin.jpg";
 import disco from "../../public/disco.svg";
@@ -13,7 +14,7 @@ import { pressStart, poiretOne } from "../../public/fonts/fonts";
 import Projects from "./Projects";
 import DiscoMode from "./DiscoMode";
 import CurrentlyListening from "./CurrentlyListening";
-import CurrentlyReading from "./CurrentlyReading";
+// import CurrentlyReading from "./CurrentlyReading";
 
 // project 3: List of projects
 // carpoolio: link to page that goes through
@@ -64,24 +65,25 @@ const BentoGrid = () => {
                 ERIN KERR
               </a>
               <div className="flex align-end">
-                <a
-                  href="#"
+                <Link
+                  href={`/projects/`}
                   className="rounded-md px-3 py-2 text-xs sm:text-sm med:text-med lg:text-lg font-medium text-gray-300 hover:bg-blue-500 hover:text-white transition-all duration-500 ease-in-out"
                 >
                   PROJECTS
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/about/"
                   className="rounded-md px-3 py-2 text-xs sm:text-sm med:text-med lg:text-lg font-medium text-gray-300 hover:bg-blue-500 hover:text-white transition-all duration-500 ease-in-out"
                 >
+                  {" "}
                   ABOUT
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/contact/"
                   className="rounded-md px-3 py-2 text-xs sm:text-sm med:text-med lg:text-lg font-medium text-gray-300 hover:bg-blue-500 hover:text-white transition-all duration-500 ease-in-out"
                 >
                   CONTACT
-                </a>
+                </Link>
               </div>
             </nav>
           </div>
@@ -156,31 +158,33 @@ col-span-2 row-start-11 row-span-2
             {/* If small, make it a pencil icon, if not, show some blogs */}
           </div>
           <div className="col-span-5 row-span-2 lg:col-span-4 lg:row-span-4 bg-blue-500  flex justify-start items-end rounded-lg shadow-md transition-all duration-500 ease-in-out">
-            <div
-              className={`text-white text-xs lg:text-5xl m-1 lg:m-3 transition-all duration-500 ease-in-out`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-4 lg:size-6"
+            <Link href="/contact/">
+              <div
+                className={`text-white text-xs lg:text-5xl m-1 lg:m-3 transition-all duration-500 ease-in-out`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                />
-              </svg>
-              Contact <br /> Me
-            </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-4 lg:size-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                  />
+                </svg>
+                Contact <br /> Me
+              </div>
+            </Link>
           </div>
           <div className="col-span-full row-start-10 row-span-1 lg:col-span-4 lg:row-span-1 bg-blue-600 rounded-lg shadow-md text-white transition-all duration-500 ease-in-out">
             <CurrentlyListening />
           </div>
           <div className="col-span-2 row-span-2 lg:col-span-4 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
-            <CurrentlyReading />
+            {/* <CurrentlyReading /> */}
           </div>
           <div className="col-span-1 row-span-1 lg:col-span-1 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             Project 8

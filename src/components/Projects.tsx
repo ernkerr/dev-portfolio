@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { FaMusic, FaCode, FaRocket } from "react-icons/fa"; // Icons
+import { geistMono } from "../../public/fonts/fonts";
 
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -10,35 +10,67 @@ export default function Projects() {
       link: "https://www.carpoolio.co",
       description: "A personal portfolio showcasing my projects and skills.",
       image: "/carpoolio.png",
-      icon: <FaCode />,
     },
     {
       name: "Group Sing Along",
       link: "https://groupsingalong.com",
       description:
         "A real-time group karaoke platform for singing together online.",
-      image: "/images/groupsingalong.png",
-      icon: <FaMusic />,
+      image: "/groupsingalong.png",
+    },
+    {
+      name: "Project 3",
+      link: "https://groupsingalong.com",
+      description:
+        "A real-time group karaoke platform for singing together online.",
+      // image: "/images/groupsingalong.png",
     },
   ];
 
   return (
     <div>
-      <div className="w-full">
+      <div className=" p-1">
         {/* <h2 className="text-lg">PROJECTS</h2> */}
         <div className="col-span-1 row-span-1 ">
-          <ul>
+          <ul className="space-y-6">
             {projects.map((project, index) => (
-              <li key={index} className="w-full border-b-2 border-white p-4">
-                <h3>{projects[activeIndex]?.name}</h3>
-                <Image
-                  key={index}
-                  src={projects[activeIndex]?.image}
-                  alt={projects[activeIndex]?.name}
-                  height={100}
-                  width={100}
-                  className="w-full h-auto object-cover rounded-md"
-                />
+              <li
+                key={index}
+                className={`relative p-4 border-1 border-blue-500 cursor-pointer group ${
+                  activeIndex === index ? "" : ""
+                } `}
+                onClick={() => setActiveIndex(index)} // set index (active project)
+              >
+                <h3 className={`${geistMono.className} text-md`}>
+                  {project?.name}
+                </h3>
+
+                {/* Underline */}
+                <div
+                  className={`absolute ml-4 bottom-0 left-0 h-1 bg-blue-500 rounded-sm cursor-pointer transition-all duration-500 ${
+                    activeIndex === index
+                      ? "w-[90%]"
+                      : "w-[90%] group-hover:w-40 "
+                  }`}
+                ></div>
+
+                {activeIndex === index && (
+                  <Image
+                    key={index}
+                    src={project?.image || "/default-image.png"}
+                    alt={project?.name}
+                    height={200}
+                    width={200}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      minHeight: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                    }}
+                    className="object-cover rounded-xl p-2"
+                  />
+                )}
               </li>
             ))}
           </ul>

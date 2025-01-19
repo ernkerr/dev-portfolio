@@ -118,7 +118,7 @@ const BentoGrid = () => {
               priority
             />
           </div>
-          <div className="col-span-7 row-span-6 lg:col-span-4 lg:row-span-6 bg-blue-600 flex items-center justify-center rounded-lg shadow-md text-white transition-all duration-500 ease-in-out">
+          <div className="col-span-7 row-span-6 lg:col-span-4 lg:row-span-6 bg-blue-600  rounded-lg shadow-md text-white transition-all duration-500 ease-in-out">
             <Projects />
           </div>
           {/* col-span-2 row-start-12 row-span-2 */}

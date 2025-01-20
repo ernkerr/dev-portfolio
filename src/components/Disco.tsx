@@ -4,7 +4,7 @@ export default function () {
       <img
         src="/disco.gif"
         alt="Disco animation"
-        className="w-full h-full object-contain"
+        className="w-20 h-20 object-contain"
       />
     </div>
   );

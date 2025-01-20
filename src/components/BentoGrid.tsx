@@ -42,11 +42,10 @@ const BentoGrid = () => {
           <DiscoMode discoMode={discoMode} toggleDiscoMode={toggleDiscoMode} />
         </div>
       ) : (
-        // <DiscoMode discoMode={discoMode} toggleDiscoMode={toggleDiscoMode} />
         <div
           className="grid h-full w-full 
   grid-cols-12 grid-rows-9 
-  sm:grid-cols-4 sm:grid-rows-4 
+  sm:grid-cols-6 sm:grid-rows-6 
   md:grid-cols-10 md:grid-rows-10
   lg:grid-cols-12 lg:grid-rows-9 
   gap-1
@@ -55,7 +54,7 @@ const BentoGrid = () => {
   md:p-8 lg:p-16 xl:p-32 
   transition-all duration-500 ease-in-out"
         >
-          {/* sm: use browser width 640px or more to test [iPhone SE] */}
+          {/* sm: use browser width 640px or more to test  */}
           {/* md: min 768px  [iPad Mini] */}
           {/* lg: min 1024px  [no inspect] */}
           <div className="col-span-full row-span-1 bg-blue-600 flex items-center rounded-lg shadow-md  transition-all duration-500 ease-in-out">
@@ -103,7 +102,7 @@ const BentoGrid = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-5 row-span-3 md:col-span-4 md:row-span-2 lg:col-span-3 lg:row-span-4 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div className="col-span-5 row-span-3 sm:col-span-2 sm:row-span-2 md:col-span-4 md:row-span-2 lg:col-span-3 lg:row-span-4 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             <Image
               src={ern}
               alt="A photo of the author Erin Kerr"
@@ -120,14 +119,13 @@ const BentoGrid = () => {
               priority
             />
           </div>
-          <div className="col-span-7 row-span-6 md:col-span-5 md:row-span-5 lg:col-span-4 lg:row-span-6 bg-blue-600  rounded-lg shadow-md text-white overflow-auto transition-all duration-500 ease-in-out">
+          <div className="col-span-7 row-span-6 sm:col-span-2 sm:row-span-6 sm:row-start-4 sm:col-start-5 md:col-start-auto md:row-start-auto md:col-span-5 md:row-span-5 lg:col-span-4 lg:row-span-6 bg-blue-600  rounded-lg shadow-md text-white overflow-auto transition-all duration-500 ease-in-out">
             <Projects />
           </div>
-          {/* col-span-2 row-start-12 row-span-2 */}
           <div
             className="
 col-span-full row-start-10 row-span-2
-  sm:col-span-full sm:row-span-1 
+  sm:col-span-4 sm:row-span-2
   md:col-span-5 md:row-span-2
   md:col-start-6 md:row-start-6
   lg:col-span-4 lg:row-span-3 
@@ -138,10 +136,10 @@ col-span-full row-start-10 row-span-2
             <CurrentlyListening />
           </div>
           {/* md:col-span-2 md:row-span-2 */}
-          <div className="col-span-5 row-span-2 sm:col-span-2 sm:row-span-2 md:col-span-5 md:row-span-2 lg:col-span-4 lg:row-span-4 bg-blue-500  flex justify-start items-end rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div className="col-span-5 row-span-2 sm:col-span-2 sm:row-span-2 sm:row-start-4 sm:col-start-3 md:col-start-auto md:row-start-auto md:col-span-5 md:row-span-2 lg:col-span-4 lg:row-span-4 bg-blue-500  flex justify-start items-end rounded-lg shadow-md transition-all duration-500 ease-in-out">
             <Link href="/contact/">
               <div
-                className={`text-white text-xs md:text-4xl lg:text-5xl m-1 md:m-3 transition-all duration-500 ease-in-out`}
+                className={`text-white text-xs sm:text-2xl md:text-4xl lg:text-5xl m-1 sm:m-2 md:m-3 transition-all duration-500 ease-in-out`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +147,7 @@ col-span-full row-start-10 row-span-2
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-4 md:size-6"
+                  className="size-4 sm:size-6 md:size-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -161,23 +159,52 @@ col-span-full row-start-10 row-span-2
               </div>
             </Link>
           </div>
-          <div className="col-span-3 row-span-1 md:row-start-10 md:col-span-5 md:row-span-1 lg:col-span-4 lg:row-span-1 bg-blue-600 flex justify-center items-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div
+            className="col-span-3 row-span-1 
+          sm:row-start-6 sm:col-span-3 sm:row-span-2 
+          md:row-start-10 md:col-span-5 md:row-span-1 
+          lg:col-span-4 lg:row-span-1 bg-blue-600 flex justify-center items-center rounded-lg shadow-md transition-all duration-500 ease-in-out"
+          >
             <Blogs />
           </div>
-          <div className="col-span-5 row-span-2 md:col-span-4 md:row-span-1 lg:col-span-4 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div
+            className="col-span-5 row-span-2 
+            sm:col-span-3 sm:row-span-2
+          md:col-span-4 md:row-span-1 
+          lg:col-span-4 lg:row-span-1 
+          bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out"
+          >
             {/* <CurrentlyReading /> */}
             <LocationTime />
           </div>
-          <div className="col-span-2 row-span-1 row-start-9 sm:row-start-auto text-xs  sm:col-span-4 sm:row-span-1 md:col-span-2 lg:col-span-1  bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div
+            className="col-span-2 row-span-1 row-start-9 
+          sm:col-start-1 sm:row-start-6 sm:col-span-1 sm:row-span-2  
+          md:col-start-auto md:row-start-auto md:col-span-2 
+          lg:col-span-1 text-xs   
+          bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out"
+          >
             Project 8
           </div>
           {/* disco mode */}
-          <div className="col-span-3 row-span-2 md:col-span-2 md:row-span-1 lg:col-span-1 lg:row-span-1 bg-blue-500 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div
+            className="col-span-3 row-span-2 
+          sm:col-span-1 sm:row-span-2
+          md:col-span-2 md:row-span-1 
+          lg:col-span-1 lg:row-span-1
+           bg-blue-500 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out"
+          >
             <button onClick={toggleDiscoMode} className=" text-white text-sm">
               <Disco />
             </button>
           </div>
-          <div className="col-span-4 row-span-2 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div
+            className="col-span-4 row-span-2 
+          sm:col-span-2 sm:row-span-2
+          md:col-span-2 md:row-span-1 
+          lg:col-span-2 lg:row-span-1 
+          bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out"
+          >
             <DarkModeToggle />
           </div>
         </div>

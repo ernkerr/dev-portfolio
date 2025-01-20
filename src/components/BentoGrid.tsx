@@ -14,6 +14,7 @@ import { pressStart, poiretOne } from "../../public/fonts/fonts";
 import Projects from "./Projects";
 import DiscoMode from "./DiscoMode";
 import CurrentlyListening from "./CurrentlyListening";
+import LocationTime from "./LocationTime";
 // import CurrentlyReading from "./CurrentlyReading";
 
 // project 3: List of projects
@@ -185,6 +186,8 @@ col-span-2 row-start-11 row-span-2
           </div>
           <div className="col-span-2 row-span-2 lg:col-span-4 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             {/* <CurrentlyReading /> */}
+
+            <LocationTime />
           </div>
           <div className="col-span-1 row-span-1 lg:col-span-1 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             Project 8

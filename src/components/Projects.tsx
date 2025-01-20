@@ -29,10 +29,9 @@ export default function Projects() {
 
   return (
     <div>
-      <div className=" p-1">
-        {/* <h2 className="text-lg">PROJECTS</h2> */}
-        <div className="col-span-1 row-span-1 ">
-          <ul className="space-y-6">
+      <div className="w-full">
+        <>
+          <ul className="md:space-y-6">
             {projects.map((project, index) => (
               <li
                 key={index}
@@ -41,13 +40,15 @@ export default function Projects() {
                 } `}
                 onClick={() => setActiveIndex(index)} // set index (active project)
               >
-                <h3 className={`${geistMono.className} text-md`}>
+                <h3
+                  className={`${geistMono.className} text-xs sm:text-sm md:text-lg`}
+                >
                   {project?.name}
                 </h3>
 
                 {/* Underline */}
                 <div
-                  className={`absolute ml-4 bottom-0 left-0 h-1 bg-blue-500 rounded-sm cursor-pointer transition-all duration-500 ${
+                  className={`absolute ml-2 lg:ml-4 bottom-0 left-0 h-1 bg-blue-500 rounded-sm cursor-pointer transition-all duration-500 ${
                     activeIndex === index
                       ? "w-[90%]"
                       : "w-[90%] group-hover:w-40 "
@@ -59,12 +60,14 @@ export default function Projects() {
                     key={index}
                     src={project?.image || "/default-image.png"}
                     alt={project?.name}
+                    sizes="100vw"
                     height={200}
                     width={200}
                     style={{
+                      // width: "100%",
+                      // height: "auto",
                       maxWidth: "100%",
                       maxHeight: "100%",
-                      minHeight: "100%",
                       objectFit: "cover",
                       objectPosition: "center",
                     }}
@@ -74,7 +77,7 @@ export default function Projects() {
               </li>
             ))}
           </ul>
-        </div>
+        </>
       </div>
       {/* <div
         key={activeIndex}

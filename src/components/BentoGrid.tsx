@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Script from "next/script";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ern from "../../public/erin.jpg";
-import disco from "../../public/disco.svg";
 
 import DarkModeToggle from "./DarkModeToggle";
 import Disco from "./Disco";
@@ -15,6 +13,7 @@ import Projects from "./Projects";
 import DiscoMode from "./DiscoMode";
 import CurrentlyListening from "./CurrentlyListening";
 import LocationTime from "./LocationTime";
+import Blogs from "./Blogs";
 // import CurrentlyReading from "./CurrentlyReading";
 
 // project 3: List of projects
@@ -30,8 +29,6 @@ import LocationTime from "./LocationTime";
 
 const BentoGrid = () => {
   const [discoMode, setDiscoMode] = useState(false); // state to manage disco mode
-  // const [rotationX, setRotationX] = useState(0);
-  // const [rotationY, setRotationY] = useState(0);
 
   const toggleDiscoMode = () => {
     console.log("entering disco mode: 🪩");
@@ -39,7 +36,7 @@ const BentoGrid = () => {
   };
 
   return (
-    <div className="relative flex justify-center items-center h-screen bg-slate-100 dark:bg-slate-900 perspective-[2000px]">
+    <div className="relative flex justify-center items-center h-screen text-white bg-slate-100 dark:bg-slate-900 perspective-[2000px] overflow-y-auto">
       {discoMode ? (
         <div>
           <DiscoMode discoMode={discoMode} toggleDiscoMode={toggleDiscoMode} />
@@ -50,21 +47,25 @@ const BentoGrid = () => {
           className="grid h-full w-full 
   grid-cols-12 grid-rows-9 
   sm:grid-cols-4 sm:grid-rows-4 
-  md:grid-cols-8 md:grid-rows-6 
+  md:grid-cols-10 md:grid-rows-10
   lg:grid-cols-12 lg:grid-rows-9 
-  gap-2
-  md:gap-3 p-4 
+  gap-1
+  sm:gap-2
+  md:gap-3 p-6
   md:p-8 lg:p-16 xl:p-32 
   transition-all duration-500 ease-in-out"
         >
-          <div className="col-span-full row-span-1  bg-blue-600 flex items-center rounded-lg shadow-md  transition-all duration-500 ease-in-out">
+          {/* sm: use browser width 640px or more to test [iPhone SE] */}
+          {/* md: min 768px  [iPad Mini] */}
+          {/* lg: min 1024px  [no inspect] */}
+          <div className="col-span-full row-span-1 bg-blue-600 flex items-center rounded-lg shadow-md  transition-all duration-500 ease-in-out">
             <nav className="flex justify-between w-full items-center sm:m-4 md:m-6 lg:m-10">
-              <a
+              <Link
                 href="/"
                 className="pl-3 py-2 text-md sm:text-sm med:text-med lg:text-lg font-medium text-gray-300 hover:bg-blue-500 hover:text-white rounded-lg transition-all duration-500 ease-in-out"
               >
                 ERIN KERR
-              </a>
+              </Link>
               <div className="flex align-end">
                 <Link
                   href={`/projects/`}
@@ -88,7 +89,7 @@ const BentoGrid = () => {
               </div>
             </nav>
           </div>
-          <div className=" col-span-full sm:col-span-4 md:col-span-5 lg:col-span-5 row-span-2 sm:row-span-2 md:row-span-4 lg:row-span-4 bg-blue-600 flex items-end flex-start rounded-lg shadow-md text-white transition-all duration-500 ease-in-out">
+          <div className=" col-span-full row-span-2  sm:row-span-2  md:row-span-2 md:col-span-6 lg:row-span-4 lg:col-span-5 bg-blue-600 flex items-end flex-start rounded-lg shadow-md text-white transition-all duration-500 ease-in-out">
             <div className="flex flex-col m-4 sm:m-6">
               <div
                 className={`${poiretOne.className} text-2xl sm:text-3xl md:text-4xl lg:text-4xl transition-all duration-500 ease-in-out`}
@@ -102,7 +103,7 @@ const BentoGrid = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-5 row-span-3 lg:col-span-3 lg:row-span-4 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div className="col-span-5 row-span-3 md:col-span-4 md:row-span-2 lg:col-span-3 lg:row-span-4 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             <Image
               src={ern}
               alt="A photo of the author Erin Kerr"
@@ -119,49 +120,28 @@ const BentoGrid = () => {
               priority
             />
           </div>
-          <div className="col-span-7 row-span-6 lg:col-span-4 lg:row-span-6 bg-blue-600  rounded-lg shadow-md text-white transition-all duration-500 ease-in-out">
+          <div className="col-span-7 row-span-6 md:col-span-5 md:row-span-5 lg:col-span-4 lg:row-span-6 bg-blue-600  rounded-lg shadow-md text-white overflow-auto transition-all duration-500 ease-in-out">
             <Projects />
           </div>
           {/* col-span-2 row-start-12 row-span-2 */}
           <div
             className="
-col-span-2 row-start-11 row-span-2
-  md:col-span-2 md:row-span-1 
+col-span-full row-start-10 row-span-2
+  sm:col-span-full sm:row-span-1 
+  md:col-span-5 md:row-span-2
+  md:col-start-6 md:row-start-6
   lg:col-span-4 lg:row-span-3 
   bg-blue-600 flex items-center justify-center 
   rounded-lg shadow-md transition-all duration-500 ease-in-out
 "
           >
-            {/* Pencil Icon on Small Screens */}
-            <div className="sm:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-8 h-8 text-white"
-              >
-                {/* Pencil Body */}
-                <path
-                  d="M16.862 3.487a2.109 2.109 0 1 1 2.979 2.979L8.25 18.058l-4.243 1.06 1.06-4.242L16.862 3.487z"
-                  fill="currentColor"
-                />
-
-                {/* Pencil Tip */}
-                <path
-                  d="M3.75 19.25l1.06-4.242 3.182 3.182-4.242 1.06z"
-                  fill="currentColor"
-                />
-              </svg>
-            </div>
-
-            <div className="hidden sm:flex text-white">BLOGS</div>
-
-            {/* If small, make it a pencil icon, if not, show some blogs */}
+            <CurrentlyListening />
           </div>
-          <div className="col-span-5 row-span-2 lg:col-span-4 lg:row-span-4 bg-blue-500  flex justify-start items-end rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          {/* md:col-span-2 md:row-span-2 */}
+          <div className="col-span-5 row-span-2 sm:col-span-2 sm:row-span-2 md:col-span-5 md:row-span-2 lg:col-span-4 lg:row-span-4 bg-blue-500  flex justify-start items-end rounded-lg shadow-md transition-all duration-500 ease-in-out">
             <Link href="/contact/">
               <div
-                className={`text-white text-xs lg:text-5xl m-1 lg:m-3 transition-all duration-500 ease-in-out`}
+                className={`text-white text-xs md:text-4xl lg:text-5xl m-1 md:m-3 transition-all duration-500 ease-in-out`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +149,7 @@ col-span-2 row-start-11 row-span-2
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="size-4 lg:size-6"
+                  className="size-4 md:size-6"
                 >
                   <path
                     strokeLinecap="round"
@@ -181,24 +161,23 @@ col-span-2 row-start-11 row-span-2
               </div>
             </Link>
           </div>
-          <div className="col-span-full row-start-10 row-span-1 lg:col-span-4 lg:row-span-1 bg-blue-600 rounded-lg shadow-md text-white transition-all duration-500 ease-in-out">
-            <CurrentlyListening />
+          <div className="col-span-3 row-span-1 md:row-start-10 md:col-span-5 md:row-span-1 lg:col-span-4 lg:row-span-1 bg-blue-600 flex justify-center items-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+            <Blogs />
           </div>
-          <div className="col-span-2 row-span-2 lg:col-span-4 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div className="col-span-5 row-span-2 md:col-span-4 md:row-span-1 lg:col-span-4 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             {/* <CurrentlyReading /> */}
-
             <LocationTime />
           </div>
-          <div className="col-span-1 row-span-1 lg:col-span-1 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div className="col-span-2 row-span-1 row-start-9 sm:row-start-auto text-xs  sm:col-span-4 sm:row-span-1 md:col-span-2 lg:col-span-1  bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             Project 8
           </div>
           {/* disco mode */}
-          <div className="col-span-3 row-span-2 lg:col-span-1 lg:row-span-1 bg-blue-500 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div className="col-span-3 row-span-2 md:col-span-2 md:row-span-1 lg:col-span-1 lg:row-span-1 bg-blue-500 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             <button onClick={toggleDiscoMode} className=" text-white text-sm">
               <Disco />
             </button>
           </div>
-          <div className="col-span-4 row-span-2 lg:col-span-2 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
+          <div className="col-span-4 row-span-2 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1 bg-blue-600 flex items-center justify-center rounded-lg shadow-md transition-all duration-500 ease-in-out">
             <DarkModeToggle />
           </div>
         </div>

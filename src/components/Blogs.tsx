@@ -1,12 +1,12 @@
 export default function Blogs() {
   return (
     <>
-      <div className="flex justify-center items-center align-center sm:hidden">
+      <div className="align-center flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-8 h-8 text-white"
+          className="h-8 w-8 text-white"
         >
           {/* Pencil Body */}
           <path
@@ -21,8 +21,6 @@ export default function Blogs() {
           />
         </svg>
       </div>
-
-      <div className="hidden sm:flex text-white">BLOGS</div>
     </>
   );
 }

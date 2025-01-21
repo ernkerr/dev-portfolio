@@ -14,17 +14,20 @@ interface Song {
 export default function CurrentlyListening() {
   const [isListening, setIsListening] = useState(false);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
-  const [isOverflowing, setIsOverflowing] = useState(false);
+  const [isTitleOverflowing, setIsTitleOverflowing] = useState(false);
+  const [isArtistOverflowing, setIsArtistOverflowing] = useState(false);
 
-  const textRef = useRef<HTMLDivElement>(null);
+  // create two refs to directly access these DOM elements
+  const titleRef = useRef<HTMLDivElement>(null);
+  const artistRef = useRef<HTMLDivElement>(null);
 
   const defaultSong: Song = {
     title: "Cream on Chrome",
     artists: ["Ratatat"],
-    image_url: "/cream_on_chrome.jpg", // put in public folder
+    image_url: "/cream_on_chrome.jpg",
     device_type: "",
     device_name: "",
-    volume_percent: "",
+    volume_percent: "50",
   };
 
   const getCurrentlyListening = async () => {
@@ -59,26 +62,37 @@ export default function CurrentlyListening() {
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
-  // check if the artist name is too long
+  // check to see if the text overflows
   useEffect(() => {
-    const checkOverflow = () => {
-      if (textRef.current) {
-        const isTextOverflowing =
-          textRef.current.scrollWidth > textRef.current.clientWidth;
-        setIsOverflowing(isTextOverflowing);
-        console.log("Overflow detected:", isTextOverflowing); // Debugging
+    const checkOverflow = (
+      ref: React.RefObject<HTMLDivElement>,
+      setter: (value: boolean) => void,
+    ) => {
+      if (ref.current) {
+        // scrollWidth is the width of the content (including overflow)
+        // clientWidth is the visible width of the element
+        // if scroll width is greater than clientWidth then the text is overflowing
+        const isOverflowing = ref.current.scrollWidth > ref.current.clientWidth;
+        // setter updates the corresponding state (setIsTitleOverflowing or setIsArtistOverflowing)
+        setter(isOverflowing);
       }
     };
 
-    // Delay to ensure DOM is fully rendered
-    const timeout = setTimeout(checkOverflow, 100);
+    // wait 100ms before checking for overflow to ensure the DOM has fully rendered
+    const timeout = setTimeout(() => {
+      checkOverflow(titleRef, setIsTitleOverflowing);
+      checkOverflow(artistRef, setIsArtistOverflowing);
+    }, 100);
 
-    // Listen for window resizing
-    window.addEventListener("resize", checkOverflow);
+    // recheck overflow when the window is resized
+    const handleResize = () => {
+      checkOverflow(titleRef, setIsTitleOverflowing);
+      checkOverflow(artistRef, setIsArtistOverflowing);
+    };
 
     return () => {
       clearTimeout(timeout);
-      window.removeEventListener("resize", checkOverflow);
+      window.removeEventListener("resize", handleResize);
     };
   }, [currentSong]);
 
@@ -114,27 +128,29 @@ export default function CurrentlyListening() {
           />
         )}
 
+        {/* song title */}
         <div className="ml-4 flex flex-col">
           <div
-            ref={textRef}
+            ref={titleRef}
             className="text-md overflow-hidden"
             style={{
               whiteSpace: "nowrap",
               position: "relative",
-              maxWidth: "250px",
+              maxWidth: "300px",
+              wordSpacing: "-0.10em",
             }}
           >
-            {isOverflowing ? (
+            {isTitleOverflowing ? (
               <div
                 style={{
                   display: "inline-block",
-                  animation: "scroll-text 20s linear infinite",
+                  animation: "scroll-text 25s linear infinite",
                 }}
               >
-                <span style={{ paddingRight: "1rem" }}>
+                <span style={{ paddingRight: "2rem" }}>
                   {currentSong?.title}
                 </span>
-                <span style={{ paddingRight: "1rem" }}>
+                <span style={{ paddingRight: "2rem" }}>
                   {currentSong?.title}
                 </span>
               </div>
@@ -143,34 +159,33 @@ export default function CurrentlyListening() {
               <span>{currentSong?.title}</span>
             )}
           </div>
+          {/* song artist */}
           <div
-            ref={textRef}
-            className="overflow-hidden text-sm"
+            ref={artistRef}
+            className="overflow-hidden text-xs"
             style={{
               whiteSpace: "nowrap",
               position: "relative",
-              minWidth: "250px",
-              maxWidth: "250px",
+              maxWidth: "300px",
             }}
           >
-            <div
-              style={{
-                display: "inline-flex",
-                animation: isOverflowing
-                  ? "scroll-text 20s linear infinite"
-                  : "none",
-                transform: isOverflowing ? "translateX(0%)" : "none",
-              }}
-            >
-              <span style={{ paddingRight: "1rem" }}>
-                {currentSong?.artists?.join(", ")}
-              </span>
-              {isOverflowing && (
+            {isArtistOverflowing ? (
+              <div
+                style={{
+                  display: "inline-block",
+                  animation: "scroll-text 50s linear infinite",
+                }}
+              >
+                <span style={{ paddingRight: "2rem" }}>
+                  {currentSong?.artists?.join(", ")}
+                </span>
                 <span style={{ paddingRight: "1rem" }}>
                   {currentSong?.artists?.join(", ")}
                 </span>
-              )}
-            </div>
+              </div>
+            ) : (
+              <span>{currentSong?.artists?.join(", ")}</span>
+            )}
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import { geistMono } from "../../public/fonts/fonts";
 
 interface Song {
   title: string;
@@ -13,36 +14,39 @@ interface Song {
 export default function CurrentlyListening() {
   const [isListening, setIsListening] = useState(false);
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
-  const [lastSong, setLastSong] = useState<Song | null>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
   const textRef = useRef<HTMLDivElement>(null);
+
+  const defaultSong: Song = {
+    title: "Cream on Chrome",
+    artists: ["Ratatat"],
+    image_url: "/cream_on_chrome.jpg", // put in public folder
+    device_type: "",
+    device_name: "",
+    volume_percent: "",
+  };
 
   const getCurrentlyListening = async () => {
     const res = await fetch("/api/getCurrentlyPlaying");
     const data = await res.json();
     console.log("data: ", data);
 
-    // Only update if the song has changed
-    if (!currentSong || currentSong.title !== data.item.name) {
-      setCurrentSong({
-        title: data.title,
-        artists: data.artists, // array
-        image_url: data.albumImageUrl, //str
-        device_type: data.deviceType, //
-        device_name: data.deviceName, //
-        volume_percent: data.volumePercent,
-      });
-      console.log("volume_percent ", data.volumePercent);
-    }
-
-    // check if spotify is playing
     if (data.isPlaying) {
       setIsListening(true);
-      setLastSong(currentSong);
-      console.log(`Last Song: ${lastSong?.title}`);
+      if (!currentSong || currentSong.title !== data.item.name) {
+        setCurrentSong({
+          title: data.title,
+          artists: data.artists, // array
+          image_url: data.albumImageUrl, //str
+          device_type: data.deviceType, //
+          device_name: data.deviceName, //
+          volume_percent: data.volumePercent,
+        });
+      }
     } else {
       setIsListening(false);
+      setCurrentSong(defaultSong);
       console.log("Nothing is playing right now.");
     }
   };
@@ -78,100 +82,97 @@ export default function CurrentlyListening() {
     };
   }, [currentSong]);
 
-  //   flex items-center justify-center
-
   return (
-    <div className="flex flex-row items-center w-full h-full">
-      {currentSong?.image_url && (
+    <div
+      className={`${geistMono.className} m-1 ml-3 flex h-full w-full flex-col items-start justify-start p-1`}
+    >
+      {/* SPOTIFY INFO */}
+      <div className="text-md mb-2 mt-2 flex flex-row items-center gap-3 p-1">
         <Image
-          src={currentSong.image_url}
-          alt={currentSong.title || "No song playing"}
-          height={75}
-          width={75}
-          style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
-            objectFit: "contain",
-            objectPosition: "center",
-          }}
-          className="flex justify-start rounded-lg m-2"
+          src={`/spotify.png`}
+          alt="SpotifyLogo"
+          height={50}
+          width={50}
+          className="h-[25px] w-[25px] sm:h-[60px]"
         />
-      )}
+        {/* {isListening ? "Currently Listening To..." : "Not currently listening"} */}
+        {isListening ? "Now Playing" : "Last Played"}
+      </div>
 
-      <div className="flex flex-col">
-        <h1 className="text-sm mb-2">
-          {isListening
-            ? "Currently Listening To..."
-            : "Nothing is playing right now"}
-        </h1>
-
-        <div
-          ref={textRef}
-          className="overflow-hidden text-md"
-          style={{
-            whiteSpace: "nowrap",
-            position: "relative",
-            maxWidth: "250px",
-          }}
-        >
-          {isOverflowing ? (
-            <div
-              style={{
-                display: "inline-block",
-                animation: "scroll-text 20s linear infinite",
-              }}
-            >
-              <span style={{ paddingRight: "1rem" }}>{currentSong?.title}</span>
-              <span style={{ paddingRight: "1rem" }}>{currentSong?.title}</span>
-            </div>
-          ) : (
-            <span>{currentSong?.title}</span>
-          )}
-        </div>
-
-        {/* <h2 className="text-md">
-          {isListening ? currentSong?.title : currentSong?.title}{" "}
-        </h2> */}
-
-        <div
-          ref={textRef}
-          className="overflow-hidden text-sm mb-1"
-          style={{
-            whiteSpace: "nowrap",
-            position: "relative",
-            minWidth: "250px",
-            maxWidth: "250px",
-          }}
-        >
-          <div
+      <div className="flex w-[90%] flex-row items-center rounded-lg border-[1.5px] border-blue-300/50 p-2">
+        {currentSong?.image_url && (
+          <Image
+            src={currentSong.image_url}
+            alt={currentSong.title || "No song playing"}
+            height={75}
+            width={75}
             style={{
-              display: "inline-flex",
-              animation: isOverflowing
-                ? "scroll-text 20s linear infinite"
-                : "none",
-              transform: isOverflowing ? "translateX(0%)" : "none", // ⛔ No movement if not overflowing
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+            className="h-[50px] w-[50px] rounded-lg sm:h-[60px] sm:w-[60px] md:h-[75px] md:w-[75px] lg:h-[85px] lg:w-[85px]"
+          />
+        )}
+
+        <div className="ml-4 flex flex-col">
+          <div
+            ref={textRef}
+            className="text-md overflow-hidden"
+            style={{
+              whiteSpace: "nowrap",
+              position: "relative",
+              maxWidth: "250px",
             }}
           >
-            <span style={{ paddingRight: "1rem" }}>
-              {currentSong?.artists?.join(", ")}
-            </span>
-            {isOverflowing && (
+            {isOverflowing ? (
+              <div
+                style={{
+                  display: "inline-block",
+                  animation: "scroll-text 20s linear infinite",
+                }}
+              >
+                <span style={{ paddingRight: "1rem" }}>
+                  {currentSong?.title}
+                </span>
+                <span style={{ paddingRight: "1rem" }}>
+                  {currentSong?.title}
+                </span>
+              </div>
+            ) : (
+              // title
+              <span>{currentSong?.title}</span>
+            )}
+          </div>
+          <div
+            ref={textRef}
+            className="overflow-hidden text-sm"
+            style={{
+              whiteSpace: "nowrap",
+              position: "relative",
+              minWidth: "250px",
+              maxWidth: "250px",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                animation: isOverflowing
+                  ? "scroll-text 20s linear infinite"
+                  : "none",
+                transform: isOverflowing ? "translateX(0%)" : "none",
+              }}
+            >
               <span style={{ paddingRight: "1rem" }}>
                 {currentSong?.artists?.join(", ")}
               </span>
-            )}
+              {isOverflowing && (
+                <span style={{ paddingRight: "1rem" }}>
+                  {currentSong?.artists?.join(", ")}
+                </span>
+              )}
+            </div>
           </div>
-
-          {/* {isListening && (
-            <p className="text-xs">
-              Listening on:{" "}
-              {currentSong?.device_name || currentSong?.device_type}
-            </p>
-          )} */}
         </div>
-      </div>
-      <div className="m-3">
-        <Image src={`/spotify.png`} alt="SpotifyLogo" height={50} width={50} />
       </div>
 
       {/* Marquee Animation */}

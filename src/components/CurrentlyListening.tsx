@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { geistMono } from "../../public/fonts/fonts";
+import VolumeBar from "./VolumeBar";
 
 interface Song {
   title: string;
@@ -65,7 +66,7 @@ export default function CurrentlyListening() {
   // check to see if the text overflows
   useEffect(() => {
     const checkOverflow = (
-      ref: React.RefObject<HTMLDivElement>,
+      ref: React.RefObject<HTMLDivElement | null>,
       setter: (value: boolean) => void,
     ) => {
       if (ref.current) {
@@ -113,80 +114,88 @@ export default function CurrentlyListening() {
         {isListening ? "Now Playing" : "Last Played"}
       </div>
 
-      <div className="flex w-[90%] flex-row items-center rounded-lg border-[1.5px] border-blue-300/50 p-2">
-        {currentSong?.image_url && (
-          <Image
-            src={currentSong.image_url}
-            alt={currentSong.title || "No song playing"}
-            height={75}
-            width={75}
-            style={{
-              objectFit: "cover",
-              objectPosition: "center",
-            }}
-            className="h-[50px] w-[50px] rounded-lg sm:h-[60px] sm:w-[60px] md:h-[75px] md:w-[75px] lg:h-[85px] lg:w-[85px]"
-          />
-        )}
+      <div className="flex w-full flex-row items-center">
+        <div className="flex w-[90%] flex-row items-center rounded-lg border-[1.5px] border-blue-300/50 p-2">
+          {currentSong?.image_url && (
+            <Image
+              src={currentSong.image_url}
+              alt={currentSong.title || "No song playing"}
+              height={75}
+              width={75}
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+              className="h-[50px] w-[50px] rounded-lg sm:h-[60px] sm:w-[60px] md:h-[75px] md:w-[75px] lg:h-[85px] lg:w-[85px]"
+            />
+          )}
 
-        {/* song title */}
-        <div className="ml-4 flex flex-col">
-          <div
-            ref={titleRef}
-            className="text-md overflow-hidden"
-            style={{
-              whiteSpace: "nowrap",
-              position: "relative",
-              maxWidth: "300px",
-              wordSpacing: "-0.10em",
-            }}
-          >
-            {isTitleOverflowing ? (
-              <div
-                style={{
-                  display: "inline-block",
-                  animation: "scroll-text 25s linear infinite",
-                }}
-              >
-                <span style={{ paddingRight: "2rem" }}>
-                  {currentSong?.title}
-                </span>
-                <span style={{ paddingRight: "2rem" }}>
-                  {currentSong?.title}
-                </span>
-              </div>
-            ) : (
-              // title
-              <span>{currentSong?.title}</span>
-            )}
+          {/* song title */}
+          <div className="ml-4 flex flex-col">
+            <div
+              ref={titleRef}
+              className="text-md overflow-hidden"
+              style={{
+                whiteSpace: "nowrap",
+                position: "relative",
+                maxWidth: "300px",
+                wordSpacing: "-0.10em",
+              }}
+            >
+              {isTitleOverflowing ? (
+                <div
+                  style={{
+                    display: "inline-block",
+                    animation: "scroll-text 25s linear infinite",
+                  }}
+                >
+                  <span style={{ paddingRight: "2rem" }}>
+                    {currentSong?.title}
+                  </span>
+                  <span style={{ paddingRight: "2rem" }}>
+                    {currentSong?.title}
+                  </span>
+                </div>
+              ) : (
+                // title
+                <span>{currentSong?.title}</span>
+              )}
+            </div>
+            {/* song artist */}
+            <div
+              ref={artistRef}
+              className="overflow-hidden text-xs"
+              style={{
+                whiteSpace: "nowrap",
+                position: "relative",
+                maxWidth: "300px",
+              }}
+            >
+              {isArtistOverflowing ? (
+                <div
+                  style={{
+                    display: "inline-block",
+                    animation: "scroll-text 50s linear infinite",
+                  }}
+                >
+                  <span style={{ paddingRight: "2rem" }}>
+                    {currentSong?.artists?.join(", ")}
+                  </span>
+                  <span style={{ paddingRight: "1rem" }}>
+                    {currentSong?.artists?.join(", ")}
+                  </span>
+                </div>
+              ) : (
+                <span>{currentSong?.artists?.join(", ")}</span>
+              )}
+            </div>
           </div>
-          {/* song artist */}
-          <div
-            ref={artistRef}
-            className="overflow-hidden text-xs"
-            style={{
-              whiteSpace: "nowrap",
-              position: "relative",
-              maxWidth: "300px",
-            }}
-          >
-            {isArtistOverflowing ? (
-              <div
-                style={{
-                  display: "inline-block",
-                  animation: "scroll-text 50s linear infinite",
-                }}
-              >
-                <span style={{ paddingRight: "2rem" }}>
-                  {currentSong?.artists?.join(", ")}
-                </span>
-                <span style={{ paddingRight: "1rem" }}>
-                  {currentSong?.artists?.join(", ")}
-                </span>
-              </div>
-            ) : (
-              <span>{currentSong?.artists?.join(", ")}</span>
-            )}
-          </div>
+        </div>
+        <div className="flex h-full w-[10%] items-end justify-center pb-2">
+          <VolumeBar
+            isListening={isListening}
+            volume={currentSong?.volume_percent || "50"}
+          />
         </div>
       </div>
 
@@ -204,39 +213,6 @@ export default function CurrentlyListening() {
     </div>
   );
 }
-
-// font-medium
-
-// TODO:
-// Check overflow for title and artist (not for both!)
-//   useEffect(() => {
-//     const checkOverflow = (ref: React.RefObject<HTMLDivElement>, setter: (value: boolean) => void) => {
-//       if (ref.current) {
-//         const isOverflowing = ref.current.scrollWidth > ref.current.clientWidth;
-//         setter(isOverflowing);
-//         console.log("Overflow detected:", isOverflowing);
-//       }
-//     };
-
-//     const timeout = setTimeout(() => {
-//       checkOverflow(titleRef, setIsTitleOverflowing);
-//       checkOverflow(artistRef, setIsArtistOverflowing);
-//     }, 100);
-
-//     window.addEventListener("resize", () => {
-//       checkOverflow(titleRef, setIsTitleOverflowing);
-//       checkOverflow(artistRef, setIsArtistOverflowing);
-//     });
-
-//     return () => {
-//       clearTimeout(timeout);
-//       window.removeEventListener("resize", () => {
-//         checkOverflow(titleRef, setIsTitleOverflowing);
-//         checkOverflow(artistRef, setIsArtistOverflowing);
-//       });
-//     };
-//   }, [currentSong]);
-
-//Two Refs: titleRef for the song title, artistRef for the artist names.
-// Two States: isTitleOverflowing and isArtistOverflowing to check each independently.
-// Independent Overflow Checks: Each section scrolls only if it overflows.
+// this snimation moves text horizontally using translateX
+// it ends at -50% (moved left by half the width)
+// but bc we duplicated the text, when it moves -50% left, it appears seamless

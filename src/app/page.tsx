@@ -1,4 +1,3 @@
-import Image from "next/image";
 import BentoGrid from "../components/BentoGrid";
 
 export default function Home() {

@@ -8,16 +8,26 @@ export default function Projects() {
     {
       name: "Carpoolio",
       link: "https://www.carpoolio.co",
-      description: "A personal portfolio showcasing my projects and skills.",
+      description:
+        "A sleek web app that simplifies group travel. Organize rides, manage passengers, and streamline your trips with ease",
       image: "/carpoolio.png",
     },
     {
       name: "Group Sing Along",
       link: "https://groupsingalong.com",
-      description:
-        "A real-time group karaoke platform for singing together online.",
+      description: "A platform that enables users to create or join groups",
       image: "/groupsingalong.png",
     },
+    // A platform for group singing enthusiasts to create and manage sing-along events.
+    // Easily search for song lyrics, curate a playlist, and synchronize lyrics display for a seamless group singing experience.
+
+    //
+    //
+    //
+    //   "A real-time group karaoke platform for singing together online.",
+    //  is a platform that enables users to create or join virtual singing groups,
+    //fostering community and shared musical experiences online
+
     {
       name: "Project 3",
       link: "https://groupsingalong.com",
@@ -35,44 +45,49 @@ export default function Projects() {
             {projects.map((project, index) => (
               <li
                 key={index}
-                className={`relative p-4 border-1 border-blue-500 cursor-pointer group ${
+                className={`border-1 group relative cursor-pointer border-blue-500 p-4 ${
                   activeIndex === index ? "" : ""
                 } `}
                 onClick={() => setActiveIndex(index)} // set index (active project)
               >
                 <h3
-                  className={`${geistMono.className} text-xs sm:text-sm md:text-lg`}
+                  className={`${geistMono.className} text-xs text-blue-100 sm:text-sm md:text-lg`}
                 >
                   {project?.name}
                 </h3>
 
                 {/* Underline */}
                 <div
-                  className={`absolute ml-2 lg:ml-4 bottom-0 left-0 h-1 bg-blue-500 rounded-sm cursor-pointer transition-all duration-500 ${
+                  className={`absolute bottom-0 left-0 ml-2 h-1 cursor-pointer rounded-sm bg-blue-500 transition-all duration-500 lg:ml-4 ${
                     activeIndex === index
                       ? "w-[90%]"
-                      : "w-[90%] group-hover:w-40 "
+                      : "w-[90%] group-hover:w-40"
                   }`}
                 ></div>
 
                 {activeIndex === index && (
-                  <Image
-                    key={index}
-                    src={project?.image || "/default-image.png"}
-                    alt={project?.name}
-                    sizes="100vw"
-                    height={200}
-                    width={200}
-                    style={{
-                      // width: "100%",
-                      // height: "auto",
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      objectFit: "cover",
-                      objectPosition: "center",
-                    }}
-                    className="object-cover rounded-xl p-2"
-                  />
+                  <>
+                    <p className="text-xs text-blue-300">
+                      {project?.description}
+                    </p>
+                    <Image
+                      key={index}
+                      src={project?.image || "/default-image.png"}
+                      alt={project?.name}
+                      sizes="100vw"
+                      height={200}
+                      width={200}
+                      style={{
+                        // width: "100%",
+                        // height: "auto",
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                      }}
+                      className="rounded-xl object-cover p-2"
+                    />
+                  </>
                 )}
               </li>
             ))}

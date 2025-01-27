@@ -15,7 +15,8 @@ export default function Projects() {
     {
       name: "Group Sing Along",
       link: "https://groupsingalong.com",
-      description: "A platform that enables users to create or join groups",
+      description:
+        "An interactive platform that allows users to form or join singing groups. Effortlessly search for song lyrics and synchronize them in real-time.",
       image: "/groupsingalong.png",
     },
     // A platform for group singing enthusiasts to create and manage sing-along events.
@@ -31,8 +32,7 @@ export default function Projects() {
     {
       name: "Project 3",
       link: "https://groupsingalong.com",
-      description:
-        "A real-time group karaoke platform for singing together online.",
+      description: "under construction!",
       // image: "/images/groupsingalong.png",
     },
   ];

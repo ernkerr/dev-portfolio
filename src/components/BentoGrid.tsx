@@ -111,8 +111,29 @@ const BentoGrid = () => {
           <div className="col-span-7 row-span-6 transform-gpu overflow-auto rounded-lg bg-blue-600 text-white shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-2 sm:col-start-5 sm:row-span-6 sm:row-start-3 md:col-span-6 md:col-start-5 md:row-span-5 md:row-start-auto lg:col-span-4 lg:row-span-6">
             <Projects />
           </div>
-          <div className="col-span-full row-span-2 row-start-10 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-4 sm:row-span-3 md:col-span-5 md:col-start-6 md:row-span-2 md:row-start-9 lg:col-span-4 lg:row-span-3 lg:row-start-auto">
-            <CurrentlyListening />
+          <div className="col-span-full row-span-2 row-start-10 flex transform-gpu items-center justify-center overflow-hidden rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-4 sm:row-span-3 md:col-span-5 md:col-start-6 md:row-span-2 md:row-start-9 lg:relative lg:col-span-4 lg:row-span-3 lg:row-start-auto">
+            <div className="hidden lg:pointer-events-none lg:absolute lg:inset-0 lg:flex lg:select-none lg:items-center lg:justify-end lg:font-mono lg:text-[0.85rem] lg:leading-[0.85rem] lg:text-white/40 lg:opacity-70">
+              {`⠀⠀⠀⠀⠀⠀⠀⢀⣤⠖⠂⠉⠉⠉⠀⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⠀⣶⡟⢀⣴⣶⣿⣾⣶⣶⣄⡀⠈⠑⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⡴⣫⣼⡿⣴⡟⠛⠉⠉⠛⠛⠿⣿⣿⣷⣦⡀⠙⢄⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⣼⢁⣟⡟⣷⠁⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣿⣷⣆⠈⢣⡀⠀⠀⠀⠀⠀
+⠀⢰⣿⢼⣿⣷⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⡆⠀⢱⠀⠀⠀⠀⠀
+⠀⢸⡵⣾⣇⣸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣧⠀⠀⢧⠀⠀⠀⠀
+⠀⠘⣴⣿⢯⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡿⠛⠉⠹⡆⠀⠀⠀
+⢀⣼⣿⣧⠟⠁⢀⢀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢯⣴⣶⣴⡇⠀⠀⠀
+⢸⣿⣼⣿⣋⣉⠀⠀⠀⠈⠙⠦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣿⣿⣷⣷⡀⠀⠀
+⢸⠁⠊⣿⠛⢛⢟⣦⡀⠀⠀⠀⠈⢆⠀⠀⠀⠀⢀⠔⣨⣶⡜⠂⠈⠽⣧⡀⠀
+⠸⣶⣾⡯⠤⢄⡀⠵⢿⣦⡀⠀⠀⠀⡷⡄⠀⡰⢁⣾⣿⣿⣿⠀⠀⠀⣿⡹⡄
+⠀⣿⣡⠦⢄⡀⠈⠳⣬⣹⣿⣆⠀⠀⢉⠻⣴⠇⣾⣿⡟⢻⠁⠀⠀⠀⣿⠁⡇
+⠀⣿⡭⡀⠀⠈⠲⣦⣸⣿⣿⣿⣧⣀⠈⡔⣜⣴⣿⡟⢀⡎⡈⠀⠀⢰⡿⢠⣷
+⠀⢸⣿⣄⣒⡀⡀⣿⣷⡿⣿⢿⣿⣷⡰⡸⣯⣏⣿⡷⢋⣼⣁⡢⢠⠟⠀⣼⣿
+⠀⠀⠻⣷⣈⣁⣮⢻⢸⡇⢨⣿⣿⣿⣷⢶⣿⣏⣩⣶⣿⣿⣿⣿⡯⣤⣴⣿⠃
+⠀⠀⠀⠘⠿⣿⣿⣽⣽⣷⣿⣿⣿⣿⣿⡶⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⠀
+⠀⠀⠀⠀⠀⠀⠉⠙⠿⢿⣿⣿⣿⣿⠟⠁⠀⠘⠿⣿⣿⣿⠿⠟⠉⠀⠀⠀⠀`}
+            </div>
+            <div className="relative z-10 w-full">
+              <CurrentlyListening />
+            </div>
           </div>
           <div className="col-span-5 row-span-2 flex transform-gpu items-end justify-start rounded-lg bg-blue-500 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-2 sm:col-start-3 sm:row-span-2 sm:row-start-3 md:col-span-4 md:col-start-auto md:row-span-2 md:row-start-auto lg:col-span-4 lg:row-span-4">
             <Link href="/contact/">

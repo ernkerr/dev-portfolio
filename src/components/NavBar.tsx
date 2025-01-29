@@ -1,0 +1,30 @@
+"use client";
+
+import Link from "next/link";
+
+export default function NavBar() {
+  return (
+    <nav className="flex w-full items-center justify-between p-10">
+      <Link
+        href="/"
+        className="text-md transform-gpu rounded-lg p-3 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:text-sm lg:text-lg"
+      >
+        Erin Kerr
+      </Link>
+      <div className="align-end flex gap-8">
+        <Link
+          href="/about/"
+          className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:text-sm lg:text-lg"
+        >
+          About
+        </Link>
+        <Link
+          href="/contact"
+          className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:text-sm lg:text-lg"
+        >
+          Contact
+        </Link>
+      </div>
+    </nav>
+  );
+}

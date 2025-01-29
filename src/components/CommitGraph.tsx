@@ -26,18 +26,25 @@ interface GitHubEvent {
 
 const CommitGraph = () => {
   const [commits, setCommits] = useState<commit[]>([]); // store commit data
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchGithubData = async () => {
       try {
-        // fetch github data
         const username = "ernkerr";
+        const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+
         const response = await fetch(
           `https://api.github.com/users/${username}/events`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/vnd.github.v3+json",
+            },
+          },
         );
-        const data: GitHubEvent[] = await response.json();
 
-        // console.log("data", data);
+        const data: GitHubEvent[] = await response.json();
 
         // transform the raw github data into a list of commits
         //0: count: 1, date: "2025-01-20"
@@ -53,13 +60,19 @@ const CommitGraph = () => {
         console.log("commitData", commitData);
 
         setCommits(commitData);
+        setError(null);
       } catch (error) {
         console.error("Error fetching GitHub data:", error);
+        setError("Failed to fetch GitHub data. Please try again later.");
       }
     };
 
     fetchGithubData();
   }, []); // empty array means this only runs once when mounted
+
+  if (error) {
+    return <div className="text-sm text-red-500">{error}</div>;
+  }
 
   return (
     <div className="m-1 h-full w-full p-1 sm:p-2">

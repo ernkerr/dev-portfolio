@@ -39,7 +39,7 @@ const BentoGrid = () => {
             <nav className="flex w-full items-center justify-between sm:m-4 md:m-6 lg:m-10">
               <Link
                 href="/"
-                className="text-md med:text-med transform-gpu rounded-lg py-2 pl-3 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
+                className="text-md med:text-med transform-gpu rounded-lg p-3 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
               >
                 ERIN KERR
               </Link>

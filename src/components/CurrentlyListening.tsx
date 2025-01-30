@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Image from "next/image";
 import { geistMono } from "../../public/fonts/fonts";
 import VolumeBar from "./VolumeBar";
@@ -22,16 +22,19 @@ export default function CurrentlyListening() {
   const titleRef = useRef<HTMLDivElement>(null);
   const artistRef = useRef<HTMLDivElement>(null);
 
-  const defaultSong: Song = {
-    title: "Cream on Chrome",
-    artists: ["Ratatat"],
-    image_url: "/cream_on_chrome.jpg",
-    device_type: "",
-    device_name: "",
-    volume_percent: "50",
-  };
+  const defaultSong = useMemo(
+    () => ({
+      title: "Cream on Chrome",
+      artists: ["Ratatat"],
+      image_url: "/cream_on_chrome.jpg",
+      device_type: "",
+      device_name: "",
+      volume_percent: "50",
+    }),
+    [],
+  ); // empty dependency array since values are constant
 
-  const getCurrentlyListening = async () => {
+  const getCurrentlyListening = useCallback(async () => {
     const res = await fetch("/api/getCurrentlyPlaying");
     const data = await res.json();
     console.log("data: ", data);
@@ -41,10 +44,10 @@ export default function CurrentlyListening() {
       if (!currentSong || currentSong.title !== data.item.name) {
         setCurrentSong({
           title: data.title,
-          artists: data.artists, // array
-          image_url: data.albumImageUrl, //str
-          device_type: data.deviceType, //
-          device_name: data.deviceName, //
+          artists: data.artists,
+          image_url: data.albumImageUrl,
+          device_type: data.deviceType,
+          device_name: data.deviceName,
           volume_percent: data.volumePercent,
         });
       }
@@ -53,15 +56,14 @@ export default function CurrentlyListening() {
       setCurrentSong(defaultSong);
       console.log("Nothing is playing right now.");
     }
-  };
+  }, [currentSong, defaultSong]);
 
   // check if I'm listening
   useEffect(() => {
     getCurrentlyListening(); // get current song once when the component mounts
-    // const interval = setInterval(getCurrentlyListening, 10000); // Poll every 10 seconds
     const interval = setInterval(getCurrentlyListening, 1000000000); // Poll every 10 seconds
     return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+  }, [getCurrentlyListening]);
 
   // check to see if the text overflows
   useEffect(() => {

@@ -5,9 +5,9 @@ import { poiretOne } from "../../../public/fonts/fonts";
 
 export default function GroupSingAlong() {
   return (
-    <div className=" bg-slate-100 dark:bg-slate-900 text-white">
+    <div className="min-h-screen bg-slate-100 text-white dark:bg-slate-900">
       <h1
-        className={`${poiretOne.className} flex justify-center items-center font-medium text-md md:text-lg lg:text-4xl p-2 sm:p-3 md:p-6 lg:p-8`}
+        className={`${poiretOne.className} text-md flex items-center justify-center p-2 font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-4xl`}
       >
         Group Sing Along
       </h1>

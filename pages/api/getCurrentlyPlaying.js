@@ -20,7 +20,7 @@ let tokenCreatedAt;
 // get new access token from refresh token
 const refreshAccessToken = async () => {
   const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString(
-    "base64"
+    "base64",
   );
 
   // send a post request to spotify's token endpoint to refresh the access token
@@ -88,7 +88,7 @@ const getCurrentlyPlaying = async (access_token) => {
     const song = await response.json();
 
     return song;
-  } catch (error) {
+  } catch {
     console.warn("⚠️ No song is currently playing or error occurred.");
     return null;
   }
@@ -111,7 +111,7 @@ const getCurrentDevice = async (access_token) => {
 
     if (response.status === 204 || response.status > 400) {
       console.warn(
-        "⚠️ No device is currently being used or an error occurred."
+        "⚠️ No device is currently being used or an error occurred.",
       );
       return null;
     }
@@ -134,9 +134,9 @@ const getCurrentDevice = async (access_token) => {
       is_active: activeDevice.is_active,
       volume_percent: activeDevice.volume_percent,
     };
-  } catch (error) {
+  } catch {
     console.warn(
-      "⚠️ an error occurred while trying to retrieve the active device"
+      "⚠️ an error occurred while trying to retrieve the active device",
     );
     return null;
   }

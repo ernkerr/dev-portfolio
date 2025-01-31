@@ -6,6 +6,8 @@ export default function Disco() {
       <Image
         src="/disco.gif"
         alt="Disco animation"
+        height={100}
+        width={100}
         className="h-20 w-20 object-contain"
       />
     </div>

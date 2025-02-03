@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import DarkModeToggle from "@/components/DarkModeToggle";
 import { pressStart } from "../../../public/fonts/fonts";
-// import Image from "next/image";
 import NavBar from "@/components/NavBar";
 
 export default function Projects() {
@@ -76,7 +74,6 @@ export default function Projects() {
           </div>
         </div>
       </div>
-      <DarkModeToggle />
     </div>
   );
 }

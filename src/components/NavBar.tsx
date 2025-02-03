@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-
+import Image from "next/image";
 export default function NavBar() {
   return (
     <nav className="flex w-full items-center justify-between p-10">
       <Link
         href="/"
-        className="text-md transform-gpu rounded-lg p-3 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:text-sm lg:text-lg"
+        className="text-md transform-gpu rounded-lg p-2 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:text-sm lg:text-lg"
       >
-        Erin Kerr
+        <Image src="/ek.png" alt="Erin Kerr" width={30} height={30} />
       </Link>
       <div className="align-end flex gap-8">
         <Link

@@ -3,21 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { pressStart, poiretOne, geistMono } from "../../public/fonts/fonts";
 import ern from "../../public/erin.jpg";
-
 import DarkModeToggle from "./DarkModeToggle";
 import Disco from "./Disco";
-
-import { pressStart, poiretOne, geistMono } from "../../public/fonts/fonts";
 import Projects from "./Projects";
 import DiscoMode from "./DiscoMode";
 import CurrentlyListening from "./CurrentlyListening";
 import LocationTime from "./LocationTime";
 import Blogs from "./Blogs";
 import CommitGraph from "./CommitGraph";
-// import CurrentlyReading from "./CurrentlyReading";
-
-// project 8: Github? commit history?
 
 const BentoGrid = () => {
   const [discoMode, setDiscoMode] = useState(false); // state to manage disco mode
@@ -34,14 +29,14 @@ const BentoGrid = () => {
           <DiscoMode discoMode={discoMode} toggleDiscoMode={toggleDiscoMode} />
         </div>
       ) : (
-        <div className="grid h-full min-h-[650px] w-full min-w-[375px] transform-gpu grid-cols-12 grid-rows-9 gap-2 overflow-auto p-6 transition-all duration-700 ease-in-out will-change-transform sm:grid-cols-6 sm:grid-rows-6 sm:gap-2 md:grid-cols-10 md:grid-rows-10 md:p-8 lg:grid-cols-12 lg:grid-rows-9 lg:gap-3 lg:p-16 xl:p-32">
+        <div className="grid h-full min-h-[650px] w-full min-w-[375px] transform-gpu grid-cols-12 grid-rows-9 gap-2 overflow-auto p-6 transition-all duration-700 ease-in-out will-change-transform sm:grid-cols-6 sm:grid-rows-6 sm:gap-2 sm:p-8 md:grid-cols-10 md:grid-rows-10 md:p-16 lg:grid-cols-12 lg:grid-rows-9 lg:p-20 xl:p-32">
           <div className="col-span-full row-span-1 flex transform-gpu items-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform">
             <nav className="flex w-full items-center justify-between sm:m-4 md:m-6 lg:m-10">
               <Link
                 href="/"
                 className="text-md med:text-med transform-gpu rounded-lg p-3 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
               >
-                ERIN KERR
+                <Image src="/ek.png" alt="Erin Kerr" width={30} height={30} />
               </Link>
               <div className="align-end flex">
                 <Link
@@ -138,7 +133,7 @@ const BentoGrid = () => {
           <div className="col-span-5 row-span-2 flex transform-gpu items-end justify-start rounded-lg bg-blue-500 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-2 sm:col-start-3 sm:row-span-2 sm:row-start-3 md:col-span-4 md:col-start-auto md:row-span-2 md:row-start-auto lg:col-span-4 lg:row-span-4">
             <Link href="/contact/">
               <div
-                className={`m-1 transform-gpu text-xl text-white transition-all duration-700 ease-in-out will-change-transform sm:m-2 sm:text-2xl md:m-3 md:text-3xl lg:text-5xl`}
+                className={`m-1 transform-gpu text-xl text-white transition-all duration-700 ease-in-out will-change-transform sm:m-2 sm:text-3xl md:m-1 md:text-2xl lg:text-5xl`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -161,20 +156,20 @@ const BentoGrid = () => {
           <div className="col-span-2 row-span-1 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-1 sm:row-span-1 sm:row-start-5 md:col-span-5 md:row-span-2 lg:col-span-1 lg:row-span-1">
             <Blogs />
           </div>
-          <div className="lg:col-start-autolg:col-span-4 col-span-5 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-3 sm:row-span-2 md:col-span-4 md:row-span-2 md:row-start-12 lg:row-span-1 lg:row-start-auto">
+          <div className="col-span-5 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-3 sm:row-span-2 md:col-span-4 md:row-span-3 md:row-start-11 lg:col-span-4 lg:col-start-auto lg:row-span-1 lg:row-start-auto">
             {/* <CurrentlyReading /> */}
             <LocationTime />
           </div>
-          <div className="col-span-3 row-span-1 row-start-9 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 text-xs shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-3 sm:col-start-1 sm:row-span-1 sm:row-start-5 md:col-span-2 md:row-span-2 md:row-start-12 lg:col-span-3 lg:col-start-9 lg:row-span-1 lg:row-start-8">
+          <div className="col-span-3 row-span-1 row-start-9 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 text-xs shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-3 sm:col-start-1 sm:row-span-1 sm:row-start-5 md:col-span-2 md:row-span-3 md:row-start-11 lg:col-span-3 lg:col-start-9 lg:row-span-1 lg:row-start-8">
             <CommitGraph />
           </div>
           {/* disco mode */}
-          <div className="col-span-3 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-500 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-1 sm:row-span-2 md:col-span-2 md:row-span-2 md:row-start-12 lg:col-span-2 lg:row-span-1 lg:row-start-auto">
+          <div className="col-span-3 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-500 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-1 sm:row-span-2 md:col-span-2 md:row-span-3 md:row-start-11 lg:col-span-2 lg:row-span-1 lg:row-start-auto">
             <button onClick={toggleDiscoMode} className="text-sm text-white">
               <Disco />
             </button>
           </div>
-          <div className="col-span-4 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-2 sm:row-span-2 md:col-span-2 md:row-span-2 md:row-start-12 lg:col-span-2 lg:col-start-auto lg:row-span-1 lg:row-start-auto">
+          <div className="col-span-4 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-2 sm:row-span-2 md:col-span-2 md:row-span-3 md:row-start-11 lg:col-span-2 lg:col-start-auto lg:row-span-1 lg:row-start-auto">
             <DarkModeToggle />
           </div>
         </div>

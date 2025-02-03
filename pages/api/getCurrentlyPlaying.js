@@ -80,6 +80,7 @@ const getCurrentlyPlaying = async (access_token) => {
         Authorization: `Bearer ${access_token}`,
       },
     });
+    console.log("Spotify Response:", await response.json());
 
     if (response.status === 204 || response.status > 400) {
       console.warn("⚠️ No song is currently playing or error occurred.");
@@ -166,7 +167,9 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error("Error fetching now playing:", error);
-    res.status(500).json({ error: "Failed to fetch now playing" });
+    res
+      .status(500)
+      .json({ error: "Failed to fetch now playing", details: error.message });
   }
 }
 

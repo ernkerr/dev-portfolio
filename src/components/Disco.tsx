@@ -9,6 +9,7 @@ export default function Disco() {
         height={100}
         width={100}
         className="h-20 w-20 object-contain"
+        unoptimized
       />
     </div>
   );

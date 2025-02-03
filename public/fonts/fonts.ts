@@ -4,7 +4,7 @@ import {
   Geist_Mono,
   Press_Start_2P,
   Poiret_One,
-  Federo,
+  Fira_Code,
 } from "next/font/google";
 
 export const geistSans = Geist({
@@ -27,7 +27,7 @@ export const poiretOne = Poiret_One({
   weight: "400",
 });
 
-export const federo = Federo({
+export const firaCode = Fira_Code({
   subsets: ["latin"],
   weight: "400",
 });

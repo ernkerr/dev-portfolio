@@ -18,8 +18,10 @@ export default function Projects() {
                 Projects
               </h1>
               <p className="max-w-[200px] break-words text-xs">
-                This is a showcase of my work but it&apos;s really important to
-                me that I continue learning and gaining skills every day.
+                I believe in the importance of continuous learning and gaining
+                new skills every day. This portfolio showcases a selection of my
+                projects, highlighting my growth as a developer. Explore my work
+                to see what I&apos;ve built.
               </p>
             </div>
             <div className="flex flex-col justify-center p-16">

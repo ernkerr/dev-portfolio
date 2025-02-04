@@ -16,35 +16,33 @@
 // also things you can sell? tech gadgets,
 
 import Image from "next/image";
+import bookImg from "../../public/pragmaticProgrammer.jpg";
 
 export default function CurrentlyReading() {
+  // TODO: use isbn api to get book cover
   // hardcoded ISBN for now
-  const isbn = "9780201616224";
-
+  // const isbn = "9780201616224";
   // library covers api url
-  const url = `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
+  // const url = `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
 
   return (
-    <div className="w-full flex flex-row justify-start gap-5 m-1">
-      <Image
-        src={url}
-        alt="Cover of the book I'm currently reading"
-        width={60}
-        height={60}
-        style={{
-          maxWidth: "100%",
-          maxHeight: "100%",
-          //   objectFit: "contain",
-          objectPosition: "center",
-        }}
-        className="rounded-md shadow-xl"
-      />
+    <div className="flex flex-col gap-2">
+      <h1 className="text-lg">Currently reading...</h1>
+      <div className="flex w-full flex-row justify-start gap-5">
+        <Image
+          src={bookImg}
+          alt="Cover of the book I'm currently reading"
+          width={75}
+          height={75}
+          className="transform-gpu rounded-md border-[1px] border-white transition-all duration-700 ease-in-out will-change-transform"
+          priority
+        />
 
-      <div className="flex justify-start text-white gap-5">
-        <div className="flex flex-col">
-          <h1>Currently reading...</h1>
-          <h2>Book Title</h2>
-          <h3>Author</h3>
+        <div className="flex justify-start gap-5">
+          <div className="flex flex-col">
+            <h2 className="text-lg">The Pragmatic Programmer</h2>
+            <h3 className="text-sm">Andy Hunt & Dave Thomas</h3>
+          </div>
         </div>
       </div>
     </div>

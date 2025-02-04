@@ -1,28 +1,145 @@
 "use client";
 
 import CurrentlyReading from "@/components/CurrentlyReading";
-import DarkModeToggle from "@/components/DarkModeToggle";
-import { poiretOne } from "../../../public/fonts/fonts";
+import NavBar from "@/components/NavBar";
+import { pressStart } from "../../../public/fonts/fonts";
+import Link from "next/link";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import brainArt from "../../../public/brainArt.png";
+import simpsonErin from "../../../public/simpsonErin.png";
 
 export default function About() {
   return (
-    <div className="bg-slate-100 text-white dark:bg-slate-900">
+    <div className="min-h-screen overflow-x-hidden bg-slate-900 text-white">
+      <NavBar />
       <h1
-        className={`${poiretOne.className} text-md flex items-center justify-center p-2 font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-4xl`}
+        className={`${pressStart.className} text-md flex items-center justify-center p-2 font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-4xl`}
       >
         About Me
       </h1>
-      <p>My friends call me ern</p>
+      {/* <p>My friends call me ern</p> */}
 
-      <p>I am a </p>
-      <p>When I&aptos;m not coding I read,</p>
-      <div className="relative flex h-screen items-center justify-center bg-slate-100 dark:bg-slate-900">
+      {/* animations and images */}
+
+      <section className="px-4 md:px-16">
+        <p className="mb-4 text-lg sm:text-xl">
+          I&apos;m a creative problem-solver who thrives on building, tinkering,
+          and finding better ways to do things.
+        </p>
+        <div className="gap-4 text-justify text-sm md:px-12">
+          <h2 className={`p-2 md:p-4 ${pressStart.className} text-xs`}>
+            Background
+          </h2>
+          <div className="relative flex items-center">
+            <p className="flex-1 p-2 md:p-4">
+              My path into software development wasn&apos;t traditional - I
+              started in psychology and neurotech research, working with brain
+              imaging, MRIs, EEGs, and neuropsych assessments. From there, I
+              moved to a neurotech startup, where I began coding primarily to
+              automate processes. That&apos;s when I realized the true power of
+              software: solving inefficiencies, simplifying workflows, and
+              turning complex problems into intuitive solutions.
+            </p>
+            <div className="hidden md:block">
+              <motion.div
+                className="-ml-4 flex-shrink-0"
+                initial={{ x: 100, opacity: 0 }} // Start off-screen to the right
+                whileInView={{ x: 0, opacity: 1 }} // Slide in and fade in
+                transition={{ duration: 1, ease: "easeOut" }} // Smooth transition
+                viewport={{ once: false, amount: 0.2 }} // Re-triggers when scrolling up
+                whileHover={{ scale: 1.1 }}
+              >
+                <Image src={brainArt} height={200} width={200} alt="brainArt" />
+              </motion.div>
+            </div>
+          </div>
+          <div className="block md:hidden">
+            <motion.div
+              className="flex justify-center" // Centers content horizontally
+              initial={{ x: 100, opacity: 0 }} // Start off-screen (right)
+              whileInView={{ x: 0, opacity: 1 }} // Move to center smoothly
+              transition={{ duration: 1, ease: "easeOut" }} // Smooth transition
+              viewport={{ once: false, amount: 0.2 }} // Re-triggers when scrolling up
+              whileHover={{ scale: 1.1 }}
+            >
+              <Image src={brainArt} height={150} width={150} alt="brainArt" />
+            </motion.div>
+          </div>
+          <div className="relative flex items-center">
+            <div className="hidden md:block">
+              <motion.div
+                className="-mr-4 flex-shrink-0 p-4"
+                initial={{ x: -100, opacity: 0 }} // Start off-screen to the left
+                whileInView={{ x: 0, opacity: 1 }} // Slide in and fade in
+                transition={{ duration: 1, ease: "easeOut" }} // Smooth transition
+                viewport={{ once: false, amount: 0.2 }} // Re-triggers when scrolling up
+                whileHover={{ scale: 1.1 }}
+              >
+                <Image
+                  src={simpsonErin}
+                  height={200}
+                  width={200}
+                  alt="simpsonErin"
+                />
+              </motion.div>
+            </div>
+
+            <p className="mb-4 flex-1 p-2 md:p-4">
+              However, it was through building my own{" "}
+              <Link href="/projects" className="text-blue-300/80">
+                projects{" "}
+              </Link>
+              that I truly fell in love with programming. I saw firsthand how
+              code could transform ideas into reality, automate tedious tasks,
+              and create intuitive experiences - all with nothing but time,
+              creativity, and determination.
+            </p>
+          </div>
+
+          <div className="block md:hidden">
+            <motion.div
+              className="flex justify-center" // Centers content horizontally
+              initial={{ x: -100, opacity: 0 }} // Start off-screen (right)
+              whileInView={{ x: 0, opacity: 1 }} // Move to center smoothly
+              transition={{ duration: 1, ease: "easeOut" }} // Smooth transition
+              viewport={{ once: false, amount: 0.2 }} // Re-triggers when scrolling up
+              whileHover={{ scale: 1.1 }}
+            >
+              <Image
+                src={simpsonErin}
+                height={300}
+                width={300}
+                alt="simpsonErin"
+              />
+            </motion.div>
+          </div>
+
+          <p className="mt-4 p-2 md:p-4">
+            Now, I&apos;m fully immersed in software development, blending
+            creativity with logic to build engaging digital experiences. What
+            excites me most is the ability to express creativity - whether
+            through website design, custom features, or solving challenges in
+            unique ways. I love making things work better, more beautifully, and
+            more efficiently.
+          </p>
+
+          <p className="p-2 md:p-4">
+            I believe creativity is at its best when fueled by curiosity and
+            diverse experiences. Whether I&apos;m designing software,
+            collaborating with clients, or tackling a new challenge, I bring
+            that same energy and adaptability to everything I do.
+          </p>
+        </div>
+      </section>
+      <p>When I&apos;m not coding I: </p>
+
+      <div className="items-center justify-center">
         <CurrentlyReading />
       </div>
-      <p>travel</p>
-      <p>cook</p>
+      {/* <p>travel</p>
+      <p>cook</p> */}
       <p></p>
-      <DarkModeToggle />
     </div>
   );
 }

@@ -9,19 +9,19 @@ export default function Projects() {
     <div className="min-h-screen w-full bg-slate-900 text-white">
       <NavBar />
       <div className="flex flex-row justify-around">
-        <div className="flex min-h-screen items-center justify-center">
+        <div className="flex min-h-screen md:items-center md:justify-center">
           <div className="flex flex-col md:flex-row">
-            <div className="flex flex-col items-start justify-start gap-8 p-16">
+            <div className="flex flex-col items-start justify-start gap-8 p-4 pl-12 md:pl-16">
               <h1 className={`${pressStart.className} text-lg font-medium`}>
                 Projects
               </h1>
-              <p className="max-w-[200px] break-words text-sm">
+              <p className="text-sm md:max-w-[200px] md:break-words">
                 I believe in the importance of continuous learning and gaining
                 new skills every day. This is a showcase of my work, and
                 highlights my growth as a developer.
               </p>
             </div>
-            <div className="flex flex-col justify-center p-16">
+            <div className="flex flex-col justify-center p-10 md:pl-16">
               {/* <h2 className={`${pressStart.className} text-md`}>
                 Personal Projects{" "}
               </h2> */}
@@ -38,7 +38,7 @@ export default function Projects() {
                   {/* Content */}
                   <Link href="/carpoolio">
                     <h2
-                      className={`${pressStart.className} p-4 text-xl transition-colors duration-200 hover:bg-blue-600/20`}
+                      className={`${pressStart.className} text-md p-4 transition-colors duration-200 hover:bg-blue-600/20 md:text-xl`}
                     >
                       Carpoolio
                     </h2>
@@ -59,7 +59,7 @@ export default function Projects() {
                   {/* Content */}
                   <Link href="/groupsingalong">
                     <h2
-                      className={`${pressStart.className} p-4 text-xl hover:bg-blue-600/20`}
+                      className={`${pressStart.className} text-md p-4 hover:bg-blue-600/20 md:text-xl`}
                     >
                       Group Sing Along
                     </h2>

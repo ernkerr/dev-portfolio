@@ -31,30 +31,30 @@ const BentoGrid = () => {
       ) : (
         <div className="grid h-full min-h-[650px] w-full min-w-[375px] transform-gpu grid-cols-12 grid-rows-9 gap-2 overflow-auto p-6 transition-all duration-700 ease-in-out will-change-transform sm:grid-cols-6 sm:grid-rows-6 sm:gap-2 sm:p-8 md:grid-cols-10 md:grid-rows-10 md:p-16 lg:grid-cols-12 lg:grid-rows-9 lg:p-20 xl:p-32">
           <div className="col-span-full row-span-1 flex transform-gpu items-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform">
-            <nav className="flex w-full items-center justify-between sm:m-4 md:m-6 lg:m-10">
+            <nav className="flex w-full items-center justify-between p-1">
               <Link
                 href="/"
-                className="text-md transform-gpu rounded-lg p-3 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
+                className="text-md transform-gpu rounded-lg p-2 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
               >
                 <Image src="/ek.png" alt="Erin Kerr" width={30} height={30} />
               </Link>
               <div className="align-end flex">
                 <Link
                   href={`/projects/`}
-                  className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
+                  className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
                 >
                   PROJECTS
                 </Link>
                 <Link
                   href="/about/"
-                  className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
+                  className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
                 >
                   {" "}
                   ABOUT
                 </Link>
                 <Link
                   href="/contact/"
-                  className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
+                  className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
                 >
                   CONTACT
                 </Link>
@@ -106,8 +106,11 @@ const BentoGrid = () => {
           <div className="col-span-7 row-span-6 transform-gpu overflow-auto rounded-lg bg-blue-600 text-white shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-2 sm:col-start-5 sm:row-span-6 sm:row-start-3 md:col-span-6 md:col-start-5 md:row-span-5 md:row-start-auto lg:col-span-4 lg:row-span-6">
             <Projects />
           </div>
+
           <div className="col-span-full row-span-2 row-start-10 flex transform-gpu items-center justify-center overflow-hidden rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-4 sm:row-span-3 md:col-span-5 md:col-start-6 md:row-span-2 md:row-start-9 lg:relative lg:col-span-4 lg:row-span-3 lg:row-start-auto">
-            <div className="hidden lg:pointer-events-none lg:absolute lg:inset-0 lg:flex lg:select-none lg:items-center lg:justify-end lg:font-mono lg:text-[0.85rem] lg:leading-[0.85rem] lg:text-white/40 lg:opacity-70">
+            {/* select-none: applies the user-select property to the ascii art, preventing the user from selecting the text 
+            leading-[0.85rem]: sets the line height (the vertical spacing between lines of text) to 0.85rem */}
+            <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-end font-mono text-[0.85rem] leading-[0.85rem] text-white/40 opacity-70">
               {`⠀⠀⠀⠀⠀⠀⠀⢀⣤⠖⠂⠉⠉⠉⠀⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⢀⠀⣶⡟⢀⣴⣶⣿⣾⣶⣶⣄⡀⠈⠑⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⡴⣫⣼⡿⣴⡟⠛⠉⠉⠛⠛⠿⣿⣿⣷⣦⡀⠙⢄⠀⠀⠀⠀⠀⠀⠀
@@ -165,7 +168,11 @@ const BentoGrid = () => {
           </div>
           {/* disco mode */}
           <div className="col-span-3 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-500 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-1 sm:row-span-2 md:col-span-2 md:row-span-3 md:row-start-11 lg:col-span-2 lg:row-span-1 lg:row-start-auto">
-            <button onClick={toggleDiscoMode} className="text-sm text-white">
+            <button
+              onClick={toggleDiscoMode}
+              className="text-sm text-white"
+              disabled
+            >
               <Disco />
             </button>
           </div>

@@ -34,9 +34,9 @@ export default function LocationTime() {
 
   return (
     <div
-      className={`flex flex-row gap-2 text-xs text-blue-200 md:m-1 md:gap-4 md:text-sm lg:gap-6`}
+      className={`md:text-md flex flex-row gap-2 text-[10px] text-white sm:text-sm md:m-1 md:gap-4 lg:gap-6`}
     >
-      <h1 className={`${geistMono.className}`}>SAN FRANCISCO, CA </h1>
+      <h1 className={`${geistMono.className}`}>SAN FRANCISCO, CA</h1>
       <h2>{time}</h2>
     </div>
   );

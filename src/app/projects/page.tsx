@@ -6,20 +6,19 @@ import NavBar from "@/components/NavBar";
 
 export default function Projects() {
   return (
-    <div className="min-h-screen w-full bg-slate-100 dark:bg-slate-900 dark:text-white">
+    <div className="min-h-screen w-full bg-slate-900 text-white">
       <NavBar />
       <div className="flex flex-row justify-around">
         <div className="flex min-h-screen items-center justify-center">
           <div className="flex flex-col md:flex-row">
             <div className="flex flex-col items-start justify-start gap-8 p-16">
-              <h1 className={`${pressStart.className} text-sm font-medium`}>
+              <h1 className={`${pressStart.className} text-lg font-medium`}>
                 Projects
               </h1>
-              <p className="max-w-[200px] break-words text-xs">
+              <p className="max-w-[200px] break-words text-sm">
                 I believe in the importance of continuous learning and gaining
-                new skills every day. This portfolio showcases a selection of my
-                projects, highlighting my growth as a developer. Explore my work
-                to see what I&apos;ve built.
+                new skills every day. This is a showcase of my work, and
+                highlights my growth as a developer.
               </p>
             </div>
             <div className="flex flex-col justify-center p-16">
@@ -27,9 +26,9 @@ export default function Projects() {
                 Personal Projects{" "}
               </h2> */}
               <div className="mb-8">
-                <div className="rounded-lg border-2 border-black pt-4 dark:border-white">
+                <div className="rounded-lg border-2 border-white pt-4">
                   {/* Browser bar styling */}
-                  <div className="border-b-2 border-black px-2 pb-2 dark:border-white">
+                  <div className="border-b-2 border-white px-2 pb-2">
                     <div className="mb-2 flex gap-2">
                       <div className="h-3 w-3 rounded-full bg-red-400"></div>
                       <div className="h-3 w-3 rounded-full bg-yellow-400"></div>
@@ -37,18 +36,20 @@ export default function Projects() {
                     </div>
                   </div>
                   {/* Content */}
-                  <h2
-                    className={`${pressStart.className} p-4 text-xl transition-colors duration-200 hover:bg-blue-600/20`}
-                  >
-                    <Link href="/carpoolio">Carpoolio</Link>
-                  </h2>
+                  <Link href="/carpoolio">
+                    <h2
+                      className={`${pressStart.className} p-4 text-xl transition-colors duration-200 hover:bg-blue-600/20`}
+                    >
+                      Carpoolio
+                    </h2>
+                  </Link>
                 </div>
               </div>
 
               <div className="mb-8">
-                <div className="rounded-lg border-2 border-black pt-4 dark:border-white">
+                <div className="rounded-lg border-2 border-white pt-4">
                   {/* Browser bar styling */}
-                  <div className="border-b-2 border-black px-2 pb-2 dark:border-white">
+                  <div className="border-b-2 border-white px-2 pb-2">
                     <div className="mb-2 flex gap-2">
                       <div className="h-3 w-3 rounded-full bg-red-400"></div>
                       <div className="h-3 w-3 rounded-full bg-yellow-400"></div>
@@ -56,11 +57,13 @@ export default function Projects() {
                     </div>
                   </div>
                   {/* Content */}
-                  <h2
-                    className={`${pressStart.className} p-4 text-xl hover:bg-blue-600/20`}
-                  >
-                    <Link href="/groupsingalong">Group Sing Along</Link>
-                  </h2>
+                  <Link href="/groupsingalong">
+                    <h2
+                      className={`${pressStart.className} p-4 text-xl hover:bg-blue-600/20`}
+                    >
+                      Group Sing Along
+                    </h2>
+                  </Link>
                   {/* <Image
                     src="/groupsingalong2.png"
                     alt="Group Sing Along"

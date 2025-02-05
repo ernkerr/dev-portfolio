@@ -8,31 +8,33 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import brainArt from "../../../public/brainArt.png";
 import simpsonErin from "../../../public/simpsonErin.png";
+import AboutMe from "@/components/AboutMe";
+import { ABOUT_ME } from "../../data";
 
 export default function About() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-slate-900 text-white">
       <NavBar />
       <h1
-        className={`${pressStart.className} text-md flex items-center justify-center p-2 font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-4xl`}
+        className={`${pressStart.className} text-md mb-4 flex items-center justify-center p-2 font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-4xl`}
       >
         About Me
       </h1>
       {/* <p>My friends call me ern</p> */}
 
-      {/* animations and images */}
-
       <section className="px-4 md:px-16">
-        <p className="mb-4 text-lg sm:text-xl">
+        <p className="mb-8 text-lg sm:text-xl">
           I&apos;m a creative problem-solver who thrives on building, tinkering,
           and finding better ways to do things.
         </p>
-        <div className="gap-4 text-justify text-sm md:px-12">
-          <h2 className={`p-2 md:p-4 ${pressStart.className} text-xs`}>
+        <div className="gap-4 text-justify text-sm md:px-12 lg:px-24">
+          <h2
+            className={`p-2 md:p-4 lg:p-8 ${pressStart.className} md:text-md text-xs sm:text-sm`}
+          >
             Background
           </h2>
           <div className="relative flex items-center">
-            <p className="flex-1 p-2 md:p-4">
+            <p className="md:text-md flex-1 p-2 sm:text-sm md:p-4 lg:p-8 lg:text-lg">
               My path into software development wasn&apos;t traditional - I
               started in psychology and neurotech research, working with brain
               imaging, MRIs, EEGs, and neuropsych assessments. From there, I
@@ -85,7 +87,7 @@ export default function About() {
               </motion.div>
             </div>
 
-            <p className="mb-4 flex-1 p-2 md:p-4">
+            <p className="md:text-md mb-4 flex-1 p-2 sm:text-sm md:p-4 lg:p-8 lg:text-lg">
               However, it was through building my own{" "}
               <Link href="/projects" className="text-blue-300/80">
                 projects{" "}
@@ -115,7 +117,7 @@ export default function About() {
             </motion.div>
           </div>
 
-          <p className="mt-4 p-2 md:p-4">
+          <p className="md:text-md mt-4 p-2 sm:text-sm md:p-4 lg:p-8 lg:text-lg">
             Now, I&apos;m fully immersed in software development, blending
             creativity with logic to build engaging digital experiences. What
             excites me most is the ability to express creativity - whether
@@ -124,7 +126,7 @@ export default function About() {
             more efficiently.
           </p>
 
-          <p className="p-2 md:p-4">
+          <p className="md:text-md p-2 sm:text-sm md:p-4 lg:p-8 lg:text-lg">
             I believe creativity is at its best when fueled by curiosity and
             diverse experiences. Whether I&apos;m designing software,
             collaborating with clients, or tackling a new challenge, I bring
@@ -132,14 +134,27 @@ export default function About() {
           </p>
         </div>
       </section>
-      <p>When I&apos;m not coding I: </p>
 
-      <div className="items-center justify-center">
-        <CurrentlyReading />
-      </div>
-      {/* <p>travel</p>
-      <p>cook</p> */}
-      <p></p>
+      <section className="p-4 md:px-16">
+        <h2
+          className={`${pressStart.className} sm:text-md mb-4 flex items-center justify-center p-2 text-sm font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-4xl`}
+        >
+          When I&apos;m not coding I:
+        </h2>
+        <div className="flex flex-wrap justify-center gap-4">
+          <AboutMe {...ABOUT_ME[0]} />
+          <AboutMe {...ABOUT_ME[1]} />
+          <AboutMe {...ABOUT_ME[2]} />
+          <AboutMe {...ABOUT_ME[3]} />
+          <AboutMe {...ABOUT_ME[4]} />
+          <AboutMe {...ABOUT_ME[5]} />
+          {/* <AboutMe {...ABOUT_ME[6]} /> */}
+          {/* <AboutMe {...ABOUT_ME[7]} /> */}
+        </div>
+        <div className="mt-4 items-center justify-center">
+          <CurrentlyReading />
+        </div>
+      </section>
     </div>
   );
 }

@@ -16,3 +16,8 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// CL tool
+// ifconfig en0
+// what your computer's local IP address is
+// use to connect to your local network followed by port # on different devices

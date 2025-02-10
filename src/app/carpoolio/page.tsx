@@ -1,23 +1,33 @@
 "use client";
 
-import DarkModeToggle from "@/components/DarkModeToggle";
-import { poiretOne, pressStart } from "../../../public/fonts/fonts";
-import Image from "next/image";
-
+// import DarkModeToggle from "@/components/DarkModeToggle";
+// import { pressStart } from "../../../public/fonts/fonts";
+// import Image from "next/image";
+// import NavBar from "@/components/NavBar";
+// import Link from "next/link";
+import ProjectTemplate from "@/components/ProjectTemplate";
 export default function Carpoolio() {
   return (
-    <div className="bg-slate-100 text-white dark:bg-slate-900">
-      <h1
-        className={`${poiretOne.className} text-md flex items-center justify-center p-2 font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-4xl`}
-      >
-        Carpoolio
-      </h1>
+    <div>
+      <ProjectTemplate
+        title="Carpoolio"
+        description="Description"
+        type="Personal Project"
+        stack={["React", "Node.js", "Express", "Vercel Postgres"]}
+        link="https://carpoolio.co"
+        img="/carpoolio1.png"
+        purpose="Purpose"
+        stackexp="Tech Stack"
+        stackimg="/react.png"
+        stackimg2="/next.png"
+        stackimg3="/vercel.png"
+        problems="Problems"
+        lessons="Lessons Learned"
+      />
 
-      <div>
-        <h2 className={`${pressStart.className} text-md mb-4`}>Carpoolio</h2>
-        <div className="mb-8 flex justify-around gap-4">
-          {" "}
-          {/* Added margin-bottom for spacing */}
+      {/* 
+
+
           <Image
             src="/carpoolio1.png"
             alt="Image 1"
@@ -32,10 +42,8 @@ export default function Carpoolio() {
             height={200}
             className="w-1/2"
           />
-        </div>
-      </div>
-
-      <DarkModeToggle />
+        </div> */}
+      {/* </div> */}
     </div>
   );
 }

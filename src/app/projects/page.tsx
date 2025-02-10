@@ -57,7 +57,7 @@ export default function Projects() {
                     </div>
                   </div>
                   {/* Content */}
-                  <Link href="/groupsingalong">
+                  <Link href="/groupSingAlong">
                     <h2
                       className={`${pressStart.className} text-md p-4 hover:bg-blue-600/20 md:text-xl`}
                     >

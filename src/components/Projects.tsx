@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { geistMono } from "../../public/fonts/fonts";
 
 export default function Projects() {
@@ -7,17 +8,17 @@ export default function Projects() {
   const projects = [
     {
       name: "Carpoolio",
-      link: "https://www.carpoolio.co",
+      link: "/carpoolio",
       description:
         "A sleek web app that simplifies group travel. Organize rides, manage passengers, and streamline trips with ease.",
       image: "/carpoolio.png",
     },
     {
       name: "Group Sing Along",
-      link: "https://groupsingalong.com",
+      link: "/groupSingAlong",
       description:
         "An interactive platform that allows users to form or join singing groups. Effortlessly search for song lyrics and synchronize them in real-time.",
-      image: "/groupsingalong.png",
+      image: "/groupSingAlongLogo.png",
     },
     // A platform for group singing enthusiasts to create and manage sing-along events.
     // Easily search for song lyrics, curate a playlist, and synchronize lyrics display for a seamless group singing experience.
@@ -70,23 +71,23 @@ export default function Projects() {
                     <p className="text-xs text-blue-300">
                       {project?.description}
                     </p>
-                    <Image
-                      key={index}
-                      src={project?.image || "/default-image.png"}
-                      alt={project?.name}
-                      sizes="100vw"
-                      height={200}
-                      width={200}
-                      style={{
-                        // width: "100%",
-                        // height: "auto",
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                        objectFit: "cover",
-                        objectPosition: "center",
-                      }}
-                      className="rounded-xl object-cover p-2"
-                    />
+                    <Link href={project?.link}>
+                      <Image
+                        key={index}
+                        src={project?.image || "/default-image.png"}
+                        alt={project?.name}
+                        sizes="100vw"
+                        height={75}
+                        width={75}
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "cover",
+                          objectPosition: "center",
+                        }}
+                        className="rounded-xl object-cover p-2"
+                      />
+                    </Link>
                   </>
                 )}
               </li>

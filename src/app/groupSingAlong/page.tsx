@@ -17,6 +17,8 @@ export default function GroupSingAlong() {
         stackimg="/react.png"
         stackimg2="/node.png"
         stackimg3="/vercel.png"
+        img2="/carpoolio1.png"
+        img3="/carpoolio3.png"
         problems="Problems"
         lessons="Lessons Learned"
       />

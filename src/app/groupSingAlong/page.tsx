@@ -18,7 +18,7 @@ export default function GroupSingAlong() {
           </>
         }
         type="Personal Project"
-        stack={["React", "Next.js", "Tailwind", "Vercel Postgres"]}
+        stack={["React", "Next.js", "Tailwind", "Vercel"]}
         link="https://groupsingalong.com"
         img="/singalong.jpg"
         purpose={

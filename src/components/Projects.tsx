@@ -20,22 +20,18 @@ export default function Projects() {
         "An interactive platform that allows users to form or join singing groups. Effortlessly search for song lyrics and synchronize them in real-time.",
       image: "/groupSingAlongLogo.png",
     },
+    {
+      name: "My Tea Cupboard",
+      link: "/projects",
+      description:
+        "A platform for tea enthusiasts to track their tea collections and share their favorite teas with others.",
+      image: "/myTeaCupboard.png",
+    },
     // A platform for group singing enthusiasts to create and manage sing-along events.
     // Easily search for song lyrics, curate a playlist, and synchronize lyrics display for a seamless group singing experience.
-
-    //
-    //
-    //
     //   "A real-time group karaoke platform for singing together online.",
     //  is a platform that enables users to create or join virtual singing groups,
     //fostering community and shared musical experiences online
-
-    {
-      name: "Project 3",
-      link: "https://groupsingalong.com",
-      description: "under construction!",
-      // image: "/images/groupsingalong.png",
-    },
   ];
 
   return (

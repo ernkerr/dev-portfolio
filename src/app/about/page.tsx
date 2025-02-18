@@ -1,6 +1,6 @@
 "use client";
 
-import CurrentlyReading from "@/components/CurrentlyReading";
+// import CurrentlyReading from "@/components/CurrentlyReading";
 import NavBar from "@/components/NavBar";
 import { pressStart } from "../../../public/fonts/fonts";
 import Link from "next/link";

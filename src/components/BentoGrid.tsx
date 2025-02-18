@@ -71,7 +71,7 @@ const BentoGrid = () => {
               <div
                 className={`${pressStart.className} text-med transform-gpu transition-all duration-700 ease-in-out will-change-transform sm:text-lg lg:text-xl`}
               >
-                Front End Developer
+                Full Stack Developer
               </div>
             </div>
           </div>

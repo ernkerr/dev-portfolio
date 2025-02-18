@@ -72,10 +72,12 @@ export default function Projects() {
                         key={index}
                         src={project?.image || "/default-image.png"}
                         alt={project?.name}
-                        sizes="100vw"
                         height={75}
-                        width={75}
+                        width={100}
+                        // width={100}
                         style={{
+                          minHeight: "75px",
+
                           maxWidth: "100%",
                           maxHeight: "100%",
                           objectFit: "cover",

@@ -152,7 +152,7 @@ export default function About() {
           {/* <AboutMe {...ABOUT_ME[7]} /> */}
         </div>
         <div className="mt-4 items-center justify-center">
-          <CurrentlyReading />
+          {/* <CurrentlyReading /> */}
         </div>
       </section>
     </div>

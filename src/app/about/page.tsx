@@ -147,7 +147,7 @@ export default function About() {
           <AboutMe {...ABOUT_ME[2]} />
           <AboutMe {...ABOUT_ME[3]} />
           <AboutMe {...ABOUT_ME[4]} />
-          <AboutMe {...ABOUT_ME[5]} />
+          {/* <AboutMe {...ABOUT_ME[5]} /> */}
           {/* <AboutMe {...ABOUT_ME[6]} /> */}
           {/* <AboutMe {...ABOUT_ME[7]} /> */}
         </div>

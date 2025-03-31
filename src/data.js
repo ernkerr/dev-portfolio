@@ -25,11 +25,11 @@ export const ABOUT_ME = [
     image: "/cook.jpg",
     link: "",
   },
-  {
-    title: "Walk Dogs",
-    image: "/walkDogs.jpg",
-    link: "",
-  },
+  // {
+  //   title: "Walk Dogs",
+  //   image: "/walkDogs.jpg",
+  //   link: "",
+  // },
   //   {
   //     title: "Play Pickleball",
   //     image: "/pickleball.jpg",

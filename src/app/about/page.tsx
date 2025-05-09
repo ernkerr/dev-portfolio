@@ -23,7 +23,7 @@ export default function About() {
       {/* <p>My friends call me ern</p> */}
 
       <section className="px-4 md:px-16">
-        <p className="mb-8 text-lg sm:text-xl">
+        <p className="mb-8 text-lg sm:text-xl md:px-12 lg:px-24">
           I&apos;m a creative problem-solver who thrives on building, tinkering,
           and finding better ways to do things.
         </p>

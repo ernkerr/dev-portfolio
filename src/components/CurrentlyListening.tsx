@@ -41,7 +41,7 @@ export default function CurrentlyListening() {
 
     if (data.isPlaying) {
       setIsListening(true);
-      if (!currentSong || currentSong.title !== data.item.name) {
+      if (!currentSong || currentSong.title !== data.title) {
         setCurrentSong({
           title: data.title,
           artists: data.artists,

@@ -80,12 +80,13 @@ const getCurrentlyPlaying = async (access_token) => {
         Authorization: `Bearer ${access_token}`,
       },
     });
-    console.log("Spotify Response:", await response.json());
+    // console.log("Spotify Response:", response.json());
 
     if (response.status === 204 || response.status > 400) {
       console.warn("⚠️ No song is currently playing or error occurred.");
       return null;
     }
+    console.log("Spotify Response Status:", response.status);
     const song = await response.json();
 
     return song;
@@ -122,6 +123,8 @@ const getCurrentDevice = async (access_token) => {
 
     if (!activeDevice || data.devices.length === 0) {
       console.warn("⚠️ No active device found.");
+      // console.log("Devices:", data.devices);
+      console.log("Active Device:", activeDevice);
       return null;
     }
 

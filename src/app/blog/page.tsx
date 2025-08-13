@@ -4,3 +4,6 @@
 export default function Blog() {
   return <div>Blog</div>;
 }
+
+// I would love to get these to autowrite & cross post
+// but can be used here (by me) to accept or deny them

@@ -6,8 +6,8 @@ import { pressStart } from "../../../public/fonts/fonts";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import brainArt from "../../../public/brainArt.png";
-import simpsonErin from "../../../public/simpsonErin.png";
+import brainArt from "../../../public/images/about/brainArt.png";
+import simpsonErin from "../../../public/images/about/simpsonErin.png";
 import AboutMe from "@/components/AboutMe";
 import { ABOUT_ME } from "../../data";
 

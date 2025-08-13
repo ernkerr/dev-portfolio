@@ -1,28 +1,28 @@
 export const ABOUT_ME = [
   {
     title: "DJ",
-    image: "/dj.jpeg",
+    image: "/images/about/dj.jpeg",
     link: "https://soundcloud.com/djdalmane",
   },
   {
     title: "Snowboard",
-    image: "/snowboard2.jpg",
+    image: "/images/about/snowboard2.jpg",
     link: "https://www.instagram.com/j.m.a.r.y.travels/",
   },
   {
     title: "Hike",
-    image: "/hike.jpeg",
+    image: "/images/about/hike.jpeg",
     link: "",
   },
   {
     title: "Travel",
-    image: "/travel.jpg",
+    image: "/images/about/travel.jpg",
     link: "https://www.instagram.com/j.m.a.r.y.travels/",
   },
 
   {
     title: "Cook",
-    image: "/cook.jpg",
+    image: "/images/about/cook.jpg",
     link: "",
   },
   // {

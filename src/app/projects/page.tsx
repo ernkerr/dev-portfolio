@@ -94,6 +94,26 @@ export default function Projects() {
                   </Link>
                 </div>
               </div>
+              {/* //  */}
+              {/* <div className="mb-8">
+                <div className="rounded-lg border-2 border-white pt-4">
+                  <div className="border-b-2 border-white px-2 pb-2">
+                    <div className="mb-2 flex gap-2">
+                      <div className="h-3 w-3 rounded-full bg-red-400"></div>
+                      <div className="h-3 w-3 rounded-full bg-yellow-400"></div>
+                      <div className="h-3 w-3 rounded-full bg-green-400"></div>
+                    </div>
+                  </div>
+                  <Link href="/myTeaCupboard">
+                    <h2
+                      className={`${pressStart.className} text-md p-4 transition-colors duration-200 hover:bg-blue-600/20 md:text-xl`}
+                    >
+                      My Tea Cupboard
+                    </h2>
+                  </Link>
+                </div>
+              </div> */}
+              {/* //  */}
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ export const ABOUT_ME = [
   {
     title: "Snowboard",
     image: "/images/about/snowboard2.jpg",
-    link: "https://www.instagram.com/j.m.a.r.y.travels/",
+    link: "https://www.instagram.com/erin.codes/",
   },
   {
     title: "Hike",
@@ -17,7 +17,7 @@ export const ABOUT_ME = [
   {
     title: "Travel",
     image: "/images/about/travel.jpg",
-    link: "https://www.instagram.com/j.m.a.r.y.travels/",
+    link: "https://www.instagram.com/erin.codes/",
   },
 
   {

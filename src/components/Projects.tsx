@@ -14,17 +14,17 @@ export default function Projects() {
       image: "/images/carpoolio/carpoolio.png",
     },
     {
-      name: "Gin Score Tracker",
-      link: "/ginScoreTracker",
-      description: "A simple score-tracking app for Gin Rummy.",
-      image: "/images/ginScoreTracker/club.png",
-    },
-    {
       name: "Group Sing Along",
       link: "/groupSingAlong",
       description:
         "An interactive platform that allows users to form or join singing groups. Effortlessly search for song lyrics and synchronize them in real-time.",
       image: "/groupSingAlongLogo.png",
+    },
+    {
+      name: "Gin Score Tracker",
+      link: "/ginScoreTracker",
+      description: "A simple score-tracking app for Gin Rummy.",
+      image: "/images/ginScoreTracker/club.png",
     },
   ];
 

@@ -137,7 +137,7 @@ export default function About() {
 
       <section className="p-4 md:px-16">
         <h2
-          className={`${pressStart.className} sm:text-md mb-4 flex items-center justify-center p-2 text-sm font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-4xl`}
+          className={`${pressStart.className} sm:text-md mb-4 flex items-center justify-center p-2 text-sm font-medium sm:p-3 md:p-6 md:text-lg lg:p-8 lg:text-2xl`}
         >
           When I&apos;m not coding I:
         </h2>
@@ -146,7 +146,7 @@ export default function About() {
           <AboutMe {...ABOUT_ME[1]} />
           <AboutMe {...ABOUT_ME[2]} />
           <AboutMe {...ABOUT_ME[3]} />
-          <AboutMe {...ABOUT_ME[4]} />
+          {/* <AboutMe {...ABOUT_ME[4]} /> */}
           {/* <AboutMe {...ABOUT_ME[5]} /> */}
           {/* <AboutMe {...ABOUT_ME[6]} /> */}
           {/* <AboutMe {...ABOUT_ME[7]} /> */}

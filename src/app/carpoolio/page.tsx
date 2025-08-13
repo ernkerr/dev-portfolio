@@ -11,23 +11,46 @@ export default function Carpoolio() {
     <div>
       <ProjectTemplate
         title="Carpoolio"
-        // description="Carpoolio is the first full-stack web application I built, designed to solve a real-world problem while helping me solidify my skills in frontend and backend development. The project started as an experiment in building a practical, user-friendly tool that streamlines carpool planning for groups of friends traveling together. Built with a modern frontend and backend, it allows users to create trips, add vehicles, and assign seats through an intuitive interface."
         description={
           <>
-            Carpoolio is the first full-stack web application I built, designed
-            to solve a real-world problem while helping me solidify my skills in
-            frontend and backend development. The project started as an
-            experiment in building a practical, user-friendly tool that
-            streamlines carpool planning for groups of friends traveling
-            together. Built with people&apos;s real problems in mind, it allows
-            users to create trips, add vehicles, and assign seats through an
-            intuitive interface.
+            Carpoolio was the first full-stack web application I built designed
+            to solve a real-world problem
+            <br />
+            while helping me solidify my skills in frontend and backend
+            development.
+            <br />
+            <br />
+            The project started as an experiment in building a practical,
+            user-friendly tool that streamlines
+            <br />
+            carpool planning for groups of friends traveling together.
+            <br />
+            <br />
+            {/* Built with people&apos;s real problems in mind, it allows users to
+            create trips, add vehicles,
+            <br />
+            and assign seats through a playful interface.
+            <br /> */}
+            Recently, Carpoolio has been converted into a mobile app, making it
+            even easier for groups to
+            <br />
+            coordinate rides on the go. The mobile version brings all the core
+            features to users&apos; fingertips,
+            <br />
+            allowing seamless trip planning and seat assignments directly from
+            their phones.
           </>
         }
         type="Personal Project"
-        stack={["React", "Node.js", "Express", "Vercel Postgres"]}
-        link="https://carpoolio.co"
-        img="/carpoolioLandingPage.png"
+        stack={[
+          "React & React Native",
+          "Node.js",
+          "Express",
+          "Vercel Postgres",
+          "Supabase",
+        ]}
+        link="https://apps.apple.com/us/app/carpoolio/id6747052428"
+        img="/images/carpoolio/carpoolioLandingPage.png"
         purpose={
           <>
             Planning a trip with multiple cars and passengers can quickly become
@@ -55,27 +78,35 @@ export default function Carpoolio() {
             learn and experiment with more advanced tools.
             <br />
             <br />
-            For the frontend, I opted for <strong>React</strong> for the
-            frontend, paired with <strong>Vanilla CSS</strong> for custom
-            styling initially, however I ended up installing{" "}
-            <strong>Tailwind</strong> because I found it to be less complicated
-            than managing classes and css files. <br />
+            For the frontend, I opted for <strong>React</strong>, paired with{" "}
+            <strong>Vanilla CSS</strong> for custom styling initially, however I
+            ended up installing
+            <strong> Tailwind</strong> because I found it to be less complicated
+            than managing classes and css files.
             <br />
-            For the backend, I opted for <strong>Node.js</strong> and{" "}
-            <strong>Express</strong> to create a robust server-side application
-            that handles data storage and retrieval. Vercel Postgres was used
-            for the database, providing a scalable and reliable solution for
-            storing and querying trip and user data.
-            {/* Overall, I aimed for a tech
-            stack that was both practical and accessible, giving me room to grow
-            as I gained more experience. */}
+            <br />
+            For the backend, I opted for <strong>Node.js</strong> and
+            <strong> Express</strong> to create a robust server-side application
+            that handles data storage and retrieval.
+            <strong> Vercel Postgres</strong> was used for the database,
+            providing a scalable and reliable solution for storing and querying
+            trip and user data.
+            <br />
+            <br />
+            Overall, I aimed for a tech stack that was both practical and
+            accessible, giving me room to grow as I gained more experience.
+            <br />
+            <br />
+            When converting it to a mobile app, I switched to{" "}
+            <strong> React Native</strong>, <strong> Nativewind</strong>, and
+            <strong> Supabase</strong>.
           </>
         }
         stackimg="/react.png"
         stackimg2="/node.png"
         stackimg3="/vercel.png"
-        img2="/carpoolio3.png"
-        img3="/carpoolio1.png"
+        img2="/images/carpoolio/trips.png"
+        img3="/images/carpoolio/vegas.png"
         problems={
           <>
             Since it was my first web application, naturally I ran into lots of
@@ -86,18 +117,18 @@ export default function Carpoolio() {
             <br />
             <br />
             I didn&apos;t realize how important it is to test the application
-            across different browsers. Certain styles and features worked fine
-            on one browser but caused issues on others, requiring me to tweak
-            the CSS and use fallback techniques. I started with Vanilla CSS for
-            custom styling, however I ended up installing Tailwind CSS after
-            learning it from another project because I found it less complicated
-            than managing separate classes and CSS files. While this made
-            styling easier, I still considered rewriting some parts for better
-            organization. I struggled with organizing components, pages, and
-            styles, especially when using pure CSS. Even though I learned about
-            CSS variables, which helped simplify the process, it was still tough
-            to bounce back and forth between components and their respective
-            styles.
+            across different browsers (and later devices!). Certain styles and
+            features worked fine on one browser but caused issues on others,
+            requiring me to tweak the CSS and use fallback techniques. I started
+            with Vanilla CSS for custom styling, however I ended up installing
+            Tailwind CSS after learning it from another project because I found
+            it less complicated than managing separate classes and CSS files.
+            While this made styling easier, I still considered rewriting some
+            parts for better organization. I struggled with organizing
+            components, pages, and styles, especially when using pure CSS. Even
+            though I learned about CSS variables, which helped simplify the
+            process, it was still tough to bounce back and forth between
+            components and their respective styles.
             <br />
             <br />
             These challenges were part of the learning process, but with each
@@ -105,7 +136,7 @@ export default function Carpoolio() {
             and how to build more efficient and scalable applications.
           </>
         }
-        img4="/carpoolioLanding2.png"
+        img4="/images/carpoolio/carpoolioLanding2.png"
         lessons={
           <>
             Knowing what I know now, I would probably have made a more simple
@@ -121,7 +152,7 @@ export default function Carpoolio() {
             variables. I needed to add the IP address of the Wi-Fi network I was
             connected to for the backend to function correctly. However, every
             time I worked on Carpoolio from a different location (coffee shops,
-            friends’ houses, etc.), I would have to manually update the IP
+            friend&apos;s houses, etc.), I would have to manually update the IP
             address in my configuration files. This process became tedious and
             error-prone, so I learned how to use environment variables to store
             values like IP addresses and API keys. This made my application more
@@ -139,26 +170,6 @@ export default function Carpoolio() {
           </>
         }
       />
-
-      {/* 
-
-
-          <Image
-            src="/carpoolio1.png"
-            alt="Image 1"
-            width={300}
-            height={200}
-            className="w-1/2"
-          />
-          <Image
-            src="/carpoolio3.png"
-            alt="Image 3"
-            width={300}
-            height={200}
-            className="w-1/2"
-          />
-        </div> */}
-      {/* </div> */}
     </div>
   );
 }

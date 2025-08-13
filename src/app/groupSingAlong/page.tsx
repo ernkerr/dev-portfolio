@@ -20,7 +20,7 @@ export default function GroupSingAlong() {
         type="Personal Project"
         stack={["React", "Next.js", "Tailwind", "Vercel"]}
         link="https://groupsingalong.com"
-        img="/singalong.jpg"
+        img="/images/groupSingAlong/singalong.jpg"
         purpose={
           <>
             Singing together is a deeply human social activity that fosters
@@ -56,8 +56,8 @@ export default function GroupSingAlong() {
         stackimg="/react.png"
         stackimg2="/next.png"
         stackimg3="/vercel.png"
-        img2="/groupsing2.png"
-        img3="/groupsing3.png"
+        img2="/images/groupSingAlong/groupsing2.png"
+        img3="/images/groupSingAlong/groupsing3.png"
         problems={
           <>
             One of the biggest challenges I faced was ensuring that the first
@@ -73,7 +73,7 @@ export default function GroupSingAlong() {
             they entered the session.
           </>
         }
-        img4="/group.jpg"
+        img4="/images/groupSingAlong/group.jpg"
         lessons={
           <>
             One of the biggest technical takeaways from this project was

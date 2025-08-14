@@ -18,7 +18,7 @@ export default function Projects() {
       link: "/groupSingAlong",
       description:
         "An interactive platform that allows users to form or join singing groups. Effortlessly search for song lyrics and synchronize them in real-time.",
-      image: "/groupSingAlongLogo.png",
+      image: "/images/groupSingAlongLogo.png",
     },
     {
       name: "Gin Score Tracker",

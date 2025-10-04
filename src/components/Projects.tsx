@@ -10,7 +10,7 @@ export default function Projects() {
       name: "Carpoolio",
       link: "/carpoolio",
       description:
-        "A sleek web app that simplifies group travel. Organize rides, manage passengers, and streamline trips with ease.",
+        "A sleek mobile app that simplifies group travel. Organize rides, manage passengers, and streamline trips with ease.",
       image: "/images/carpoolio/carpoolio.png",
     },
     {

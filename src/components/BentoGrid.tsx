@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { pressStart, poiretOne, geistMono } from "../../public/fonts/fonts";
@@ -13,9 +13,24 @@ import CurrentlyListening from "./CurrentlyListening";
 import LocationTime from "./LocationTime";
 import Blogs from "./Blogs";
 import CommitGraph from "./CommitGraph";
+import Snowfall from "react-snowfall";
 
 const BentoGrid = () => {
   const [discoMode, setDiscoMode] = useState(false); // state to manage disco mode
+  const [showSnow, setShowSnow] = useState(false);
+
+  useEffect(() => {
+    setShowSnow(isSnowing());
+  }, []);
+
+  const isSnowing = () => {
+    const today = new Date();
+    if (today.getMonth() === 11) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const toggleDiscoMode = () => {
     console.log("entering disco mode: 🪩");
@@ -30,6 +45,8 @@ const BentoGrid = () => {
         </div>
       ) : (
         <div className="grid h-full min-h-[650px] w-full min-w-[375px] transform-gpu grid-cols-12 grid-rows-9 gap-2 overflow-auto p-6 transition-all duration-700 ease-in-out will-change-transform sm:grid-cols-6 sm:grid-rows-6 sm:gap-2 sm:p-8 md:grid-cols-10 md:grid-rows-10 md:p-16 lg:grid-cols-12 lg:grid-rows-9 lg:p-20 xl:p-32">
+          {showSnow && <Snowfall color="white" />}
+
           <div className="col-span-full row-span-1 flex transform-gpu items-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform">
             <nav className="flex w-full items-center justify-between p-1">
               <Link

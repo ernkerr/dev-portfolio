@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { geistMono } from "../../public/fonts/fonts";
 import VolumeBar from "./VolumeBar";
@@ -22,25 +22,15 @@ export default function CurrentlyListening() {
   const titleRef = useRef<HTMLDivElement>(null);
   const artistRef = useRef<HTMLDivElement>(null);
 
-  const defaultSong = useMemo(
-    () => ({
-      title: "Cream on Chrome",
-      artists: ["Ratatat"],
-      image_url: "/cream_on_chrome.jpg",
-      device_type: "",
-      device_name: "",
-      volume_percent: "50",
-    }),
-    [],
-  ); // empty dependency array since values are constant
-
   const getCurrentlyListening = useCallback(async () => {
     const res = await fetch("/api/getCurrentlyPlaying");
     const data = await res.json();
-    console.log("data: ", data);
 
-    if (data.isPlaying) {
-      setIsListening(true);
+    // Update listening state
+    setIsListening(data.isPlaying);
+
+    // If we have song data (playing or paused), update it
+    if (data.title && data.artists) {
       if (!currentSong || currentSong.title !== data.title) {
         setCurrentSong({
           title: data.title,
@@ -51,12 +41,9 @@ export default function CurrentlyListening() {
           volume_percent: data.volumePercent,
         });
       }
-    } else {
-      setIsListening(false);
-      setCurrentSong(defaultSong);
-      console.log("Nothing is playing right now.");
     }
-  }, [currentSong, defaultSong]);
+    // If no song data at all, keep the last song displayed
+  }, [currentSong]);
 
   // check if I'm listening
   useEffect(() => {

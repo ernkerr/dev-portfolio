@@ -154,11 +154,12 @@ export default async function handler(req, res) {
     const song = await getCurrentlyPlaying(access_token);
     const device = await getCurrentDevice(access_token);
 
-    // If no song is playing or the data is invalid
-    if (!song || !song.is_playing || !song.item) {
+    // If no song data at all (not even paused)
+    if (!song || !song.item) {
       return res.status(200).json({ isPlaying: false });
     }
 
+    // Return song data regardless of playing state (could be paused)
     res.status(200).json({
       isPlaying: song.is_playing,
       title: song.item.name,

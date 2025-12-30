@@ -48,7 +48,7 @@ export default function CurrentlyListening() {
   // check if I'm listening
   useEffect(() => {
     getCurrentlyListening(); // get current song once when the component mounts
-    const interval = setInterval(getCurrentlyListening, 1000000000); // Poll every 10 seconds
+    const interval = setInterval(getCurrentlyListening, 10000); // Poll every 10 seconds
     return () => clearInterval(interval); // Cleanup on unmount
   }, [getCurrentlyListening]);
 

@@ -64,7 +64,10 @@ const CommitGraph = () => {
 
         const data = await response.json();
         const commitData = data
-          .filter((event: GitHubEvent) => event.type === "PushEvent")
+          .filter(
+            (event: GitHubEvent) =>
+              event.type === "PushEvent" && event.payload?.commits,
+          )
           .map((event: GitHubEvent) => ({
             date: event.created_at.split("T")[0],
             count: event.payload.commits.length,

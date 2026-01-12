@@ -7,9 +7,6 @@ const token_endpoint = "https://accounts.spotify.com/api/token";
 const now_playing_endpoint =
   "https://api.spotify.com/v1/me/player/currently-playing";
 
-const recently_played_endpoint =
-  "https://api.spotify.com/v1/me/player/recently-played?limit=1";
-
 const device_endpoint = "https://api.spotify.com/v1/me/player/devices";
 
 // credentials from environment variables
@@ -99,37 +96,6 @@ const getCurrentlyPlaying = async (access_token) => {
   }
 };
 
-// get recently played track
-const getRecentlyPlayed = async (access_token) => {
-  console.log("🕒 Fetching recently played track...");
-
-  try {
-    const response = await fetch(recently_played_endpoint, {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    });
-
-    if (response.status === 204 || response.status > 400) {
-      console.warn("⚠️ No recently played tracks found or error occurred.");
-      return null;
-    }
-
-    const data = await response.json();
-
-    if (!data.items || data.items.length === 0) {
-      console.warn("⚠️ No recently played tracks available.");
-      return null;
-    }
-
-    // Return the most recent track
-    return data.items[0].track;
-  } catch (error) {
-    console.warn("⚠️ Error fetching recently played:", error);
-    return null;
-  }
-};
-
 // get the active device
 const getCurrentDevice = async (access_token) => {
   console.log("fetching active device");
@@ -188,27 +154,11 @@ export default async function handler(req, res) {
     const song = await getCurrentlyPlaying(access_token);
     const device = await getCurrentDevice(access_token);
 
-    // If no currently playing song, try to get the most recent track
-    if (!song || !song.item) {
-      const recentTrack = await getRecentlyPlayed(access_token);
-
-      if (!recentTrack) {
-        return res.status(200).json({ isPlaying: false });
-      }
-
-      // Return recently played track
-      return res.status(200).json({
-        isPlaying: false,
-        title: recentTrack.name,
-        artists: recentTrack.artists.map((artist) => artist.name),
-        albumImageUrl: recentTrack.album.images[0]?.url || "",
-        deviceName: device?.name || "No active device",
-        isActive: device?.is_active || false,
-        volumePercent: device?.volume_percent || 60,
-      });
+    // If no song is playing or the data is invalid
+    if (!song || !song.is_playing || !song.item) {
+      return res.status(200).json({ isPlaying: false });
     }
 
-    // Return song data regardless of playing state (could be paused)
     res.status(200).json({
       isPlaying: song.is_playing,
       title: song.item.name,

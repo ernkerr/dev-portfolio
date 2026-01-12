@@ -61,34 +61,35 @@ const CommitGraph = () => {
   }
 
   return (
-    <div className="m-1 h-full w-full p-1 sm:p-2">
-      <div className="flex h-full flex-col">
-        {/* <h3 className="mb-2 text-sm font-medium">GitHub Activity</h3> */}
-        <div className="rows-4 grid flex-1 auto-rows-fr grid-cols-7 gap-1">
-          {commits.map((day, index) => (
-            <div
-              key={index}
-              // use a nested ternary operator (? :) to determine which CSS class to apply based on the num commits
-              className={`rounded-sm transition-colors duration-500 sm:rounded-md md:rounded-sm ${
-                !day ||
-                day.count === undefined ||
-                day.count === null ||
-                day.count === 0
-                  ? "bg-blue-600 dark:bg-blue-600" // No commits or undefined/null
-                  : day.count < 2
-                    ? "bg-blue-400 dark:bg-blue-500" // 1 commit
-                    : day.count < 3
-                      ? "bg-blue-300 dark:bg-blue-400" // 2 commits
-                      : day.count < 5
-                        ? "bg-blue-200 dark:bg-blue-300" // 3-4 commits
-                        : "bg-blue-100 dark:bg-blue-200" // 5+ commits
-              }`}
-              title={`${day.count} commits on ${day.date}`}
-            />
-          ))}
-        </div>
+    <a
+      href="https://github.com/ernkerr"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex h-full w-full items-center justify-center p-2"
+    >
+      <div className="grid grid-cols-7 gap-[3px]">
+        {commits.slice(0, 28).map((day, index) => (
+          <div
+            key={index}
+            className={`h-3 w-3 rounded-sm transition-colors duration-500 sm:h-4 sm:w-4 ${
+              !day ||
+              day.count === undefined ||
+              day.count === null ||
+              day.count === 0
+                ? "bg-blue-600 dark:bg-blue-600" // No commits or undefined/null
+                : day.count < 2
+                  ? "bg-blue-400 dark:bg-blue-500" // 1 commit
+                  : day.count < 3
+                    ? "bg-blue-300 dark:bg-blue-400" // 2 commits
+                    : day.count < 5
+                      ? "bg-blue-200 dark:bg-blue-300" // 3-4 commits
+                      : "bg-blue-100 dark:bg-blue-200" // 5+ commits
+            }`}
+            title={`${day.count} commits on ${day.date}`}
+          />
+        ))}
       </div>
-    </div>
+    </a>
   );
 };
 

@@ -1,10 +1,8 @@
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { geistMono } from "../../public/fonts/fonts";
 
 export default function Projects() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const projects = [
     {
       name: "Carpoolio",
@@ -36,52 +34,41 @@ export default function Projects() {
             {projects.map((project, index) => (
               <li
                 key={index}
-                className={`border-1 group relative cursor-pointer border-blue-500 p-4 ${
-                  activeIndex === index ? "" : ""
-                } `}
-                onClick={() => setActiveIndex(index)} // set index (active project)
+                className="group relative border-1 border-blue-500"
               >
-                <h3
-                  className={`${geistMono.className} text-xs text-blue-100 sm:text-sm md:text-lg`}
-                >
-                  {project?.name}
-                </h3>
+                <Link href={project.link} className="block cursor-pointer p-4">
+                  <h3
+                    className={`${geistMono.className} text-xs text-blue-100 sm:text-sm md:text-lg`}
+                  >
+                    {project.name}
+                  </h3>
 
-                {/* Underline */}
-                <div
-                  className={`absolute bottom-0 left-0 ml-2 h-1 cursor-pointer rounded-sm bg-blue-500 transition-all duration-500 lg:ml-4 ${
-                    activeIndex === index
-                      ? "w-[90%]"
-                      : "w-[90%] group-hover:w-40"
-                  }`}
-                ></div>
+                  {/* Underline */}
+                  <div
+                    className="absolute bottom-0 left-0 ml-2 h-1 w-0 rounded-sm bg-blue-500 transition-all duration-500 group-hover:w-[90%] lg:ml-4"
+                  ></div>
 
-                {activeIndex === index && (
-                  <>
-                    <p className="text-xs text-blue-300">
-                      {project?.description}
+                  {/* Description and image - shown on hover */}
+                  <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-40 group-hover:opacity-100">
+                    <p className="pt-2 text-xs text-blue-300">
+                      {project.description}
                     </p>
-                    <Link href={project?.link}>
-                      <Image
-                        key={index}
-                        src={project?.image || "/default-image.png"}
-                        alt={project?.name}
-                        height={75}
-                        width={100}
-                        // width={100}
-                        style={{
-                          minHeight: "75px",
-
-                          maxWidth: "100%",
-                          maxHeight: "100%",
-                          objectFit: "cover",
-                          objectPosition: "center",
-                        }}
-                        className="rounded-xl object-cover p-2"
-                      />
-                    </Link>
-                  </>
-                )}
+                    <Image
+                      src={project.image || "/default-image.png"}
+                      alt={project.name}
+                      height={75}
+                      width={100}
+                      style={{
+                        minHeight: "75px",
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                      }}
+                      className="rounded-xl object-cover p-2"
+                    />
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>

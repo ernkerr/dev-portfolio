@@ -8,22 +8,6 @@ interface commit {
   count: number; // num of commits that day
 }
 
-// Define interfaces for the GitHub API response
-interface GitHubCommit {
-  sha: string;
-  message: string;
-}
-
-interface GitHubEventPayload {
-  commits: GitHubCommit[];
-}
-
-interface GitHubEvent {
-  type: string;
-  created_at: string;
-  payload: GitHubEventPayload;
-}
-
 const CommitGraph = () => {
   const [commits, setCommits] = useState<commit[]>([]); // store commit data
   const [error, setError] = useState<string | null>(null);
@@ -37,7 +21,6 @@ const CommitGraph = () => {
     const fetchGithubData = async () => {
       try {
         // Check if we have cached data less than 1 hour old
-        const username = "ernkerr";
         if (
           cachedData &&
           cachedTimestamp &&
@@ -47,14 +30,7 @@ const CommitGraph = () => {
           return;
         }
 
-        const response = await fetch(
-          `https://api.github.com/users/${username}/events`,
-          {
-            headers: {
-              Accept: "application/vnd.github.v3+json",
-            },
-          },
-        );
+        const response = await fetch("/api/getGithubActivity");
 
         if (!response.ok) {
           throw new Error(
@@ -63,15 +39,7 @@ const CommitGraph = () => {
         }
 
         const data = await response.json();
-        const commitData = data
-          .filter(
-            (event: GitHubEvent) =>
-              event.type === "PushEvent" && event.payload?.commits,
-          )
-          .map((event: GitHubEvent) => ({
-            date: event.created_at.split("T")[0],
-            count: event.payload.commits.length,
-          }));
+        const commitData = data.commits;
 
         // cache the data so we don't go over the 60 API calls per hour limit
         sessionStorage.setItem("githubCommits", JSON.stringify(commitData));

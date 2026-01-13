@@ -23,18 +23,18 @@ export default function About() {
       {/* <p>My friends call me ern</p> */}
 
       <section className="px-4 md:px-16">
-        <p className="mb-8 text-lg sm:text-xl md:px-12 lg:px-24">
+        <p className="mb-8 text-lg sm:text-xl md:px-12 md:text-2xl lg:px-24 lg:text-3xl">
           I&apos;m a creative problem-solver who thrives on building, tinkering,
           and finding better ways to do things.
         </p>
         <div className="gap-4 text-justify text-sm md:px-12 lg:px-24">
           <h2
-            className={`p-2 md:p-4 lg:p-8 ${pressStart.className} md:text-md text-xs sm:text-sm`}
+            className={`py-2 md:py-4 lg:py-8 ${pressStart.className} md:text-md text-xs sm:text-sm`}
           >
             Background
           </h2>
           <div className="relative flex items-center">
-            <p className="md:text-md flex-1 p-2 sm:text-sm md:p-4 lg:p-8 lg:text-lg">
+            <p className="flex-1 py-2 text-base sm:text-lg md:py-4 md:text-xl lg:py-8 lg:text-2xl">
               My path into software development wasn&apos;t traditional - I
               started in psychology and neurotech research, working with brain
               imaging, MRIs, EEGs, and neuropsych assessments. From there, I
@@ -87,7 +87,7 @@ export default function About() {
               </motion.div>
             </div>
 
-            <p className="md:text-md mb-4 flex-1 p-2 sm:text-sm md:p-4 lg:p-8 lg:text-lg">
+            <p className="mb-4 flex-1 py-2 text-base sm:text-lg md:py-4 md:text-xl lg:py-8 lg:text-2xl">
               However, it was through building my own{" "}
               <Link href="/projects" className="text-blue-300/80">
                 projects{" "}
@@ -117,7 +117,7 @@ export default function About() {
             </motion.div>
           </div>
 
-          <p className="md:text-md mt-4 p-2 sm:text-sm md:p-4 lg:p-8 lg:text-lg">
+          <p className="mt-4 py-2 text-base sm:text-lg md:py-4 md:text-xl lg:py-8 lg:text-2xl">
             Now, I&apos;m fully immersed in software development, blending
             creativity with logic to build engaging digital experiences. What
             excites me most is the ability to express creativity - whether
@@ -126,7 +126,7 @@ export default function About() {
             more efficiently.
           </p>
 
-          <p className="md:text-md p-2 sm:text-sm md:p-4 lg:p-8 lg:text-lg">
+          <p className="py-2 text-base sm:text-lg md:py-4 md:text-xl lg:py-8 lg:text-2xl">
             I believe creativity is at its best when fueled by curiosity and
             diverse experiences. Whether I&apos;m designing software,
             collaborating with clients, or tackling a new challenge, I bring

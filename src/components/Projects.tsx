@@ -1,8 +1,10 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { geistMono } from "../../public/fonts/fonts";
 
 export default function Projects() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const projects = [
     {
       name: "Carpoolio",
@@ -28,13 +30,14 @@ export default function Projects() {
 
   return (
     <div>
-      <div className="w-full">
+      <div className="min-h-[400px] w-full" onMouseLeave={() => setHoveredIndex(null)}>
         <>
           <ul className="md:space-y-6">
             {projects.map((project, index) => (
               <li
                 key={index}
                 className="group relative border-1 border-blue-500"
+                onMouseEnter={() => setHoveredIndex(index)}
               >
                 <Link href={project.link} className="block cursor-pointer p-4">
                   <h3
@@ -45,11 +48,15 @@ export default function Projects() {
 
                   {/* Underline */}
                   <div
-                    className="absolute bottom-0 left-0 ml-2 h-1 w-0 rounded-sm bg-blue-500 transition-all duration-500 group-hover:w-[90%] lg:ml-4"
+                    className="absolute bottom-0 left-0 ml-2 h-1 w-[90%] rounded-sm bg-blue-500 transition-all duration-500 lg:ml-4"
                   ></div>
 
-                  {/* Description and image - shown on hover */}
-                  <div className="max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-40 group-hover:opacity-100">
+                  {/* Description and image - shown when hovered, Carpoolio shown by default when nothing hovered */}
+                  <div className={`overflow-hidden transition-all duration-300 ${
+                    hoveredIndex === index || (hoveredIndex === null && index === 0)
+                      ? "max-h-40 opacity-100"
+                      : "max-h-0 opacity-0"
+                  }`}>
                     <p className="pt-2 text-xs text-blue-300">
                       {project.description}
                     </p>

@@ -58,7 +58,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/${project.slug}`}>
       <motion.article
-        className="group relative h-full cursor-pointer overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/50 transform-gpu will-change-transform"
+        className="group relative flex h-64 transform-gpu cursor-pointer overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/50 will-change-transform md:h-72"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={isTouchDevice ? handleTap : undefined}
@@ -66,7 +66,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         transition={{ duration: 0.3 }}
       >
         {/* Media Container */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="relative w-80 shrink-0 overflow-hidden md:w-96 lg:w-[28rem]">
           {/* Thumbnail Image */}
           <Image
             src={project.thumbnail}
@@ -75,7 +75,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             className={`object-cover transition-opacity duration-500 ${
               isHovering && project.video ? "opacity-0" : "opacity-100"
             }`}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="448px"
           />
 
           {/* Video */}
@@ -93,39 +93,26 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           )}
 
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent" />
-
-          {/* Play indicator */}
-          {project.video && !isHovering && (
-            <div className="absolute right-4 top-4 rounded-full bg-blue-600/80 p-2">
-              <svg
-                className="h-4 w-4 text-white"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-              </svg>
-            </div>
-          )}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-slate-800/50" />
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="flex flex-1 flex-col justify-center p-6">
           {/* Project Type Badge */}
-          <span className="mb-3 inline-block rounded-full bg-blue-600/20 px-3 py-1 text-xs font-medium text-blue-400">
+          <span className="mb-2 inline-block w-fit rounded-full bg-blue-600/20 px-3 py-1 text-xs font-medium text-blue-400">
             {project.type}
           </span>
 
           {/* Title */}
           <h2
-            className={`${pressStart.className} mb-3 text-sm transition-colors duration-300 group-hover:text-blue-400 md:text-base lg:text-lg`}
+            className={`${pressStart.className} mb-2 text-sm transition-colors duration-300 group-hover:text-blue-400 md:text-base`}
           >
             {project.title}
           </h2>
 
           {/* Description */}
           <p
-            className={`${geistMono.className} mb-4 line-clamp-2 text-xs text-gray-400 md:text-sm`}
+            className={`${geistMono.className} mb-3 line-clamp-2 text-xs text-gray-400 md:text-sm`}
           >
             {project.shortDescription}
           </p>

@@ -60,13 +60,9 @@ export default function Projects() {
         whileInView="visible"
         viewport={{ once: false, amount: 0.1 }}
       >
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="flex flex-col gap-8">
           {allProjects.map((project) => (
-            <motion.div
-              key={project.slug}
-              variants={itemVariants}
-              className={project.featured ? "md:col-span-2" : ""}
-            >
+            <motion.div key={project.slug} variants={itemVariants}>
               <ProjectCard project={project} />
             </motion.div>
           ))}

@@ -5,7 +5,7 @@ export const carpoolioMetadata: ProjectMetadata = {
   title: "Carpoolio",
   shortDescription:
     "A sleek mobile app that simplifies group travel. Organize rides, manage passengers, and streamline trips with ease.",
-  type: "Personal Project",
+  type: "Cross-platform",
   stack: [
     "React & React Native",
     "Node.js",

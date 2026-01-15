@@ -2,7 +2,7 @@
 
 A website to showcase the things I've built!
 
-<img width="1664" height="983" alt="Screenshot 2026-01-13 at 12 21 13 PM" src="https://github.com/user-attachments/assets/c15eb509-e013-4776-9552-004569501c28" />
+<img width="1032" height="1011" alt="Screenshot 2026-01-12 at 11 24 26 AM" src="https://github.com/user-attachments/assets/ed8d3379-fceb-4f55-8b66-14ca4c2e3400" />
 
 
 [Check it](https://www.erinkerr.me/)

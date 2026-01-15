@@ -59,7 +59,7 @@ export default function About() {
 
         {/* Profile Image Card */}
         <motion.div
-          className="relative col-span-3 row-span-2 overflow-hidden rounded-2xl bg-blue-500 shadow-md md:col-span-3"
+          className="relative col-span-6 aspect-[4/3] max-h-[60vh] overflow-hidden rounded-2xl bg-blue-500 shadow-md md:col-span-3 md:row-span-2 md:aspect-auto md:max-h-none"
           variants={itemVariants}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.3 }}

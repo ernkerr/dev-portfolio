@@ -14,6 +14,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   const [isHovering, setIsHovering] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -73,7 +74,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             alt={project.title}
             fill
             className={`object-cover transition-opacity duration-500 ${
-              isHovering && project.video ? "opacity-0" : "opacity-100"
+              isHovering && videoLoaded ? "opacity-0" : "opacity-100"
             }`}
             sizes="448px"
           />
@@ -86,8 +87,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               muted
               loop
               playsInline
+              onCanPlay={() => setVideoLoaded(true)}
+              onError={() => setVideoLoaded(false)}
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-                isHovering ? "opacity-100" : "opacity-0"
+                isHovering && videoLoaded ? "opacity-100" : "opacity-0"
               }`}
             />
           )}

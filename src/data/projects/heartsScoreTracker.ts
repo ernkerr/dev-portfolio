@@ -5,7 +5,7 @@ export const heartsScoreTrackerMetadata: ProjectMetadata = {
   title: "Hearts Score Tracker",
   shortDescription:
     "Track scores and manage games of Hearts with a clean, intuitive interface.",
-  type: "Native",
+  type: "Mobile App",
   stack: ["React Native", "Expo Go", "Nativewind"],
   link: "https://apps.apple.com/za/app/hearts-score-tracker/id6755978632",
   thumbnail: "/projects/heartsScoreTracker/thumbnail.png",

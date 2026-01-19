@@ -13,7 +13,7 @@ export default function myTeaCupboard() {
             share their favorite teas with others.
           </>
         }
-        type="Personal Project"
+        type="Web App"
         stack={["HTML", "CS", "Vanilla JavaScript", "Github Pages"]}
         link="https://ernkerr.github.io/TeaCupboard/index.html"
         img="/images/myTeaCupboard/oolong.jpg"
@@ -58,9 +58,9 @@ export default function myTeaCupboard() {
             like this that don&apos;t require server-side processing.
           </>
         }
-        stackimg="/react.png"
-        stackimg2="/next.png"
-        stackimg3="/vercel.png"
+        stackimg="/JS.png"
+        stackimg2="/HTML5.png"
+        stackimg3="/GithubPages.png"
         img2="/images/myTeaCupboard/teas.png"
         img3="/images/myTeaCupboard/newCupboard.png"
         problems={<></>}

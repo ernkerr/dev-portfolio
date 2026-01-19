@@ -22,9 +22,9 @@ export default function HeartsScoreTracker() {
             me to move faster, stay consistent, and iterate with confidence.
           </>
         }
-        type="Indie App"
+        type="Mobile App"
         stack={["React Native", "Expo Go", "NativeWind"]}
-        link="https://apps.apple.com/us/app/hearts-score-tracker/id6755978632" // replace with real link
+        link="https://apps.apple.com/us/app/hearts-score-tracker/id6755978632" 
         img="/images/heartsScoreTracker/icon.png"
         purpose={
           <>

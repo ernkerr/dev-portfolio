@@ -41,7 +41,7 @@ export default function Carpoolio() {
             their phones.
           </>
         }
-        type="Personal Project"
+        type="Cross-platform"
         stack={[
           "React & React Native",
           "Node.js",

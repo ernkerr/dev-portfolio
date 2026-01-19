@@ -17,7 +17,7 @@ export default function GroupSingAlong() {
             provides a modern, centralized solution for shared singing.
           </>
         }
-        type="Personal Project"
+        type="Web App"
         stack={["React", "Next.js", "Tailwind", "Vercel"]}
         link="https://groupsingalong.com"
         img="/images/groupSingAlong/singalong.jpg"

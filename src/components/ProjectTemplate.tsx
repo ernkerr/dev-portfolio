@@ -95,33 +95,33 @@ export default function ProjectTemplate({
           </p>
         </div>
 
-        <div className="flex flex-row justify-end gap-4 sm:gap-6">
-          <div className="mt-20 flex flex-col gap-8 sm:mt-32 md:mt-0 md:p-16 lg:mt-4 lg:p-8">
+        <div className="flex flex-row justify-end gap-4">
+          <div className="mt-16 flex w-96 flex-col items-center gap-4 ">
             <Image
               src={stackimg}
               alt={title}
               width={700}
               height={700}
-              className="sm:w-4/5 md:w-2/3"
+              className="max-h-24 w-auto object-contain"
             />
             <Image
               src={stackimg2}
               alt={title}
               width={700}
               height={700}
-              className="sm:w-4/5 md:w-2/3"
+              className="max-h-24 w-auto object-contain"
             />
             <Image
               src={stackimg3}
               alt={title}
               width={700}
               height={400}
-              className="sm:w-4/5 md:w-2/3"
+              className="max-h-24 w-auto object-contain"
             />
           </div>
           <div className="flex flex-col">
             <h2
-              className={`py-8 text-xl sm:text-2xl md:text-3xl lg:mt-8 lg:text-4xl`}
+              className={`py-8 text-xl sm:text-2xl md:text-3xl lg:text-4xl`}
             >
               Stack & Explanation
             </h2>

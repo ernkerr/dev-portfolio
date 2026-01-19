@@ -17,7 +17,7 @@ export default function GinScoreTracker() {
             <br />— all within a clean, intuitive interface.
           </>
         }
-        type="Personal Project"
+        type="Mobile App"
         stack={["React Native", "Expo Go", "Nativewind"]}
         link="https://apps.apple.com/us/app/gin-score-tracker/id6746460027"
         img="/images/ginScoreTracker/GinLandscape.png"

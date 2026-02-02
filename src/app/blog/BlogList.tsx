@@ -46,7 +46,7 @@ export default function BlogList({ posts }: BlogListProps) {
         <h1
           className={`${pressStart.className} mb-6 text-2xl md:text-4xl lg:text-5xl`}
         >
-          Blog
+          Blogs
         </h1>
         <p className="max-w-2xl text-base text-gray-300 md:text-lg lg:text-xl">
           Thoughts, tutorials, and insights on web development and software

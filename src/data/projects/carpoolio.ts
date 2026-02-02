@@ -13,7 +13,7 @@ export const carpoolioMetadata: ProjectMetadata = {
     "Vercel Postgres",
     "Supabase",
   ],
-  link: "https://apps.apple.com/us/app/carpoolio/id6747052428",
+  link: "https://erinkerr.me/carpoolio",
   thumbnail: "/projects/carpoolio/thumbnail.png",
   video: "/projects/carpoolio/demo.mp4",
   featured: true,

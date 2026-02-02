@@ -19,6 +19,12 @@ export default function NavBar() {
           Projects
         </Link>
         <Link
+          href="/blog"
+          className="med:text-med transform-gpu rounded-md px-1 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:px-3 sm:text-sm lg:text-lg"
+        >
+          Blog
+        </Link>
+        <Link
           href="/about/"
           className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:text-sm lg:text-lg"
         >

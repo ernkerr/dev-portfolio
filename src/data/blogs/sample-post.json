@@ -1,0 +1,12 @@
+{
+  "title": "Sample Blog Post",
+  "slug": "sample-post",
+  "html": "<p>This is a sample blog post to test the blog functionality. You can delete this once real posts start coming in!</p><p>The webhook is set up to automatically commit new posts to this directory.</p>",
+  "excerpt": "A sample blog post for testing the blog system.",
+  "metaDescription": "Sample blog post for testing",
+  "keywords": ["sample", "test"],
+  "intent": "Informational",
+  "articleType": "how-to",
+  "publishedAt": "2025-01-31T12:00:00Z",
+  "receivedAt": "2025-01-31T12:00:00Z"
+}

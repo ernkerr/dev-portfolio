@@ -1,9 +1,15 @@
-// https://nextjs.org/learn-pages-router/basics/data-fetching/setup
+import { getAllBlogPosts } from "@/data/blogs";
+import NavBar from "@/components/NavBar";
+import BlogList from "./BlogList";
 
-// go through tutorial l8r
 export default function Blog() {
-  return <div>Blog</div>;
-}
+  // Fetch all blog posts at build time (Server Component)
+  const posts = getAllBlogPosts();
 
-// I would love to get these to autowrite & cross post
-// but can be used here (by me) to accept or deny them
+  return (
+    <div className="min-h-screen bg-slate-900 text-white">
+      <NavBar />
+      <BlogList posts={posts} />
+    </div>
+  );
+}

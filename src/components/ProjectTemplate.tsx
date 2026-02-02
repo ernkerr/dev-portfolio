@@ -72,7 +72,12 @@ export default function ProjectTemplate({
           <div className="flex flex-col gap-4 text-sm">
             <h3 className="font-bold md:text-lg">Live</h3>
             <Link href={link} className="cursor-pointer text-blue-500">
-              {link.includes("apple") ? "View App" : "View Site"}
+              {link?.includes("erinkerr.me")
+  ? "Acquired"
+  : link?.includes("apple")
+  ? "View App"
+  : "View Site"}
+
             </Link>
           </div>
         </div>

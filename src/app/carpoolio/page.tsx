@@ -13,32 +13,36 @@ export default function Carpoolio() {
         title="Carpoolio"
         description={
           <>
-            Carpoolio was the first full-stack web application I built designed
-            to solve a real-world problem
+            <strong>Status:</strong> The Carpoolio brand was acquired to avoid
+            marketplace confusion with another product. As part of that
+            acquisition, the app was delisted and the project is no longer
+            active. This page documents the work and lessons learned building
+            it.
+            <br />
+            <br />
+            Carpoolio was the first full-stack web application I built and
+            designed to solve a real-world problem
             <br />
             while helping me solidify my skills in frontend and backend
             development.
             <br />
             <br />
             The project started as an experiment in building a practical,
-            user-friendly tool that streamlines
+            user-friendly tool that streamlined
+            <br /> carpool planning for groups of friends traveling together.
             <br />
-            carpool planning for groups of friends traveling together.
             <br />
-            <br />
-            {/* Built with people&apos;s real problems in mind, it allows users to
+            Built with people&apos;s real problems in mind, it allowed users to
             create trips, add vehicles,
             <br />
             and assign seats through a playful interface.
-            <br /> */}
-            Recently, Carpoolio has been converted into a mobile app, making it
-            even easier for groups to
+            <br /> 
+            Prior to being delisted, Carpoolio was available as both a web
+            application and an iOS mobile app, making it easy for groups to
+            coordinate rides, plan trips, and assign seats on the go.
             <br />
-            coordinate rides on the go. The mobile version brings all the core
-            features to users&apos; fingertips,
-            <br />
-            allowing seamless trip planning and seat assignments directly from
-            their phones.
+            coordinate rides on the go. 
+         
           </>
         }
         type="Cross-platform"
@@ -49,24 +53,24 @@ export default function Carpoolio() {
           "Vercel Postgres",
           "Supabase",
         ]}
-        link="https://apps.apple.com/us/app/carpoolio/id6747052428"
+        link={"https://erinkerr.me/carpoolio"}
         img="/images/carpoolio/carpoolioLandingPage.png"
         purpose={
           <>
             Planning a trip with multiple cars and passengers can quickly become
             overwhelming, especially when coordination happens through
             fragmented group chats, spreadsheets, or last-minute messages.
-            Instead of relying on fragmented messaging, Carpoolio solves this
+            Instead of relying on fragmented messaging, Carpoolio solved this
             problem by <strong>centralizing ride coordination</strong>, making
             group trips smoother and more efficient.
             <br />
             <br />
             Unlike traditional carpooling apps focused on daily commutes or
-            ride-sharing with strangers, Carpoolio is tailored for{" "}
+            ride-sharing with strangers, Carpoolio ws tailored for{" "}
             <strong>pre-existing groups</strong>—people who already know each
             other but need a better way to organize their rides. Whether
             it&apos;s a road trip, a festival, or an out-of-town event, the app
-            provides a dedicated space to plan rides, assign seats, and ensure
+            provided a dedicated space to plan rides, assign seats, and ensure
             that everyone knows who they&apos;re traveling with, when
             they&apos;re leaving, and how they&apos;re getting there.
           </>
@@ -74,21 +78,20 @@ export default function Carpoolio() {
         stackexp={
           <>
             For Carpoolio, I chose a straightforward tech stack that was easy to
-            set up and fit my beginner-level skills while still allowing me to
-            learn and experiment with more advanced tools.
+            set up while still allowing me to grow as a developer.
             <br />
             <br />
             For the frontend, I opted for <strong>React</strong>, paired with{" "}
             <strong>Vanilla CSS</strong> for custom styling initially, however I
             ended up installing
-            <strong> Tailwind</strong> because I found it to be less complicated
+            <strong> Tailwind</strong> because I found it to be far less complicated
             than managing classes and css files.
             <br />
             <br />
-            For the backend, I opted for <strong>Node.js</strong> and
-            <strong> Express</strong> to create a robust server-side application
-            that handles data storage and retrieval.
-            <strong> Vercel Postgres</strong> was used for the database,
+            For the backend, I used <strong>Node.js</strong> and
+            <strong> Express</strong> to build a robust server-side application
+            that handled data storage and retrieval.
+            <strong> Vercel Postgres</strong> handled the database,
             providing a scalable and reliable solution for storing and querying
             trip and user data.
             <br />
@@ -98,8 +101,7 @@ export default function Carpoolio() {
             <br />
             <br />
             When converting it to a mobile app, I switched to{" "}
-            <strong> React Native</strong>, <strong> Nativewind</strong>, and
-            <strong> Supabase</strong>.
+            <strong> React Native</strong> and <strong> Nativewind</strong> for styling.
           </>
         }
         stackimg="/react.png"
@@ -116,8 +118,8 @@ export default function Carpoolio() {
             management, and keeping things modular.
             <br />
             <br />
-            I didn&apos;t realize how important it is to test the application
-            across different browsers (and later devices!). Certain styles and
+            I didn&apos;t realize how important it was to test the application
+            across different browsers (and later devices). Certain styles and
             features worked fine on one browser but caused issues on others,
             requiring me to tweak the CSS and use fallback techniques. I started
             with Vanilla CSS for custom styling, however I ended up installing
@@ -140,22 +142,22 @@ export default function Carpoolio() {
         lessons={
           <>
             Knowing what I know now, I would probably have made a more simple
-            web app as carpoolio&apos;s functionality is quite complex for a
-            first time developer. As the app grew, I found managing state (
+            web app as carpoolio&apos;s functionality was quite complex for a
+            novice developer. As the app grew, I found managing state (
             especially user-related data) across multiple components a bit
-            difficult. It took me a while to learn the importance of lifting
+            difficult. It forced me to learn the importance of lifting
             state up and prop drilling.
             <br />
             <br />
             One of the key lessons I learned while working on Carpoolio,
-            especially in the backend, was the importance of environment
+            especially on the backend, was the importance of using environment
             variables. I needed to add the IP address of the Wi-Fi network I was
-            connected to for the backend to function correctly. However, every
+            connected to for the backend to function properly. However, every
             time I worked on Carpoolio from a different location (coffee shops,
             friend&apos;s houses, etc.), I would have to manually update the IP
             address in my configuration files. This process became tedious and
-            error-prone, so I learned how to use environment variables to store
-            values like IP addresses and API keys. This made my application more
+            error-prone, so I started using environment variables to store
+            values like IP addresses and API keys. This made the application more
             portable and less dependent on specific environments, helping me
             work across different networks seamlessly.
             <br />

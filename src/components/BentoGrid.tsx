@@ -173,9 +173,12 @@ const BentoGrid = () => {
               </div>
             </Link>
           </div>
-          <div className="col-span-2 row-span-1 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-1 sm:row-span-1 sm:row-start-5 md:col-span-5 md:row-span-2 lg:col-span-1 lg:row-span-1">
+          <Link
+            href="/blog"
+            className="col-span-2 row-span-1 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform hover:scale-105 sm:col-span-1 sm:row-span-1 sm:row-start-5 md:col-span-5 md:row-span-2 lg:col-span-1 lg:row-span-1"
+          >
             <Blogs />
-          </div>
+          </Link>
           <div className="col-span-5 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-3 sm:row-span-2 md:col-span-4 md:row-span-3 md:row-start-11 lg:col-span-4 lg:col-start-auto lg:row-span-1 lg:row-start-auto">
             {/* <CurrentlyReading /> */}
             <LocationTime />
@@ -184,10 +187,10 @@ const BentoGrid = () => {
             <CommitGraph />
           </div>
           {/* disco mode */}
-          <div className="col-span-3 row-span-2 flex transform-gpu items-center justify-center rounded-lg bg-blue-500 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-1 sm:row-span-2 md:col-span-2 md:row-span-3 md:row-start-11 lg:col-span-2 lg:row-span-1 lg:row-start-auto">
+          <div className="col-span-3 row-span-2 flex transform-gpu items-center justify-center overflow-hidden rounded-lg bg-blue-500 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-1 sm:row-span-2 md:col-span-2 md:row-span-3 md:row-start-11 lg:col-span-2 lg:row-span-1 lg:row-start-auto">
             <button
               onClick={toggleDiscoMode}
-              className="text-sm text-white"
+              className="flex h-full w-full items-center justify-center text-sm text-white"
               disabled
             >
               <Disco />

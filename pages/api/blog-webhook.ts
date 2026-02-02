@@ -12,7 +12,7 @@ import { BlogPost } from "@/types/blog";
  */
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{ success: boolean; message: string }>
+  res: NextApiResponse
 ) {
   // Only accept POST requests
   if (req.method !== "POST") {
@@ -21,8 +21,17 @@ export default async function handler(
 
   // Validate the webhook secret
   const secret = req.headers["x-ab-secret"];
+
   if (secret !== process.env.AB_WEBHOOK_SECRET) {
-    return res.status(401).json({ success: false, message: "Unauthorized" });
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized",
+      debug: {
+        receivedSecret: secret ? `${String(secret).slice(0, 4)}...` : "none",
+        expectedSecretExists: !!process.env.AB_WEBHOOK_SECRET,
+        headerKeys: Object.keys(req.headers),
+      },
+    });
   }
 
   try {

@@ -87,6 +87,7 @@ export default function Blogger() {
         stackimg="/next.png"
         stackimg2="/react.png"
         stackimg3="/vercel.png"
+        stackImages
         img2="/images/blogger/blogger-editor.png"
         img3="/images/blogger/blogger-integrations.png"
         problems={

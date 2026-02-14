@@ -23,6 +23,7 @@ interface ProjectTemplateProps {
   problems: ReactNode;
   img4: string;
   lessons: ReactNode;
+  stackImages?: boolean;
 }
 
 export default function ProjectTemplate({
@@ -42,6 +43,7 @@ export default function ProjectTemplate({
   problems,
   img4,
   lessons,
+  stackImages,
 }: ProjectTemplateProps) {
   return (
     <div className="bg-slate-900 text-white">
@@ -147,20 +149,20 @@ export default function ProjectTemplate({
         <div className="flex justify-center">
           <Image src={img} alt={title} width={700} height={500} />
         </div> */}
-        <div className="mt-8 flex flex-row justify-center gap-4 sm:gap-8 md:gap-16">
+        <div className={`mt-8 flex justify-center ${stackImages ? "flex-col items-center gap-8" : "flex-row gap-4 sm:gap-8 md:gap-16"}`}>
           <Image
             src={img2}
             alt={title}
-            width={150}
-            height={150}
-            className="w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6"
+            width={stackImages ? 700 : 150}
+            height={stackImages ? 500 : 150}
+            className={stackImages ? "w-full sm:w-2/3 md:w-1/2" : "w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6"}
           />
           <Image
             src={img3}
             alt={title}
-            width={150}
-            height={150}
-            className="w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6"
+            width={stackImages ? 700 : 150}
+            height={stackImages ? 500 : 150}
+            className={stackImages ? "w-full sm:w-2/3 md:w-1/2" : "w-1/2 sm:w-1/3 md:w-1/5 lg:w-1/6"}
           />
         </div>
 

@@ -76,6 +76,8 @@ export default function ProjectTemplate({
   ? "Acquired"
   : link?.includes("apple")
   ? "View App"
+  : link?.includes("downloads")
+  ? "Download"
   : "View Site"}
 
             </Link>

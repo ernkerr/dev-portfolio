@@ -11,5 +11,5 @@ export const ginScoreTrackerMetadata: ProjectMetadata = {
   thumbnail: "/projects/ginScoreTracker/thumbnail.png",
   video: "/projects/ginScoreTracker/demo.mp4",
   featured: false,
-  order: 4,
+  order: 5,
 };

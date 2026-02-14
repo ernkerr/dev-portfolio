@@ -17,5 +17,5 @@ export const carpoolioMetadata: ProjectMetadata = {
   thumbnail: "/projects/carpoolio/thumbnail.png",
   video: "/projects/carpoolio/demo.mp4",
   featured: true,
-  order: 2,
+  order: 3,
 };

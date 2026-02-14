@@ -11,5 +11,5 @@ export const heartsScoreTrackerMetadata: ProjectMetadata = {
   thumbnail: "/projects/heartsScoreTracker/thumbnail.png",
   video: "/projects/heartsScoreTracker/demo.mp4",
   featured: false,
-  order: 2,
+  order: 3,
 };

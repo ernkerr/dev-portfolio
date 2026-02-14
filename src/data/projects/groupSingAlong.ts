@@ -11,5 +11,5 @@ export const groupSingAlongMetadata: ProjectMetadata = {
   thumbnail: "/projects/groupSingAlong/thumbnail.jpg",
   video: "/projects/groupSingAlong/demo.mp4",
   featured: false,
-  order: 4,
+  order: 5,
 };

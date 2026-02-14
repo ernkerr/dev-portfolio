@@ -10,5 +10,5 @@ export const teaCupboardMetadata: ProjectMetadata = {
   link: "https://ernkerr.github.io/TeaCupboard/",
   thumbnail: "/projects/teaCupboard/thumbnail.png",
   featured: false,
-  order: 6,
+  order: 7,
 };

@@ -1,4 +1,5 @@
 import { autoclickerMetadata } from "./autoclicker";
+import { bloggerMetadata } from "./blogger";
 import { carpoolioMetadata } from "./carpoolio";
 import { groupSingAlongMetadata } from "./groupSingAlong";
 import { ginScoreTrackerMetadata } from "./ginScoreTracker";
@@ -7,6 +8,7 @@ import { teaCupboardMetadata } from "./teaCupboard";
 import { ProjectMetadata } from "@/types/project";
 
 export const allProjects: ProjectMetadata[] = [
+  bloggerMetadata,
   autoclickerMetadata,
   heartsScoreTrackerMetadata,
   carpoolioMetadata,
@@ -17,6 +19,7 @@ export const allProjects: ProjectMetadata[] = [
 
 export {
   autoclickerMetadata,
+  bloggerMetadata,
   carpoolioMetadata,
   groupSingAlongMetadata,
   ginScoreTrackerMetadata,

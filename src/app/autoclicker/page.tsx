@@ -74,9 +74,9 @@ export default function AutoClicker() {
             environment.
           </>
         }
-        stackimg="/swift.png"
-        stackimg2="/swiftui.png"
-        stackimg3="/xcode.png"
+        stackimg="/stackLogos/swift.png"
+        stackimg2="/stackLogos/xcode.png"
+        stackimg3="/stackLogos/swiftui.png"
         stackImages
         img2="/images/autoclicker/autoclicker-running.png"
         img3="/images/autoclicker/autoclicker-settings.png"

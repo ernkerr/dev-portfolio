@@ -66,9 +66,9 @@ export default function HeartsScoreTracker() {
             and consistent.
           </>
         }
-        stackimg="/reactnative.png"
-        stackimg2="/expo.png"
-        stackimg3="/nativewind.png"
+        stackimg="/stackLogos/reactnative.png"
+        stackimg2="/stackLogos/expo.png"
+        stackimg3="/stackLogos/nativewind.png"
         img2="/images/heartsScoreTracker/newGame.png"
         img3="/images/heartsScoreTracker/roundScores.png"
         problems={

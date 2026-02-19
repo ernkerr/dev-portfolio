@@ -84,9 +84,9 @@ export default function Blogger() {
             <strong>Resend</strong> respectively.
           </>
         }
-        stackimg="/next.png"
-        stackimg2="/react.png"
-        stackimg3="/vercel.png"
+        stackimg="/stackLogos/next.png"
+        stackimg2="/stackLogos/react.png"
+        stackimg3="/stackLogos/vercel.png"
         stackImages
         img2="/images/blogger/blogger-editor.png"
         img3="/images/blogger/blogger-integrations.png"

@@ -28,21 +28,18 @@ export default function Carpoolio() {
             <br />
             <br />
             The project started as an experiment in building a practical,
-            user-friendly tool that streamlined
-            <br /> carpool planning for groups of friends traveling together.
+            user-friendly tool that streamlined carpool planning for groups of
+            friends traveling together.
             <br />
             <br />
             Built with people&apos;s real problems in mind, it allowed users to
-            create trips, add vehicles,
+            create trips, add vehicles, and assign seats through a playful
+            interface.
             <br />
-            and assign seats through a playful interface.
-            <br /> 
             Prior to being delisted, Carpoolio was available as both a web
             application and an iOS mobile app, making it easy for groups to
             coordinate rides, plan trips, and assign seats on the go.
             <br />
-            coordinate rides on the go. 
-         
           </>
         }
         type="Cross-platform"
@@ -84,16 +81,16 @@ export default function Carpoolio() {
             For the frontend, I opted for <strong>React</strong>, paired with{" "}
             <strong>Vanilla CSS</strong> for custom styling initially, however I
             ended up installing
-            <strong> Tailwind</strong> because I found it to be far less complicated
-            than managing classes and css files.
+            <strong> Tailwind</strong> because I found it to be far less
+            complicated than managing classes and css files.
             <br />
             <br />
             For the backend, I used <strong>Node.js</strong> and
             <strong> Express</strong> to build a robust server-side application
             that handled data storage and retrieval.
-            <strong> Vercel Postgres</strong> handled the database,
-            providing a scalable and reliable solution for storing and querying
-            trip and user data.
+            <strong> Vercel Postgres</strong> handled the database, providing a
+            scalable and reliable solution for storing and querying trip and
+            user data.
             <br />
             <br />
             Overall, I aimed for a tech stack that was both practical and
@@ -101,12 +98,13 @@ export default function Carpoolio() {
             <br />
             <br />
             When converting it to a mobile app, I switched to{" "}
-            <strong> React Native</strong> and <strong> Nativewind</strong> for styling.
+            <strong> React Native</strong> and <strong> Nativewind</strong> for
+            styling.
           </>
         }
-        stackimg="/react.png"
-        stackimg2="/node.png"
-        stackimg3="/vercel.png"
+        stackimg="/stackLogos/react.png"
+        stackimg2="/stackLogos/node.png"
+        stackimg3="/stackLogos/vercel.png"
         img2="/images/carpoolio/trips.png"
         img3="/images/carpoolio/vegas.png"
         problems={
@@ -145,8 +143,8 @@ export default function Carpoolio() {
             web app as carpoolio&apos;s functionality was quite complex for a
             novice developer. As the app grew, I found managing state (
             especially user-related data) across multiple components a bit
-            difficult. It forced me to learn the importance of lifting
-            state up and prop drilling.
+            difficult. It forced me to learn the importance of lifting state up
+            and prop drilling.
             <br />
             <br />
             One of the key lessons I learned while working on Carpoolio,
@@ -157,9 +155,9 @@ export default function Carpoolio() {
             friend&apos;s houses, etc.), I would have to manually update the IP
             address in my configuration files. This process became tedious and
             error-prone, so I started using environment variables to store
-            values like IP addresses and API keys. This made the application more
-            portable and less dependent on specific environments, helping me
-            work across different networks seamlessly.
+            values like IP addresses and API keys. This made the application
+            more portable and less dependent on specific environments, helping
+            me work across different networks seamlessly.
             <br />
             <br />
             These lessons have really helped me grow as a developer and changed

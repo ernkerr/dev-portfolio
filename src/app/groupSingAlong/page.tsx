@@ -53,9 +53,9 @@ export default function GroupSingAlong() {
             allowing for smooth real-time interactions between users.
           </>
         }
-        stackimg="/react.png"
-        stackimg2="/next.png"
-        stackimg3="/vercel.png"
+        stackimg="/stackLogos/react.png"
+        stackimg2="/stackLogos/next.png"
+        stackimg3="/stackLogos/vercel.png"
         img2="/images/groupSingAlong/groupsing2.png"
         img3="/images/groupSingAlong/groupsing3.png"
         problems={

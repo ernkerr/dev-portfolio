@@ -80,9 +80,9 @@ export default function GinScoreTracker() {
             that feels both nostalgic and modern <br />
           </>
         }
-        stackimg="/reactnative.png"
-        stackimg2="/expo.png"
-        stackimg3="/nativewind.png"
+        stackimg="/stackLogos/reactnative.png"
+        stackimg2="/stackLogos/expo.png"
+        stackimg3="/stackLogos/nativewind.png"
         img2="/images/ginScoreTracker/GinLogo.png"
         img3="/images/ginScoreTracker/GinLogo.png"
         problems={

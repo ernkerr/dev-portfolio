@@ -8,8 +8,8 @@ export const heartsScoreTrackerMetadata: ProjectMetadata = {
   type: "Mobile App",
   stack: ["React Native", "Expo Go", "Nativewind"],
   link: "https://apps.apple.com/za/app/hearts-score-tracker/id6755978632",
-  thumbnail: "/projects/heartsScoreTracker/thumbnail.png",
-  video: "/projects/heartsScoreTracker/demo.mp4",
+  thumbnail: "/images/heartsScoreTracker/thumbnail.png",
+  video: "/images/heartsScoreTracker/demo.mp4",
   featured: false,
   order: 3,
 };

@@ -8,8 +8,8 @@ export const groupSingAlongMetadata: ProjectMetadata = {
   type: "Web App",
   stack: ["React", "Next.js", "Tailwind", "Vercel"],
   link: "https://groupsingalong.com",
-  thumbnail: "/projects/groupSingAlong/thumbnail.jpg",
-  video: "/projects/groupSingAlong/demo.mp4",
+  thumbnail: "/images/groupSingAlong/thumbnail.jpg",
+  video: "/images/groupSingAlong/demo.mp4",
   featured: false,
   order: 5,
 };

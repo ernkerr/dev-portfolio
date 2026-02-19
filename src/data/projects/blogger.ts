@@ -8,7 +8,7 @@ export const bloggerMetadata: ProjectMetadata = {
   type: "Web App",
   stack: ["Next.js", "React", "TypeScript", "PostgreSQL", "Drizzle", "Gemini AI"],
   link: "#",
-  thumbnail: "/projects/blogger/thumbnail.png",
+  thumbnail: "/images/blogger/thumbnail.png",
   featured: false,
   order: 1,
 };

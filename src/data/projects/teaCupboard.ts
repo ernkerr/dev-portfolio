@@ -8,7 +8,7 @@ export const teaCupboardMetadata: ProjectMetadata = {
   type: "Web App",
   stack: ["Vanilla JS", "Tailwind", "GitHub Pages"],
   link: "https://ernkerr.github.io/TeaCupboard/",
-  thumbnail: "/projects/teaCupboard/thumbnail.png",
+  thumbnail: "/images/myTeaCupboard/thumbnail.png",
   featured: false,
   order: 7,
 };

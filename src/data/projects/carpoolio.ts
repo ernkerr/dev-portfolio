@@ -14,8 +14,8 @@ export const carpoolioMetadata: ProjectMetadata = {
     "Supabase",
   ],
   link: "https://erinkerr.me/carpoolio",
-  thumbnail: "/projects/carpoolio/thumbnail.png",
-  video: "/projects/carpoolio/demo.mp4",
+  thumbnail: "/images/carpoolio/thumbnail.png",
+  video: "/images/carpoolio/demo.mp4",
   featured: true,
   order: 4,
 };

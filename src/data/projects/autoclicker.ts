@@ -8,7 +8,7 @@ export const autoclickerMetadata: ProjectMetadata = {
   type: "Tool",
   stack: ["Swift", "SwiftUI", "Accessibility APIs", "Xcode"],
   link: "/downloads/AutoClicker.zip",
-  thumbnail: "/projects/autoclicker/thumbnail.png",
+  thumbnail: "/images/autoClicker/thumbnail.png",
   featured: false,
   order: 2,
 };

@@ -185,6 +185,33 @@ function fallbackStartIso(dayKey) {
   return `${dayKey}T08:00:00.000Z`;
 }
 
+function stripHtml(html) {
+  if (typeof html !== "string" || html.trim().length === 0) {
+    return "";
+  }
+
+  return html
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&quot;/gi, "\"")
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractOrganizers(raw) {
+  if (!Array.isArray(raw?.withEvent?.exhibitorList)) {
+    return [];
+  }
+
+  return raw.withEvent.exhibitorList
+    .map((item) => (isRecord(item) ? asString(item.name) : ""))
+    .filter(Boolean);
+}
+
 function normalizeGraphqlEvent(raw) {
   if (!isRecord(raw)) {
     return null;
@@ -245,6 +272,11 @@ function normalizeGraphqlEvent(raw) {
     asString(raw.timeLabel) || asString(raw.time),
   );
 
+  const description = stripHtml(asString(raw.htmlDescription));
+  const eventType = asString(raw.type);
+  const organizers = extractOrganizers(raw);
+  const bannerUrl = asString(raw.bannerUrl);
+
   const id =
     externalId.toLowerCase().replace(/[^a-z0-9]+/g, "-") ||
     `ew26-${dayKey}-${slugify(title)}`;
@@ -258,6 +290,10 @@ function normalizeGraphqlEvent(raw) {
     ...(endIso ? { endIso } : {}),
     timeLabel,
     location,
+    ...(description ? { description } : {}),
+    ...(eventType ? { eventType } : {}),
+    ...(organizers.length > 0 ? { organizers } : {}),
+    ...(bannerUrl ? { bannerUrl } : {}),
   };
 }
 

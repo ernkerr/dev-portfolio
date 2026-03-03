@@ -27,13 +27,13 @@ export default function AboutTab() {
         >
           Email Erin
         </a>
-        <button
+        {/* <button
           type="button"
           disabled
           className="cursor-not-allowed rounded-lg border border-white/20 px-4 py-2 text-sm text-blue-100/70"
         >
           Schedule Demo Call (Coming Soon)
-        </button>
+        </button> */}
       </div>
     </section>
   );

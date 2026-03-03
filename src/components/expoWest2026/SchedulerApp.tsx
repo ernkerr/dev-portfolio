@@ -8,6 +8,7 @@ import DayFilter from "@/components/expoWest2026/DayFilter";
 import EventCard from "@/components/expoWest2026/EventCard";
 import AboutTab from "@/components/expoWest2026/AboutTab";
 import RefreshConflictModal from "@/components/expoWest2026/RefreshConflictModal";
+import EventDetailsModal from "@/components/expoWest2026/EventDetailsModal";
 import { EXPO_WEST_2026_SNAPSHOT } from "@/data/expoWest2026/snapshot";
 import { computeSnapshotDiff, SnapshotDiff } from "@/lib/expoWest2026/diff";
 import {
@@ -77,6 +78,9 @@ export default function SchedulerApp() {
   const [refreshDecisions, setRefreshDecisions] = useState<
     Record<string, RemovedDecision>
   >({});
+  const [selectedDetailsEvent, setSelectedDetailsEvent] = useState<ExpoEvent | null>(
+    null,
+  );
   const contentAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -187,6 +191,10 @@ export default function SchedulerApp() {
         updatedAtIso: new Date().toISOString(),
       };
     });
+  };
+
+  const openDetails = (event: ExpoEvent) => {
+    setSelectedDetailsEvent(event);
   };
 
   const setRemovedDecision = (eventId: string, decision: RemovedDecision) => {
@@ -322,6 +330,7 @@ export default function SchedulerApp() {
                             event={event}
                             isSelected={selectedEventIds.has(event.id)}
                             onToggle={toggleSelection}
+                            onOpenDetails={openDetails}
                           />
                         ))}
                   </div>
@@ -350,6 +359,7 @@ export default function SchedulerApp() {
                             isSelected={selectedEventIds.has(event.id)}
                             isRemovedPlaceholder={!acceptedEventMap.has(event.id)}
                             onToggle={toggleSelection}
+                            onOpenDetails={openDetails}
                           />
                         ))}
                   </div>
@@ -373,6 +383,10 @@ export default function SchedulerApp() {
         onDecisionChange={setRemovedDecision}
         onRefresh={applyRefresh}
         onDismiss={() => setShowRefreshModal(false)}
+      />
+      <EventDetailsModal
+        event={selectedDetailsEvent}
+        onClose={() => setSelectedDetailsEvent(null)}
       />
     </div>
   );

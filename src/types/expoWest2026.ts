@@ -27,6 +27,10 @@ export interface ExpoEvent {
   endIso?: string;
   timeLabel: string;
   location: string;
+  description?: string;
+  eventType?: string;
+  organizers?: string[];
+  bannerUrl?: string;
 }
 
 export interface ScheduleSnapshot {

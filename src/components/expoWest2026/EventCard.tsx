@@ -5,6 +5,7 @@ interface EventCardProps {
   isSelected: boolean;
   isRemovedPlaceholder?: boolean;
   onToggle: (eventId: string) => void;
+  onOpenDetails: (event: ExpoEvent) => void;
 }
 
 export default function EventCard({
@@ -12,6 +13,7 @@ export default function EventCard({
   isSelected,
   isRemovedPlaceholder = false,
   onToggle,
+  onOpenDetails,
 }: EventCardProps) {
   const buttonLabel = isRemovedPlaceholder
     ? "Remove"
@@ -51,13 +53,22 @@ export default function EventCard({
         </span>
       </div>
 
-      <button
-        type="button"
-        onClick={() => onToggle(event.id)}
-        className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors md:text-sm ${buttonStyles}`}
-      >
-        {buttonLabel}
-      </button>
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() => onOpenDetails(event)}
+          className="rounded-lg border border-slate-500 px-3 py-2 text-xs font-medium text-slate-100 transition-colors hover:bg-slate-700 md:text-sm"
+        >
+          Details
+        </button>
+        <button
+          type="button"
+          onClick={() => onToggle(event.id)}
+          className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors md:text-sm ${buttonStyles}`}
+        >
+          {buttonLabel}
+        </button>
+      </div>
     </article>
   );
 }

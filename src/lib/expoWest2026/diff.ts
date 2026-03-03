@@ -25,6 +25,10 @@ function eventFingerprint(event: ExpoEvent) {
     event.endIso ?? "",
     event.timeLabel,
     event.location,
+    event.description ?? "",
+    event.eventType ?? "",
+    event.organizers?.join(",") ?? "",
+    event.bannerUrl ?? "",
   ].join("|");
 }
 

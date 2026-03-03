@@ -19,6 +19,12 @@ const nextConfig: NextConfig = {
         destination: "/scheduler",
         permanent: true,
       },
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "sceduler.erinkerr.me" }],
+        destination: "https://scheduler.erinkerr.me/:path*",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

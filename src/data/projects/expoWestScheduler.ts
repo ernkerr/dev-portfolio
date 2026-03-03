@@ -8,7 +8,7 @@ export const expoWestSchedulerMetadata: ProjectMetadata = {
   type: "Web App",
   stack: ["Next.js", "React", "TypeScript", "LocalStorage"],
   link: "/scheduler",
-  thumbnail: "/ek.png",
+  thumbnail: "/expo_west2.png",
   featured: true,
   order: -1,
 };

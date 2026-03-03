@@ -22,7 +22,7 @@ export default function EventCard({
       : "Add to My Schedule";
 
   const buttonStyles = isSelected
-    ? "bg-red-500/80 text-white hover:bg-red-500"
+    ? "border border-red-400 bg-transparent text-red-300 hover:bg-red-500/10"
     : "bg-blue-500 text-white hover:bg-blue-400";
 
   return (

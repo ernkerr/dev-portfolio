@@ -10,7 +10,9 @@ function isAssetOrInternalPath(pathname: string) {
 }
 
 export function middleware(request: NextRequest) {
-  const host = request.headers.get("host")?.toLowerCase();
+  const hostHeader =
+    request.headers.get("x-forwarded-host") ?? request.headers.get("host");
+  const host = hostHeader?.toLowerCase().split(":")[0];
   const { pathname } = request.nextUrl;
 
   if (host === "sceduler.erinkerr.me") {

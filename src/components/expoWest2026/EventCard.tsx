@@ -42,11 +42,11 @@ export default function EventCard({
         ) : null}
       </div>
 
-      <div className="mb-4 flex flex-wrap gap-2">
-        <span className="rounded-full bg-blue-500/20 px-3 py-1 text-xs text-blue-100 md:text-sm">
+      <div className="mb-4 flex flex-col gap-2">
+        <span className="w-fit rounded-full bg-blue-500/20 px-3 py-1 text-xs text-blue-100 md:text-sm">
           {event.timeLabel}
         </span>
-        <span className="rounded-full bg-slate-700 px-3 py-1 text-xs text-slate-200 md:text-sm">
+        <span className="w-fit rounded-full bg-slate-700 px-3 py-1 text-xs text-slate-200 md:text-sm">
           {event.location}
         </span>
       </div>

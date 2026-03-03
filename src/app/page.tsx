@@ -1,6 +1,21 @@
 import BentoGrid from "../components/BentoGrid";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+  const headersList = await headers();
+  const hostHeader =
+    headersList.get("x-forwarded-host") ?? headersList.get("host");
+  const host = hostHeader?.toLowerCase().split(":")[0];
+
+  if (host === "scheduler.erinkerr.me") {
+    redirect("/scheduler");
+  }
+
+  if (host === "sceduler.erinkerr.me") {
+    redirect("https://scheduler.erinkerr.me/scheduler");
+  }
+
   return (
     <div>
       <BentoGrid />

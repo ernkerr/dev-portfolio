@@ -1,0 +1,14 @@
+import { ProjectMetadata } from "@/types/project";
+
+export const expoWestSchedulerMetadata: ProjectMetadata = {
+  slug: "scheduler",
+  title: "Expo West Scheduler",
+  shortDescription:
+    "A lightweight Expo West 2026 planner with personal schedule saving and safe refresh when official events change.",
+  type: "Web App",
+  stack: ["Next.js", "React", "TypeScript", "LocalStorage"],
+  link: "/scheduler",
+  thumbnail: "/ek.png",
+  featured: true,
+  order: -1,
+};

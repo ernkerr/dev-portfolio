@@ -7,7 +7,8 @@
     "dev:local": "next dev --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "expo:scrape": "node scripts/expo-west-2026/scrape.mjs && node scripts/expo-west-2026/normalize.mjs"
   },
   "dependencies": {
     "axios": "^1.7.9",

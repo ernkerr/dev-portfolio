@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     domains: ["i.scdn.co", "covers.openlibrary.org"],
     remotePatterns: [
@@ -12,6 +11,24 @@ const nextConfig: NextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/sceduler",
+        destination: "/scheduler",
+        permanent: true,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/",
+        has: [{ type: "host", value: "scheduler.erinkerr.me" }],
+        destination: "/scheduler",
+      },
+    ];
   },
 };
 

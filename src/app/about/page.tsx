@@ -1,7 +1,7 @@
 "use client";
 
 import NavBar from "@/components/NavBar";
-import { pressStart, poiretOne } from "../../../public/fonts/fonts";
+import { pressStart } from "../../../public/fonts/fonts";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -39,7 +39,7 @@ export default function About() {
       >
         {/* Hero Title Card */}
         <motion.div
-          className="col-span-6 flex flex-col justify-end rounded-2xl bg-blue-600 p-6 shadow-md md:col-span-5 md:row-span-2 md:p-8 lg:p-10"
+          className="col-span-6 flex flex-col justify-end rounded-2xl bg-blue-600 p-6 shadow-md md:col-span-5 md:row-span-2 md:p-8"
           variants={itemVariants}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.3 }}
@@ -49,9 +49,7 @@ export default function About() {
           >
             About Me
           </h1>
-          <p
-            className={`${poiretOne.className} text-xl text-gray-100 md:text-2xl lg:text-3xl`}
-          >
+          <p className="text-base leading-loose text-gray-100 md:text-lg lg:text-xl">
             I&apos;m a creative problem-solver who thrives on building,
             tinkering, and finding better ways to do things.
           </p>
@@ -99,10 +97,10 @@ export default function About() {
             neuropsych assessments.
           </p>
           <p className="mb-4 text-base leading-loose text-gray-100 md:text-lg lg:text-xl">
-            At a neurotech startup, I started coding to automate processes.
-            That&apos;s when it clicked. I realized the true power of software:
-            solving inefficiencies, simplifying workflows, and turning complex
-            problems into intuitive solutions.
+            At a neurotech startup, I started coding to automate processes and
+            that&apos;s when it clicked. I realized the true power of software
+            was in solving inefficiencies, simplifying workflows, and turning
+            complex problems into intuitive solutions.
           </p>
           <p className="text-base leading-loose text-gray-100 md:text-lg lg:text-xl">
             Building my own{" "}
@@ -112,8 +110,9 @@ export default function About() {
             >
               projects
             </Link>{" "}
-            is where I truly fell in love with programming. Ideas becoming
-            reality with nothing but time, creativity, and determination.
+            is where I truly fell in love with programming and design. Ideas
+            becoming reality with nothing but time, creativity, and
+            determination.
           </p>
         </motion.div>
 
@@ -156,7 +155,8 @@ export default function About() {
           <p className="text-base leading-loose text-gray-100 md:text-lg lg:text-xl">
             Fully immersed in software development, blending creativity with
             logic. I love making things work better, more beautifully, and more
-            efficiently.
+            efficiently. Technology should be joyful to use, not something to
+            tolerate.
           </p>
         </motion.div>
 
@@ -203,14 +203,14 @@ export default function About() {
 
         {/* Get in Touch Card - full width row below hobbies */}
         <motion.div
-          className="col-span-6 flex flex-col items-center justify-center rounded-2xl bg-blue-600 p-8 shadow-md md:col-span-12 md:flex-row md:justify-between md:p-10"
+          className="col-span-6 flex flex-col items-center justify-center rounded-2xl bg-blue-600 p-6 shadow-md md:col-span-12 md:flex-row md:justify-between md:p-8"
           variants={itemVariants}
           whileHover={{ scale: 1.01 }}
           transition={{ duration: 0.3 }}
         >
           <div className="mb-6 text-center md:mb-0 md:text-left">
             <h2
-              className={`${pressStart.className} mb-3 text-sm md:text-base lg:text-lg`}
+              className={`${pressStart.className} mb-4 text-sm md:text-base lg:text-lg`}
             >
               Get in Touch
             </h2>

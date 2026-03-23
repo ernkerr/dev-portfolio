@@ -10,5 +10,5 @@ export const autoclickerMetadata: ProjectMetadata = {
   link: "/downloads/AutoClicker.zip",
   thumbnail: "/images/autoClicker/thumbnail.png",
   featured: false,
-  order: 2,
+  order: 9998,
 };

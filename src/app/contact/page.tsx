@@ -1,16 +1,38 @@
 "use client";
 
-// import CurrentlyReading from "@/components/CurrentlyReading";
 import NavBar from "@/components/NavBar";
-
+import { FiGithub, FiGlobe, FiInstagram, FiLinkedin } from "react-icons/fi";
 import { pressStart } from "../../../public/fonts/fonts";
+
+const socials = [
+  {
+    name: "GitHub",
+    href: "https://github.com/ernkerr",
+    icon: FiGithub,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com/in/erinkerr",
+    icon: FiLinkedin,
+  },
+  {
+    name: "Instagram",
+    href: "https://instagram.com/erin.codes",
+    icon: FiInstagram,
+  },
+  {
+    name: "Cybergoose",
+    href: "https://cybergoose.org",
+    icon: FiGlobe,
+  },
+];
 
 export default function About() {
   return (
     <div className="min-h-screen bg-slate-900 text-white">
       <NavBar />
       <h1
-        className={`${pressStart.className} text-md flex items-center justify-start p-8 pt-16 font-medium sm:p-16`}
+        className={`${pressStart.className} text-md flex items-center justify-start p-8 pt-16 text-2xl sm:p-16 md:text-4xl lg:text-5xl`}
       >
         Let&apos;s build something together.
       </h1>
@@ -26,6 +48,20 @@ export default function About() {
           hello@erinkerr.me
         </a>
       </h3>
+      <div className="flex gap-6 pl-8 sm:pl-16">
+        {socials.map((social) => (
+          <a
+            key={social.name}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg bg-blue-600 p-3 text-gray-300 transition-all duration-300 hover:scale-110 hover:bg-blue-500 hover:text-white"
+            aria-label={social.name}
+          >
+            <social.icon className="h-6 w-6" />
+          </a>
+        ))}
+      </div>
     </div>
   );
 }

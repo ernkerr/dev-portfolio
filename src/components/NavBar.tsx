@@ -9,7 +9,7 @@ export default function NavBar() {
         href="/"
         className="text-md transform-gpu rounded-lg p-2 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:text-sm lg:text-lg"
       >
-        <Image src="/ek.png" alt="Erin Kerr" width={30} height={30} />
+        <Image src="/ek.png" alt="Erin Kerr" width={225} height={225} className="h-[30px] w-[30px]" unoptimized />
       </Link>
       <div className="align-end flex gap-4 sm:gap-8">
         <Link

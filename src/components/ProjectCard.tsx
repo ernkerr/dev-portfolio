@@ -59,7 +59,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/${project.slug}`}>
       <motion.article
-        className="group relative flex h-64 transform-gpu cursor-pointer overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/50 will-change-transform md:h-72"
+        className="group relative flex h-auto transform-gpu cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-800/50 will-change-transform md:h-72 md:flex-row"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={isTouchDevice ? handleTap : undefined}
@@ -67,7 +67,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         transition={{ duration: 0.3 }}
       >
         {/* Media Container */}
-        <div className="relative w-80 shrink-0 overflow-hidden md:w-96 lg:w-[28rem]">
+        <div className="relative h-48 w-full shrink-0 overflow-hidden sm:h-56 md:h-auto md:w-96 lg:w-[28rem]">
           {/* Thumbnail Image */}
           <Image
             src={project.thumbnail}
@@ -96,7 +96,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           )}
 
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-slate-800/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-800/50 md:bg-gradient-to-r" />
         </div>
 
         {/* Content */}

@@ -48,7 +48,7 @@ const BentoGrid = () => {
           {showSnow && <Snowfall color="white" />}
 
           <div className="col-span-full row-span-1 flex transform-gpu items-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform">
-            <nav className="flex w-full items-center justify-between p-1">
+            <nav className="flex w-full items-center justify-between px-4 py-1">
               <Link
                 href="/"
                 className="text-md transform-gpu rounded-lg p-2 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"

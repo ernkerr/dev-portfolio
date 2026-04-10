@@ -30,18 +30,18 @@ export default function Projects() {
 
   return (
     <div>
-      <div className="min-h-[400px] w-full" onMouseLeave={() => setHoveredIndex(null)}>
+      <div className="w-full" onMouseLeave={() => setHoveredIndex(null)}>
         <>
-          <ul className="md:space-y-6">
+          <ul className="space-y-2 md:space-y-6">
             {projects.map((project, index) => (
               <li
                 key={index}
                 className="group relative border-1 border-blue-500"
                 onMouseEnter={() => setHoveredIndex(index)}
               >
-                <Link href={project.link} className="block cursor-pointer p-4">
+                <Link href={project.link} className="block cursor-pointer p-2 md:p-4">
                   <h3
-                    className={`${geistMono.className} text-xs text-blue-100 sm:text-sm md:text-lg`}
+                    className={`${geistMono.className} text-sm text-blue-100 md:text-lg`}
                   >
                     {project.name}
                   </h3>
@@ -54,26 +54,24 @@ export default function Projects() {
                   {/* Description and image - shown when hovered, Carpoolio shown by default when nothing hovered */}
                   <div className={`overflow-hidden transition-all duration-300 ${
                     hoveredIndex === index || (hoveredIndex === null && index === 0)
-                      ? "max-h-40 opacity-100"
+                      ? "max-h-96 opacity-100"
                       : "max-h-0 opacity-0"
                   }`}>
                     <p className="pt-2 text-xs text-blue-300">
                       {project.description}
                     </p>
-                    <Image
-                      src={project.image || "/default-image.png"}
-                      alt={project.name}
-                      height={75}
-                      width={100}
-                      style={{
-                        minHeight: "75px",
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                        objectFit: "cover",
-                        objectPosition: "center",
-                      }}
-                      className="rounded-xl object-cover p-2"
-                    />
+                    <div className="relative mt-2 aspect-video w-full overflow-hidden rounded-xl">
+                      <Image
+                        src={project.image || "/default-image.png"}
+                        alt={project.name}
+                        fill
+                        sizes="(max-width: 640px) 60vw, (max-width: 1024px) 40vw, 30vw"
+                        style={{
+                          objectFit: "cover",
+                          objectPosition: "center",
+                        }}
+                      />
+                    </div>
                   </div>
                 </Link>
               </li>

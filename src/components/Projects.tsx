@@ -72,16 +72,13 @@ export default function Projects() {
                     >
                       See more at cybergoose.org
                     </a>
-                    <div className="relative mt-2 h-20 w-full overflow-hidden rounded-lg sm:h-24 md:h-28">
+                    <div className="mt-2 w-full overflow-hidden rounded-lg">
                       <Image
                         src={project.image || "/default-image.png"}
                         alt={project.name}
-                        fill
-                        sizes="200px"
-                        style={{
-                          objectFit: "cover",
-                          objectPosition: "center",
-                        }}
+                        width={400}
+                        height={225}
+                        className="h-auto max-h-16 w-auto max-w-full rounded-lg object-cover sm:max-h-24 md:max-h-28"
                       />
                     </div>
                   </div>

@@ -10,5 +10,5 @@ export const bloggerMetadata: ProjectMetadata = {
   link: "#",
   thumbnail: "/images/blogger/thumbnail.png",
   featured: false,
-  order: 1,
+  order: 2,
 };

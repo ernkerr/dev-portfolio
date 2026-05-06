@@ -21,7 +21,8 @@ interface ProjectTemplateProps {
   img2: string;
   img3: string;
   problems: ReactNode;
-  img4: string;
+  img4?: string;
+  video4?: string;
   lessons: ReactNode;
   stackImages?: boolean;
 }
@@ -42,6 +43,7 @@ export default function ProjectTemplate({
   img3,
   problems,
   img4,
+  video4,
   lessons,
   stackImages,
 }: ProjectTemplateProps) {
@@ -176,7 +178,18 @@ export default function ProjectTemplate({
         </div>
 
         <div className="mt-8 flex justify-center">
-          <Image src={img4} alt={title} width={700} height={700} />
+          {video4 ? (
+            <video
+              src={video4}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full max-w-[700px] rounded"
+            />
+          ) : img4 ? (
+            <Image src={img4} alt={title} width={700} height={700} />
+          ) : null}
         </div>
 
         <h2 className={`py-8 text-xl sm:text-2xl md:text-3xl lg:text-4xl`}>

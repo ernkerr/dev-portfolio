@@ -12,7 +12,7 @@ const socials = [
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/erinkerr",
+    href: "https://linkedin.com/in/erinkerr17",
     icon: FiLinkedin,
   },
   {

@@ -26,7 +26,7 @@ function Reveal({
       className={className}
       initial={reduce ? false : { opacity: 0, y: 24 }}
       whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.05, margin: "0px 0px 120px 0px" }}
       transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
     >
       {children}
@@ -147,6 +147,7 @@ const STACK_CHIPS = [
 
 const HOME_COMPARE = {
   before: { src: "/images/orderSync/before-home.png", w: 2880, h: 14918 },
+  beforeDark: { src: "/images/orderSync/before-home-dark.png", w: 2880, h: 14566 },
   afterLight: { src: "/images/orderSync/after-home.png", w: 2880, h: 14856 },
   afterDark: { src: "/images/orderSync/after-home-dark.png", w: 2880, h: 14856 },
 };
@@ -176,8 +177,10 @@ export default function OrderSync() {
         <PolkaDots />
         <Reveal className="relative z-10">
           <Eyebrow>Case Study · Design System</Eyebrow>
-          <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-            OrderSync — <Shine>Design System</Shine> Redesign
+          <h1 className="mt-6 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+            OrderSync
+            <br />
+            <Shine>Design System Redesign</Shine>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
             A scattered, effect-heavy marketing site rebuilt into a single
@@ -205,14 +208,15 @@ export default function OrderSync() {
             See the redesign.
           </h2>
           <p className="mt-4 max-w-2xl text-white/70">
-            The same homepage, before and after. Both panes scroll together —
-            toggle the rebuilt site between light and dark to watch the tokens
-            flip.
+            The same homepage, before and after. Both panes scroll together, and
+            the light/dark toggle flips both sites so you can compare them in
+            either theme.
           </p>
         </Reveal>
         <Reveal className="mt-8">
           <CompareScroll
             before={HOME_COMPARE.before}
+            beforeDark={HOME_COMPARE.beforeDark}
             afterLight={HOME_COMPARE.afterLight}
             afterDark={HOME_COMPARE.afterDark}
           />

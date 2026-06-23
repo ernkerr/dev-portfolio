@@ -55,10 +55,12 @@ function Pane({
 // When `afterDark` is supplied, a Light/Dark toggle swaps the "after" pane.
 export default function CompareScroll({
   before,
+  beforeDark = null,
   afterLight,
   afterDark = null,
 }: {
   before: Img;
+  beforeDark?: Img | null;
   afterLight: Img;
   afterDark?: Img | null;
 }) {
@@ -67,6 +69,8 @@ export default function CompareScroll({
   const rightRef = useRef<HTMLDivElement>(null);
   const lock = useRef(false);
 
+  const hasToggle = Boolean(afterDark || beforeDark);
+  const beforeShown = mode === "dark" && beforeDark ? beforeDark : before;
   const after = mode === "dark" && afterDark ? afterDark : afterLight;
 
   // Mirror scroll by ratio so panes of slightly different heights stay aligned.
@@ -83,7 +87,7 @@ export default function CompareScroll({
 
   return (
     <div>
-      {afterDark && (
+      {hasToggle && (
         <div
           className={`${geistMono.className} mb-5 inline-flex rounded-full border border-white/15 bg-navy-2 p-1 text-xs`}
         >
@@ -107,8 +111,8 @@ export default function CompareScroll({
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Pane
           paneRef={leftRef}
-          label="Before"
-          img={before}
+          label={beforeDark ? `Before · ${mode}` : "Before"}
+          img={beforeShown}
           onScroll={() => sync(leftRef.current, rightRef.current)}
         />
         <Pane

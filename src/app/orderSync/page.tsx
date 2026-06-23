@@ -7,7 +7,6 @@ import NavBar from "@/components/NavBar";
 import Shine from "@/components/Shine";
 import { PolkaDots } from "@/components/ui/PolkaDots";
 import CompareScroll from "@/components/CompareScroll";
-import CompareVideo from "@/components/CompareVideo";
 import { geistSans, geistMono } from "../../../public/fonts/fonts";
 
 /* ---------- small local helpers ---------- */
@@ -146,22 +145,22 @@ const STACK_CHIPS = [
   "Vercel",
 ];
 
-const HOME_CLIPS = {
-  beforeLight: "/images/orderSync/before-light.mp4",
-  beforeDark: "/images/orderSync/before-dark.mp4",
-  afterLight: "/images/orderSync/after-light.mp4",
-  afterDark: "/images/orderSync/after-dark.mp4",
+const HOME_COMPARE = {
+  before: { src: "/images/orderSync/before-home.png", w: 2880, h: 14370 },
+  beforeDark: { src: "/images/orderSync/before-home-dark.png", w: 2880, h: 14370 },
+  afterLight: { src: "/images/orderSync/after-home.png", w: 2880, h: 14856 },
+  afterDark: { src: "/images/orderSync/after-home-dark.png", w: 2880, h: 14856 },
 };
 
 const PAGE_PAIRS = [
   {
     title: "Landing page · AI order automation",
-    before: { src: "/images/orderSync/before-landing.png", w: 2880, h: 10534 },
+    before: { src: "/images/orderSync/before-landing.png", w: 2880, h: 7926 },
     afterLight: { src: "/images/orderSync/after-landing.png", w: 2880, h: 10620 },
   },
   {
     title: "Free tool · EDI inspector",
-    before: { src: "/images/orderSync/before-tool.png", w: 2880, h: 7000 },
+    before: { src: "/images/orderSync/before-tool.png", w: 2880, h: 7244 },
     afterLight: { src: "/images/orderSync/after-tool.png", w: 2880, h: 7008 },
   },
 ] as const;
@@ -209,17 +208,17 @@ export default function OrderSync() {
             See the redesign.
           </h2>
           <p className="mt-4 max-w-2xl text-white/70">
-            The same homepage, before and after — a scrolling walkthrough of each
-            so the live animations play. Both panes run in sync; toggle light and
+            The same homepage, before and after. Scroll either panel to compare
+            the full page top to bottom — both stay in sync. Toggle light and
             dark to flip both sites.
           </p>
         </Reveal>
         <Reveal className="mt-8">
-          <CompareVideo
-            beforeLight={HOME_CLIPS.beforeLight}
-            beforeDark={HOME_CLIPS.beforeDark}
-            afterLight={HOME_CLIPS.afterLight}
-            afterDark={HOME_CLIPS.afterDark}
+          <CompareScroll
+            before={HOME_COMPARE.before}
+            beforeDark={HOME_COMPARE.beforeDark}
+            afterLight={HOME_COMPARE.afterLight}
+            afterDark={HOME_COMPARE.afterDark}
           />
         </Reveal>
       </section>

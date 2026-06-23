@@ -148,8 +148,8 @@ const STACK_CHIPS = [
 const HOME_COMPARE = {
   before: { src: "/images/orderSync/before-home.png", w: 2880, h: 14370 },
   beforeDark: { src: "/images/orderSync/before-home-dark.png", w: 2880, h: 14370 },
-  afterLight: { src: "/images/orderSync/after-home.png", w: 2880, h: 14856 },
-  afterDark: { src: "/images/orderSync/after-home-dark.png", w: 2880, h: 14856 },
+  afterLight: { src: "/images/orderSync/after-home.png", w: 2880, h: 14726 },
+  afterDark: { src: "/images/orderSync/after-home-dark.png", w: 2880, h: 14726 },
 };
 
 const PAGE_PAIRS = [

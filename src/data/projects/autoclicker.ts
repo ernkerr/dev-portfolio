@@ -6,6 +6,7 @@ export const autoclickerMetadata: ProjectMetadata = {
   shortDescription:
     "A lightweight macOS auto-clicker rejected from the App Store for using accessibility APIs in an 'unapproved' manner.",
   type: "Tool",
+  category: "Tool",
   stack: ["Swift", "SwiftUI", "Accessibility APIs", "Xcode"],
   link: "/downloads/AutoClicker.zip",
   thumbnail: "/images/autoClicker/thumbnail.png",

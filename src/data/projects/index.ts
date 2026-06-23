@@ -8,10 +8,12 @@ import { groupSingAlongMetadata } from "./groupSingAlong";
 import { ginScoreTrackerMetadata } from "./ginScoreTracker";
 import { heartsScoreTrackerMetadata } from "./heartsScoreTracker";
 import { teaCupboardMetadata } from "./teaCupboard";
+import { orderSyncMetadata } from "./orderSync";
 import { ProjectMetadata } from "@/types/project";
 
 export const allProjects: ProjectMetadata[] = [
   gitRacerMetadata,
+  orderSyncMetadata,
   expoWestSchedulerMetadata,
   bloggerMetadata,
   asciiCamMetadata,
@@ -34,4 +36,5 @@ export {
   ginScoreTrackerMetadata,
   heartsScoreTrackerMetadata,
   teaCupboardMetadata,
+  orderSyncMetadata,
 };

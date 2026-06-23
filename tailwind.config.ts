@@ -12,6 +12,17 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        // OrderSync design-system palette (used by the design case study)
+        navy: {
+          1: "#0E172B",
+          2: "#151F34",
+          3: "#1C274C",
+          4: "#0F172A",
+        },
+        accent: {
+          from: "#9333EA",
+          to: "#06B6D4",
+        },
       },
     },
   },

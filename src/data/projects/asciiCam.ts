@@ -6,6 +6,8 @@ export const asciiCamMetadata: ProjectMetadata = {
   shortDescription:
     "A real-time webcam and image to ASCII art converter with customizable character sets and export options. Built in about 2 hours.",
   type: "Web App",
+  category: "App",
+  platform: "Web",
   stack: ["React", "TypeScript", "Vite", "Canvas API"],
   link: "https://ascii-cam.com/",
   thumbnail: "/images/asciiCam/thumbnail.png",

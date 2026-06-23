@@ -6,6 +6,8 @@ export const ginScoreTrackerMetadata: ProjectMetadata = {
   shortDescription:
     "My first shipped mobile app. Track scores, manage games, and review past sessions with a clean Neo Brutalism UI.",
   type: "Mobile App",
+  category: "App",
+  platform: "Mobile",
   stack: ["React Native", "Expo Go", "Nativewind"],
   link: "https://apps.apple.com/us/app/gin-score-tracker/id6746460027",
   thumbnail: "/images/ginScoreTracker/thumbnail.png",

@@ -6,6 +6,8 @@ export const gitRacerMetadata: ProjectMetadata = {
   shortDescription:
     "Turn your GitHub contributions into a competitive sport.",
   type: "Web App",
+  category: "App",
+  platform: "Web",
   stack: ["React", "TypeScript", "Hono", "PostgreSQL", "Drizzle", "Three.js"],
   link: "https://git-racer.vercel.app",
   thumbnail: "/images/gitRacer/finish-line.png",

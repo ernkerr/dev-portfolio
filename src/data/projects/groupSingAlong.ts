@@ -6,6 +6,8 @@ export const groupSingAlongMetadata: ProjectMetadata = {
   shortDescription:
     "A real-time group singing platform. Create sessions, search for lyrics, and sync displays for seamless sing-alongs.",
   type: "Web App",
+  category: "App",
+  platform: "Web",
   stack: ["React", "Next.js", "Tailwind", "Vercel"],
   link: "https://groupsingalong.com",
   thumbnail: "/images/groupSingAlong/thumbnail.jpg",

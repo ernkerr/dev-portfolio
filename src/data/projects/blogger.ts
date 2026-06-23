@@ -6,6 +6,8 @@ export const bloggerMetadata: ProjectMetadata = {
   shortDescription:
     "An AI writing companion that turns keyword research into an SEO content plan and publish-ready blog posts.",
   type: "Web App",
+  category: "App",
+  platform: "Web",
   stack: ["Next.js", "React", "TypeScript", "PostgreSQL", "Drizzle", "Gemini AI"],
   link: "#",
   thumbnail: "/images/blogger/thumbnail.png",

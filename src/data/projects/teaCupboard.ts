@@ -6,6 +6,8 @@ export const teaCupboardMetadata: ProjectMetadata = {
   shortDescription:
     "Track your tea collection and brewing preferences with this simple inventory tracker.",
   type: "Web App",
+  category: "App",
+  platform: "Web",
   stack: ["Vanilla JS", "Tailwind", "GitHub Pages"],
   link: "https://ernkerr.github.io/TeaCupboard/",
   thumbnail: "/images/myTeaCupboard/thumbnail.png",

@@ -79,7 +79,7 @@ const TOKENS = [
   { name: "navy-2", hex: "#151F34", cls: "bg-navy-2" },
   { name: "navy-3", hex: "#1C274C", cls: "bg-navy-3" },
   { name: "navy-4", hex: "#0F172A", cls: "bg-navy-4" },
-  { name: "navy-5", hex: "navy-3 / 30%", cls: "bg-navy-3/30" },
+  { name: "navy-5", hex: "#1C274C4D", cls: "bg-navy-3/30" },
   { name: "white", hex: "#FFFFFF", cls: "bg-white" },
 ];
 
@@ -317,11 +317,8 @@ export default function OrderSync() {
                   <div
                     className={`${t.cls} h-20 w-full rounded-xl border border-white/10`}
                   />
-                  <div className="mt-2 text-xs font-medium text-white/80">
-                    {t.name}
-                  </div>
                   <div
-                    className={`${geistMono.className} text-[10px] text-white/40`}
+                    className={`${geistMono.className} mt-2 text-xs text-white/60`}
                   >
                     {t.hex}
                   </div>

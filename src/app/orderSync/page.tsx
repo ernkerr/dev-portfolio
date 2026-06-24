@@ -296,7 +296,7 @@ export default function OrderSync() {
         <Reveal className="mt-12">
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
             <div>
-              <div className={`${geistMono.className} text-sm text-accent-to`}>
+              <div className={`${geistMono.className} text-sm text-white/70`}>
                 01 · Palette → tokens
               </div>
               <h3 className="mt-3 text-xl font-semibold">
@@ -330,7 +330,7 @@ export default function OrderSync() {
 
         {/* 2. Semantic tokens */}
         <Reveal className="mt-14">
-          <div className={`${geistMono.className} text-sm text-accent-to`}>
+          <div className={`${geistMono.className} text-sm text-white/70`}>
             02 · Self-flipping semantic tokens
           </div>
           <h3 className="mt-3 text-xl font-semibold">
@@ -347,7 +347,7 @@ export default function OrderSync() {
 
         {/* 3. Primitives + component shelf */}
         <Reveal className="mt-14">
-          <div className={`${geistMono.className} text-sm text-accent-to`}>
+          <div className={`${geistMono.className} text-sm text-white/70`}>
             03 · Four primitives
           </div>
           <h3 className="mt-3 text-xl font-semibold">
@@ -386,7 +386,7 @@ export default function OrderSync() {
 
         {/* 4. Strip effects */}
         <Reveal className="mt-14">
-          <div className={`${geistMono.className} text-sm text-accent-to`}>
+          <div className={`${geistMono.className} text-sm text-white/70`}>
             04 · Strip the effects
           </div>
           <h3 className="mt-3 text-xl font-semibold">
@@ -447,7 +447,7 @@ export default function OrderSync() {
             <Reveal key={s.n} delay={i * 0.06}>
               <div className="h-full rounded-2xl border border-white/10 bg-navy-1 p-6">
                 <div
-                  className={`${geistMono.className} text-2xl font-bold text-accent-to`}
+                  className={`${geistMono.className} text-2xl font-bold text-white`}
                 >
                   {s.n}
                 </div>
@@ -466,7 +466,7 @@ export default function OrderSync() {
           <ul className="mt-8 max-w-3xl space-y-4">
             {SHIPPED.map((s) => (
               <li key={s} className="flex gap-3 text-white/80">
-                <span className="mt-1 text-accent-to">✓</span>
+                <span className="mt-1 text-white">✓</span>
                 <span>{s}</span>
               </li>
             ))}

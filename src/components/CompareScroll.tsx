@@ -27,7 +27,7 @@ function Pane({
         <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
         <span
           className={`${geistMono.className} ml-2 text-xs uppercase tracking-wider ${
-            accent ? "text-accent-to" : "text-white/40"
+            accent ? "text-white" : "text-white/40"
           }`}
         >
           {label}

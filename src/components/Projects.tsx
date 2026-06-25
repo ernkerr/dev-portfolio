@@ -9,7 +9,7 @@ export default function Projects() {
     {
       name: "Carpoolio",
       link: "/carpoolio",
-      externalLink: "http://cybergoose.org/carpoolio",
+      externalLink: "https://cybergoose.org/projects/carpoolio",
       description:
         "A sleek mobile app that simplifies group travel. Organize rides, manage passengers, and streamline trips with ease.",
       image: "/images/carpoolio/carpoolio.png",
@@ -17,7 +17,7 @@ export default function Projects() {
     {
       name: "Group Sing Along",
       link: "/groupSingAlong",
-      externalLink: "http://cybergoose.org/groupSingAlong",
+      externalLink: "https://cybergoose.org/projects/group-sing-along",
       description:
         "An interactive platform that allows users to form or join singing groups. Effortlessly search for song lyrics and synchronize them in real-time.",
       image: "/images/groupSingAlong/groupSingAlongLogo.png",
@@ -25,7 +25,7 @@ export default function Projects() {
     {
       name: "Gin Score Tracker",
       link: "/ginScoreTracker",
-      externalLink: "http://cybergoose.org/ginScoreTracker",
+      externalLink: "https://cybergoose.org/projects/gin-score-tracker",
       description: "A simple score-tracking app for Gin Rummy.",
       image: "/images/ginScoreTracker/club.png",
     },

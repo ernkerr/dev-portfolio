@@ -1,5 +1,6 @@
 import { asciiCamMetadata } from "./asciiCam";
 import { autoclickerMetadata } from "./autoclicker";
+import { deskYogaMetadata } from "./deskYoga";
 import { gitRacerMetadata } from "./gitRacer";
 import { bloggerMetadata } from "./blogger";
 import { carpoolioMetadata } from "./carpoolio";
@@ -17,6 +18,7 @@ export const allProjects: ProjectMetadata[] = [
   expoWestSchedulerMetadata,
   bloggerMetadata,
   asciiCamMetadata,
+  deskYogaMetadata,
   autoclickerMetadata,
   heartsScoreTrackerMetadata,
   carpoolioMetadata,
@@ -28,6 +30,7 @@ export const allProjects: ProjectMetadata[] = [
 export {
   asciiCamMetadata,
   autoclickerMetadata,
+  deskYogaMetadata,
   gitRacerMetadata,
   bloggerMetadata,
   carpoolioMetadata,

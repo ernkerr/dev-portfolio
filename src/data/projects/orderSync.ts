@@ -10,7 +10,6 @@ export const orderSyncMetadata: ProjectMetadata = {
   stack: ["Next.js", "Tailwind CSS", "CVA", "Framer Motion"],
   link: "/orderSync",
   thumbnail: "/images/orderSync/thumbnail.png",
-  video: "/images/orderSync/demo.mp4",
   featured: true,
   order: 2,
 };

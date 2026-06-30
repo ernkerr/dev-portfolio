@@ -21,12 +21,12 @@ function Pane({
 }) {
   return (
     <div className="overflow-hidden rounded-xl border border-white/10 bg-navy-1">
-      <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+      <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2 md:px-4 md:py-2.5">
+        <span className="hidden h-2.5 w-2.5 rounded-full bg-white/20 md:block" />
+        <span className="hidden h-2.5 w-2.5 rounded-full bg-white/20 md:block" />
+        <span className="hidden h-2.5 w-2.5 rounded-full bg-white/20 md:block" />
         <span
-          className={`${geistMono.className} ml-2 text-xs uppercase tracking-wider ${
+          className={`${geistMono.className} truncate text-[10px] uppercase tracking-wider md:ml-2 md:text-xs ${
             accent ? "text-white" : "text-white/40"
           }`}
         >
@@ -36,7 +36,7 @@ function Pane({
       <div
         ref={paneRef}
         onScroll={onScroll}
-        className="h-[440px] overflow-y-auto md:h-[600px]"
+        className="h-[360px] overflow-y-auto md:h-[600px]"
       >
         <Image
           src={img.src}
@@ -108,7 +108,7 @@ export default function CompareScroll({
           ))}
         </div>
       )}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      <div className="grid grid-cols-2 gap-3 lg:gap-5">
         <Pane
           paneRef={leftRef}
           label={beforeDark ? `Before · ${mode}` : "Before"}

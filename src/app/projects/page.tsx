@@ -5,8 +5,35 @@ import { motion } from "framer-motion";
 import NavBar from "@/components/NavBar";
 import { pressStart } from "../../../public/fonts/fonts";
 import { allProjects } from "@/data/projects";
+import { allAgents } from "@/data/agents";
 import ProjectCard from "@/components/ProjectCard";
+import AgentCard from "@/components/AgentCard";
 import type { ProjectCategory, ProjectPlatform } from "@/types/project";
+
+// Unified, render-agnostic shape so projects and agents share one filtered grid.
+type GridItem = {
+  key: string;
+  category: ProjectCategory;
+  platform?: ProjectPlatform;
+  order: number;
+  node: React.ReactNode;
+};
+
+const GRID_ITEMS: GridItem[] = [
+  ...allProjects.map((p) => ({
+    key: p.slug,
+    category: p.category,
+    platform: p.platform,
+    order: p.order ?? 999,
+    node: <ProjectCard project={p} />,
+  })),
+  ...allAgents.map((a) => ({
+    key: a.slug,
+    category: "Agent" as const,
+    order: a.order ?? 999,
+    node: <AgentCard agent={a} />,
+  })),
+].sort((a, b) => a.order - b.order);
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -32,9 +59,16 @@ const itemVariants = {
 };
 
 // Canonical order + plural display labels for the top-level filter chips.
-const CATEGORY_ORDER: ProjectCategory[] = ["App", "Website", "Tool", "Design"];
+const CATEGORY_ORDER: ProjectCategory[] = [
+  "App",
+  "Agent",
+  "Website",
+  "Tool",
+  "Design",
+];
 const CATEGORY_LABELS: Record<ProjectCategory, string> = {
   App: "Apps",
+  Agent: "Agents",
   Website: "Websites",
   Tool: "Tools",
   Design: "Design",
@@ -48,27 +82,27 @@ export default function Projects() {
   const [category, setCategory] = useState<CategoryFilter>("All");
   const [platform, setPlatform] = useState<PlatformFilter>("All");
 
-  // Only show chips for categories that actually have projects.
+  // Only show chips for categories that actually have items.
   const categories = useMemo(
     () =>
-      CATEGORY_ORDER.filter((c) => allProjects.some((p) => p.category === c)),
+      CATEGORY_ORDER.filter((c) => GRID_ITEMS.some((i) => i.category === c)),
     [],
   );
 
-  // Platforms available among the App projects (drives the Apps sub-filter).
+  // Platforms available among the App items (drives the Apps sub-filter).
   const platforms = useMemo(
     () =>
       PLATFORM_ORDER.filter((pl) =>
-        allProjects.some((p) => p.category === "App" && p.platform === pl),
+        GRID_ITEMS.some((i) => i.category === "App" && i.platform === pl),
       ),
     [],
   );
 
   const filtered = useMemo(
     () =>
-      allProjects.filter((p) => {
-        if (category !== "All" && p.category !== category) return false;
-        if (category === "App" && platform !== "All" && p.platform !== platform)
+      GRID_ITEMS.filter((i) => {
+        if (category !== "All" && i.category !== category) return false;
+        if (category === "App" && platform !== "All" && i.platform !== platform)
           return false;
         return true;
       }),
@@ -160,14 +194,14 @@ export default function Projects() {
         animate="visible"
       >
         <div className="flex flex-col gap-8">
-          {filtered.map((project) => (
-            <motion.div key={project.slug} variants={itemVariants}>
-              <ProjectCard project={project} />
+          {filtered.map((item) => (
+            <motion.div key={item.key} variants={itemVariants}>
+              {item.node}
             </motion.div>
           ))}
         </div>
         {filtered.length === 0 && (
-          <p className="text-gray-400">No projects in this category yet.</p>
+          <p className="text-gray-400">Nothing in this category yet.</p>
         )}
       </motion.section>
     </div>

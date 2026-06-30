@@ -1,4 +1,4 @@
-export type ProjectCategory = "App" | "Website" | "Tool" | "Design";
+export type ProjectCategory = "App" | "Agent" | "Website" | "Tool" | "Design";
 export type ProjectPlatform = "Web" | "Mobile" | "Cross-platform";
 
 export interface ProjectMetadata {

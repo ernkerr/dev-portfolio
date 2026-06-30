@@ -130,7 +130,7 @@ export default function Projects() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.25 }}
-            className="mt-4 flex flex-wrap items-center gap-2 border-l-2 border-slate-700/50 pl-4"
+            className="mt-4 flex flex-wrap items-center gap-2"
           >
             {(["All", ...platforms] as PlatformFilter[]).map((pl) => (
               <button

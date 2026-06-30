@@ -38,13 +38,13 @@ const BentoGrid = () => {
   };
 
   return (
-    <div className="perspective-[2000px] relative flex min-h-screen items-start justify-center overflow-y-auto bg-slate-100 text-white dark:bg-slate-900 sm:h-screen sm:min-h-0 sm:items-center">
+    <div className="perspective-[2000px] relative flex h-screen items-center justify-center overflow-y-auto bg-slate-100 text-white dark:bg-slate-900">
       {discoMode ? (
         <div>
           <DiscoMode discoMode={discoMode} toggleDiscoMode={toggleDiscoMode} />
         </div>
       ) : (
-        <div className="grid min-h-[900px] w-full min-w-[375px] transform-gpu grid-cols-12 grid-rows-9 gap-2 overflow-visible p-6 transition-all duration-700 ease-in-out will-change-transform sm:h-full sm:min-h-[650px] sm:grid-cols-6 sm:grid-rows-6 sm:gap-2 sm:overflow-auto sm:p-8 md:grid-cols-10 md:grid-rows-10 md:p-16 lg:grid-cols-12 lg:grid-rows-9 lg:p-20 xl:p-32">
+        <div className="grid h-full min-h-[650px] w-full min-w-[375px] transform-gpu grid-cols-12 grid-rows-9 gap-2 overflow-auto p-6 transition-all duration-700 ease-in-out will-change-transform sm:grid-cols-6 sm:grid-rows-6 sm:gap-2 sm:p-8 md:grid-cols-10 md:grid-rows-10 md:p-16 lg:grid-cols-12 lg:grid-rows-9 lg:p-20 xl:p-32">
           {showSnow && <Snowfall color="white" />}
 
           <div className="col-span-full row-span-1 flex transform-gpu items-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform">

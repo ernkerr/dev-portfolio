@@ -22,9 +22,9 @@ function Pane({
   return (
     <div className="overflow-hidden rounded-xl border border-white/10 bg-navy-1">
       <div className="flex items-center gap-2 border-b border-white/10 px-4 py-2.5">
-        <span className="hidden h-2.5 w-2.5 rounded-full bg-white/20 lg:block" />
-        <span className="hidden h-2.5 w-2.5 rounded-full bg-white/20 lg:block" />
-        <span className="hidden h-2.5 w-2.5 rounded-full bg-white/20 lg:block" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
         <span
           className={`${geistMono.className} ml-2 text-xs uppercase tracking-wider ${
             accent ? "text-white" : "text-white/40"
@@ -36,7 +36,7 @@ function Pane({
       <div
         ref={paneRef}
         onScroll={onScroll}
-        className="h-[320px] overflow-hidden lg:h-[600px] lg:overflow-y-auto"
+        className="h-[440px] overflow-y-auto md:h-[600px]"
       >
         <Image
           src={img.src}
@@ -108,7 +108,7 @@ export default function CompareScroll({
           ))}
         </div>
       )}
-      <div className="grid grid-cols-2 gap-2 lg:gap-5">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <Pane
           paneRef={leftRef}
           label={beforeDark ? `Before · ${mode}` : "Before"}
@@ -123,10 +123,6 @@ export default function CompareScroll({
           onScroll={() => sync(rightRef.current, leftRef.current)}
         />
       </div>
-      <p className="mt-3 text-xs text-white/40 lg:hidden">
-        Showing the top of each page — open on desktop to scroll the full
-        comparison in sync.
-      </p>
     </div>
   );
 }

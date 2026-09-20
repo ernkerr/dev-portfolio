@@ -57,6 +57,12 @@ const BentoGrid = () => {
               </Link>
               <div className="align-end flex">
                 <Link
+                  href="/design"
+                  className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
+                >
+                  DESIGN
+                </Link>
+                <Link
                   href={`/projects/`}
                   className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
                 >

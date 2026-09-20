@@ -13,6 +13,12 @@ export default function NavBar() {
       </Link>
       <div className="align-end flex gap-4 sm:gap-8">
         <Link
+          href="/design"
+          className="med:text-med transform-gpu rounded-md px-1 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:px-3 sm:text-sm lg:text-lg"
+        >
+          Design
+        </Link>
+        <Link
           href="/projects"
           className="med:text-med transform-gpu rounded-md px-1 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:px-3 sm:text-sm lg:text-lg"
         >

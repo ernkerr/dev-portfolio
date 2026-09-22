@@ -46,13 +46,13 @@ function Eyebrow({ children }: { children: ReactNode }) {
 
 /* ---------- data ---------- */
 
-const META = ["Design system", "Marketing site", "Light + dark", "Visitor → booked call"];
+const META = ["Design system", "Marketing site", "Light + dark", "Token audit pipeline"];
 
 const GLANCE = [
   { k: "Role", v: "Designer & developer (end to end)" },
   { k: "Stack", v: "Next.js · Tailwind · CVA · MDX" },
   { k: "Scope", v: "Homepage, landing pages & supporting pages" },
-  { k: "Focus", v: "Cohesion · conversion · maintainability" },
+  { k: "Focus", v: "Cohesion · consistency · maintainability" },
 ];
 
 const PROBLEMS = [
@@ -107,7 +107,7 @@ const SHIPPED = [
   "Core landing pages rebuilt on a shared template.",
   "Tool, guide, comparison, and pSEO pages migrated onto the tokens.",
   "Navigation restructured with a scroll-aware header and one clear CTA.",
-  "Shared conversion surfaces, instrumented end to end with PostHog.",
+  "Shared conversion surfaces (CTAs, forms) unified across templates.",
 ];
 
 const OUTCOMES = [
@@ -116,23 +116,19 @@ const OUTCOMES = [
     d: "Color references resolve through a small set of tokens — a palette change is one edit.",
   },
   {
-    t: "Zero design debt",
-    d: "No off-palette colors or one-off components remain, verified by the audit pipeline.",
-  },
-  {
     t: "One system, whole site",
     d: "Every page inherits correct light and dark styling automatically.",
   },
   {
-    t: "A measurable funnel",
-    d: "Every CTA is instrumented, so the visitor-to-booked-call goal can actually be read.",
+    t: "Drift becomes visible",
+    d: "The audit reports every off-system color per page, so design debt shows up as a number instead of accumulating unnoticed.",
   },
 ];
 
 const NEXT = [
   "Wire a live data feed into the homepage counters.",
   "Run the audit pipeline in CI so one off-system color fails the build.",
-  "A/B test hero headline variants now that the funnel is instrumented.",
+  "Close out the off-palette colors the audit still reports on legacy routes.",
 ];
 
 const STACK_CHIPS = [
@@ -141,7 +137,6 @@ const STACK_CHIPS = [
   "CVA",
   "Contentlayer / MDX",
   "Framer Motion",
-  "PostHog",
   "Vercel",
 ];
 
@@ -185,7 +180,7 @@ export default function OrderSync() {
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
             A scattered, effect-heavy marketing site rebuilt into a single
             navy-and-white design system, rolled out across the whole site, and
-            kept honest with a custom screenshot-and-token audit pipeline.
+            measured with a custom screenshot-and-token audit pipeline.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {META.map((m) => (
@@ -438,7 +433,7 @@ export default function OrderSync() {
           </h2>
           <p className="mt-4 max-w-2xl text-white/70">
             A design system is only real if the site actually follows it. So I
-            built <code>pnpm design:audit</code> — a pipeline that proves it,
+            built <code>pnpm design:audit</code> — a pipeline that checks it,
             across the whole site, with one command.
           </p>
         </Reveal>
@@ -479,7 +474,7 @@ export default function OrderSync() {
         <Reveal>
           <Eyebrow>Outcomes</Eyebrow>
         </Reveal>
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {OUTCOMES.map((o, i) => (
             <Reveal key={o.t} delay={i * 0.06}>
               <div className="h-full rounded-2xl border border-white/10 bg-navy-1 p-6">
@@ -492,9 +487,9 @@ export default function OrderSync() {
         <Reveal>
           <p className="mt-6 max-w-3xl text-sm italic text-white/45">
             The redesign&apos;s wins are in consistency and maintainability.
-            Conversion impact is tracked in PostHog over time against the
-            booked-call goal, so I&apos;ve kept this to what&apos;s verifiable
-            rather than quoting a lift I can&apos;t yet stand behind.
+            I haven&apos;t measured its effect on conversion, so there&apos;s no
+            lift quoted here — only what the system and the audit can
+            demonstrate directly.
           </p>
         </Reveal>
       </section>

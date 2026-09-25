@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { geistMono } from "../../public/fonts/fonts";
+import { geistMono } from "../../../../../public/fonts/fonts";
 
 // TODO: API to pull location instead of hardcoding it
 

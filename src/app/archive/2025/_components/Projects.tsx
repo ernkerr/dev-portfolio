@@ -1,7 +1,8 @@
+import { a } from "@/app/archive/2025/_lib/base";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { geistMono } from "../../public/fonts/fonts";
+import { geistMono } from "../../../../../public/fonts/fonts";
 
 export default function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -42,7 +43,7 @@ export default function Projects() {
                 className="group relative border-1 border-blue-500"
                 onMouseEnter={() => setHoveredIndex(index)}
               >
-                <Link href={project.link} className="block cursor-pointer p-2 md:p-4">
+                <Link href={a(project.link)} className="block cursor-pointer p-2 md:p-4">
                   <h3
                     className={`${geistMono.className} text-sm text-blue-100 md:text-lg`}
                   >
@@ -93,7 +94,7 @@ export default function Projects() {
         className="transition-opacity duration-500 ease-in-out opacity-100 hover:opacity-90"
       >
         <a
-          href={projects[activeIndex].link}
+          href={a(projects[activeIndex].link)}
           target="_blank"
           rel="noopener noreferrer"
           className="text-lg text-gray-300 hover:underline"

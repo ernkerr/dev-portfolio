@@ -1,10 +1,11 @@
 "use client";
 
+import { a } from "@/app/archive/2025/_lib/base";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { pressStart, poiretOne, geistMono } from "../../public/fonts/fonts";
-import ern from "../../public/erin.jpg";
+import { pressStart, poiretOne, geistMono } from "../../../../../public/fonts/fonts";
+import ern from "../../../../../public/erin.jpg";
 import DarkModeToggle from "./DarkModeToggle";
 import Disco from "./Disco";
 import Projects from "./Projects";
@@ -50,33 +51,27 @@ const BentoGrid = () => {
           <div className="col-span-full row-span-1 flex transform-gpu items-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform">
             <nav className="flex w-full items-center justify-between px-4 py-1">
               <Link
-                href="/"
+                href={a("/")}
                 className="text-md transform-gpu rounded-lg p-2 font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm lg:text-lg"
               >
                 <Image src="/ek.png" alt="Erin Kerr" width={225} height={225} className="h-[30px] w-[30px]" unoptimized />
               </Link>
               <div className="align-end flex">
                 <Link
-                  href="/design"
-                  className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
-                >
-                  DESIGN
-                </Link>
-                <Link
-                  href={`/projects/`}
+                  href={a(`/projects/`)}
                   className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
                 >
                   PROJECTS
                 </Link>
                 <Link
-                  href="/about/"
+                  href={a("/about/")}
                   className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
                 >
                   {" "}
                   ABOUT
                 </Link>
                 <Link
-                  href="/contact/"
+                  href={a("/contact/")}
                   className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-500 hover:text-white sm:text-sm xl:text-lg"
                 >
                   CONTACT
@@ -115,7 +110,7 @@ const BentoGrid = () => {
               priority
             />
             {/* overlay with text */}
-            <Link href="/about/">
+            <Link href={a("/about/")}>
               <div className="absolute inset-0 flex items-end rounded-lg bg-blue-500 opacity-0 transition-opacity duration-300 hover:cursor-pointer hover:opacity-75">
                 <p className={`${geistMono.className} p-2 text-sm lg:text-xl`}>
                   I&apos;m Erin, <br /> a developer crafting experiences from
@@ -157,7 +152,7 @@ const BentoGrid = () => {
             </div>
           </div>
           <div className="col-span-5 row-span-2 flex transform-gpu items-end justify-start rounded-lg bg-blue-500 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-2 sm:col-start-3 sm:row-span-2 sm:row-start-3 md:col-span-4 md:col-start-auto md:row-span-2 md:row-start-auto lg:col-span-4 lg:row-span-4">
-            <Link href="/contact/">
+            <Link href={a("/contact/")}>
               <div
                 className={`m-1 transform-gpu text-xl text-white transition-all duration-700 ease-in-out will-change-transform sm:m-2 sm:text-3xl md:m-1 md:text-2xl lg:text-5xl`}
               >
@@ -180,7 +175,7 @@ const BentoGrid = () => {
             </Link>
           </div>
           <Link
-            href="/blog"
+            href={a("/blog")}
             className="col-span-2 row-span-1 flex transform-gpu items-center justify-center rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform hover:scale-105 sm:col-span-1 sm:row-span-1 sm:row-start-5 md:col-span-5 md:row-span-2 lg:col-span-1 lg:row-span-1"
           >
             <Blogs />

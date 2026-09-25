@@ -33,6 +33,7 @@ ${projectLines}
 - [Agents](${baseUrl}/agents)
 - [Blog](${baseUrl}/blog)
 - [Contact](${baseUrl}/contact)
+- [Archive](${baseUrl}/archive): every past version of the site, kept as it was
 
 Also see Erin's creator portfolio at https://erin-codes.com.
 `;

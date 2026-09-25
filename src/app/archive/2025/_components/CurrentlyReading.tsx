@@ -16,7 +16,7 @@
 // also things you can sell? tech gadgets,
 
 import Image from "next/image";
-import bookImg from "../../public/pragmaticProgrammer.jpg";
+import bookImg from "../../../../../public/pragmaticProgrammer.jpg";
 
 export default function CurrentlyReading() {
   // TODO: use isbn api to get book cover

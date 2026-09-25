@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Image from "next/image";
-import { geistMono } from "../../public/fonts/fonts";
+import { geistMono } from "../../../../../public/fonts/fonts";
 import VolumeBar from "./VolumeBar";
 
 interface Song {

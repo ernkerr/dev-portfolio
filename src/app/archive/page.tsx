@@ -17,16 +17,7 @@ export default function ArchivePage() {
     <main className="min-h-screen bg-white font-[family-name:var(--font-geist-sans)] text-black">
       <div className="mx-auto max-w-5xl px-6 py-10 md:px-10">
         <header className="mb-10">
-          <Link
-            href="/"
-            className={`mb-10 inline-block text-sm ${linkClass}`}
-          >
-            erinkerr.me
-          </Link>
           <h1 className="text-3xl font-medium tracking-tight">Archive</h1>
-          <p className="mt-2 text-sm text-black/60">
-            Every past version of erinkerr.me, kept exactly as it was.
-          </p>
         </header>
 
         <ol className="grid gap-8 md:grid-cols-2">
@@ -35,7 +26,7 @@ export default function ArchivePage() {
               <Link
                 href={e.href}
                 className="group mb-2 block overflow-hidden border border-black focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-[#001AFF]"
-                aria-label={`${e.year} edition, version ${e.version}`}
+                aria-label={`${e.year} edition`}
               >
                 <Image
                   src={e.thumbnail}
@@ -47,10 +38,7 @@ export default function ArchivePage() {
                   className="block h-auto w-full grayscale transition-[filter] duration-150 ease-in-out group-hover:grayscale-0 group-focus-visible:grayscale-0 motion-reduce:transition-none"
                 />
               </Link>
-              <div className="flex items-center justify-between gap-4 text-sm">
-                <Link href={e.href} className={linkClass}>
-                  v. {e.version}
-                </Link>
+              <div className="text-sm">
                 <Link href={e.href} className={linkClass} title={e.label}>
                   {e.year}
                 </Link>

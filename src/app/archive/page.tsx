@@ -38,7 +38,7 @@ export default function ArchivePage() {
                   className="block h-auto w-full grayscale transition-[filter] duration-150 ease-in-out group-hover:grayscale-0 group-focus-visible:grayscale-0 motion-reduce:transition-none"
                 />
               </Link>
-              <div className="text-sm">
+              <div className="flex justify-end text-sm">
                 <Link href={e.href} className={linkClass} title={e.label}>
                   {e.year}
                 </Link>

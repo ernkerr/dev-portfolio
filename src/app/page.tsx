@@ -1,9 +1,113 @@
-import Link from "next/link";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import SiteShell from "@/components/site/SiteShell";
+import Tile, { type TileItem } from "@/components/site/Tile";
+import {
+  CarpoolioMark,
+  OrderSyncFlow,
+  OrderSyncTokens,
+} from "@/components/site/thumbs";
+import { EMAIL, focusRing, mono, serif } from "@/components/site/links";
 
-// The homepage is intentionally blank while the 2026 redesign is in progress.
-// The previous site lives on, unchanged, at /archive/2025.
+// Experience beside the headline. The last column says what Erin did there,
+// not her title; every line has to trace back to her resume.
+const EXPERIENCE = [
+  { year: "2025", company: "OrderSync", did: "Shipped a design system and an AI order agent" },
+  { year: "2024", company: "Cyber Goose", did: "Founded a studio shipping apps and client sites" },
+  { year: "2024", company: "Wispr AI", did: "Built tools for brain-computer interface R&D" },
+  { year: "2021", company: "SRI International", did: "Ran 500+ research interviews for NIH studies" },
+];
+
+// Two hand-balanced columns so the grid staggers like a masonry layout.
+// On phones the left column stacks above the right one.
+const LEFT: TileItem[] = [
+  {
+    href: "/orderSync",
+    title: "One design system for a scattered marketing site",
+    meta: ["OrderSync", "Contract 2025"],
+    art: {
+      kind: "custom",
+      alt: "OrderSync color tokens: four navy swatches with their hex values, above the site's two button styles.",
+      node: <OrderSyncTokens />,
+    },
+    aspect: "aspect-[16/11]",
+    bg: "#E6EBF2",
+  },
+  {
+    href: "/ginScoreTracker",
+    title: "Gin Rummy scores, round by round",
+    meta: ["Gin Score Tracker", "App Store"],
+    art: {
+      kind: "float",
+      src: "/images/ginScoreTracker/GinLogo.png",
+      alt: "Gin Score Tracker app icon: a jester in profile beside the word GIN.",
+      ratio: 1,
+      width: "w-[30%]",
+      radius: "rounded-[22%]",
+      shadow: true,
+    },
+    aspect: "aspect-[4/3]",
+    bg: "#E3E69B",
+  },
+  {
+    href: "/groupSingAlong",
+    title: "Lyrics everyone in the room sees in real time",
+    meta: ["Group Sing Along", "~155 active users"],
+    art: {
+      kind: "float",
+      src: "/images/home/thumbs/gsa-card.png",
+      alt: "Group Sing Along lyrics card: Family Sing-Along, 12 members, Bohemian Rhapsody with the current line in bold.",
+      ratio: 1146 / 1400,
+      width: "w-[36%]",
+      radius: "rounded-[1.4cqw]",
+      shadow: true,
+    },
+    aspect: "aspect-[16/11]",
+    bg: "#E4DDFB",
+  },
+];
+
+const RIGHT: TileItem[] = [
+  {
+    href: "/carpoolio",
+    title: "Group travel app, from first sketch to acquisition",
+    meta: ["Carpoolio", "4.9★ App Store"],
+    art: {
+      kind: "custom",
+      alt: "The Carpoolio logo on a blurred aurora of blues and greens.",
+      node: <CarpoolioMark />,
+    },
+    aspect: "aspect-[9/7]",
+  },
+  {
+    href: "/orderSyncAgent",
+    title: "An AI agent that turns order emails into clean data",
+    meta: ["OrderSync", "Contract 2025"],
+    art: {
+      kind: "custom",
+      alt: "Order flow: Email into the OrderSync agent, out to the ERP.",
+      node: <OrderSyncFlow />,
+    },
+    aspect: "aspect-[16/10]",
+  },
+  {
+    href: "/heartsScoreTracker",
+    title: "Hearts scoring for the whole table",
+    meta: ["Hearts Score Tracker", "App Store"],
+    art: {
+      kind: "float",
+      src: "/images/heartsScoreTracker/icon2.png",
+      alt: "Hearts Score Tracker app icon: a crowned jester beside the word HEARTS.",
+      ratio: 1,
+      width: "w-[30%]",
+      radius: "rounded-[22%]",
+      shadow: true,
+    },
+    aspect: "aspect-[4/3]",
+    bg: "#F4C6B8",
+  },
+];
+
 export default async function Home() {
   const headersList = await headers();
   const hostHeader =
@@ -18,14 +122,61 @@ export default async function Home() {
     redirect("https://scheduler.erinkerr.me/scheduler");
   }
 
+  const sizes = "(min-width: 768px) 50vw, 100vw";
+
   return (
-    <main className="flex min-h-screen items-end bg-white p-6 font-[family-name:var(--font-geist-sans)] text-black">
-      <Link
-        href="/archive"
-        className="text-sm underline-offset-4 hover:text-[#001AFF] hover:underline"
-      >
-        Archive
-      </Link>
-    </main>
+    <SiteShell>
+      <section className="grid gap-10 pb-12 pt-16 md:pt-28 lg:grid-cols-2 lg:gap-6 lg:pt-40">
+        <div>
+          <h1
+            className={`${serif} max-w-[600px] text-[40px] leading-[1.08] tracking-[-0.02em] md:text-[56px]`}
+          >
+            I&apos;m Erin, a product designer who <em>engineers</em>.
+          </h1>
+          <a
+            href={`mailto:${EMAIL}`}
+            className={`${mono} mt-6 inline-block text-[13px] uppercase tracking-[0.04em] text-site-blue underline-offset-4 hover:underline md:hidden ${focusRing}`}
+          >
+            <span aria-hidden="true">✦ </span>Get in touch
+          </a>
+        </div>
+
+        <dl className="self-start text-[15px]">
+          {EXPERIENCE.map((e) => (
+            <div
+              key={e.company}
+              className="grid grid-cols-[4.5rem_1fr] gap-x-4 py-1.5 sm:grid-cols-[5.5rem_1fr_1.7fr]"
+            >
+              <dt
+                className={`${mono} pt-[2px] text-[13px] text-site-muted`}
+              >
+                {e.year}
+              </dt>
+              <dd>{e.company}</dd>
+              <dd className="col-start-2 text-site-muted sm:col-start-auto">
+                {e.did}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section aria-labelledby="work-heading">
+        <h2 id="work-heading" className="sr-only">
+          Selected work
+        </h2>
+        <div className="grid gap-10 md:grid-cols-2 md:gap-6">
+          {[LEFT, RIGHT].map((column, c) => (
+            <ul key={c} className="flex flex-col gap-10">
+              {column.map((item, i) => (
+                <li key={item.href}>
+                  <Tile item={item} sizes={sizes} priority={i === 0} />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      </section>
+    </SiteShell>
   );
 }

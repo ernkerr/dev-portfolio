@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 
@@ -11,6 +11,14 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Serif for the 2026 edition's headlines and card titles.
+const newsreader = Newsreader({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
 });
 
 const siteDescription =
@@ -100,7 +108,7 @@ export default function RootLayout({
         {/* <meta name="viewport" content="width=device-width, initial-scale=1.0" /> */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} antialiased`}
       >
         {children}
         <Script

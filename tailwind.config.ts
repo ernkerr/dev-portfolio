@@ -23,6 +23,14 @@ export default {
           from: "#9333EA",
           to: "#06B6D4",
         },
+        // 2026 edition palette (home, fun, about)
+        site: {
+          paper: "#FAFCFD",
+          ink: "#2B3645",
+          muted: "#66727F",
+          line: "#E3E8EE",
+          blue: "#001AFF",
+        },
       },
     },
   },

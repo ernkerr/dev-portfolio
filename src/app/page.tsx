@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import HeroHeadline from "@/components/site/HeroHeadline";
 import SiteShell from "@/components/site/SiteShell";
 import Tile, { type TileItem } from "@/components/site/Tile";
 import {
@@ -7,7 +8,7 @@ import {
   OrderSyncFlow,
   OrderSyncTokens,
 } from "@/components/site/thumbs";
-import { EMAIL, focusRing, mono, serif } from "@/components/site/links";
+import { EMAIL, focusRing, mono } from "@/components/site/links";
 
 // Experience beside the headline. The last column says what Erin did there,
 // not her title; every line has to trace back to her resume.
@@ -108,7 +109,11 @@ const RIGHT: TileItem[] = [
   },
 ];
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ side?: string }>;
+}) {
   const headersList = await headers();
   const hostHeader =
     headersList.get("x-forwarded-host") ?? headersList.get("host");
@@ -123,16 +128,14 @@ export default async function Home() {
   }
 
   const sizes = "(min-width: 768px) 50vw, 100vw";
+  // ?side=engineer opens the page flipped, so a link can pick the side.
+  const { side } = await searchParams;
 
   return (
     <SiteShell>
       <section className="grid gap-10 pb-12 pt-16 md:pt-28 lg:grid-cols-2 lg:gap-6 lg:pt-40">
         <div>
-          <h1
-            className={`${serif} max-w-[600px] text-[40px] leading-[1.08] tracking-[-0.02em] md:text-[56px]`}
-          >
-            I&apos;m Erin, a product designer who <em>engineers</em>.
-          </h1>
+          <HeroHeadline engineerFirst={side === "engineer"} />
           <a
             href={`mailto:${EMAIL}`}
             className={`${mono} mt-6 inline-block text-[13px] uppercase tracking-[0.04em] text-site-blue underline-offset-4 hover:underline md:hidden ${focusRing}`}

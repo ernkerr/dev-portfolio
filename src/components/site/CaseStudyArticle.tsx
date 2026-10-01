@@ -7,17 +7,23 @@ export type CaseStudySection = {
   /** Anchor for the section, e.g. "overview". */
   id: string;
   title: string;
+  /** The section's one-sentence point, set large under its name. */
+  headline?: string;
   content?: ReactNode;
 };
 
-// A case study write-up: the title, then its sections, with a list of the
-// sections pinned on the left. Each case study passes its own sections. The
+// A case study write-up: a label and the title, then its sections, each with
+// its name, an optional headline and its content. A list of the
+// sections is pinned on the left. Each case study passes its own sections. The
 // list marks the section being read in ink and the rest in muted gray, and
 // clicking one scrolls to it.
 export default function CaseStudyArticle({
+  label,
   title,
   sections,
 }: {
+  /** Small line above the title, e.g. the project and year. */
+  label?: string;
   title: string;
   sections: CaseStudySection[];
 }) {
@@ -27,7 +33,9 @@ export default function CaseStudyArticle({
     const target = document.getElementById(id);
     if (!target) return;
     active.pin(id);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
     // Keep the hash in the URL and move focus to the section, as a plain
     // anchor link would.
@@ -36,7 +44,7 @@ export default function CaseStudyArticle({
   }
 
   return (
-    <div className="grid md:grid-cols-[1fr_minmax(0,48rem)_1fr] md:gap-8 lg:grid-cols-[1fr_minmax(0,56rem)_1fr]">
+    <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,48rem)_1fr] md:gap-8 lg:grid-cols-[1fr_minmax(0,56rem)_1fr]">
       {/* The sticky header is 65px tall; the list sits below it. */}
       <aside className="hidden min-w-40 self-start pt-20 md:sticky md:top-[65px] md:block">
         <nav aria-label="Sections">
@@ -63,27 +71,43 @@ export default function CaseStudyArticle({
       </aside>
 
       <article className="pt-16 md:pt-20">
+        {label && (
+          <p
+            className={`${mono} mb-4 text-[12px] uppercase tracking-[0.06em] text-site-muted`}
+          >
+            {label}
+          </p>
+        )}
         <h1
-          className={`${serif} text-[40px] leading-[1.08] tracking-[-0.02em] md:text-[56px]`}
+          className={`${serif} max-w-[44rem] text-[40px] leading-[1.08] tracking-[-0.02em] md:text-[56px]`}
         >
           {title}
         </h1>
 
-        <div className="mt-12 flex flex-col gap-12 md:mt-24 md:gap-24">
+        <div className="mt-12 flex flex-col gap-20 md:mt-16 md:gap-32">
           {sections.map((s) => (
             <section
               key={s.id}
               id={s.id}
               tabIndex={-1}
               aria-labelledby={`${s.id}-heading`}
-              className="flex scroll-mt-24 flex-col gap-4 outline-none"
+              className="flex scroll-mt-24 flex-col gap-6 outline-none"
             >
-              <h2
-                id={`${s.id}-heading`}
-                className={`${mono} text-[12px] uppercase tracking-[0.06em] text-site-muted`}
-              >
-                {s.title}
-              </h2>
+              <header className="flex flex-col gap-3">
+                <h2
+                  id={`${s.id}-heading`}
+                  className={`${mono} text-[12px] uppercase tracking-[0.06em] text-site-muted`}
+                >
+                  {s.title}
+                </h2>
+                {s.headline && (
+                  <p
+                    className={`${serif} max-w-[40rem] text-[30px] leading-[1.12] tracking-[-0.015em] text-site-ink md:text-[40px]`}
+                  >
+                    {s.headline}
+                  </p>
+                )}
+              </header>
               {s.content}
             </section>
           ))}

@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+import { SideLink, useEngineerSide } from "./SideContext";
 import { focusRing, mono, serif } from "./links";
 
 // Thumbnails follow one rule: a brand-colored field with a single thing on
@@ -33,6 +35,8 @@ export type TileItem = {
   aspect: string;
   /** CSS background for the frame: a brand color or gradient. */
   bg?: string;
+  /** What the tile shows instead on the engineering side, if it differs. */
+  engineer?: Pick<TileItem, "title" | "art">;
 };
 
 const zoom =
@@ -63,7 +67,11 @@ function Art({
 
   if (art.kind === "custom") {
     return (
-      <div role="img" aria-label={art.alt} className={`absolute inset-0 ${zoom}`}>
+      <div
+        role="img"
+        aria-label={art.alt}
+        className={`absolute inset-0 ${zoom}`}
+      >
         {art.node}
       </div>
     );
@@ -104,11 +112,13 @@ export default function Tile({
   /** Put the meta line under the title instead of beside it (narrow grids). */
   stacked?: boolean;
 }) {
-  const { href, title, meta, art, aspect, bg } = item;
+  const engineer = useEngineerSide();
+  const { href, title, meta, art, aspect, bg } =
+    engineer && item.engineer ? { ...item, ...item.engineer } : item;
   const external = /^https?:/.test(href);
 
   return (
-    <Link
+    <SideLink
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`group block ${focusRing}`}
@@ -121,9 +131,7 @@ export default function Tile({
       </div>
       <div
         className={`mt-3 flex gap-x-4 gap-y-1 ${
-          stacked
-            ? "flex-col"
-            : "flex-wrap items-baseline justify-between"
+          stacked ? "flex-col" : "flex-wrap items-baseline justify-between"
         }`}
       >
         <h3
@@ -137,6 +145,6 @@ export default function Tile({
           {meta.join(" • ")}
         </p>
       </div>
-    </Link>
+    </SideLink>
   );
 }

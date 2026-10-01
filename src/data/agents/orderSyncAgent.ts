@@ -15,7 +15,7 @@ export const orderSyncAgentMetadata: AgentMetadata = {
     "Hono",
     "Zod",
   ],
-  link: "/orderSyncAgent",
+  link: "/orderSync?side=engineer",
   highlights: [
     "35 tools across extraction, catalog, pricing & order writing",
     "6 input formats: email, EDI, PDF, CSV, Excel, voice",

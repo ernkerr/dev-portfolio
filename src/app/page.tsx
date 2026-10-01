@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import HeroHeadline from "@/components/site/HeroHeadline";
+import { SideProvider } from "@/components/site/SideContext";
 import SiteShell from "@/components/site/SiteShell";
 import Tile, { type TileItem } from "@/components/site/Tile";
 import {
@@ -9,6 +10,7 @@ import {
   OrderSyncTokens,
 } from "@/components/site/thumbs";
 import { EMAIL, focusRing, mono } from "@/components/site/links";
+import { isEngineerSide } from "@/components/site/side";
 
 // Experience beside the headline. The last column says what Erin did there,
 // not her title; every line has to trace back to her resume.
@@ -19,8 +21,9 @@ const EXPERIENCE = [
   { year: "2021", company: "SRI International", did: "Ran 500+ research interviews for NIH studies" },
 ];
 
-// Two hand-balanced columns so the grid staggers like a masonry layout.
-// On phones the left column stacks above the right one.
+// Two hand-balanced columns so the grid staggers like a masonry layout: two
+// tall tiles on the left against three on the right. On phones the left
+// column stacks above the right one.
 const LEFT: TileItem[] = [
   {
     href: "/orderSync",
@@ -31,9 +34,32 @@ const LEFT: TileItem[] = [
       alt: "OrderSync color tokens: four navy swatches with their hex values, above the site's two button styles.",
       node: <OrderSyncTokens />,
     },
-    aspect: "aspect-[16/11]",
+    aspect: "aspect-square",
     bg: "#E6EBF2",
+    // Same client, other side of the work: the order agent.
+    engineer: {
+      title: "An AI agent that turns order emails into clean data",
+      art: {
+        kind: "custom",
+        alt: "Order flow: Email into the OrderSync agent, out to the ERP.",
+        node: <OrderSyncFlow />,
+      },
+    },
   },
+  {
+    href: "/carpoolio",
+    title: "Group travel app, from first sketch to acquisition",
+    meta: ["Carpoolio", "4.9★ App Store"],
+    art: {
+      kind: "custom",
+      alt: "The Carpoolio logo on a blurred aurora of blues and greens.",
+      node: <CarpoolioMark />,
+    },
+    aspect: "aspect-[4/5]",
+  },
+];
+
+const RIGHT: TileItem[] = [
   {
     href: "/ginScoreTracker",
     title: "Gin Rummy scores, round by round",
@@ -65,31 +91,6 @@ const LEFT: TileItem[] = [
     },
     aspect: "aspect-[16/11]",
     bg: "#E4DDFB",
-  },
-];
-
-const RIGHT: TileItem[] = [
-  {
-    href: "/carpoolio",
-    title: "Group travel app, from first sketch to acquisition",
-    meta: ["Carpoolio", "4.9★ App Store"],
-    art: {
-      kind: "custom",
-      alt: "The Carpoolio logo on a blurred aurora of blues and greens.",
-      node: <CarpoolioMark />,
-    },
-    aspect: "aspect-[9/7]",
-  },
-  {
-    href: "/orderSyncAgent",
-    title: "An AI agent that turns order emails into clean data",
-    meta: ["OrderSync", "Contract 2025"],
-    art: {
-      kind: "custom",
-      alt: "Order flow: Email into the OrderSync agent, out to the ERP.",
-      node: <OrderSyncFlow />,
-    },
-    aspect: "aspect-[16/10]",
   },
   {
     href: "/heartsScoreTracker",
@@ -128,58 +129,57 @@ export default async function Home({
   }
 
   const sizes = "(min-width: 768px) 50vw, 100vw";
-  // ?side=engineer opens the page flipped, so a link can pick the side.
   const { side } = await searchParams;
 
   return (
-    <SiteShell>
-      <section className="grid gap-10 pb-12 pt-16 md:pt-28 lg:grid-cols-2 lg:gap-6 lg:pt-40">
-        <div>
-          <HeroHeadline engineerFirst={side === "engineer"} />
-          <a
-            href={`mailto:${EMAIL}`}
-            className={`${mono} mt-6 inline-block text-[13px] uppercase tracking-[0.04em] text-site-blue underline-offset-4 hover:underline md:hidden ${focusRing}`}
-          >
-            <span aria-hidden="true">✦ </span>Get in touch
-          </a>
-        </div>
-
-        <dl className="self-start text-[15px]">
-          {EXPERIENCE.map((e) => (
-            <div
-              key={e.company}
-              className="grid grid-cols-[4.5rem_1fr] gap-x-4 py-1.5 sm:grid-cols-[5.5rem_1fr_1.7fr]"
+    <SideProvider engineerFirst={isEngineerSide(side)}>
+      <SiteShell>
+        <section className="grid gap-10 pb-12 pt-16 md:pt-28 lg:grid-cols-2 lg:gap-6 lg:pt-40">
+          <div>
+            <HeroHeadline />
+            <a
+              href={`mailto:${EMAIL}`}
+              className={`${mono} mt-6 inline-block text-[13px] uppercase tracking-[0.04em] text-site-blue underline-offset-4 hover:underline md:hidden ${focusRing}`}
             >
-              <dt
-                className={`${mono} pt-[2px] text-[13px] text-site-muted`}
-              >
-                {e.year}
-              </dt>
-              <dd>{e.company}</dd>
-              <dd className="col-start-2 text-site-muted sm:col-start-auto">
-                {e.did}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
+              <span aria-hidden="true">✦ </span>Get in touch
+            </a>
+          </div>
 
-      <section aria-labelledby="work-heading">
-        <h2 id="work-heading" className="sr-only">
-          Selected work
-        </h2>
-        <div className="grid gap-10 md:grid-cols-2 md:gap-6">
-          {[LEFT, RIGHT].map((column, c) => (
-            <ul key={c} className="flex flex-col gap-10">
-              {column.map((item, i) => (
-                <li key={item.href}>
-                  <Tile item={item} sizes={sizes} priority={i === 0} />
-                </li>
-              ))}
-            </ul>
-          ))}
-        </div>
-      </section>
-    </SiteShell>
+          <dl className="self-start text-[15px]">
+            {EXPERIENCE.map((e) => (
+              <div
+                key={e.company}
+                className="grid grid-cols-[4.5rem_1fr] gap-x-4 py-1.5 sm:grid-cols-[5.5rem_1fr_1.7fr]"
+              >
+                <dt className={`${mono} pt-[2px] text-[13px] text-site-muted`}>
+                  {e.year}
+                </dt>
+                <dd>{e.company}</dd>
+                <dd className="col-start-2 text-site-muted sm:col-start-auto">
+                  {e.did}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <section aria-labelledby="work-heading">
+          <h2 id="work-heading" className="sr-only">
+            Selected work
+          </h2>
+          <div className="grid gap-10 md:grid-cols-2 md:gap-6">
+            {[LEFT, RIGHT].map((column, c) => (
+              <ul key={c} className="flex flex-col gap-10">
+                {column.map((item, i) => (
+                  <li key={item.href}>
+                    <Tile item={item} sizes={sizes} priority={i === 0} />
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </section>
+      </SiteShell>
+    </SideProvider>
   );
 }

@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        // The agent case study is now the engineering side of OrderSync.
+        source: "/orderSyncAgent",
+        destination: "/orderSync?side=engineer",
+        permanent: false,
+      },
+      {
         source: "/sceduler",
         destination: "/scheduler",
         permanent: true,

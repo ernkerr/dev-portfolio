@@ -85,6 +85,10 @@
   align-items: center;
   gap: 10px 14px;
   padding-block: 10px;
+  /* Its backdrop runs out to the page edge with the wall, so notes scrolling
+     under it stay covered; the controls stay in the column. */
+  margin-right: calc(-1 * var(--am-bleed-right, 0px));
+  padding-right: var(--am-bleed-right, 0px);
   background: color-mix(in srgb, var(--am-paper) 92%, transparent);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--am-line);
@@ -149,7 +153,8 @@
 }
 .am-arrow:hover:not(:disabled) { background: var(--am-ink); color: var(--am-paper); border-color: var(--am-ink); }
 .am-arrow:disabled { opacity: 0.35; cursor: default; }
-.am-board-wrap { position: relative; margin-top: -10px; }
+/* --am-bleed-right runs the wall past the map's column to the page edge. */
+.am-board-wrap { position: relative; margin-top: -10px; margin-right: calc(-1 * var(--am-bleed-right, 0px)); }
 /* A fade on the right while there is more wall to scroll to. (No left fade:
    it would sit on top of the pinned theme name.) */
 .am-board-wrap::after {

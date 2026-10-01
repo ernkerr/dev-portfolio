@@ -11,15 +11,41 @@ import "./affinity-map.css";
 // keeps working after the postings close. Regenerate affinity.json with
 // career-ops/data/portfolio-affinity/build.mjs.
 export default function AffinityMap({ className }: { className?: string }) {
+  const sectionRef = useRef<HTMLElement>(null);
   const ref = useRef<HTMLDivElement>(null);
 
+  // The case study introduces the map, so it skips its own lede and stats.
   useEffect(() => {
     if (!ref.current) return;
-    return mountAffinityMap(ref.current, data);
+    return mountAffinityMap(ref.current, data, { intro: false });
+  }, []);
+
+  // The wall of notes runs past the text column to the right edge of the
+  // page, so it measures the gap and hands it to the map's CSS.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    function measure() {
+      const gap =
+        document.documentElement.clientWidth -
+        section!.getBoundingClientRect().right;
+      section!.style.setProperty("--am-bleed-right", `${Math.max(0, gap)}px`);
+    }
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(section);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
   return (
     <section
+      ref={sectionRef}
       aria-label="Portfolio affinity map"
       className={className}
       // The site header is sticky and 65px tall; the map's toolbar sits below it.

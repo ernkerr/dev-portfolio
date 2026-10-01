@@ -4,6 +4,9 @@
 //
 //   const unmount = mountAffinityMap(element, data) // data = affinity.json
 //
+// Pass { intro: false } to leave out the lede and the stats row, for a page
+// that introduces the map itself.
+//
 // affinity.json carries hit lists (indexes into data.jds) instead of
 // percentages, so every number recomputes for the chosen role and level.
 
@@ -37,7 +40,7 @@ function shuffled(list) {
   return a;
 }
 
-export function mountAffinityMap(root, data) {
+export function mountAffinityMap(root, data, { intro = true } = {}) {
   const { meta } = data;
   const tracks = meta.tracks;
   const trackLabel = Object.fromEntries(tracks.map((t) => [t.id, t.label]));
@@ -67,7 +70,7 @@ export function mountAffinityMap(root, data) {
     <header class="am-head">
       <p class="am-eyebrow">Affinity map · ${meta.jdCount} designer job posts · ${esc(meta.fetched)}</p>
       <h2 class="am-title">What design teams want to see in a portfolio</h2>
-      <p class="am-lede">${meta.jdCount} live product, UI/UX, brand, and design manager posts from ${meta.companyCount} companies.
+      ${intro ? `<p class="am-lede">${meta.jdCount} live product, UI/UX, brand, and design manager posts from ${meta.companyCount} companies.
         Every line about portfolios became a sticky note, and the notes were sorted until the patterns showed.
         Pick the role you are hiring for to see what posts like yours ask for.</p>
       <dl class="am-stats">
@@ -76,7 +79,7 @@ export function mountAffinityMap(root, data) {
         <div><dt>Ask for a portfolio by name</dt><dd>${meta.portfolioJdCount}</dd></div>
         <div><dt>Sticky notes</dt><dd>${notes.length}</dd></div>
         <div><dt>Words tracked</dt><dd>${terms.length}</dd></div>
-      </dl>
+      </dl>` : ''}
     </header>
     <ol class="am-takeaways" aria-live="polite"></ol>
     <div class="am-toolbar">

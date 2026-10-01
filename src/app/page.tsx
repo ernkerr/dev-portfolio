@@ -47,6 +47,13 @@ const LEFT: TileItem[] = [
     },
   },
   {
+    href: "/portfolioRedesign",
+    title: "Redesigning my portfolio for the job I actually want",
+    meta: ["Portfolio Redesign", "2026"],
+    art: { kind: "custom", alt: "", node: null },
+    aspect: "aspect-[4/3]",
+  },
+  {
     href: "/carpoolio",
     title: "Group travel app, from first sketch to acquisition",
     meta: ["Carpoolio", "4.9★ App Store"],

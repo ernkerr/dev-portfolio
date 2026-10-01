@@ -90,7 +90,7 @@ export default function DeskYoga() {
           <h2 className="py-8 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
             Stack & Explanation
           </h2>
-          <p className="md:text-md text-xs sm:text-sm lg:text-[16px] md:max-w-[80%]">
+          <p className="md:text-md text-xs sm:text-sm md:max-w-[80%] lg:text-[16px]">
             Built with <strong>Expo SDK 54</strong> and{" "}
             <strong>React Native 0.81</strong> for iOS, Android, and web from a
             single codebase. <strong>Expo Router</strong> handles file-based
@@ -98,10 +98,9 @@ export default function DeskYoga() {
             for React Native) with <strong>Gluestack UI</strong> components.
             <br />
             <br />
-            Local-first storage via <strong>MMKV</strong> for instant,
-            encrypted persistence. Monetization through{" "}
-            <strong>react-native-iap</strong> with StoreKit 2 on iOS and Play
-            Billing on Android. Animations use{" "}
+            Local-first storage via <strong>MMKV</strong> for instant, encrypted
+            persistence. Monetization through <strong>react-native-iap</strong>{" "}
+            with StoreKit 2 on iOS and Play Billing on Android. Animations use{" "}
             <strong>react-native-reanimated</strong> for polished pose
             transitions with multi-pulse edge glow effects.
           </p>
@@ -151,8 +150,8 @@ export default function DeskYoga() {
             <br />
             <br />
             <strong>Notification scheduling.</strong> iOS caps local
-            notifications at 64. The reminder system supports multiple times
-            per day across multiple days of the week, so it needs to validate
+            notifications at 64. The reminder system supports multiple times per
+            day across multiple days of the week, so it needs to validate
             against that limit. 81 tests cover the scheduling logic.
           </p>
         </div>
@@ -162,11 +161,11 @@ export default function DeskYoga() {
           Lessons Learned
         </h2>
         <p className="text-xs sm:max-w-[80%] sm:text-sm lg:max-w-[90%] lg:text-[16px]">
-          Constraint-based systems need extensive testing because the edge
-          cases multiply fast. The reminder scheduler alone needed 81 tests to
-          feel reliable. Also learned that local-first with MMKV makes the app
-          feel instant, but migrating storage formats between versions takes
-          real planning.
+          Constraint-based systems need extensive testing because the edge cases
+          multiply fast. The reminder scheduler alone needed 81 tests to feel
+          reliable. Also learned that local-first with MMKV makes the app feel
+          instant, but migrating storage formats between versions takes real
+          planning.
         </p>
       </div>
     </div>

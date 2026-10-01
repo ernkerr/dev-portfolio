@@ -71,7 +71,7 @@ export default function AsciiCam() {
           <h2 className="py-8 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
             Stack & Explanation
           </h2>
-          <p className="md:text-md text-xs sm:text-sm lg:text-[16px] md:max-w-[80%]">
+          <p className="md:text-md text-xs sm:text-sm md:max-w-[80%] lg:text-[16px]">
             <strong>React 19</strong> and <strong>TypeScript</strong> for the
             UI, <strong>Canvas API</strong> for pixel-level brightness sampling
             and character mapping, <strong>gif.js</strong> for GIF encoding in

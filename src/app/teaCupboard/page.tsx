@@ -84,11 +84,11 @@ export default function myTeaCupboard() {
         problems={
           <>
             Without a framework, I had to manually handle everything that React
-            normally does for you. DOM updates, event listeners, keeping what&apos;s
-            on screen in sync with what&apos;s actually stored. Every time a user
-            added, edited, or deleted a tea entry, I had to think through the
-            full flow: capture the action, update Local Storage, then re-render
-            the right part of the page.
+            normally does for you. DOM updates, event listeners, keeping
+            what&apos;s on screen in sync with what&apos;s actually stored.
+            Every time a user added, edited, or deleted a tea entry, I had to
+            think through the full flow: capture the action, update Local
+            Storage, then re-render the right part of the page.
             <br />
             <br />
             Local Storage came with its own set of gotchas. Everything has to be
@@ -100,13 +100,12 @@ export default function myTeaCupboard() {
             a database to handle that for me.
             <br />
             <br />
-            The tea characters were another challenge entirely. That was my first
-            time doing prompt engineering to get consistent AI-generated art.
-            Getting all the characters to look like they belong in the same world
-            took a lot of iteration. I had to learn how to write prompts that
-            produced a cohesive visual style, not just individual images that
-            looked good on their own.
-
+            The tea characters were another challenge entirely. That was my
+            first time doing prompt engineering to get consistent AI-generated
+            art. Getting all the characters to look like they belong in the same
+            world took a lot of iteration. I had to learn how to write prompts
+            that produced a cohesive visual style, not just individual images
+            that looked good on their own.
           </>
         }
         img4="/images/myTeaCupboard/landingPage.png"
@@ -121,8 +120,8 @@ export default function myTeaCupboard() {
             <br />
             Every line of code in this project is mine. No AI-generated code, no
             framework doing the heavy lifting behind the scenes. That feeling of
-            knowing I built something entirely on my own reinforced my confidence
-            in my own abilities as a developer.
+            knowing I built something entirely on my own reinforced my
+            confidence in my own abilities as a developer.
             <br />
             <br />
             I also learned that Local Storage has real limitations. Size limits,

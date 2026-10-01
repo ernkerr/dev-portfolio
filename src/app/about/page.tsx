@@ -16,30 +16,75 @@ const SECTIONS: { label: string; photos: Photo[] }[] = [
   {
     label: "DJ",
     photos: [
-      { src: "/images/about/dj2.jpeg", alt: "DJing on a Pioneer controller in a leopard-print coat.", width: 3024, height: 4032 },
-      { src: "/images/about/dj.jpeg", alt: "DJing at an outdoor party under a shade sail.", width: 1170, height: 767 },
+      {
+        src: "/images/about/dj2.jpeg",
+        alt: "DJing on a Pioneer controller in a leopard-print coat.",
+        width: 3024,
+        height: 4032,
+      },
+      {
+        src: "/images/about/dj.jpeg",
+        alt: "DJing at an outdoor party under a shade sail.",
+        width: 1170,
+        height: 767,
+      },
     ],
   },
   {
     label: "Snowboarder",
     photos: [
-      { src: "/images/about/snowboard3.jpg", alt: "Two snowboarders in goggles pulling faces on a chairlift.", width: 4032, height: 3024 },
-      { src: "/images/about/snowboard.JPG", alt: "A snowboarder on a slope below a rocky summit.", width: 1204, height: 1600 },
-      { src: "/images/about/snowboard2.jpg", alt: "A snow angel between two snowed-in cars.", width: 1107, height: 1479 },
+      {
+        src: "/images/about/snowboard3.jpg",
+        alt: "Two snowboarders in goggles pulling faces on a chairlift.",
+        width: 4032,
+        height: 3024,
+      },
+      {
+        src: "/images/about/snowboard.JPG",
+        alt: "A snowboarder on a slope below a rocky summit.",
+        width: 1204,
+        height: 1600,
+      },
+      {
+        src: "/images/about/snowboard2.jpg",
+        alt: "A snow angel between two snowed-in cars.",
+        width: 1107,
+        height: 1479,
+      },
     ],
   },
   {
     label: "Outside",
     photos: [
-      { src: "/images/about/hike.jpeg", alt: "Standing in front of blooming yellow gorse on a hike.", width: 2965, height: 2869 },
-      { src: "/images/about/travel.jpg", alt: "Walking down a long white staircase between flags.", width: 2864, height: 3819 },
+      {
+        src: "/images/about/hike.jpeg",
+        alt: "Standing in front of blooming yellow gorse on a hike.",
+        width: 2965,
+        height: 2869,
+      },
+      {
+        src: "/images/about/travel.jpg",
+        alt: "Walking down a long white staircase between flags.",
+        width: 2864,
+        height: 3819,
+      },
     ],
   },
   {
     label: "Cook",
     photos: [
-      { src: "/images/about/cook.jpg", alt: "A steak searing in a cast-iron pan with butter.", width: 4284, height: 5712 },
-      { src: "/images/about/bake.jpg", alt: "A crusty loaf of homemade bread on a cutting board.", width: 4284, height: 5712 },
+      {
+        src: "/images/about/cook.jpg",
+        alt: "A steak searing in a cast-iron pan with butter.",
+        width: 4284,
+        height: 5712,
+      },
+      {
+        src: "/images/about/bake.jpg",
+        alt: "A crusty loaf of homemade bread on a cutting board.",
+        width: 4284,
+        height: 5712,
+      },
     ],
   },
 ];

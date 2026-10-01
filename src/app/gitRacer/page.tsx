@@ -21,14 +21,13 @@ export default function GitRacer() {
           contributions into a competitive sport.
           <br />
           <br />
-          Pick any GitHub username and we pull actual commit counts from
-          GitHub. Your real totals, not starting from zero.
+          Pick any GitHub username and we pull actual commit counts from GitHub.
+          Your real totals, not starting from zero.
           <br />
           <br />
-          Features include 1v1 head-to-head duels, goal-based challenges,
-          league tiers, streak tracking, contribution graphs, shareable race
-          links, and social sharing across Twitter, LinkedIn, Discord, Slack,
-          and more.
+          Features include 1v1 head-to-head duels, goal-based challenges, league
+          tiers, streak tracking, contribution graphs, shareable race links, and
+          social sharing across Twitter, LinkedIn, Discord, Slack, and more.
         </h3>
 
         <div className="flex flex-row gap-4 py-8 md:gap-32">
@@ -83,7 +82,7 @@ export default function GitRacer() {
           <h2 className="py-8 text-xl sm:text-2xl md:text-3xl lg:text-4xl">
             Stack & Explanation
           </h2>
-          <p className="md:text-md text-xs sm:text-sm lg:text-[16px] md:max-w-[80%]">
+          <p className="md:text-md text-xs sm:text-sm md:max-w-[80%] lg:text-[16px]">
             Monorepo with <strong>React 19</strong> and{" "}
             <strong>React Router v7</strong> on the frontend,{" "}
             <strong>Hono</strong> as a lightweight REST API on the backend,{" "}

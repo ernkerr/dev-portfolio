@@ -23,13 +23,14 @@ export default {
           from: "#9333EA",
           to: "#06B6D4",
         },
-        // 2026 edition palette (home, fun, about)
+        // 2026 edition palette (home, fun, about). Values live in
+        // globals.css so the homepage switch can invert them.
         site: {
-          paper: "#FAFCFD",
-          ink: "#2B3645",
-          muted: "#66727F",
-          line: "#E3E8EE",
-          blue: "#001AFF",
+          paper: "rgb(var(--site-paper) / <alpha-value>)",
+          ink: "rgb(var(--site-ink) / <alpha-value>)",
+          muted: "rgb(var(--site-muted) / <alpha-value>)",
+          line: "rgb(var(--site-line) / <alpha-value>)",
+          blue: "rgb(var(--site-blue) / <alpha-value>)",
         },
       },
     },

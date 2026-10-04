@@ -8,43 +8,31 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import {
-  LuArrowLeft,
-  LuArrowRight,
-  LuArrowUpRight,
-  LuPause,
-  LuPlay,
-} from "react-icons/lu";
+import { LuArrowLeft, LuArrowRight, LuArrowUpRight } from "react-icons/lu";
 import { focusRing, mono, serif } from "@/components/site/links";
 import { inlineLink, label } from "@/components/site/prose";
 import AnnotatedPage, { type Annotation } from "./AnnotatedPage";
 import annotationsJson from "./annotations.json";
-import { LANDSCAPE, poster, video } from "./landscape";
+import { LANDSCAPE } from "./landscape";
 import "./portfolio-landscape.css";
 
-// Portfolios with highlights show an annotated screenshot; the rest still
-// play their recording.
+// Captures and highlights for each portfolio, measured by
+// career-ops/data/portfolio-landscape/annotate.mjs.
 const ANNOTATIONS = annotationsJson as Record<string, Annotation>;
 
 const GAP = 16;
-// The recordings scroll fast to fit a whole page into a short clip, so they
-// play at half speed to be readable.
-const PLAYBACK_RATE = 0.5;
 
 // A row of the portfolios from the landscape research. The highlighted one
-// plays a short recording of the part being discussed, the rest wait in
+// shows an annotated screenshot of their portfolio, the rest wait in
 // grayscale to its right, and the arrows, arrow keys or a swipe move along
 // the row. What each portfolio leads with, its projects, its case-study
 // length and what it suggests for my design change below. Like the affinity map, the row
 // runs past the text column to the right edge of the page.
 export default function PortfolioLandscape() {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const swipeX = useRef<number | null>(null);
   const [index, setIndex] = useState(0);
   const [size, setSize] = useState({ card: 0, bleed: 0 });
-  const [reduced, setReduced] = useState(false);
-  const [paused, setPaused] = useState(false);
 
   const count = LANDSCAPE.length;
   const active = LANDSCAPE[index];
@@ -77,42 +65,6 @@ export default function PortfolioLandscape() {
       window.removeEventListener("resize", measure);
     };
   }, []);
-
-  // Recordings don't play on their own for people who've asked for less motion.
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(query.matches);
-    setPaused(query.matches);
-    const onChange = () => setReduced(query.matches);
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
-
-  useEffect(() => {
-    setPaused(reduced);
-    if (reduced) videoRef.current?.pause();
-  }, [index, reduced]);
-
-  // The first clip can load before the page hydrates, so its loadedmetadata
-  // handler never runs. Set the speed here as well.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.defaultPlaybackRate = PLAYBACK_RATE;
-    v.playbackRate = PLAYBACK_RATE;
-  }, [index]);
-
-  function togglePlay() {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) {
-      v.play();
-      setPaused(false);
-    } else {
-      v.pause();
-      setPaused(true);
-    }
-  }
 
   const offset = size.card ? index * (size.card + GAP) : 0;
 
@@ -160,49 +112,9 @@ export default function PortfolioLandscape() {
                 className="shrink-0"
                 style={{ width: size.card || "86%" } as CSSProperties}
               >
-                <div
-                  className={`relative overflow-hidden border border-site-line bg-site-line/40 ${
-                    isActive && annotation
-                      ? "aspect-[3/4] sm:aspect-[16/10]"
-                      : "aspect-[16/10]"
-                  }`}
-                >
-                  {isActive && annotation ? (
+                <div className="relative aspect-[3/4] overflow-hidden border border-site-line bg-site-line/40 sm:aspect-[16/10]">
+                  {isActive ? (
                     <AnnotatedPage data={annotation} name={p.name} />
-                  ) : isActive ? (
-                    <>
-                      <video
-                        key={p.slug}
-                        ref={videoRef}
-                        src={video(p.slug)}
-                        poster={poster(p.slug)}
-                        autoPlay={!reduced}
-                        muted
-                        loop
-                        playsInline
-                        preload="auto"
-                        onLoadedMetadata={(e) => {
-                          e.currentTarget.defaultPlaybackRate = PLAYBACK_RATE;
-                          e.currentTarget.playbackRate = PLAYBACK_RATE;
-                        }}
-                        aria-label={`Screen recording of ${p.name}’s portfolio. ${p.look}`}
-                        className="h-full w-full object-cover"
-                      />
-                      <button
-                        type="button"
-                        onClick={togglePlay}
-                        aria-label={
-                          paused ? "Play recording" : "Pause recording"
-                        }
-                        className={`absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-site-ink/80 text-site-paper backdrop-blur transition-colors hover:bg-site-blue ${focusRing}`}
-                      >
-                        {paused ? (
-                          <LuPlay aria-hidden />
-                        ) : (
-                          <LuPause aria-hidden />
-                        )}
-                      </button>
-                    </>
                   ) : (
                     <button
                       type="button"
@@ -214,11 +126,11 @@ export default function PortfolioLandscape() {
                       className={`group block h-full w-full ${focusRing}`}
                     >
                       <Image
-                        src={poster(p.slug)}
+                        src={annotation.desktop.src}
                         alt=""
                         fill
                         sizes="(min-width: 1024px) 720px, 86vw"
-                        className="object-cover opacity-60 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                        className="object-cover object-top opacity-60 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0"
                       />
                     </button>
                   )}
@@ -307,9 +219,8 @@ export default function PortfolioLandscape() {
         </div>
 
         <p className="mt-5 max-w-[40rem] text-[13px] leading-relaxed text-site-muted">
-          {ANNOTATIONS[active.slug]
-            ? `Select a numbered highlight to see why I called it out. ${active.source.text.replace(/^Recorded/, "Captured")}`
-            : `In the recording: ${active.look} ${active.source.text}`}{" "}
+          Select a numbered highlight to see why I called it out.{" "}
+          {active.source.text}{" "}
           <a
             href={active.source.href}
             target="_blank"

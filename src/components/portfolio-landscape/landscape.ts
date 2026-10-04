@@ -47,7 +47,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "Her old field shaped her capstone, and the capstone matched her employer. It points to testing a case study that draws on my research background, aimed at health tech, instead of only mentioning that background.",
     source: {
-      text: "Recorded from the Wayback Machine, January 2022. Her 2020 homepage’s styles weren’t archived, so the clip shows the case study.",
+      text: "Captured from the Wayback Machine, January 2022. Her 2020 homepage’s styles weren’t archived, so this shows the case study.",
       href: "https://web.archive.org/web/20220119010125/http://saramirowitz.com/kadima/",
     },
   },
@@ -67,7 +67,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "One sentence on the homepage, and the depth in case studies that ran past 2,500 words. It points to a short homepage and fewer, deeper case studies. My 2025 ones ran about 700 to 850 words.",
     source: {
-      text: "Recorded from the Wayback Machine, January 2019, before any Gusto work was added.",
+      text: "Captured from the Wayback Machine, January 2019, before any Gusto work was added.",
       href: "https://web.archive.org/web/20190118235857/http://www.caitlinbrisson.com/",
     },
   },
@@ -87,7 +87,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "Three concepts and one real client were enough, and the real project went first. Everyone in the set who had real work led with it, which points to opening my Work page with shipped work.",
     source: {
-      text: "Recorded from her live site. The 2022 archive lost its images, and this case study is from before her hire.",
+      text: "Captured from her live site. The 2022 archive lost its images, and this case study is from before her hire.",
       href: "https://www.janelleacademia.com/houseofdiscipline",
     },
   },
@@ -107,7 +107,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "Case studies on Work and visual experiments on Play. Across the set, side projects either got their own page or stayed off the site, which points to giving mine a separate place.",
     source: {
-      text: "Recorded from the Wayback Machine, April 2021.",
+      text: "Captured from the Wayback Machine, April 2021.",
       href: "https://web.archive.org/web/20210414073255/https://www.amylima.design/",
     },
   },
@@ -127,7 +127,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "Her background is the closest to mine, and she put psychology just below the fold. It’s one of three placements worth testing, along with About only or a case study that draws on it.",
     source: {
-      text: "Recorded from her live site, which doesn’t show any CareDial work yet.",
+      text: "Captured from her live site, which doesn’t show any CareDial work yet.",
       href: "https://ogdesignz.framer.website/",
     },
   },
@@ -146,7 +146,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "Video carried his interaction design, and interaction and flows is 19% of portfolio asks in the job posts. It points to short clips of my apps in use instead of only screenshots.",
     source: {
-      text: "Recorded from the Wayback Machine, late 2025.",
+      text: "Captured from the Wayback Machine, late 2025.",
       href: "https://web.archive.org/web/20251202144745/https://miggyfajardo.com/",
     },
   },
@@ -165,7 +165,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "Quotes from people he worked with did the vouching. Four of the ten used someone else’s voice, which points to testing App Store reviews or a client quote inside my case studies.",
     source: {
-      text: "Recorded from the Wayback Machine, January 2026.",
+      text: "Captured from the Wayback Machine, January 2026.",
       href: "https://web.archive.org/web/20260107121738/https://leofu.ca/",
     },
   },
@@ -185,7 +185,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "No case studies, just shipped projects with real numbers, and that was enough for a design engineer role. It points to letting the engineering side of my site rest on Carpoolio’s rating and Group Sing Along’s users instead of long write-ups.",
     source: {
-      text: "Recorded from the Wayback Machine, May 2021.",
+      text: "Captured from the Wayback Machine, May 2021.",
       href: "https://web.archive.org/web/20210510034154/https://mitul.ca/",
     },
   },
@@ -204,7 +204,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "Working demos plus notes on how she made them. Seven of the ten published writing beyond their case studies, which points to treating my build-in-public posts on @erin.codes as evidence that I can explain my work.",
     source: {
-      text: "Recorded from her live site, which looks the same as it did in 2023.",
+      text: "Captured from her live site, which looks the same as it did in 2023.",
       href: "https://www.merry.design/",
     },
   },
@@ -224,7 +224,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     suggests:
       "She named the role in her first line and split the feed for design and engineering readers. It points to one clear role in my headline, with a separate route for the second audience.",
     source: {
-      text: "Recorded from the Wayback Machine, January 2025.",
+      text: "Captured from the Wayback Machine, January 2025.",
       href: "https://web.archive.org/web/20250131165450/https://joyceis.online/",
     },
   },

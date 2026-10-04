@@ -25,74 +25,74 @@
     "desktop": {
       "src": "/images/portfolioRedesign/landscape/annotated/mitul-shah-desktop.jpg",
       "width": 1280,
-      "height": 2819,
+      "height": 2734.3125,
       "spots": [
         {
           "x": 19.84,
-          "y": 4.88,
+          "y": 5.03,
           "w": 60.31,
-          "h": 5.68
+          "h": 5.85
         },
         {
           "x": 19.84,
-          "y": 19.98,
+          "y": 20.6,
           "w": 60.31,
-          "h": 5.09
+          "h": 5.25
         },
         {
           "x": 19.84,
-          "y": 42.86,
+          "y": 44.18,
           "w": 60.31,
-          "h": 6.34
+          "h": 6.53
         },
         {
           "x": 19.84,
-          "y": 49.76,
+          "y": 51.3,
           "w": 60.31,
-          "h": 7.19
+          "h": 7.41
         },
         {
           "x": 19.84,
-          "y": 71.31,
+          "y": 73.52,
           "w": 60.31,
-          "h": 4.4
+          "h": 4.53
         }
       ]
     },
     "mobile": {
       "src": "/images/portfolioRedesign/landscape/annotated/mitul-shah-mobile.jpg",
       "width": 390,
-      "height": 3918,
+      "height": 3660,
       "spots": [
         {
           "x": 6.15,
-          "y": 3.47,
+          "y": 3.71,
           "w": 87.69,
-          "h": 8.68
+          "h": 9.29
         },
         {
           "x": 6.15,
-          "y": 22.45,
+          "y": 24.04,
           "w": 87.69,
-          "h": 4.95
+          "h": 5.3
         },
         {
           "x": 6.15,
-          "y": 42.82,
+          "y": 45.84,
           "w": 87.69,
-          "h": 5.78
+          "h": 6.19
         },
         {
           "x": 6.15,
-          "y": 49.02,
+          "y": 52.47,
           "w": 87.69,
-          "h": 7.62
+          "h": 8.16
         },
         {
           "x": 6.15,
-          "y": 72.49,
+          "y": 77.6,
           "w": 87.69,
-          "h": 5.62
+          "h": 6.01
         }
       ]
     }
@@ -123,74 +123,725 @@
     "desktop": {
       "src": "/images/portfolioRedesign/landscape/annotated/olivia-gibson-desktop.jpg",
       "width": 1280,
-      "height": 5187,
+      "height": 5149,
       "spots": [
         {
           "x": 73.43,
-          "y": 2.29,
+          "y": 2.3,
           "w": 19.01,
-          "h": 1.7
+          "h": 1.71
         },
         {
           "x": 3.13,
-          "y": 23.65,
+          "y": 23.82,
           "w": 46.56,
-          "h": 2.62
+          "h": 2.64
         },
         {
           "x": 3.13,
-          "y": 28.97,
+          "y": 29.18,
           "w": 33.13,
-          "h": 3.55
+          "h": 3.57
         },
         {
           "x": 7.27,
-          "y": 52.1,
+          "y": 52.49,
           "w": 42.27,
-          "h": 11.55
+          "h": 11.63
         },
         {
           "x": 6.88,
-          "y": 77.44,
+          "y": 78.02,
           "w": 86.25,
-          "h": 10.26
+          "h": 10.33
         }
       ]
     },
     "mobile": {
       "src": "/images/portfolioRedesign/landscape/annotated/olivia-gibson-mobile.jpg",
       "width": 390,
-      "height": 6000,
+      "height": 6137,
       "spots": [
         {
           "x": 30.41,
-          "y": 2.99,
+          "y": 2.92,
           "w": 65.48,
-          "h": 0.97
+          "h": 0.95
         },
         {
           "x": 4.1,
-          "y": 16.41,
+          "y": 16.04,
           "w": 91.79,
-          "h": 1.93
+          "h": 1.89
         },
         {
           "x": 4.1,
-          "y": 19.15,
+          "y": 18.72,
           "w": 91.79,
-          "h": 2.72
+          "h": 2.66
         },
         {
           "x": 3.85,
-          "y": 42.36,
+          "y": 41.41,
           "w": 92.31,
-          "h": 8.12
+          "h": 7.94
         },
         {
           "x": 0,
-          "y": 86.12,
+          "y": 84.19,
           "w": 100,
-          "h": 6.17
+          "h": 6.03
+        }
+      ]
+    }
+  },
+  "sara-mirowitz": {
+    "notes": [
+      {
+        "label": "Facts block",
+        "note": "Framework, timeline, role and tools, before anything else. All five readable case studies in the set opened with a block like this, and hers says up front that it was a bootcamp capstone."
+      },
+      {
+        "label": "Her old field, turned into a niche",
+        "note": "She taught special education, and her capstone designs for people with motor disabilities. Voiceitt, which builds speech technology for people with disabilities, hired her as its only designer."
+      },
+      {
+        "label": "A user's voice",
+        "note": "A quote from a potential user who uses a wheelchair, near the top of the case study. Four of the ten used someone else's voice, and two of them put it inside a case study."
+      },
+      {
+        "label": "Research with real people",
+        "note": "Five in-person interviews with wheelchair users. Every readable case study in the set showed research or testing with real participants."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/sara-mirowitz-desktop.jpg",
+      "width": 1280,
+      "height": 4864.59375,
+      "spots": [
+        {
+          "x": 15.78,
+          "y": 21.14,
+          "w": 22.6,
+          "h": 4.1
+        },
+        {
+          "x": 38.7,
+          "y": 26.63,
+          "w": 45.52,
+          "h": 1.47
+        },
+        {
+          "x": 15,
+          "y": 30.89,
+          "w": 70,
+          "h": 4.93
+        },
+        {
+          "x": 15,
+          "y": 85.13,
+          "w": 70,
+          "h": 2.54
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/sara-mirowitz-mobile.jpg",
+      "width": 390,
+      "height": 4824.8125,
+      "spots": [
+        {
+          "x": 3.08,
+          "y": 11.68,
+          "w": 93.85,
+          "h": 3.8
+        },
+        {
+          "x": 3.08,
+          "y": 22.12,
+          "w": 93.85,
+          "h": 1.91
+        },
+        {
+          "x": 0.51,
+          "y": 26.8,
+          "w": 98.97,
+          "h": 6.49
+        },
+        {
+          "x": 0.51,
+          "y": 83.09,
+          "w": 98.97,
+          "h": 4.47
+        }
+      ]
+    }
+  },
+  "caitlin-brisson": {
+    "notes": [
+      {
+        "label": "Leads with",
+        "note": "One sentence that nods to her old career in marine biology: she loves \"diving beneath the surface\" of other people's worlds. Her homepage is about 215 words, and the depth is in the case studies."
+      },
+      {
+        "label": "Old career, on About",
+        "note": "The full story of her switch from marine biology and teaching is one click away on her About page, not on the homepage."
+      },
+      {
+        "label": "Case studies that go deep",
+        "note": "Each card opens a full case study. Hers run 2,600 to 3,400 words, the longest in the set."
+      },
+      {
+        "label": "Lighter work, labeled",
+        "note": "One project says \"Preview work\" instead of \"Read case study,\" so it's clear it isn't a full case study. Nobody in the set mixed smaller work in with case studies unmarked."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/caitlin-brisson-desktop.jpg",
+      "width": 1280,
+      "height": 3066,
+      "spots": [
+        {
+          "x": 12.66,
+          "y": 8.55,
+          "w": 74.69,
+          "h": 5.81
+        },
+        {
+          "x": 46.07,
+          "y": 22.93,
+          "w": 7.86,
+          "h": 1.17
+        },
+        {
+          "x": 43.91,
+          "y": 32.55,
+          "w": 43.44,
+          "h": 9.72
+        },
+        {
+          "x": 12.66,
+          "y": 73.26,
+          "w": 43.44,
+          "h": 7.18
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/caitlin-brisson-mobile.jpg",
+      "width": 390,
+      "height": 3483.9375,
+      "spots": [
+        {
+          "x": 0,
+          "y": 7.96,
+          "w": 100,
+          "h": 4.94
+        },
+        {
+          "x": 42.95,
+          "y": 17.72,
+          "w": 14.1,
+          "h": 1.21
+        },
+        {
+          "x": 4.62,
+          "y": 35.7,
+          "w": 90.77,
+          "h": 6.69
+        },
+        {
+          "x": 4.62,
+          "y": 77.64,
+          "w": 90.77,
+          "h": 5.14
+        }
+      ]
+    }
+  },
+  "janelle-academia": {
+    "notes": [
+      {
+        "label": "Real client work, first",
+        "note": "Her one real client project leads her portfolio, ahead of three concept projects. Everyone in the set who had real work led with it."
+      },
+      {
+        "label": "Facts block",
+        "note": "Client, role and duration before anything else. All five readable case studies in the set opened with a block like this."
+      },
+      {
+        "label": "The problem, up front",
+        "note": "The challenge comes right after the facts: the studio had grown through word-of-mouth referrals. All five readable case studies stated the problem in the opening."
+      },
+      {
+        "label": "Process, in order",
+        "note": "The case study walks through the design process in order, starting with research. All five readable case studies were structured this way."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/janelle-academia-desktop.jpg",
+      "width": 1280,
+      "height": 2749,
+      "spots": [
+        {
+          "x": 30.06,
+          "y": 39.72,
+          "w": 39.8,
+          "h": 2.67
+        },
+        {
+          "x": 42.73,
+          "y": 43.75,
+          "w": 14.45,
+          "h": 5.78
+        },
+        {
+          "x": 14.77,
+          "y": 64.28,
+          "w": 70.47,
+          "h": 10.37
+        },
+        {
+          "x": 14.77,
+          "y": 76.32,
+          "w": 58.83,
+          "h": 1.86
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/janelle-academia-mobile.jpg",
+      "width": 320,
+      "height": 2783.21875,
+      "spots": [
+        {
+          "x": 3.73,
+          "y": 20.88,
+          "w": 92.23,
+          "h": 2.94
+        },
+        {
+          "x": 3.75,
+          "y": 27.6,
+          "w": 92.5,
+          "h": 5.28
+        },
+        {
+          "x": 3.75,
+          "y": 57.64,
+          "w": 92.5,
+          "h": 18.29
+        },
+        {
+          "x": 3.75,
+          "y": 76.68,
+          "w": 92.5,
+          "h": 1.76
+        }
+      ]
+    }
+  },
+  "amy-lima": {
+    "notes": [
+      {
+        "label": "Leads with",
+        "note": "\"Hey, you.\" A direct, warm opener. Seven of the ten had a clear personal voice like this."
+      },
+      {
+        "label": "Role, angle and a playlist",
+        "note": "She names the role and an angle, humanizing tech, then links a playlist. The first two say what she does, and the playlist says something about who she is."
+      },
+      {
+        "label": "A concept, well timed",
+        "note": "Her first case study is a concept: a Clubhouse redesign she wrote while everyone was talking about Clubhouse. Five of the seven product designers in the set included a concept project."
+      },
+      {
+        "label": "Four case studies",
+        "note": "Four case studies on the homepage, with visual experiments kept on a separate Play page. Every product designer in the set showed three to five."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/amy-lima-desktop.jpg",
+      "width": 1280,
+      "height": 2232,
+      "spots": [
+        {
+          "x": 9.38,
+          "y": 7.48,
+          "w": 53.25,
+          "h": 11.47
+        },
+        {
+          "x": 9.38,
+          "y": 19.67,
+          "w": 49.25,
+          "h": 12.01
+        },
+        {
+          "x": 49.37,
+          "y": 35.53,
+          "w": 37.25,
+          "h": 14.87
+        },
+        {
+          "x": 49.37,
+          "y": 55.42,
+          "w": 37.25,
+          "h": 17.7
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/amy-lima-mobile.jpg",
+      "width": 390,
+      "height": 1853.15625,
+      "spots": [
+        {
+          "x": 7.95,
+          "y": 6.61,
+          "w": 84.1,
+          "h": 5.4
+        },
+        {
+          "x": 7.95,
+          "y": 12.87,
+          "w": 84.1,
+          "h": 12.52
+        },
+        {
+          "x": 7.95,
+          "y": 29.9,
+          "w": 76.1,
+          "h": 13.37
+        },
+        {
+          "x": 7.95,
+          "y": 50.43,
+          "w": 76.1,
+          "h": 17.2
+        }
+      ]
+    }
+  },
+  "miggy-fajardo": {
+    "notes": [
+      {
+        "label": "Leads with",
+        "note": "His role first, then one line on what he cares about. Six of the seven product designers said \"designer\" on their first screen."
+      },
+      {
+        "label": "Play, in the nav",
+        "note": "Experiments live on a separate Play page, one click away. Three of the seven product designers had one."
+      },
+      {
+        "label": "Facts on every card",
+        "note": "Each case study card carries a summary, his role, his contributions and the timeline, so you know what he did before you click."
+      },
+      {
+        "label": "Internship work, in motion",
+        "note": "His Dropbox internship projects show the interactions in video, with up to 10 videos per case study. Interaction and flows is 19% of portfolio asks in the job posts."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/miggy-fajardo-desktop.jpg",
+      "width": 1280,
+      "height": 1815,
+      "spots": [
+        {
+          "x": 49.38,
+          "y": 3.14,
+          "w": 50.63,
+          "h": 6.56
+        },
+        {
+          "x": 50,
+          "y": 0.41,
+          "w": 17.97,
+          "h": 1.65
+        },
+        {
+          "x": 1.25,
+          "y": 17.02,
+          "w": 25.78,
+          "h": 31.35
+        },
+        {
+          "x": 1.25,
+          "y": 63.86,
+          "w": 20.78,
+          "h": 3.09
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/miggy-fajardo-mobile.jpg",
+      "width": 390,
+      "height": 2308.59375,
+      "spots": [
+        {
+          "x": 3.08,
+          "y": 12.09,
+          "w": 93.85,
+          "h": 6.54
+        },
+        null,
+        {
+          "x": 0,
+          "y": 34.32,
+          "w": 100,
+          "h": 19.1
+        },
+        {
+          "x": 3.08,
+          "y": 71.58,
+          "w": 93.85,
+          "h": 2.43
+        }
+      ]
+    }
+  },
+  "leo-fu": {
+    "notes": [
+      {
+        "label": "Leads with",
+        "note": "A short line in the third person, then where he works now: leading design at Corgi, previously at Snapchat."
+      },
+      {
+        "label": "Titles that say what changed",
+        "note": "Each case study is titled by what the work did, like \"Scaling student housing with a cohesive design system,\" with the client and year underneath."
+      },
+      {
+        "label": "A competition project",
+        "note": "A design-a-thon project sits alongside client work, labeled as a finalist. Five of the seven product designers in the set included a concept or competition project."
+      },
+      {
+        "label": "Someone else's voice",
+        "note": "\"The receipts\": quotes from a design engineer at Wealthsimple and a principal product designer at 1Password, right on the homepage. Four of the ten used someone else's voice."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/leo-fu-desktop.jpg",
+      "width": 1280,
+      "height": 3571,
+      "spots": [
+        {
+          "x": 11.88,
+          "y": 15.01,
+          "w": 76.25,
+          "h": 3.14
+        },
+        {
+          "x": 11.88,
+          "y": 21.37,
+          "w": 37.81,
+          "h": 12.38
+        },
+        {
+          "x": 50.31,
+          "y": 37.47,
+          "w": 21.55,
+          "h": 0.99
+        },
+        {
+          "x": 11.88,
+          "y": 76.75,
+          "w": 76.25,
+          "h": 9.43
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/leo-fu-mobile.jpg",
+      "width": 390,
+      "height": 4251.421875,
+      "spots": [
+        {
+          "x": 1.03,
+          "y": 9.89,
+          "w": 97.95,
+          "h": 3.39
+        },
+        {
+          "x": 1.03,
+          "y": 14.63,
+          "w": 97.95,
+          "h": 8.49
+        },
+        {
+          "x": 1.03,
+          "y": 34.69,
+          "w": 62.4,
+          "h": 0.77
+        },
+        {
+          "x": 1.03,
+          "y": 74.92,
+          "w": 97.95,
+          "h": 10.97
+        }
+      ]
+    }
+  },
+  "mary-jiang": {
+    "notes": [
+      {
+        "label": "Leads with",
+        "note": "No job title, just an angle: prototyping digital environments inspired by play. Two of the three design engineers in the set skipped the role line."
+      },
+      {
+        "label": "Experiments, not case studies",
+        "note": "Small experiments in place of case studies. None of the three design engineers had case studies. They were hired on working things."
+      },
+      {
+        "label": "Notes on how she made them",
+        "note": "Process notes of 670 to 890 words on what she learned making each thing. Seven of the ten published writing beyond their case studies."
+      },
+      {
+        "label": "AI, before the AI job",
+        "note": "Several of her experiments prototype language model interactions. Her first design engineering job was at an AI company, Hume AI."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/mary-jiang-desktop.jpg",
+      "width": 1280,
+      "height": 800,
+      "spots": [
+        {
+          "x": 6.48,
+          "y": 16.38,
+          "w": 27.03,
+          "h": 12.2
+        },
+        {
+          "x": 4.08,
+          "y": 43.2,
+          "w": 26.84,
+          "h": 47.49
+        },
+        {
+          "x": 56.09,
+          "y": 56.7,
+          "w": 27.81,
+          "h": 16.53
+        },
+        {
+          "x": 56.09,
+          "y": 38.43,
+          "w": 27.81,
+          "h": 20.28
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/mary-jiang-mobile.jpg",
+      "width": 390,
+      "height": 2082.234375,
+      "spots": [
+        {
+          "x": 16.41,
+          "y": 6.29,
+          "w": 67.18,
+          "h": 7.3
+        },
+        {
+          "x": 8.84,
+          "y": 21.24,
+          "w": 82.32,
+          "h": 18.36
+        },
+        {
+          "x": 8.72,
+          "y": 63.39,
+          "w": 82.56,
+          "h": 7.79
+        },
+        {
+          "x": 8.72,
+          "y": 56.37,
+          "w": 82.56,
+          "h": 7.79
+        }
+      ]
+    }
+  },
+  "joyce-jiang": {
+    "notes": [
+      {
+        "label": "Leads with",
+        "note": "Just her name and \"Design Engineer.\" She's the one design engineer in the set who named the role on her first screen."
+      },
+      {
+        "label": "One feed, two audiences",
+        "note": "Her posts filter into Product Design and Engineering, so each kind of reviewer can go straight to their half."
+      },
+      {
+        "label": "The internship that became the job",
+        "note": "Her posts run 16 to 104 words, mostly images, including her Viam internship. Viam hired her as a product designer after it."
+      },
+      {
+        "label": "A timeline",
+        "note": "A timeline of key life and work events closes the page."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/joyce-jiang-desktop.jpg",
+      "width": 1280,
+      "height": 2938,
+      "spots": [
+        {
+          "x": 25.52,
+          "y": 0,
+          "w": 48.95,
+          "h": 2.96
+        },
+        {
+          "x": 25.52,
+          "y": 25.99,
+          "w": 24.84,
+          "h": 1.26
+        },
+        {
+          "x": 35.49,
+          "y": 69.58,
+          "w": 38.99,
+          "h": 2.09
+        },
+        {
+          "x": 35,
+          "y": 89.17,
+          "w": 39.48,
+          "h": 2.09
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/joyce-jiang-mobile.jpg",
+      "width": 390,
+      "height": 3617,
+      "spots": [
+        {
+          "x": 1.54,
+          "y": 0,
+          "w": 96.92,
+          "h": 2.41
+        },
+        {
+          "x": 1.54,
+          "y": 26.34,
+          "w": 81.51,
+          "h": 1.02
+        },
+        {
+          "x": 34.24,
+          "y": 69.87,
+          "w": 64.22,
+          "h": 1.7
+        },
+        {
+          "x": 32.63,
+          "y": 89.27,
+          "w": 65.83,
+          "h": 2.28
         }
       ]
     }

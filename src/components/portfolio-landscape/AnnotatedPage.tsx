@@ -85,14 +85,16 @@ export default function AnnotatedPage({
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // Steps to the next highlight that exists in this capture.
   function step(direction: 1 | -1) {
-    setOpen((current) =>
-      current === null
-        ? direction === 1
-          ? 0
-          : count - 1
-        : (current + direction + count) % count,
-    );
+    setOpen((current) => {
+      let i = current === null ? (direction === 1 ? -1 : count) : current;
+      for (let tries = 0; tries < count; tries++) {
+        i = (i + direction + count) % count;
+        if (capture.spots[i]) return i;
+      }
+      return null;
+    });
   }
 
   const active = open === null ? null : capture.spots[open];

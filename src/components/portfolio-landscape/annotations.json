@@ -1,0 +1,198 @@
+{
+  "mitul-shah": {
+    "notes": [
+      {
+        "label": "Leads with",
+        "note": "He opened by saying he was job hunting, for associate product manager or product analyst roles. Composer hired him as a UX developer anyway, on the strength of what he had already built."
+      },
+      {
+        "label": "Old career, in the experience list",
+        "note": "His year as a product analyst at Soapbox is one line in the experience list, not a story. Three of the six career switchers in the set showed their old field on the homepage, and none of them led with it."
+      },
+      {
+        "label": "Building in public",
+        "note": "A project that isn't finished yet, with a link to his build journal. Seven of the ten published writing beyond their case studies."
+      },
+      {
+        "label": "Project card, no case study",
+        "note": "One paragraph per project, with the demo and code linked. None of the three design engineers in the set had case studies. They were hired on things they had shipped."
+      },
+      {
+        "label": "A craft outside design",
+        "note": "Photography gets its own section, and he backs it up: one of his photos is a default wallpaper on every Google Pixel."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/mitul-shah-desktop.jpg",
+      "width": 1280,
+      "height": 2819,
+      "spots": [
+        {
+          "x": 19.84,
+          "y": 4.88,
+          "w": 60.31,
+          "h": 5.68
+        },
+        {
+          "x": 19.84,
+          "y": 19.98,
+          "w": 60.31,
+          "h": 5.09
+        },
+        {
+          "x": 19.84,
+          "y": 42.86,
+          "w": 60.31,
+          "h": 6.34
+        },
+        {
+          "x": 19.84,
+          "y": 49.76,
+          "w": 60.31,
+          "h": 7.19
+        },
+        {
+          "x": 19.84,
+          "y": 71.31,
+          "w": 60.31,
+          "h": 4.4
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/mitul-shah-mobile.jpg",
+      "width": 390,
+      "height": 3918,
+      "spots": [
+        {
+          "x": 6.15,
+          "y": 3.47,
+          "w": 87.69,
+          "h": 8.68
+        },
+        {
+          "x": 6.15,
+          "y": 22.45,
+          "w": 87.69,
+          "h": 4.95
+        },
+        {
+          "x": 6.15,
+          "y": 42.82,
+          "w": 87.69,
+          "h": 5.78
+        },
+        {
+          "x": 6.15,
+          "y": 49.02,
+          "w": 87.69,
+          "h": 7.62
+        },
+        {
+          "x": 6.15,
+          "y": 72.49,
+          "w": 87.69,
+          "h": 5.62
+        }
+      ]
+    }
+  },
+  "olivia-gibson": {
+    "notes": [
+      {
+        "label": "Leads with",
+        "note": "A greeting aimed at design and research readers, with no job title. She's the only one of the seven product designers in the set who didn't say \"designer\" on her first screen."
+      },
+      {
+        "label": "A specific angle",
+        "note": "She names her angle: making complex decisions simple. Four of the ten named an audience or theme like this."
+      },
+      {
+        "label": "Old career, just below the fold",
+        "note": "Her psychology background comes right after the first screen, framed as a strength: turning research insights into solutions. Hers is the background closest to mine in the set."
+      },
+      {
+        "label": "Work, three screens down",
+        "note": "Her work starts after the skills list: three case studies and a writing sample. Four of the ten showed work on the first screen, so where the work goes is still an open question for me."
+      },
+      {
+        "label": "Someone else's voice",
+        "note": "Quotes from two people she has worked with, right on the homepage. Four of the ten used someone else's voice, and she and Leo put it on the homepage."
+      }
+    ],
+    "desktop": {
+      "src": "/images/portfolioRedesign/landscape/annotated/olivia-gibson-desktop.jpg",
+      "width": 1280,
+      "height": 5187,
+      "spots": [
+        {
+          "x": 73.43,
+          "y": 2.29,
+          "w": 19.01,
+          "h": 1.7
+        },
+        {
+          "x": 3.13,
+          "y": 23.65,
+          "w": 46.56,
+          "h": 2.62
+        },
+        {
+          "x": 3.13,
+          "y": 28.97,
+          "w": 33.13,
+          "h": 3.55
+        },
+        {
+          "x": 7.27,
+          "y": 52.1,
+          "w": 42.27,
+          "h": 11.55
+        },
+        {
+          "x": 6.88,
+          "y": 77.44,
+          "w": 86.25,
+          "h": 10.26
+        }
+      ]
+    },
+    "mobile": {
+      "src": "/images/portfolioRedesign/landscape/annotated/olivia-gibson-mobile.jpg",
+      "width": 390,
+      "height": 6000,
+      "spots": [
+        {
+          "x": 30.41,
+          "y": 2.99,
+          "w": 65.48,
+          "h": 0.97
+        },
+        {
+          "x": 4.1,
+          "y": 16.41,
+          "w": 91.79,
+          "h": 1.93
+        },
+        {
+          "x": 4.1,
+          "y": 19.15,
+          "w": 91.79,
+          "h": 2.72
+        },
+        {
+          "x": 3.85,
+          "y": 42.36,
+          "w": 92.31,
+          "h": 8.12
+        },
+        {
+          "x": 0,
+          "y": 86.12,
+          "w": 100,
+          "h": 6.17
+        }
+      ]
+    }
+  }
+}

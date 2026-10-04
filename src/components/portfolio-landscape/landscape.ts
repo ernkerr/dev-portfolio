@@ -181,7 +181,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
       "A note that he was looking for his next role, as an associate product manager or product analyst",
     projects: "No case studies. 3 project cards and a photography section",
     caseStudies: "One paragraph per project",
-    look: "His job-hunting intro, then Paprback, with 300+ signups, 7,200+ visitors and 8 Reddit awards in one paragraph.",
+    look: "His job-hunting intro, then Paprback, with 300+ signups, 1,200+ visitors, 600+ upvotes and 8 Reddit awards in one paragraph.",
     suggests:
       "No case studies, just shipped projects with real numbers, and that was enough for a design engineer role. It points to letting the engineering side of my site rest on Carpoolio’s rating and Group Sing Along’s users instead of long write-ups.",
     source: {

@@ -17,8 +17,14 @@ import {
 } from "react-icons/lu";
 import { focusRing, mono, serif } from "@/components/site/links";
 import { inlineLink, label } from "@/components/site/prose";
+import AnnotatedPage, { type Annotation } from "./AnnotatedPage";
+import annotationsJson from "./annotations.json";
 import { LANDSCAPE, poster, video } from "./landscape";
 import "./portfolio-landscape.css";
+
+// Portfolios with highlights show an annotated screenshot; the rest still
+// play their recording.
+const ANNOTATIONS = annotationsJson as Record<string, Annotation>;
 
 const GAP = 16;
 // The recordings scroll fast to fit a whole page into a short clip, so they
@@ -144,6 +150,7 @@ export default function PortfolioLandscape() {
         >
           {LANDSCAPE.map((p, i) => {
             const isActive = i === index;
+            const annotation = ANNOTATIONS[p.slug];
             return (
               <li
                 key={p.slug}
@@ -153,8 +160,16 @@ export default function PortfolioLandscape() {
                 className="shrink-0"
                 style={{ width: size.card || "86%" } as CSSProperties}
               >
-                <div className="relative aspect-[16/10] overflow-hidden border border-site-line bg-site-line/40">
-                  {isActive ? (
+                <div
+                  className={`relative overflow-hidden border border-site-line bg-site-line/40 ${
+                    isActive && annotation
+                      ? "aspect-[3/4] sm:aspect-[16/10]"
+                      : "aspect-[16/10]"
+                  }`}
+                >
+                  {isActive && annotation ? (
+                    <AnnotatedPage data={annotation} name={p.name} />
+                  ) : isActive ? (
                     <>
                       <video
                         key={p.slug}
@@ -292,7 +307,9 @@ export default function PortfolioLandscape() {
         </div>
 
         <p className="mt-5 max-w-[40rem] text-[13px] leading-relaxed text-site-muted">
-          In the recording: {active.look} {active.source.text}{" "}
+          {ANNOTATIONS[active.slug]
+            ? `Select a numbered highlight to see why I called it out. ${active.source.text.replace(/^Recorded/, "Captured")}`
+            : `In the recording: ${active.look} ${active.source.text}`}{" "}
           <a
             href={active.source.href}
             target="_blank"

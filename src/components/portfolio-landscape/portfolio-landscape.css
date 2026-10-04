@@ -1,0 +1,21 @@
+/* The text under the carousel fades in when the highlighted portfolio changes. */
+@keyframes pl-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pl-fade {
+  animation: pl-fade 0.35s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-fade {
+    animation: none;
+  }
+}

@@ -16,6 +16,7 @@ import {
   label,
 } from "@/components/site/prose";
 import AffinityMap from "@/components/affinity-map/AffinityMap";
+import PortfolioLandscape from "@/components/portfolio-landscape/PortfolioLandscape";
 import {
   AsksChart,
   Audit,
@@ -209,11 +210,86 @@ const SECTIONS: CaseStudySection[] = [
           ]}
         />
         <H3>Other portfolios</H3>
-        <InProgress title="Portfolio landscape">
-          About 12 portfolios: five from junior product designers at companies
-          I’m applying to, three from design engineers, and four I admire, with
-          the patterns they share.
-        </InProgress>
+        <P>
+          I looked at ten portfolios from people hired into their first design
+          or design engineering job at startups, mid-size companies and one
+          apprenticeship. Seven are product designers, five of them career
+          switchers like me, and three are design engineers. I coded all ten on
+          the same 20 features, measured 15 of their case studies, and checked
+          each pattern against the 139 product and UI/UX posts from the job-post
+          research that ask for a portfolio.
+        </P>
+        <PortfolioLandscape />
+        <H3>What the portfolios showed</H3>
+        <Columns
+          count={2}
+          items={[
+            {
+              title: "Product designers showed three to five case studies.",
+              text: "All seven did, and the median was four. Taste and curation is also the top portfolio ask in the job posts.",
+            },
+            {
+              title: "Every case study followed the same shape.",
+              text: "A facts block, the problem, research and testing with real people, the design, and what they learned. Most ran 1,000 to 2,300 words with about 20 images. Only one reported shipped results.",
+            },
+            {
+              title: "Real work went first.",
+              text: "All three who had client, lab or internship work led with it. Concept projects didn’t hold anyone back, since five of the seven product designers had at least one.",
+            },
+            {
+              title: "Designers named the role, engineers showed the work.",
+              text: "Six of seven product designers said “designer” on their first screen. The three design engineers had no case studies and were hired on live projects, small demos and short posts.",
+            },
+          ]}
+        />
+        <P>
+          The job posts point the same way for junior roles. At entry and mid
+          level, asks for a user-centered process rise from 15% to 21% of
+          portfolio mentions, and asks for measurable impact fall from 14% to
+          8%. Junior designers are judged more on how they work than on numbers
+          they moved.
+        </P>
+        <H3>What it suggests for my design</H3>
+        <P>
+          None of this is decided yet. These are the ideas I’m taking into
+          reviewer sessions, each tied to the evidence above.
+        </P>
+        <List ordered>
+          <li>
+            Three to five design case studies on the main path, with real,
+            shipped work first and side projects somewhere else.
+          </li>
+          <li>
+            Fewer, deeper case studies in the shape the hires used. My 2025 case
+            studies ran about 700 to 850 words, and theirs mostly ran 1,000 to
+            2,300.
+          </li>
+          <li>
+            A first line that names the role, then a test of which angle
+            reviewers remember: research and the brain, building end to end, or
+            AI-native work.
+          </li>
+          <li>
+            A clear place for my psychology and neuroscience background, tested
+            three ways: a line on the homepage, About only, or a case study that
+            draws on it.
+          </li>
+          <li>
+            Engineering that supports the design work instead of leading it.
+            Code is 2% of portfolio asks for design roles, but it was the whole
+            case for the design engineers.
+          </li>
+        </List>
+        <P>
+          <strong>How I measured.</strong> I looked at each portfolio as it was
+          when they were hired, using the Wayback Machine where a site has
+          changed since, and counted words with a headless browser. Ten is a
+          small sample, and all ten got hired, so this shows what was typical
+          and enough, not what caused the hire. Three of the five career
+          switchers came from one bootcamp’s success stories. Where an archived
+          page lost its styles or images, the recording uses the closest version
+          that still renders and says which one.
+        </P>
         <H3>Talking to people</H3>
         <InProgress title="Reviewer sessions">
           Each person reviews the old site as if hiring a junior product

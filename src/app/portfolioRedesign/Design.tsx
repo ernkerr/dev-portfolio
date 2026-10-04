@@ -110,7 +110,7 @@ const SECTIONS: CaseStudySection[] = [
         <Finding
           n={5}
           title="The projects page was sorted for engineers."
-          text="It promised “my growth as a developer,” opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13. Every card listed a tech stack."
+          text="It promised “my growth as a developer,” opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13."
         >
           <Figure
             src={`${IMG}/before-projects.png`}

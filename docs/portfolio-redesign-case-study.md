@@ -33,7 +33,7 @@ When I walked through the old site the way a design hiring manager would, the ev
 2. **One tile in ten was about my work.** The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.
 3. **The visual language was a developer's.** Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.
 4. **The copy was about code.** Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with "My path into software development wasn't traditional."
-5. **The projects page was sorted for engineers.** It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13. Every card listed a tech stack.
+5. **The projects page was sorted for engineers.** It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13.
 
    ![The 2025 projects page](redesign-2026/before-projects.png)
    *The 2025 projects page, opening with Git Racer.*

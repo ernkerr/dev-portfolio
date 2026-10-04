@@ -102,7 +102,7 @@ export function Audit() {
           </div>
         ))}
       </div>
-      <ol className="mt-6 grid gap-x-8 gap-y-6 md:grid-cols-3">
+      <ol className="mt-6 flex max-w-[40rem] flex-col gap-8 md:gap-10">
         {AUDIT.map(({ n, title, text }) => (
           <li key={n}>
             <FindingHead n={n} title={title} text={text} />
@@ -152,10 +152,11 @@ export function Finding({
   text: ReactNode;
   children?: ReactNode;
 }) {
-  // Extra space above, and less inside, so each finding groups with its
-  // evidence rather than with the next finding.
+  // The section's 24px gap plus this margin matches the 32px (40px from md
+  // up) between findings 1–3, and the tighter gap inside keeps each finding
+  // grouped with its evidence rather than with the next finding.
   return (
-    <div className="mt-6 flex flex-col gap-4 md:mt-10">
+    <div className="mt-2 flex flex-col gap-4 md:mt-4">
       <div className="max-w-[40rem]">
         <FindingHead n={n} title={title} text={text} />
       </div>
@@ -171,28 +172,34 @@ export function MentionCount() {
   ];
   const max = 13;
   return (
-    <figure className="max-w-[40rem]">
-      <figcaption className={label}>
-        Mentions on the 2025 homepage and About page
-      </figcaption>
-      <dl className="mt-4 space-y-3">
-        {rows.map((r) => (
-          <div
-            key={r.term}
-            className="grid grid-cols-[9rem_1fr] items-center gap-4 sm:grid-cols-[15rem_1fr]"
-          >
-            <dt className="text-[15px] leading-snug text-site-ink">{r.term}</dt>
-            <dd className="flex items-center gap-3">
-              <span
-                aria-hidden="true"
-                className="h-2.5 rounded-r-[4px] bg-site-ink"
-                style={{ width: `${(r.n / max) * 82}%` }}
-              />
-              <span className={`${serif} text-[22px] leading-none`}>{r.n}</span>
-            </dd>
-          </div>
-        ))}
-      </dl>
+    <figure className="bg-site-line/60 p-5 sm:p-8">
+      <div className="mx-auto max-w-[34rem]">
+        <figcaption className={label}>
+          Mentions on the 2025 homepage and About page
+        </figcaption>
+        <dl className="mt-4 space-y-3">
+          {rows.map((r) => (
+            <div
+              key={r.term}
+              className="grid grid-cols-[9rem_1fr] items-center gap-4 sm:grid-cols-[15rem_1fr]"
+            >
+              <dt className="text-[15px] leading-snug text-site-ink">
+                {r.term}
+              </dt>
+              <dd className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="h-2.5 rounded-r-[4px] bg-site-ink"
+                  style={{ width: `${(r.n / max) * 82}%` }}
+                />
+                <span className={`${serif} text-[22px] leading-none`}>
+                  {r.n}
+                </span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </figure>
   );
 }

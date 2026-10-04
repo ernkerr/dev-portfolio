@@ -21,6 +21,9 @@ import { LANDSCAPE, poster, video } from "./landscape";
 import "./portfolio-landscape.css";
 
 const GAP = 16;
+// The recordings scroll fast to fit a whole page into a short clip, so they
+// play at half speed to be readable.
+const PLAYBACK_RATE = 0.5;
 
 // A row of the portfolios from the landscape research. The highlighted one
 // plays a short recording of the part being discussed, the rest wait in
@@ -83,6 +86,15 @@ export default function PortfolioLandscape() {
     setPaused(reduced);
     if (reduced) videoRef.current?.pause();
   }, [index, reduced]);
+
+  // The first clip can load before the page hydrates, so its loadedmetadata
+  // handler never runs. Set the speed here as well.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.defaultPlaybackRate = PLAYBACK_RATE;
+    v.playbackRate = PLAYBACK_RATE;
+  }, [index]);
 
   function togglePlay() {
     const v = videoRef.current;
@@ -154,6 +166,10 @@ export default function PortfolioLandscape() {
                         loop
                         playsInline
                         preload="auto"
+                        onLoadedMetadata={(e) => {
+                          e.currentTarget.defaultPlaybackRate = PLAYBACK_RATE;
+                          e.currentTarget.playbackRate = PLAYBACK_RATE;
+                        }}
                         aria-label={`Screen recording of ${p.name}’s portfolio. ${p.look}`}
                         className="h-full w-full object-cover"
                       />

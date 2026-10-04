@@ -24,6 +24,7 @@ import {
   Compare,
   CutClaims,
   Decision,
+  Finding,
   HeadlineSpecimen,
   LinkPreview,
   LiveThumbs,
@@ -99,36 +100,33 @@ const SECTIONS: CaseStudySection[] = [
           would, the evidence was everywhere, starting with the first screen.
         </P>
         <Audit />
-        <P>
-          <strong>The copy was about code.</strong> Across the homepage and
-          About page, I mentioned development, coding or software 13 times and
-          design twice. About opened with “My path into software development
-          wasn’t traditional.”
-        </P>
-        <MentionCount />
-        <P>
-          <strong>The visual language was a developer’s.</strong> Pixel display
-          type, monospace body text, and one saturated blue on every tile. Every
-          tile had the same weight, so nothing stood out as the most important.
-        </P>
-        <P>
-          <strong>The projects page was sorted for engineers.</strong> It
-          promised “my growth as a developer,” opened with Git Racer and a
-          two-hour ASCII camera, and put my only design case study fourth of 13.
-          Every card listed a tech stack.
-        </P>
-        <Figure
-          src={`${IMG}/before-projects.png`}
-          alt="The 2025 projects page: a pixel-type “Projects” heading, an intro about growing as a developer, and Git Racer as the first card with React, TypeScript and Hono chips."
-          width={1440}
-          height={900}
-          caption="The 2025 projects page, opening with Git Racer."
-        />
-        <P>
-          <strong>The details people check first were wrong.</strong> Besides
-          the location, the link preview introduced me as a software engineer.
-        </P>
-        <LinkPreview />
+        <Finding
+          n={4}
+          title="The copy was about code."
+          text="Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with “My path into software development wasn’t traditional.”"
+        >
+          <MentionCount />
+        </Finding>
+        <Finding
+          n={5}
+          title="The projects page was sorted for engineers."
+          text="It promised “my growth as a developer,” opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13. Every card listed a tech stack."
+        >
+          <Figure
+            src={`${IMG}/before-projects.png`}
+            alt="The 2025 projects page: a pixel-type “Projects” heading, an intro about growing as a developer, and Git Racer as the first card with React, TypeScript and Hono chips."
+            width={1440}
+            height={900}
+            caption="The 2025 projects page, opening with Git Racer."
+          />
+        </Finding>
+        <Finding
+          n={6}
+          title="The details people check first were wrong."
+          text="The clock tile still said San Francisco, but I live in New York. The link preview introduced me as a software engineer."
+        >
+          <LinkPreview />
+        </Finding>
       </>
     ),
   },

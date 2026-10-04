@@ -44,9 +44,9 @@ const AUDIT = [
   },
   {
     n: 3,
-    box: box(128, 708, 389, 64),
-    title: "The location was wrong.",
-    text: "The clock tile still said San Francisco. I live in New York.",
+    box: box(923, 708, 389, 64),
+    title: "The visual language was a developer’s.",
+    text: "Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.",
   },
 ];
 
@@ -70,7 +70,7 @@ export function Audit() {
         >
           <Image
             src={`${IMG}/before-home-desktop.png`}
-            alt="The 2025 homepage, with three tiles marked: the headline, the projects list and the location clock."
+            alt="The 2025 homepage, with three areas marked: the headline, the projects list, and the disco-ball and dark-mode tiles."
             width={1440}
             height={900}
             sizes="(min-width: 1024px) 1040px, 116vw"
@@ -104,20 +104,63 @@ export function Audit() {
       </div>
       <ol className="mt-6 grid gap-x-8 gap-y-6 md:grid-cols-3">
         {AUDIT.map(({ n, title, text }) => (
-          <li key={n} className="flex gap-3">
-            <Pin n={n} />
-            <div>
-              <p className={`${serif} text-[20px] leading-snug text-site-ink`}>
-                {title}
-              </p>
-              <p className="mt-1.5 text-[15px] leading-[1.6] text-site-ink/75">
-                {text}
-              </p>
-            </div>
+          <li key={n}>
+            <FindingHead n={n} title={title} text={text} />
           </li>
         ))}
       </ol>
     </figure>
+  );
+}
+
+// A finding's number, title and explanation: the three on the homepage
+// screenshot and the ones after it share this, so every finding in the
+// audit reads at the same level.
+function FindingHead({
+  n,
+  title,
+  text,
+}: {
+  n: number;
+  title: string;
+  text: ReactNode;
+}) {
+  return (
+    <div className="flex gap-3">
+      <Pin n={n} />
+      <div>
+        <p className={`${serif} text-[20px] leading-snug text-site-ink`}>
+          {title}
+        </p>
+        <p className="mt-1.5 text-[15px] leading-[1.6] text-site-ink/75">
+          {text}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/** An audit finding after the homepage ones, with its evidence below. */
+export function Finding({
+  n,
+  title,
+  text,
+  children,
+}: {
+  n: number;
+  title: string;
+  text: ReactNode;
+  children?: ReactNode;
+}) {
+  // Extra space above, and less inside, so each finding groups with its
+  // evidence rather than with the next finding.
+  return (
+    <div className="mt-6 flex flex-col gap-4 md:mt-10">
+      <div className="max-w-[40rem]">
+        <FindingHead n={n} title={title} text={text} />
+      </div>
+      {children}
+    </div>
   );
 }
 

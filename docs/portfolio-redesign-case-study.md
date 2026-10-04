@@ -28,20 +28,17 @@ A portfolio is a product that's never finished, which makes it the perfect mediu
 When I walked through the old site the way a design hiring manager would, the evidence was everywhere.
 
 ![The 2025 homepage](redesign-2026/before-home-desktop.png)
-*The 2025 first screen. "Designer &" is a thin script and "Full Stack Developer" is a heavy pixel typeface, so the type picks a side before anyone reads a word.*
 
-### 1 of 10
-**tiles on the first screen was about my work.** The rest were a photo, my last-played Spotify track, a clock, a GitHub contribution graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.
+1. **The type picked a side.** "Designer &" is a thin script and "Full Stack Developer" a heavy pixel face, so the headline argued before anyone read it.
+2. **One tile in ten was about my work.** The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.
+3. **The visual language was a developer's.** Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.
+4. **The copy was about code.** Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with "My path into software development wasn't traditional."
+5. **The projects page was sorted for engineers.** It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13. Every card listed a tech stack.
 
-- **The copy was about code.** Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with "My path into software development wasn't traditional."
-- **The projects page was sorted for engineers.** It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13. Every card listed a tech stack.
-- **The visual language was a developer's.** Pixel display type, monospace body text, and one saturated blue on every tile. Every tile had equal weight, so nothing stood out as the most important.
-- **The details people check first were wrong.** The location said San Francisco, but I live in New York. The link preview, which is what people see when I paste my portfolio into an application, said "Software Engineer & Developer Content Creator."
+   ![The 2025 projects page](redesign-2026/before-projects.png)
+   *The 2025 projects page, opening with Git Racer.*
 
-![The 2025 projects page](redesign-2026/before-projects.png)
-*The 2025 projects page. My one design case study was fourth of 13.*
-
-**[TO MAKE: the link-preview card from pasting erinkerr.me into LinkedIn or Slack. Capture it before the title is fixed.]**
+6. **The details people check first were wrong.** The clock tile still said San Francisco, but I live in New York. The link preview introduced me as a software engineer.
 
 ---
 

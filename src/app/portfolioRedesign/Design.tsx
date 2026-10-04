@@ -68,10 +68,6 @@ const SECTIONS: CaseStudySection[] = [
         </Lead>
         <Facts
           items={[
-            {
-              label: "Role",
-              value: "Designer, researcher and developer, solo",
-            },
             { label: "Timeline", value: "September to October 2026" },
             {
               label: "Tools",
@@ -79,8 +75,7 @@ const SECTIONS: CaseStudySection[] = [
             },
             {
               label: "Scope",
-              value:
-                "Homepage, About, a side-projects page, an archive of past editions, and this case study",
+              value: "Website redesign",
             },
           ]}
         />

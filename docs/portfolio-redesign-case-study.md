@@ -14,10 +14,9 @@ A portfolio is a product that's never finished, which makes it the perfect mediu
 
 | | |
 |---|---|
-| **Role** | Designer, researcher and developer, solo |
 | **Timeline** | September to October 2026 |
 | **Tools** | [Figma, FigJam], Next.js, Tailwind CSS |
-| **Scope** | Homepage, About, a side-projects page, an archive of past editions, and this case study |
+| **Scope** | Website redesign |
 
 ---
 

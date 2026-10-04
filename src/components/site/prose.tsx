@@ -187,14 +187,25 @@ export function Table({
   );
 }
 
+// One row of facts on wide screens, whatever the count, so a short block
+// doesn't leave an empty column.
+const FACT_COLUMNS: Record<number, string> = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+  4: "sm:grid-cols-2 lg:grid-cols-4",
+};
+
 /** Label and value pairs in a row, like the credits at the top of a study. */
 export function Facts({
   items,
 }: {
   items: { label: string; value: ReactNode }[];
 }) {
+  const columns = FACT_COLUMNS[items.length] ?? FACT_COLUMNS[4];
   return (
-    <dl className="grid gap-x-8 gap-y-6 border-t border-site-line pt-5 sm:grid-cols-2 lg:grid-cols-4">
+    <dl
+      className={`grid gap-x-8 gap-y-6 border-t border-site-line pt-5 ${columns}`}
+    >
       {items.map((item) => (
         <div key={item.label}>
           <dt className={label}>{item.label}</dt>

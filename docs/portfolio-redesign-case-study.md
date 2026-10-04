@@ -6,7 +6,7 @@
 
 ## Overview
 
-A designer told me my portfolio read like an engineer's, which is a problem when you're applying for UI/UX roles. I built it when I was first starting out in software engineering, and as my work moved toward design, the site never did.
+A designer told me my portfolio read like an engineer's, which is a problem when you're applying for product and UI/UX roles. I built it when I was first starting out in software engineering, and as my work moved toward design, the site never did.
 
 So I audited it, studied 265 designer job posts and 10 portfolios of new design hires, and redesigned it from a blank page to lead with design.
 
@@ -22,7 +22,7 @@ A portfolio is a product that's never finished, which makes it the perfect mediu
 
 ## Problem
 
-**How might I put my design work first for a UI/UX reviewer, without hiding the engineering that sets me apart?**
+**How might I put my design work first for a design reviewer, without hiding the engineering that sets me apart?**
 
 **Design teams look for craft, taste and shipped work. My portfolio led with code.**\
 When I walked through the old site the way a design hiring manager would, the evidence was everywhere.
@@ -40,17 +40,15 @@ When I walked through the old site the way a design hiring manager would, the ev
 
 6. **The details people check first were wrong.** The clock tile still said San Francisco, but I live in New York. The link preview introduced me as a software engineer.
 
+[Click through the 2025 site yourself](/archive/2025). It's still online, unchanged.
+
 ---
 
 ## Goal
 
-**A reviewer should find a design case study within two minutes.**
+**Make the case for design without hiding the engineering.**
 
-1. **Lead with design** without hiding the engineering.
-2. **Put real, shipped work on the first screen.**
-3. **Make every line true.** Each one should trace back to my resume or to work someone can see.
-
-**How I'll know it worked:** reviewers reach a design case study within their first two minutes, and they name a design project when asked what they remember.
+*How I'll know I've succeeded:* in a first-click test, a design reviewer's first click on the homepage lands on a design case study within 20 seconds.
 
 ---
 
@@ -102,7 +100,7 @@ What the map showed. The first number is the share of portfolio mentions that as
 
 [Who gave the original feedback, and what they said when I followed up.]
 
-[n] sessions with [who]. Each person reviewed the old site as if hiring a junior product designer with two minutes before their next meeting, thinking out loud. [What they remembered, where they stopped, whether they found a design case study. Best quotes.]
+[n] sessions with [who]. Each person reviewed the old site as if hiring a junior product or UI/UX designer with two minutes before their next meeting, thinking out loud. [What they remembered, where they stopped, whether they found a design case study. Best quotes.]
 
 ---
 
@@ -133,6 +131,10 @@ The prototype went through these versions:
 2. Work, Fun and About pages.
 3. The designer/engineer switch.
 4. [Later iterations.]
+
+**How I'll test it:** I run a first-click test on the homepage, then after two minutes ask reviewers which design project they remember.
+
+**Why 20 seconds fits:** Nielsen Norman Group's [research on how long people stay on web pages](https://www.nngroup.com/articles/how-long-do-users-stay-on-web-pages/) found many leave within 10–20 seconds unless the page shows its value quickly. My new homepage puts case studies on the first screen, so 20 seconds is realistic. (Jakob Nielsen, "How Long Do Users Stay on Web Pages?", September 2011, based on Microsoft Research dwell-time data.)
 
 **Testing.** [n] reviewers saw the old site and then the prototype, with the same scenario and the same questions.
 
@@ -218,7 +220,7 @@ Shipped work outranks concepts, so the labels lead with ratings and users instea
 
 ![The 2026 homepage](redesign-2026/after-home-full.png)
 
-**[TO MAKE: session results, old versus new.]** [For example: "On the old site, n of 5 reviewers reached a design case study within two minutes. On the new one, n of 5 did." Real numbers only.]
+**[TO MAKE: session results, old versus new.]** [For example: "On the old site, n of 5 reviewers found a design case study within 20 seconds. On the new one, n of 5 did." Real numbers only.]
 
 [After launch: replies from design roles, which case studies get opened.]
 

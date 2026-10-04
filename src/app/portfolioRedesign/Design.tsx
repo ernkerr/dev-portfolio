@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
 import CaseStudyArticle, {
   type CaseStudySection,
@@ -53,9 +54,9 @@ const SECTIONS: CaseStudySection[] = [
       <>
         <Lead>
           A designer told me my portfolio read like an engineer’s, which is a
-          problem when you’re applying for UI/UX roles. I built it when I was
-          first starting out in software engineering, and as my work moved
-          toward design, the site never did.
+          problem when you’re applying for product and UI/UX roles. I built it
+          when I was first starting out in software engineering, and as my work
+          moved toward design, the site never did.
         </Lead>
         <Lead>
           So I audited it, studied 265 designer job posts and 10 portfolios of
@@ -87,7 +88,7 @@ const SECTIONS: CaseStudySection[] = [
     id: "problem",
     title: "Problem",
     headline:
-      "How might I put my design work first for a UI/UX reviewer, without hiding the engineering that sets me apart?",
+      "How might I put my design work first for a design reviewer, without hiding the engineering that sets me apart?",
     content: (
       <>
         <P>
@@ -127,37 +128,27 @@ const SECTIONS: CaseStudySection[] = [
         >
           <LinkPreview />
         </Finding>
+        <P>
+          <Link href="/archive/2025" className={inlineLink}>
+            Click through the 2025 site yourself
+          </Link>
+          . It’s still online, unchanged.
+        </P>
       </>
     ),
   },
   {
     id: "goal",
     title: "Goal",
-    headline: "A reviewer should find a design case study within two minutes.",
+    headline: "Make the case for design without hiding the engineering.",
     content: (
-      <>
-        <Columns
-          items={[
-            {
-              title: "Lead with design",
-              text: "Name the design role first, and keep the engineering that sets me apart.",
-            },
-            {
-              title: "Put shipped work first",
-              text: "Real, shipped work on the first screen, and make it look like design work.",
-            },
-            {
-              title: "Make every line true",
-              text: "Each line should trace back to my resume or to work someone can see.",
-            },
-          ]}
-        />
-        <P>
-          <strong>How I’ll know it worked:</strong> reviewers reach a design
-          case study within their first two minutes, and they name a design
-          project when asked what they remember.
-        </P>
-      </>
+      <div className="border-t border-site-line pt-5">
+        <p className={label}>How I’ll know I’ve succeeded</p>
+        <p className="mt-3 max-w-measure font-serif text-subhead text-site-ink">
+          In a first-click test, a design reviewer’s first click on the homepage
+          lands on a design case study within 20 seconds.
+        </p>
+      </div>
     ),
   },
   {
@@ -298,9 +289,9 @@ const SECTIONS: CaseStudySection[] = [
         </P>
         <H3>Talking to people</H3>
         <InProgress title="Reviewer sessions">
-          Each person reviews the old site as if hiring a junior product
-          designer with two minutes before their next meeting, thinking out
-          loud: what they remember, where they stop, and whether they find a
+          Each person reviews the old site as if hiring a junior product or
+          UI/UX designer with two minutes before their next meeting, thinking
+          out loud: what they remember, where they stop, and whether they find a
           design case study.
         </InProgress>
       </>
@@ -376,6 +367,25 @@ const SECTIONS: CaseStudySection[] = [
         </P>
         <p className={label}>Versions so far</p>
         <Versions />
+        <P>
+          <strong>How I’ll test it:</strong> I run a first-click test on the
+          homepage, then after two minutes ask reviewers which design project
+          they remember.
+        </P>
+        <P>
+          <strong>Why 20 seconds fits:</strong> Nielsen Norman Group’s{" "}
+          <a
+            href="https://www.nngroup.com/articles/how-long-do-users-stay-on-web-pages/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={inlineLink}
+          >
+            research on how long people stay on web pages
+          </a>{" "}
+          found many leave within 10–20 seconds unless the page shows its value
+          quickly. My new homepage puts case studies on the first screen, so 20
+          seconds is realistic.
+        </P>
         <InProgress title="Testing">
           Reviewers see the old site and then the prototype, with the same
           scenario and the same questions. What testing shows, and what I change
@@ -398,8 +408,7 @@ const SECTIONS: CaseStudySection[] = [
         <Decision n={1} title="A headline where design is the noun">
           <P>
             <strong>The idea.</strong> The first line makes design my identity
-            and engineering how I work: “I’m Erin, a product designer who
-            engineers.”
+            and engineering how I work: “I’m Erin, a designer who engineers.”
           </P>
           <P>
             <strong>Why.</strong> Six of the seven product designers in the
@@ -585,7 +594,7 @@ const SECTIONS: CaseStudySection[] = [
           caption="The 2026 homepage."
         />
         <InProgress title="Session results">
-          How many reviewers reach a design case study within two minutes on the
+          How many reviewers find a design case study within 20 seconds on the
           old site and on the new one, what they remember, and the best quotes.
           Real numbers only.
         </InProgress>

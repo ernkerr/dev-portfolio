@@ -12,7 +12,7 @@ export default function HeroHeadline() {
   return (
     <>
       <h1 className="max-w-[600px] font-serif text-display-sm md:text-display">
-        I&apos;m Erin, a product{" "}
+        I&apos;m Erin, a{" "}
         <Word italic={!engineer} tracking="tracking-[0.034em]">
           designer
         </Word>{" "}

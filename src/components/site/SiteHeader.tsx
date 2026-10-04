@@ -21,7 +21,7 @@ export default function SiteHeader() {
         <Link href="/" className={`justify-self-start ${focusRing}`}>
           <span className="text-site-ink">Erin Kerr</span>
           <span className="ml-3 hidden text-site-muted lg:inline">
-            Product designer + engineer
+            Product &amp; UI/UX designer + engineer
           </span>
         </Link>
 

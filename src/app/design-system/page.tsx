@@ -104,7 +104,7 @@ const TYPE: { name: string; spec: string; sample: ReactNode }[] = [
     spec: "font-serif text-display-sm md:text-display · 56 / 1.08",
     sample: (
       <p className="font-serif text-display-sm text-site-ink md:text-display">
-        I&apos;m Erin, a product <em>designer</em> who engineers.
+        I&apos;m Erin, a <em>designer</em> who engineers.
       </p>
     ),
   },
@@ -150,7 +150,7 @@ const TYPE: { name: string; spec: string; sample: ReactNode }[] = [
     sample: (
       <Lead>
         I rebuilt my portfolio so it makes the case for the job I’m applying for
-        now: product designer.
+        now: UI/UX designer.
       </Lead>
     ),
   },
@@ -580,7 +580,7 @@ const SECTIONS: CaseStudySection[] = [
       <List>
         <li>
           Write the way I talk. The home page opens with one sentence: “I’m
-          Erin, a product designer who engineers.”
+          Erin, a designer who engineers.”
         </li>
         <li>
           Keep labels short and literal: Work, Fun, About. Designed + coded by

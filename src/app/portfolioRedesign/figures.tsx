@@ -600,7 +600,7 @@ export function HeadlineSpecimen() {
           <p
             className={`${serif} text-[clamp(17px,2.2vw,24px)] leading-tight text-site-ink`}
           >
-            I’m Erin, a product <em>designer</em> who engineers.
+            I’m Erin, a <em>designer</em> who engineers.
           </p>
         </div>
       </div>
@@ -642,7 +642,7 @@ export function SwitchSpecimen() {
             <p
               className={`${serif} text-[20px] leading-snug text-site-ink sm:text-[24px]`}
             >
-              a product {engineer ? "designer" : <em>designer</em>} who{" "}
+              a {engineer ? "designer" : <em>designer</em>} who{" "}
               {engineer ? <em>engineers</em> : "engineers"}.
               <span className="sr-only">
                 {engineer ? " (engineer side)" : " (designer side)"}
@@ -904,7 +904,7 @@ const FACES = [
   {
     name: "Newsreader",
     role: "Headlines and project titles",
-    sample: "I’m Erin, a product designer who engineers.",
+    sample: "I’m Erin, a designer who engineers.",
     className: `${serif} text-[28px] leading-tight sm:text-[34px]`,
   },
   {
@@ -993,7 +993,7 @@ const COMPARE: { what: string; before: ReactNode; after: ReactNode }[] = [
     before: "“Designer & Full Stack Developer”",
     after: (
       <>
-        “I’m Erin, a product <em>designer</em> who engineers.”
+        “I’m Erin, a <em>designer</em> who engineers.”
       </>
     ),
   },

@@ -6,7 +6,7 @@ import Design from "./Design";
 export const metadata: Metadata = {
   title: "Portfolio Redesign",
   description:
-    "How Erin Kerr rebuilt her portfolio to lead with product design: an audit of the 2025 site, research on 265 designer job posts, and a redesign from a blank page.",
+    "How Erin Kerr rebuilt her portfolio to lead with product and UI/UX design: an audit of the 2025 site, research on 265 designer job posts, and a redesign from a blank page.",
   alternates: { canonical: "/portfolioRedesign" },
 };
 

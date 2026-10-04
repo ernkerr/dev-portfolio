@@ -51,11 +51,20 @@ const SECTIONS: CaseStudySection[] = [
     content: (
       <>
         <Lead>
-          I rebuilt my portfolio so it makes the case for the job I’m applying
-          for now: product designer. The 2025 site was built while I was
-          applying for engineering roles, and it read that way. I audited it,
-          studied 265 designer job posts to learn what design teams want a
-          portfolio to prove, and redesigned it from a blank page.
+          A designer told me my portfolio read like an engineer’s, which is a
+          problem when you’re applying for UI/UX roles. I built it when I was
+          first starting out in software engineering, and as my work moved
+          toward design, the site never did.
+        </Lead>
+        <Lead>
+          So I audited it, studied 265 designer job posts and 10 portfolios of
+          new design hires, and redesigned it from a blank page to lead with
+          design.
+        </Lead>
+        <Lead>
+          A portfolio is a product that’s never finished, which makes it the
+          perfect medium for user feedback loops. Each round of testing shapes
+          the next version, so it keeps getting better.
         </Lead>
         <Facts
           items={[
@@ -86,9 +95,8 @@ const SECTIONS: CaseStudySection[] = [
     content: (
       <>
         <P>
-          A designer told me my portfolio read like an engineer’s. When I walked
-          through it the way a design hiring manager would, the evidence was
-          everywhere, starting with the first screen.
+          When I walked through it the way a design hiring manager would, the
+          evidence was everywhere, starting with the first screen.
         </P>
         <Audit />
         <P>
@@ -626,7 +634,7 @@ export default function Design() {
     <SiteShell>
       <CaseStudyArticle
         label="Portfolio redesign • 2026"
-        title="Redesigning my portfolio for the job I actually want"
+        title="Turning a developer portfolio into a design portfolio"
         sections={SECTIONS}
       />
     </SiteShell>

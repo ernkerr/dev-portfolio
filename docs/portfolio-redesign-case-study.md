@@ -6,7 +6,11 @@
 
 ## Overview
 
-I rebuilt my portfolio so it makes the case for the job I'm applying for now: product designer. The 2025 site was built while I was applying for engineering roles, and it read that way. I audited it, studied 265 designer job posts to learn what design teams want a portfolio to prove, [talked to n reviewers], and redesigned it from a blank page.
+A designer told me my portfolio read like an engineer's, which is a problem when you're applying for UI/UX roles. I built it when I was first starting out in software engineering, and as my work moved toward design, the site never did.
+
+So I audited it, studied 265 designer job posts and 10 portfolios of new design hires, and redesigned it from a blank page to lead with design.
+
+A portfolio is a product that's never finished, which makes it the perfect medium for user feedback loops. Each round of testing shapes the next version, so it keeps getting better.
 
 | | |
 |---|---|
@@ -19,7 +23,7 @@ I rebuilt my portfolio so it makes the case for the job I'm applying for now: pr
 
 ## Problem
 
-My portfolio was pitching me for a different job. [Who] told me [their words, e.g. "this reads like an engineer's portfolio"], and when I walked through the site the way a design hiring manager would, the evidence was everywhere.
+My portfolio was pitching me for a different job. When I walked through the site the way a design hiring manager would, the evidence was everywhere.
 
 ![The 2025 homepage](redesign-2026/before-home-desktop.png)
 *The 2025 first screen. "Designer &" is a thin script and "Full Stack Developer" is a heavy pixel typeface, so the type picks a side before anyone reads a word.*

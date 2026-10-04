@@ -48,7 +48,7 @@ const LEFT: TileItem[] = [
   },
   {
     href: "/portfolioRedesign",
-    title: "Redesigning my portfolio for the job I actually want",
+    title: "Turning a developer portfolio into a design portfolio",
     meta: ["Portfolio Redesign", "2026"],
     art: { kind: "custom", alt: "", node: null },
     aspect: "aspect-[4/3]",

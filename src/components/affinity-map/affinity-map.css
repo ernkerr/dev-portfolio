@@ -6,7 +6,7 @@
    piled below, like a wall after an affinity-mapping session. */
 .am {
   --am-paper: rgb(var(--site-paper, 250 252 253));
-  --am-ink: rgb(var(--site-ink, 43 54 69));
+  --am-ink: rgb(var(--site-ink, 15 23 42));
   --am-muted: rgb(var(--site-muted, 102 114 127));
   --am-line: rgb(var(--site-line, 227 232 238));
   --am-blue: rgb(var(--site-blue, 0 26 255));

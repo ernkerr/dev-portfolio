@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { SideLink, useEngineerSide } from "./SideContext";
-import { focusRing, mono, serif } from "./links";
+import { focusRing } from "./links";
 
 // Thumbnails follow one rule: a brand-colored field with a single thing on
 // it (an app icon, a logo, or one real UI component). No page screenshots.
@@ -18,7 +18,7 @@ export type TileArt =
       ratio: number;
       /** Tailwind width class relative to the frame, e.g. "w-[30%]". */
       width: string;
-      /** Tailwind radius class; app icons use "rounded-[22%]". */
+      /** Tailwind radius class; app icons use "rounded-app-icon". */
       radius?: string;
       shadow?: boolean;
     }
@@ -81,9 +81,7 @@ function Art({
     <div className="absolute inset-0 flex items-center justify-center">
       <div
         className={`relative overflow-hidden ${art.width} ${art.radius ?? ""} ${
-          art.shadow
-            ? "shadow-[0_18px_48px_rgba(15,23,42,0.22)] ring-1 ring-black/5"
-            : ""
+          art.shadow ? "shadow-float ring-1 ring-black/5" : ""
         } ${zoom}`}
         style={{ aspectRatio: art.ratio }}
       >
@@ -135,13 +133,13 @@ export default function Tile({
         }`}
       >
         <h3
-          className={`${serif} text-[17px] leading-snug text-site-ink transition-colors group-hover:text-site-blue`}
+          className={
+            "font-serif text-tile-title text-site-ink transition-colors group-hover:text-site-blue"
+          }
         >
           {title}
         </h3>
-        <p
-          className={`${mono} text-[12px] uppercase tracking-[0.06em] text-site-muted`}
-        >
+        <p className="font-mono text-label uppercase text-site-muted">
           {meta.join(" • ")}
         </p>
       </div>

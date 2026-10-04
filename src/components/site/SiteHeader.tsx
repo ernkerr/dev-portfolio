@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { EMAIL, focusRing, mono } from "./links";
+import { EMAIL, focusRing } from "./links";
 
 const NAV = [
   { href: "/", label: "Work" },
@@ -16,7 +16,7 @@ export default function SiteHeader() {
   return (
     <header className="sticky top-0 z-20 border-b border-site-line bg-site-paper/90 backdrop-blur">
       <div
-        className={`${mono} mx-auto flex h-16 max-w-[1600px] items-center justify-between px-6 text-[13px] uppercase tracking-[0.04em] md:grid md:grid-cols-[1fr_auto_1fr]`}
+        className={`mx-auto flex h-header max-w-page items-center justify-between px-gutter font-mono text-nav uppercase md:grid md:grid-cols-[1fr_auto_1fr]`}
       >
         <Link href="/" className={`justify-self-start ${focusRing}`}>
           <span className="text-site-ink">Erin Kerr</span>

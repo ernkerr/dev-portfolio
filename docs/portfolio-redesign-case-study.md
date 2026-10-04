@@ -179,11 +179,11 @@ Shipped work outranks concepts, so the labels lead with ratings and users instea
 
 | Token | Light | Dark | Contrast (light / dark) |
 |---|---|---|---|
-| paper | `#FAFCFD` | `#2B3645` | |
-| ink | `#2B3645` | `#FAFCFD` | 11.9 / 11.9 |
-| muted | `#66727F` | `#A7B1BD` | 4.8 / 5.6 |
+| paper | `#FAFCFD` | `#0F172A` | |
+| ink | `#0F172A` | `#FAFCFD` | 17.3 / 17.3 |
+| muted | `#66727F` | `#A7B1BD` | 4.8 / 8.2 |
 | line | `#E3E8EE` | `#3D4A5C` | |
-| blue | `#001AFF` | `#A5B1FF` | 7.9 / 6.0 |
+| blue | `#001AFF` | `#A5B1FF` | 7.9 / 8.8 |
 
 **Type and components.**
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { focusRing, mono, serif } from "./links";
+import { focusRing } from "./links";
 
 // Building blocks for a case study's text, in the 2026 edition's type: body
 // copy a step softer than ink with bold lead-ins in full ink, serif subheads
@@ -9,10 +9,10 @@ import { focusRing, mono, serif } from "./links";
 // CaseStudyArticle section.
 
 const strongInk = "[&_strong]:font-medium [&_strong]:text-site-ink";
-const body = `text-[16px] leading-[1.7] text-site-ink/80 ${strongInk}`;
-const measure = "max-w-[40rem]";
+const body = `text-body text-site-ink/80 ${strongInk}`;
+const measure = "max-w-measure";
 
-export const label = `${mono} text-[12px] uppercase tracking-[0.06em] text-site-muted`;
+export const label = "font-mono text-label uppercase text-site-muted";
 
 /** A link inside running text, as on About. */
 export const inlineLink = `text-site-ink underline decoration-site-line underline-offset-4 transition-colors hover:text-site-blue hover:decoration-site-blue ${focusRing}`;
@@ -24,9 +24,7 @@ export function P({ children }: { children: ReactNode }) {
 /** The opening paragraph, a size up from body copy. */
 export function Lead({ children }: { children: ReactNode }) {
   return (
-    <p
-      className={`${measure} text-[19px] leading-[1.6] text-site-ink md:text-[21px]`}
-    >
+    <p className={`${measure} text-lead-sm text-site-ink md:text-lead`}>
       {children}
     </p>
   );
@@ -34,9 +32,7 @@ export function Lead({ children }: { children: ReactNode }) {
 
 export function H3({ children }: { children: ReactNode }) {
   return (
-    <h3 className={`${serif} mt-10 text-[26px] leading-snug text-site-ink`}>
-      {children}
-    </h3>
+    <h3 className="mt-10 font-serif text-subhead text-site-ink">{children}</h3>
   );
 }
 
@@ -62,7 +58,7 @@ export function List({
 }
 
 export function Code({ children }: { children: ReactNode }) {
-  return <code className={`${mono} text-[0.88em]`}>{children}</code>;
+  return <code className="font-mono text-[0.88em]">{children}</code>;
 }
 
 /** Short titled points side by side: two, three or four across. */
@@ -82,12 +78,10 @@ export function Columns({
     <ul className={`grid gap-x-8 gap-y-8 ${cols}`}>
       {items.map((item, i) => (
         <li key={i} className="border-t border-site-line pt-4">
-          <p className={`${serif} text-[21px] leading-snug text-site-ink`}>
+          <p className="font-serif text-column-title text-site-ink">
             {item.title}
           </p>
-          <p
-            className={`mt-2 text-[15px] leading-[1.65] text-site-ink/75 ${strongInk}`}
-          >
+          <p className={`mt-2 text-body-sm text-site-ink/75 ${strongInk}`}>
             {item.text}
           </p>
         </li>
@@ -137,9 +131,7 @@ export function Figure({
 
 export function Caption({ children }: { children: ReactNode }) {
   return (
-    <figcaption
-      className={`${measure} mt-3 text-[13px] leading-relaxed text-site-muted`}
-    >
+    <figcaption className={`${measure} mt-3 text-caption text-site-muted`}>
       {children}
     </figcaption>
   );
@@ -154,7 +146,7 @@ export function Table({
 }) {
   return (
     <div className="overflow-x-auto">
-      <table className="w-full border-collapse text-left text-[15px]">
+      <table className="w-full border-collapse text-left text-body-sm leading-normal">
         <thead>
           <tr className="border-b border-site-line">
             {head.map((h, i) => (
@@ -209,7 +201,7 @@ export function Facts({
       {items.map((item) => (
         <div key={item.label}>
           <dt className={label}>{item.label}</dt>
-          <dd className="mt-2 text-[15px] leading-[1.55] text-site-ink">
+          <dd className="mt-2 text-body-sm leading-[1.55] text-site-ink">
             {item.value}
           </dd>
         </div>
@@ -220,9 +212,7 @@ export function Facts({
 
 export function Quote({ children }: { children: ReactNode }) {
   return (
-    <blockquote
-      className={`${serif} max-w-[40rem] text-[26px] leading-snug text-site-ink`}
-    >
+    <blockquote className="max-w-measure font-serif text-subhead text-site-ink">
       {children}
     </blockquote>
   );
@@ -248,9 +238,7 @@ export function InProgress({
         />
         In progress: {title}
       </p>
-      <p
-        className={`${measure} mt-2 text-[15px] leading-[1.65] text-site-ink/75`}
-      >
+      <p className={`${measure} mt-2 text-body-sm text-site-ink/75`}>
         {children}
       </p>
     </div>

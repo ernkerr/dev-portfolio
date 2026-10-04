@@ -17,7 +17,7 @@
 /* 2026 edition palette, as RGB channels for Tailwind's site-* colors. */
 :root {
   --site-paper: 250 252 253; /* #FAFCFD */
-  --site-ink: 43 54 69; /* #2B3645 */
+  --site-ink: 15 23 42; /* #0F172A, the 2025 site's navy */
   --site-muted: 102 114 127; /* #66727F */
   --site-line: 227 232 238; /* #E3E8EE */
   --site-blue: 0 26 255; /* #001AFF */
@@ -27,8 +27,8 @@
    inverts: paper and ink trade places, and muted, line and blue are re-picked
    to hold their contrast on the dark ground. */
 :root:has([data-side="engineer"]) {
-  --background: #2b3645; /* overscroll matches the page */
-  --site-paper: 43 54 69; /* #2B3645 */
+  --background: #0f172a; /* overscroll matches the page */
+  --site-paper: 15 23 42; /* #0F172A */
   --site-ink: 250 252 253; /* #FAFCFD */
   --site-muted: 167 177 189; /* #A7B1BD */
   --site-line: 61 74 92; /* #3D4A5C */
@@ -53,6 +53,19 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Tailwind's base styles set code and pre in the mono token, which is now
+   Geist Mono. Keep them on the system mono stack so older pages and posts look
+   as they did; the font-mono class still gives the brand face. */
+@layer base {
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+  }
 }
 
 /* ---- Ported from OrderSync design system (used by the OrderSync case study) ---- */

@@ -128,7 +128,7 @@ const BentoGrid = () => {
           <div className="col-span-full row-span-2 row-start-10 flex transform-gpu items-center justify-center overflow-hidden rounded-lg bg-blue-600 shadow-md transition-all duration-700 ease-in-out will-change-transform sm:col-span-4 sm:row-span-3 md:col-span-5 md:col-start-6 md:row-span-2 md:row-start-9 lg:relative lg:col-span-4 lg:row-span-3 lg:row-start-auto">
             {/* select-none: applies the user-select property to the ascii art, preventing the user from selecting the text 
             leading-[0.85rem]: sets the line height (the vertical spacing between lines of text) to 0.85rem */}
-            <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-end font-mono text-[0.85rem] leading-[0.85rem] text-white/40 opacity-70">
+            <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-end font-[ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation_Mono','Courier_New',monospace] text-[0.85rem] leading-[0.85rem] text-white/40 opacity-70">
               {`⠀⠀⠀⠀⠀⠀⠀⢀⣤⠖⠂⠉⠉⠉⠀⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⢀⠀⣶⡟⢀⣴⣶⣿⣾⣶⣶⣄⡀⠈⠑⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⡴⣫⣼⡿⣴⡟⠛⠉⠉⠛⠛⠿⣿⣿⣷⣦⡀⠙⢄⠀⠀⠀⠀⠀⠀⠀

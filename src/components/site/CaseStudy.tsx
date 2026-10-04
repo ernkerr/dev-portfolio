@@ -3,7 +3,6 @@
 import { useState, type ReactNode } from "react";
 import SideSwitch from "./SideSwitch";
 import SiteShell from "./SiteShell";
-import { mono, serif } from "./links";
 
 // A project's case study, told from either side. On a written-up side the
 // switch floats in the corner so readers can flip between the design and
@@ -39,7 +38,7 @@ export default function CaseStudy({
       <SideSwitch
         engineer={engineer}
         onFlip={flip}
-        className="fixed bottom-5 right-5 z-50 h-12 w-24 shadow-[0_8px_24px_rgba(15,23,42,0.35)] ring-1 ring-white/15 md:bottom-8 md:right-8 md:h-14 md:w-28"
+        className="fixed bottom-5 right-5 z-50 h-12 w-24 shadow-switch ring-1 ring-white/15 md:bottom-8 md:right-8 md:h-14 md:w-28"
       />
     </>
   );
@@ -57,14 +56,10 @@ function ComingSoon({
   return (
     <SiteShell>
       <section className="max-w-[640px] pt-16 md:pt-28 lg:pt-40">
-        <p
-          className={`${mono} text-[12px] uppercase tracking-[0.06em] text-site-muted`}
-        >
+        <p className="font-mono text-label uppercase text-site-muted">
           {project} • {engineer ? "Engineering" : "Design"}
         </p>
-        <h1
-          className={`${serif} mt-4 text-[40px] leading-[1.08] tracking-[-0.02em] md:text-[56px]`}
-        >
+        <h1 className="mt-4 font-serif text-display-sm md:text-display">
           The {engineer ? "engineering" : "design"} story for {project} is on
           its way.
         </h1>

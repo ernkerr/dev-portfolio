@@ -10,5 +10,7 @@ export const SOCIALS = [
 export const focusRing =
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-site-blue";
 
-export const mono = "font-[family-name:var(--font-geist-mono)]";
-export const serif = "font-[family-name:var(--font-serif)]";
+// Kept for existing imports; new code can use font-mono and font-serif
+// directly (tailwind.config.ts).
+export const mono = "font-mono";
+export const serif = "font-serif";

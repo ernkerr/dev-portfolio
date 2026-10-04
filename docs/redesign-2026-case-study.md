@@ -126,11 +126,11 @@ A portfolio is the one place a hiring manager can't fact-check me in the moment,
 
 | Token | Light | Dark | Use | Contrast (light / dark) |
 |---|---|---|---|---|
-| paper | `#FAFCFD` | `#2B3645` | Background | |
-| ink | `#2B3645` | `#FAFCFD` | Text | 11.9 / 11.9 |
-| muted | `#66727F` | `#A7B1BD` | Labels, metadata | 4.8 / 5.6 |
+| paper | `#FAFCFD` | `#0F172A` | Background | |
+| ink | `#0F172A` | `#FAFCFD` | Text | 17.3 / 17.3 |
+| muted | `#66727F` | `#A7B1BD` | Labels, metadata | 4.8 / 8.2 |
 | line | `#E3E8EE` | `#3D4A5C` | Dividers | |
-| blue | `#001AFF` | `#A5B1FF` | Links, active nav, switch | 7.9 / 6.0 |
+| blue | `#001AFF` | `#A5B1FF` | Links, active nav, switch | 7.9 / 8.8 |
 
 Every text color passes WCAG AA on its background.
 

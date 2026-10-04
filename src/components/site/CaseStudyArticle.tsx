@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { focusRing, mono, serif } from "./links";
+import { focusRing } from "./links";
 
 export type CaseStudySection = {
   /** Anchor for the section, e.g. "overview". */
@@ -48,7 +48,7 @@ export default function CaseStudyArticle({
       {/* The sticky header is 65px tall; the list sits below it. */}
       <aside className="hidden min-w-40 self-start pt-20 md:sticky md:top-[65px] md:block">
         <nav aria-label="Sections">
-          <ul className="flex flex-col items-start gap-2 text-[15px]">
+          <ul className="flex flex-col items-start gap-2 text-body-sm leading-normal">
             {sections.map((s) => (
               <li key={s.id}>
                 <a
@@ -72,19 +72,15 @@ export default function CaseStudyArticle({
 
       <article className="pt-16 md:pt-20">
         {label && (
-          <p
-            className={`${mono} mb-4 text-[12px] uppercase tracking-[0.06em] text-site-muted`}
-          >
+          <p className="mb-4 font-mono text-label uppercase text-site-muted">
             {label}
           </p>
         )}
-        <h1
-          className={`${serif} max-w-[44rem] text-[40px] leading-[1.08] tracking-[-0.02em] md:text-[56px]`}
-        >
+        <h1 className="max-w-[44rem] font-serif text-display-sm md:text-display">
           {title}
         </h1>
 
-        <div className="mt-12 flex flex-col gap-20 md:mt-16 md:gap-32">
+        <div className="mt-12 flex flex-col gap-section-sm md:mt-16 md:gap-section">
           {sections.map((s) => (
             <section
               key={s.id}
@@ -96,14 +92,12 @@ export default function CaseStudyArticle({
               <header className="flex flex-col gap-3">
                 <h2
                   id={`${s.id}-heading`}
-                  className={`${mono} text-[12px] uppercase tracking-[0.06em] text-site-muted`}
+                  className="font-mono text-label uppercase text-site-muted"
                 >
                   {s.title}
                 </h2>
                 {s.headline && (
-                  <p
-                    className={`${serif} max-w-[40rem] text-[30px] leading-[1.12] tracking-[-0.015em] text-site-ink md:text-[40px]`}
-                  >
+                  <p className="max-w-measure font-serif text-section-sm text-site-ink md:text-section">
                     {s.headline}
                   </p>
                 )}

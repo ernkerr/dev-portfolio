@@ -824,20 +824,20 @@ export function CutClaims() {
 // The values in globals.css. The second column is the engineer side of the
 // switch, where paper and ink trade places.
 const TOKENS = [
-  { name: "paper", light: "#FAFCFD", dark: "#2B3645", use: "Background" },
+  { name: "paper", light: "#FAFCFD", dark: "#0F172A", use: "Background" },
   {
     name: "ink",
-    light: "#2B3645",
+    light: "#0F172A",
     dark: "#FAFCFD",
     use: "Text",
-    contrast: "11.9 / 11.9",
+    contrast: "17.3 / 17.3",
   },
   {
     name: "muted",
     light: "#66727F",
     dark: "#A7B1BD",
     use: "Labels and metadata",
-    contrast: "4.8 / 5.6",
+    contrast: "4.8 / 8.2",
   },
   { name: "line", light: "#E3E8EE", dark: "#3D4A5C", use: "Dividers" },
   {
@@ -845,7 +845,7 @@ const TOKENS = [
     light: "#001AFF",
     dark: "#A5B1FF",
     use: "Links, active nav",
-    contrast: "7.9 / 6.0",
+    contrast: "7.9 / 8.8",
   },
 ];
 

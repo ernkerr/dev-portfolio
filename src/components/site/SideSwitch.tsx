@@ -6,8 +6,7 @@ import { LuCodeXml, LuPenTool } from "react-icons/lu";
 import { focusRing } from "./links";
 
 // Crisp ease-out shared by the knob and its symbols.
-const motion =
-  "duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
+const motion = "duration-300 ease-switch motion-reduce:transition-none";
 
 const glyph = `absolute inset-0 m-auto h-[45%] w-[45%] transition ${motion}`;
 
@@ -109,7 +108,7 @@ export default function SideSwitch({
           side's symbol, a pen nib for design and </> for code, and they roll
           past each other as it moves. */}
       <span
-        className={`absolute left-[5%] top-[10%] aspect-square h-[80%] rounded-full bg-site-paper shadow-[0_4px_12px_rgba(15,23,42,0.25)] transition-transform ${motion} ${
+        className={`absolute left-[5%] top-[10%] aspect-square h-[80%] rounded-full bg-site-paper shadow-knob transition-transform ${motion} ${
           knob ? "translate-x-[125%]" : ""
         }`}
       >

@@ -2,7 +2,6 @@
 
 import { useSide } from "./SideContext";
 import SideSwitch from "./SideSwitch";
-import { serif } from "./links";
 
 // Homepage headline plus the big designer/engineer switch under it. The
 // switch moves the italic between "designer" and "engineers", inverts the
@@ -12,9 +11,7 @@ export default function HeroHeadline() {
 
   return (
     <>
-      <h1
-        className={`${serif} max-w-[600px] text-[40px] leading-[1.08] tracking-[-0.02em] md:text-[56px]`}
-      >
+      <h1 className="max-w-[600px] font-serif text-display-sm md:text-display">
         I&apos;m Erin, a product{" "}
         <Word italic={!engineer} tracking="tracking-[0.034em]">
           designer

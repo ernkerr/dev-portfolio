@@ -343,18 +343,6 @@ const SECTIONS: CaseStudySection[] = [
         <List>
           <li>
             <a
-              href="https://www.rachelchen.tech"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={inlineLink}
-            >
-              rachelchen.tech
-            </a>
-            : a mono header, serif headlines, and tiles that are one brand color
-            with one real object on them.
-          </li>
-          <li>
-            <a
               href="https://lynnandtonic.com/archive"
               target="_blank"
               rel="noopener noreferrer"

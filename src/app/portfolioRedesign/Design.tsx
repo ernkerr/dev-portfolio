@@ -391,79 +391,177 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
-    id: "design-decisions",
-    title: "Design decisions",
+    id: "ideas-to-test",
+    title: "Ideas to test",
+    headline: "Eight ideas in the prototype, and how I’ll test each one.",
     content: (
       <>
+        <P>
+          None of these are final. Each one is in the prototype so reviewers can
+          react to it, and each comes with the evidence behind it and what would
+          tell me it works.
+        </P>
         <Decision n={1} title="A headline where design is the noun">
           <P>
-            The research showed code is valued but isn’t what a portfolio is
-            judged on, so design is the identity and engineering is how I work.
+            <strong>The idea.</strong> The first line makes design my identity
+            and engineering how I work: “I’m Erin, a product designer who
+            engineers.”
+          </P>
+          <P>
+            <strong>Why.</strong> Six of the seven product designers in the
+            landscape said “designer” on their first screen. Code is valued in
+            the job posts, but it’s 2% of what they ask a portfolio to show.
+          </P>
+          <P>
+            <strong>How I’ll test it.</strong> Show reviewers two versions of
+            the first line and ask what job I’m applying for. The second version
+            adds an angle, like research or building end to end, to see which
+            one they repeat back.
           </P>
           <HeadlineSpecimen />
         </Decision>
         <Decision n={2} title="A switch for the engineers">
           <P>
-            A toggle with a pen nib on one side and <Code>{"</>"}</Code> on the
-            other moves the italics from “designer” to “engineers” without
-            shifting the words around them. It saves the side in the URL (
-            <Code>?side=engineer</Code>), so one site serves both audiences.
+            <strong>The idea.</strong> A toggle with a pen nib on one side and{" "}
+            <Code>{"</>"}</Code> on the other moves the italics from “designer”
+            to “engineers” without shifting the words around them. The side is
+            saved in the URL as <Code>?side=engineer</Code>, so one site could
+            serve both audiences.
+          </P>
+          <P>
+            <strong>Why.</strong> The two kinds of hires in the landscape were
+            judged on different things. The product designers had case studies,
+            and the design engineers had shipped code, small demos and short
+            posts.
+          </P>
+          <P>
+            <strong>How I’ll test it.</strong> Watch whether design reviewers
+            notice the switch and whether it reads as a plus or a distraction,
+            then ask an engineer to find the engineering work. The alternatives
+            to compare are a separate engineering page and a short note on how
+            each project was built.
           </P>
           <SwitchSpecimen />
         </Decision>
         <Decision n={3} title="Curating hard">
           <P>
-            Six case studies on Work. Seven side projects moved to a Fun page,
-            “Side quests, small tools, &amp; one app Apple rejected.” The
-            widgets are gone. Curation was the top portfolio ask in the
-            research.
+            <strong>The idea.</strong> Six case studies on Work, and seven side
+            projects on a Fun page, “Side quests, small tools, &amp; one app
+            Apple rejected.” The widgets are gone.
+          </P>
+          <P>
+            <strong>Why.</strong> Curation is the top portfolio ask in the job
+            posts. The research also pushes back on the number: every product
+            designer in the landscape showed three to five case studies, so six
+            is above that range.
+          </P>
+          <P>
+            <strong>How I’ll test it.</strong> Compare a Work page with four
+            case studies against one with six, and track which projects
+            reviewers open and which ones they remember.
           </P>
         </Decision>
         <Decision n={4} title="Titles that say what it does">
           <P>
-            Each title now says what the project does for people, and the label
-            under it shows proof instead of a tech stack, because shipped work
-            outranks concepts.
+            <strong>The idea.</strong> Each title says what the project does for
+            people, and the label under it shows proof, like a rating or active
+            users, instead of a tech stack.
+          </P>
+          <P>
+            <strong>Why.</strong> Shipped work is the second-biggest portfolio
+            ask. In the landscape, everyone who had real work put it first, and
+            Mitul was hired as a design engineer on project cards with real
+            numbers.
+          </P>
+          <P>
+            <strong>How I’ll test it.</strong> After two minutes on the site,
+            ask reviewers which projects they remember and what they remember
+            about them. A title or a proof number coming back means it worked.
           </P>
           <Retitled />
         </Decision>
         <Decision n={5} title="Thumbnails built from the real thing">
           <P>
-            Each tile is one brand color with one object on it. Wherever I
-            could, that object is real UI rebuilt in code, so it stays sharp at
-            any size and shows the design itself. These three are live
+            <strong>The idea.</strong> Each tile is one brand color with one
+            object on it. Where possible, the object is real UI rebuilt in code,
+            so it stays sharp and shows the design itself. These three are live
             components, not images.
+          </P>
+          <P>
+            <strong>Why.</strong> Visual craft is almost a quarter of portfolio
+            asks, and interaction and flows is 19%. The landscape doesn’t point
+            to any one visual style, so this idea rests on the job posts more
+            than on other portfolios.
+          </P>
+          <P>
+            <strong>How I’ll test it.</strong> Ask reviewers what each project
+            is from its tile alone, before they read the title.
           </P>
           <LiveThumbs />
         </Decision>
         <Decision n={6} title="An experience list that says what I did">
           <P>
-            The last column says what I did at each place instead of my job
-            title, for example “Ran 500+ research interviews for NIH studies.”
+            <strong>The idea.</strong> The last column says what I did at each
+            place instead of my job title, for example “Ran 500+ research
+            interviews for NIH studies.”
+          </P>
+          <P>
+            <strong>Why.</strong> Mitul’s homepage listed what he did at each
+            job, and it carried a career switch into a design engineering role.
+            It’s one example, so this is a weaker signal than the others.
+          </P>
+          <P>
+            <strong>How I’ll test it.</strong> Ask reviewers what I did before
+            design. If they can name the research, the list is doing its job.
           </P>
         </Decision>
         <Decision n={7} title="About, rewritten around design">
-          <P>It now connects my research interviews to how I design.</P>
+          <P>
+            <strong>The idea.</strong> About connects my research interviews to
+            how I design, instead of opening with my path into software.
+          </P>
+          <P>
+            <strong>Why.</strong> No career switcher in the landscape led with
+            their old career. Three showed it on the homepage, two kept it on
+            About, and one left it out. Sara got the most from hers by turning
+            it into a niche.
+          </P>
+          <P>
+            <strong>How I’ll test it.</strong> Try the psychology and
+            neuroscience background in three places: a line on the homepage,
+            About only, or a case study that draws on it. Ask reviewers whether
+            it reads as a strength or a detour.
+          </P>
           <Rewrites />
         </Decision>
         <Decision n={8} title="Every line true">
           <P>
-            I checked every claim on my OrderSync case study against the project
-            and cut three.
+            <strong>The idea.</strong> Every claim traces back to my resume or
+            to work someone can see. I checked every claim on my OrderSync case
+            study against the project and cut three.
+          </P>
+          <P>
+            <strong>Why.</strong> The job posts ask for proof. Shipped work
+            comes up in 27% of portfolio asks and measurable impact in 14%, and
+            a claim nobody can check proves nothing.
+          </P>
+          <P>
+            <strong>How I’ll test it.</strong> Ask reviewers which lines they’d
+            want proof for, and make sure each of those links to it.
           </P>
           <CutClaims />
         </Decision>
 
         <H3>Design system</H3>
         <P>
-          Five color tokens and three typefaces, each with one job. The main
-          components are SiteShell, SiteHeader, Tile, HeroHeadline and
-          SideSwitch.
+          The prototype so far uses five color tokens and three typefaces, each
+          with one job. The main components are SiteShell, SiteHeader, Tile,
+          HeroHeadline and SideSwitch.
         </P>
         <Tokens />
         <TypeSpecimens />
         <P>
-          <strong>Accessibility.</strong>
+          <strong>Accessibility so far.</strong>
         </P>
         <List>
           <li>

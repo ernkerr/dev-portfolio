@@ -79,19 +79,24 @@ const SECTIONS: CaseStudySection[] = [
             },
           ]}
         />
-        <BeforeAfter />
       </>
     ),
   },
   {
     id: "problem",
     title: "Problem",
-    headline: "My portfolio was pitching me for a different job.",
+    headline:
+      "How might I put my design work first for a UI/UX reviewer, without hiding the engineering that sets me apart?",
     content: (
       <>
         <P>
-          When I walked through it the way a design hiring manager would, the
-          evidence was everywhere, starting with the first screen.
+          <strong>
+            Design teams look for craft, taste and shipped work. My portfolio
+            led with code.
+          </strong>
+          <br />
+          When I walked through the old site the way a design hiring manager
+          would, the evidence was everywhere, starting with the first screen.
         </P>
         <Audit />
         <P>
@@ -130,14 +135,14 @@ const SECTIONS: CaseStudySection[] = [
   {
     id: "goal",
     title: "Goal",
-    headline: "Make the case for design without hiding the engineering.",
+    headline: "A reviewer should find a design case study within two minutes.",
     content: (
       <>
         <Columns
           items={[
             {
               title: "Lead with design",
-              text: "Say “product designer” first, and keep the engineering that sets me apart.",
+              text: "Name the design role first, and keep the engineering that sets me apart.",
             },
             {
               title: "Put shipped work first",
@@ -572,6 +577,7 @@ const SECTIONS: CaseStudySection[] = [
     headline: "The first screen now leads with design work.",
     content: (
       <>
+        <BeforeAfter />
         <Compare />
         <Figure
           src={`${IMG}/after-home-full.png`}

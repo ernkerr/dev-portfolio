@@ -22,7 +22,10 @@ A portfolio is a product that's never finished, which makes it the perfect mediu
 
 ## Problem
 
-My portfolio was pitching me for a different job. When I walked through the site the way a design hiring manager would, the evidence was everywhere.
+**How might I put my design work first for a UI/UX reviewer, without hiding the engineering that sets me apart?**
+
+**Design teams look for craft, taste and shipped work. My portfolio led with code.**\
+When I walked through the old site the way a design hiring manager would, the evidence was everywhere.
 
 ![The 2025 homepage](redesign-2026/before-home-desktop.png)
 *The 2025 first screen. "Designer &" is a thin script and "Full Stack Developer" is a heavy pixel typeface, so the type picks a side before anyone reads a word.*
@@ -43,6 +46,8 @@ My portfolio was pitching me for a different job. When I walked through the site
 ---
 
 ## Goal
+
+**A reviewer should find a design case study within two minutes.**
 
 1. **Lead with design** without hiding the engineering.
 2. **Put real, shipped work on the first screen.**

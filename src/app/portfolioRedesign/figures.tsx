@@ -17,51 +17,6 @@ import {
 
 const IMG = "/images/portfolioRedesign";
 
-/* ---------- Overview ---------- */
-
-export function BeforeAfter() {
-  const shots = [
-    {
-      year: "2025",
-      src: `${IMG}/before-home-desktop.png`,
-      alt: "The 2025 homepage: ten blue tiles, the largest reading “Designer & Full Stack Developer”.",
-    },
-    {
-      year: "2026",
-      src: `${IMG}/after-home-desktop.png`,
-      alt: "The 2026 homepage: “I’m Erin, a product designer who engineers.” beside a short list of past work.",
-    },
-  ];
-  return (
-    <figure>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {shots.map((s) => (
-          <div key={s.year}>
-            <p className={label}>{s.year}</p>
-            <Image
-              src={s.src}
-              alt={s.alt}
-              width={1440}
-              height={900}
-              sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"
-              priority
-              className="mt-2 h-auto w-full border border-site-line"
-            />
-          </div>
-        ))}
-      </div>
-      <Caption>
-        The first screen, before and after. The 2025 site is still online,
-        unchanged, at{" "}
-        <Link href="/archive/2025" className={inlineLink}>
-          /archive/2025
-        </Link>
-        .
-      </Caption>
-    </figure>
-  );
-}
-
 /* ---------- Problem ---------- */
 
 // The figure crops the 2025 homepage screenshot (1440 × 900) to the tiles,
@@ -937,6 +892,50 @@ export function TypeSpecimens() {
 }
 
 /* ---------- Results ---------- */
+
+// The 2026 side stays a placeholder until the redesign is tested and final.
+export function BeforeAfter() {
+  return (
+    <figure>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <p className={label}>2025</p>
+          <Image
+            src={`${IMG}/before-home-desktop.png`}
+            alt="The 2025 homepage: ten blue tiles, the largest reading “Designer & Full Stack Developer”."
+            width={1440}
+            height={900}
+            sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"
+            className="mt-2 h-auto w-full border border-site-line"
+          />
+        </div>
+        <div>
+          <p className={label}>2026</p>
+          <div className="mt-2 flex aspect-[1440/900] flex-col items-center justify-center gap-2 border border-dashed border-site-muted/50 px-6 text-center">
+            <p className={`${label} flex items-center gap-2`}>
+              <span
+                aria-hidden="true"
+                className="inline-block h-1.5 w-1.5 rounded-full bg-site-blue"
+              />
+              In progress
+            </p>
+            <p className="text-body-sm text-site-ink/75">
+              The final first screen goes here once testing is done.
+            </p>
+          </div>
+        </div>
+      </div>
+      <Caption>
+        The first screen, before and after. The 2025 site is still online,
+        unchanged, at{" "}
+        <Link href="/archive/2025" className={inlineLink}>
+          /archive/2025
+        </Link>
+        .
+      </Caption>
+    </figure>
+  );
+}
 
 const COMPARE: { what: string; before: ReactNode; after: ReactNode }[] = [
   {

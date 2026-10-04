@@ -87,3 +87,22 @@ First person and plain ("I'm Erin, a product designer who engineers."). Short li
 
 - The OrderSync navy (`navy-1`–`navy-4`), the `accent` gradient, `.dot-grid` and `.shine-on-hover` belong to the OrderSync case study only.
 - `src/app/archive/` holds frozen past editions of the site. Don't restyle them.
+
+## Skill routing
+
+When the user's request matches an available skill, invoke it via the Skill tool. When in doubt, invoke the skill.
+
+Key routing rules:
+- Product ideas/brainstorming → invoke /office-hours
+- Strategy/scope → invoke /plan-ceo-review
+- Architecture → invoke /plan-eng-review
+- Design system/plan review → invoke /design-consultation or /plan-design-review
+- Full review pipeline → invoke /autoplan
+- Bugs/errors → invoke /investigate
+- QA/testing site behavior → invoke /qa or /qa-only
+- Code review/diff check → invoke /review
+- Visual polish → invoke /design-review
+- Ship/deploy/PR → invoke /ship or /land-and-deploy
+- Save progress → invoke /context-save
+- Resume context → invoke /context-restore
+- Author a backlog-ready spec/issue → invoke /spec

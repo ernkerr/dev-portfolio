@@ -129,6 +129,10 @@
   transition: background-color 0.15s, color 0.15s;
 }
 .am-btn:hover { background: var(--am-ink); color: var(--am-paper); }
+/* Pulled up into the map's 28px gap so the button sits just under the tallest column. */
+.am-more { display: flex; justify-content: center; margin-top: -30px; }
+.am-more-btn { border: 0; background: none; padding: 4px 0; font: inherit; font-size: 15px; color: var(--am-ink); text-decoration: underline; text-decoration-color: var(--am-line); text-underline-offset: 4px; transition: text-decoration-color 0.15s; }
+.am-more-btn:hover { text-decoration-color: currentColor; }
 
 .am-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; color: var(--am-muted); margin-top: -14px; }
 .am-clear { border: 0; background: none; padding: 0; color: var(--am-blue); font: inherit; text-decoration: underline; text-underline-offset: 3px; }
@@ -276,7 +280,7 @@
 .am-num { display: inline-block; margin-left: 8px; font-family: var(--am-mono); font-size: 12px; font-variant-numeric: tabular-nums; vertical-align: middle; }
 
 /* ---- method */
-.am-method { border-top: 1px solid var(--am-line); padding-top: 20px; display: flex; flex-direction: column; gap: 12px; max-width: 46rem; }
+.am-method { padding-top: 20px; display: flex; flex-direction: column; gap: 12px; max-width: 46rem; }
 .am-method h3 { margin: 0; font-family: var(--am-serif); font-weight: 400; font-size: 26px; }
 .am-method ol { margin: 0; padding-left: 1.3em; list-style: decimal; display: flex; flex-direction: column; gap: 6px; color: var(--am-muted); }
 .am-method summary { cursor: pointer; color: var(--am-ink); }

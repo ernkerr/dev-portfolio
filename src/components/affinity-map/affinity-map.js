@@ -6,7 +6,10 @@
 //
 // Pass { intro: false } to leave out the lede and the stats row, for a page
 // that introduces the map itself, and { summary: false } to leave out the
-// three written takeaways, so the notes speak for themselves.
+// three written takeaways, so the notes speak for themselves. { preview: 3 }
+// shows each cluster's first three notes until the reader asks for the rest,
+// so the wall doesn't run several screens long, and previewThemes sets a
+// different count for a theme by id, e.g. { g4: 2 } for one with long notes.
 //
 // affinity.json carries hit lists (indexes into data.jds) instead of
 // percentages, so every number recomputes for the chosen role and level.
@@ -41,7 +44,7 @@ function shuffled(list) {
   return a;
 }
 
-export function mountAffinityMap(root, data, { intro = true, summary = true } = {}) {
+export function mountAffinityMap(root, data, { intro = true, summary = true, preview = 0, previewThemes = {} } = {}) {
   const { meta } = data;
   const tracks = meta.tracks;
   const trackLabel = Object.fromEntries(tracks.map((t) => [t.id, t.label]));
@@ -63,7 +66,7 @@ export function mountAffinityMap(root, data, { intro = true, summary = true } = 
     const h = (typeof location !== 'undefined' && location.hash.slice(1)) || '';
     return tracks.some((t) => t.id === h) ? h : 'all';
   };
-  const state = { view: 'map', track: fromHash(), level: 'all', query: '', word: null, sorted: true, sortWords: 'portfolio' };
+  const state = { view: 'map', track: fromHash(), level: 'all', query: '', word: null, sorted: true, sortWords: 'portfolio', expanded: false };
   const reduceMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
   root.classList.add('am');
@@ -125,6 +128,7 @@ export function mountAffinityMap(root, data, { intro = true, summary = true } = 
     <div class="am-board-wrap">
       <div class="am-board" tabindex="0" role="region" aria-label="Affinity map. Scrolls sideways."></div>
     </div>
+    <div class="am-more" hidden><button type="button" class="am-more-btn" data-action="more"></button></div>
     <p class="am-empty" hidden>No notes match these filters. <button type="button" class="am-clear" data-action="clear">Clear filters</button></p>
     <div class="am-raw" hidden></div>
     <div class="am-words" hidden></div>
@@ -150,6 +154,7 @@ export function mountAffinityMap(root, data, { intro = true, summary = true } = 
   const boardWrap = $('.am-board-wrap');
   const boardNav = $('.am-board-nav');
   const raw = $('.am-raw');
+  const more = $('.am-more');
   const words = $('.am-words');
   const status = $('.am-status');
   const legend = $('.am-legend');
@@ -278,15 +283,18 @@ export function mountAffinityMap(root, data, { intro = true, summary = true } = 
     takeaways.innerHTML = items.map((t) => `<li><strong>${esc(t.head)}</strong> ${esc(t.body)}</li>`).join('');
   }
 
-  function renderStatus(count, pool) {
+  function renderStatus(count, pool, shown = count) {
     const bits = [];
     if (state.word) bits.push(`use “${esc(state.word)}”`);
     if (state.query) bits.push(`contain “${esc(state.query)}”`);
     const scoped = state.track !== 'all' || state.level !== 'all';
     const filtered = scoped || bits.length > 0;
+    const trimmed = shown < count ? 'the first few in each cluster' : '';
     const head = filtered
-      ? `${count} of ${notes.length} notes${scoped ? ` come from ${esc(poolName())} posts` : ''}${bits.length ? `${scoped ? ' and' : ''} ${bits.join(' and ')}` : ''}`
-      : `Showing all ${notes.length} notes`;
+      ? `${count} of ${notes.length} notes${scoped ? ` come from ${esc(poolName())} posts` : ''}${bits.length ? `${scoped ? ' and' : ''} ${bits.join(' and ')}` : ''}${trimmed ? `. Showing ${shown}, ${trimmed}` : ''}`
+      : trimmed
+        ? `Showing ${shown} of ${notes.length} notes, ${trimmed}`
+        : `Showing all ${notes.length} notes`;
     const sample = scoped
       ? `. Percentages use those ${pool.all.length} posts (${pool.port.length} describe a portfolio)${pool.all.length <= 20 ? ', a small sample' : ''}`
       : '';
@@ -331,11 +339,27 @@ export function mountAffinityMap(root, data, { intro = true, summary = true } = 
 
   function apply() {
     const pool = pools();
+    // With a preview, each cluster shows only its first few matching notes
+    // until the reader asks for all of them. A search or a picked word shows
+    // every match, since the reader is looking for something specific.
+    const previewing = preview > 0 && state.sorted && !state.query && !state.word;
+    const perCluster = new Map();
     let count = 0;
+    let shown = 0;
+    let extra = 0;
     for (const n of notes) {
       const on = inPool(n, pool) && matches(n);
-      if (on) count++;
-      noteEls.get(n.id).hidden = !on;
+      let visible = on;
+      if (on) {
+        count++;
+        const seen = perCluster.get(n.cluster.id) || 0;
+        perCluster.set(n.cluster.id, seen + 1);
+        const cap = previewThemes[n.cluster.group.id] ?? preview;
+        if (seen >= cap) extra++;
+        visible = !previewing || state.expanded || seen < cap;
+        if (visible) shown++;
+      }
+      noteEls.get(n.id).hidden = !visible;
     }
     for (const c of clusters) {
       board.querySelector(`[data-cluster="${c.id}"]`).hidden = !c.notes.some((n) => !noteEls.get(n.id).hidden);
@@ -374,10 +398,12 @@ export function mountAffinityMap(root, data, { intro = true, summary = true } = 
     words.hidden = onMap;
     legend.hidden = !onMap;
     $('[data-action="sort"]').hidden = !onMap;
+    more.hidden = !onMap || !previewing || extra === 0;
+    more.firstElementChild.textContent = state.expanded ? 'Show fewer notes' : 'Show all notes';
     root.classList.toggle('is-raw', !state.sorted);
     if (!onMap) renderWords(pool);
     renderTakeaways(pool);
-    renderStatus(count, pool);
+    renderStatus(count, pool, shown);
     updateEdges();
   }
 
@@ -396,6 +422,15 @@ export function mountAffinityMap(root, data, { intro = true, summary = true } = 
     boardWrap.toggleAttribute('data-more-right', right);
     $('[data-action="left"]').disabled = !left;
     $('[data-action="right"]').disabled = !right;
+  }
+  // Shrinking the wall would leave the reader far below it, so collapsing
+  // keeps the button where it was on screen. Expanding grows the wall below
+  // the reader, so it needs no help.
+  function toggleMore(button) {
+    const before = button.getBoundingClientRect().top;
+    state.expanded = !state.expanded;
+    apply();
+    if (!state.expanded) window.scrollBy(0, button.getBoundingClientRect().top - before);
   }
   function scrollBoard(dir) {
     board.scrollBy({ left: dir * board.clientWidth * 0.8, behavior: reduceMotion() ? 'auto' : 'smooth' });
@@ -489,6 +524,7 @@ export function mountAffinityMap(root, data, { intro = true, summary = true } = 
         return;
       }
     } else if (t.dataset.action === 'sort') return setSorted(!state.sorted);
+    else if (t.dataset.action === 'more') return toggleMore(t);
     else if (t.dataset.action === 'left') return scrollBoard(-1);
     else if (t.dataset.action === 'right') return scrollBoard(1);
     else if (t.dataset.action === 'clear') {

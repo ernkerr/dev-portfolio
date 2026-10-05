@@ -15,12 +15,16 @@ export default function AffinityMap({ className }: { className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   // The case study introduces the map, so it skips its own lede, stats and
-  // takeaways, and the notes speak for themselves.
+  // takeaways, and the notes speak for themselves. It previews three notes
+  // per cluster, since all 204 run about four screens long, and two for Story
+  // & people (g4), whose long blue notes would otherwise set the wall's height.
   useEffect(() => {
     if (!ref.current) return;
     return mountAffinityMap(ref.current, data, {
       intro: false,
       summary: false,
+      preview: 3,
+      previewThemes: { g4: 2 },
     });
   }, []);
 

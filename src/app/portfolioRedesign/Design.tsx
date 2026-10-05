@@ -27,6 +27,7 @@ import {
   Decision,
   Finding,
   HeadlineSpecimen,
+  Hero,
   LinkPreview,
   LiveThumbs,
   MentionCount,
@@ -81,6 +82,7 @@ const SECTIONS: CaseStudySection[] = [
             },
           ]}
         />
+        <Hero />
       </>
     ),
   },
@@ -103,14 +105,14 @@ const SECTIONS: CaseStudySection[] = [
         <Audit />
         <Finding
           n={4}
-          title="The copy was about code."
+          title="The copy was about code"
           text="Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with “My path into software development wasn’t traditional.”"
         >
           <MentionCount />
         </Finding>
         <Finding
           n={5}
-          title="The projects page was sorted for engineers."
+          title="The projects page was sorted for engineers"
           text="It promised “my growth as a developer,” opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13."
         >
           <Figure
@@ -123,7 +125,7 @@ const SECTIONS: CaseStudySection[] = [
         </Finding>
         <Finding
           n={6}
-          title="The details people check first were wrong."
+          title="The details people check first were wrong"
           text="The clock tile still said San Francisco, but I live in New York. The link preview introduced me as a software engineer."
         >
           <LinkPreview />

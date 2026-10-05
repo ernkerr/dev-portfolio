@@ -29,16 +29,22 @@ When I walked through the old site the way a design hiring manager would, the ev
 
 ![The 2025 homepage](redesign-2026/before-home-desktop.png)
 
-1. **The type picked a side.** "Designer &" is a thin script and "Full Stack Developer" a heavy pixel face, so the headline argued before anyone read it.
-2. **One tile in ten was about my work.** The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.
-3. **The visual language was a developer's.** Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.
-4. **The copy was about code.** Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with "My path into software development wasn't traditional."
-5. **The projects page was sorted for engineers.** It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13.
+1. **The type picked a side**\
+   "Designer &" is a thin script and "Full Stack Developer" a heavy pixel face, so the headline argued before anyone read it.
+2. **One tile in ten was about my work**\
+   The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.
+3. **The visual language was a developer's**\
+   Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.
+4. **The copy was about code**\
+   Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with "My path into software development wasn't traditional."
+5. **The projects page was sorted for engineers**\
+   It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13.
 
    ![The 2025 projects page](redesign-2026/before-projects.png)
    *The 2025 projects page, opening with Git Racer.*
 
-6. **The details people check first were wrong.** The clock tile still said San Francisco, but I live in New York. The link preview introduced me as a software engineer.
+6. **The details people check first were wrong**\
+   The clock tile still said San Francisco, but I live in New York. The link preview introduced me as a software engineer.
 
 [Click through the 2025 site yourself](/archive/2025). It's still online, unchanged.
 
@@ -59,7 +65,7 @@ When I walked through the old site the way a design hiring manager would, the ev
 1. **Audit.** I walked the 2025 site as a hiring manager would and catalogued what it said.
 2. **Research.** I studied what design teams ask portfolios to prove, looked at the portfolios of people hired into the roles I want, and talked to reviewers.
 3. **Explore.** I tried a first direction, threw it out, and started from a blank page.
-4. **Prototype and test.** I built in code, which is my fastest medium, and put each version in front of reviewers.
+4. **Prototype and test.** I built in code, which is my fastest medium, and test each version with reviewers.
 5. **Ship and measure.**
 
 [Optional honesty line: "In practice these overlapped. I started building before the research was done, and the research changed [what]."]

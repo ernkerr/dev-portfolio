@@ -17,6 +17,47 @@ import {
 
 const IMG = "/images/portfolioRedesign";
 
+/* ---------- Overview ---------- */
+
+// Stands in for a homepage screenshot that isn't final yet, at the same
+// 1440 × 900 shape so the layout doesn't jump when the real one arrives.
+function ShotPlaceholder({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={`flex aspect-[1440/900] flex-col items-center justify-center gap-2 border border-dashed border-site-muted/50 px-6 text-center ${className}`}
+    >
+      <p className={`${label} flex items-center gap-2`}>
+        <span
+          aria-hidden="true"
+          className="inline-block h-1.5 w-1.5 rounded-full bg-site-blue"
+        />
+        In progress
+      </p>
+      <p className="text-body-sm text-site-ink/75">{children}</p>
+    </div>
+  );
+}
+
+// The new homepage, right under the overview, where every hired designer's
+// case study showed its solution. A placeholder until the first screen is
+// final.
+export function Hero() {
+  return (
+    <figure>
+      <ShotPlaceholder>
+        A screenshot of the new homepage goes here once its first screen is
+        final.
+      </ShotPlaceholder>
+    </figure>
+  );
+}
+
 /* ---------- Problem ---------- */
 
 // The figure crops the 2025 homepage screenshot (1440 × 900) to the tiles,
@@ -33,19 +74,19 @@ const AUDIT = [
   {
     n: 1,
     box: box(128, 200, 489, 282),
-    title: "The type picked a side.",
+    title: "The type picked a side",
     text: "“Designer &” is a thin script and “Full Stack Developer” a heavy pixel face, so the headline argued before anyone read it.",
   },
   {
     n: 2,
     box: box(923, 200, 389, 427),
-    title: "One tile in ten was about my work.",
+    title: "One tile in ten was about my work",
     text: "The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.",
   },
   {
     n: 3,
     box: box(923, 708, 389, 64),
-    title: "The visual language was a developer’s.",
+    title: "The visual language was a developer’s",
     text: "Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.",
   },
 ];
@@ -256,7 +297,7 @@ const STEPS = [
   },
   {
     title: "Prototype and test",
-    text: "I built in code, my fastest medium, and put each version in front of reviewers.",
+    text: "I built in code, my fastest medium, and test each version with reviewers.",
   },
   {
     title: "Ship and measure",
@@ -961,18 +1002,9 @@ export function BeforeAfter() {
         </div>
         <div>
           <p className={label}>2026</p>
-          <div className="mt-2 flex aspect-[1440/900] flex-col items-center justify-center gap-2 border border-dashed border-site-muted/50 px-6 text-center">
-            <p className={`${label} flex items-center gap-2`}>
-              <span
-                aria-hidden="true"
-                className="inline-block h-1.5 w-1.5 rounded-full bg-site-blue"
-              />
-              In progress
-            </p>
-            <p className="text-body-sm text-site-ink/75">
-              The final first screen goes here once testing is done.
-            </p>
-          </div>
+          <ShotPlaceholder className="mt-2">
+            The final first screen goes here once testing is done.
+          </ShotPlaceholder>
         </div>
       </div>
       <Caption>

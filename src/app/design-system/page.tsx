@@ -263,14 +263,14 @@ const SPACING = [
     usage: "Between tiles in a column; above an H3.",
   },
   {
-    token: "space-20",
-    px: 80,
+    token: "space-44",
+    px: 176,
     classes: "gap-section-sm",
     usage: "Between case-study sections below 768px.",
   },
   {
-    token: "space-32",
-    px: 128,
+    token: "space-72",
+    px: 288,
     classes: "gap-section · mt-section",
     usage: "Between sections from 768px up; above the footer.",
   },

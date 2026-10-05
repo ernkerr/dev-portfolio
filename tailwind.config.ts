@@ -103,8 +103,8 @@ export default {
       spacing: {
         gutter: "1.5rem", // page side padding at every width
         header: "4rem", // sticky header height
-        "section-sm": "5rem", // between case-study sections below 768px
-        section: "8rem", // between sections from 768px up, above the footer
+        "section-sm": "11rem", // between case-study sections below 768px
+        section: "18rem", // between sections from 768px up, above the footer
       },
 
       maxWidth: {

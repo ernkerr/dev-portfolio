@@ -5,6 +5,11 @@ import { LuCodeXml, LuPenTool } from "react-icons/lu";
 import { mono, serif } from "@/components/site/links";
 import { Caption, inlineLink, label } from "@/components/site/prose";
 import {
+  HeadlineTile2025,
+  ProjectsTile2025,
+  ToggleTiles2025,
+} from "./tiles2025";
+import {
   CarpoolioMark,
   OrderSyncFlow,
   OrderSyncTokens,
@@ -60,32 +65,27 @@ export function Hero() {
 
 /* ---------- Problem ---------- */
 
-// The figure crops the 2025 homepage screenshot (1440 × 900) to the tiles,
-// and each marked tile is placed as a percentage of that crop.
+// The figure crops the 2025 homepage screenshot (1440 × 900) to the tiles.
 const AUDIT_CROP = { x: 100, y: 110, w: 1240, h: 680 };
-const box = (x: number, y: number, w: number, h: number) => ({
-  left: ((x - AUDIT_CROP.x) / AUDIT_CROP.w) * 100,
-  top: ((y - AUDIT_CROP.y) / AUDIT_CROP.h) * 100,
-  width: (w / AUDIT_CROP.w) * 100,
-  height: (h / AUDIT_CROP.h) * 100,
-});
 
+// Findings 1–3 are about tiles on the 2025 homepage, and each shows that tile
+// rendered from the 2025 code (see tiles2025.tsx).
 const AUDIT = [
   {
     n: 1,
-    box: box(128, 200, 489, 282),
+    Evidence: HeadlineTile2025,
     title: "The type picked a side",
     text: "“Designer &” is a thin script and “Full Stack Developer” a heavy pixel face, so the headline argued before anyone read it.",
   },
   {
     n: 2,
-    box: box(923, 200, 389, 427),
+    Evidence: ProjectsTile2025,
     title: "One tile in ten was about my work",
     text: "The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.",
   },
   {
     n: 3,
-    box: box(923, 708, 389, 64),
+    Evidence: ToggleTiles2025,
     title: "The visual language was a developer’s",
     text: "Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.",
   },
@@ -104,53 +104,40 @@ function Pin({ n }: { n: number }) {
 export function Audit() {
   return (
     <figure>
-      <div className="relative">
-        <div
-          className="relative overflow-hidden border border-site-line"
-          style={{ aspectRatio: `${AUDIT_CROP.w} / ${AUDIT_CROP.h}` }}
-        >
-          <Image
-            src={`${IMG}/before-home-desktop.png`}
-            alt="The 2025 homepage, with three areas marked: the headline, the projects list, and the disco-ball and dark-mode tiles."
-            width={1440}
-            height={900}
-            sizes="(min-width: 1024px) 1040px, 116vw"
-            className="absolute h-auto max-w-none"
-            style={{
-              width: `${(1440 / AUDIT_CROP.w) * 100}%`,
-              left: `${(-AUDIT_CROP.x / AUDIT_CROP.w) * 100}%`,
-              top: `${(-AUDIT_CROP.y / AUDIT_CROP.h) * 100}%`,
-            }}
-          />
-        </div>
-        {AUDIT.map(({ n, box }) => (
-          <div
-            key={n}
-            aria-hidden="true"
-            className="absolute rounded-[3px] outline outline-2 outline-offset-2 outline-white"
-            style={{
-              left: `${box.left}%`,
-              top: `${box.top}%`,
-              width: `${box.width}%`,
-              height: `${box.height}%`,
-            }}
-          >
-            <span className="absolute -left-3 -top-3 shadow-[0_4px_12px_rgba(15,23,42,0.35)] md:-left-3.5 md:-top-3.5">
-              <span className="block rounded-full ring-2 ring-white">
-                <Pin n={n} />
-              </span>
-            </span>
-          </div>
-        ))}
+      <div
+        className="relative overflow-hidden border border-site-line"
+        style={{ aspectRatio: `${AUDIT_CROP.w} / ${AUDIT_CROP.h}` }}
+      >
+        <Image
+          src={`${IMG}/before-home-desktop.png`}
+          alt="The 2025 homepage: ten electric-blue tiles on a navy page, the largest reading “Designer & Full Stack Developer”."
+          width={1440}
+          height={900}
+          sizes="(min-width: 1024px) 1040px, 116vw"
+          className="absolute h-auto max-w-none"
+          style={{
+            width: `${(1440 / AUDIT_CROP.w) * 100}%`,
+            left: `${(-AUDIT_CROP.x / AUDIT_CROP.w) * 100}%`,
+            top: `${(-AUDIT_CROP.y / AUDIT_CROP.h) * 100}%`,
+          }}
+        />
       </div>
-      <ol className="mt-6 flex max-w-[40rem] flex-col gap-8 md:gap-10">
-        {AUDIT.map(({ n, title, text }) => (
-          <li key={n}>
-            <FindingHead n={n} title={title} text={text} />
-          </li>
-        ))}
-      </ol>
     </figure>
+  );
+}
+
+// Findings 1–3, each with its 2025 tile underneath, so they read the same way
+// as 4–6. A fragment, so each Finding sits in the section's own column and
+// spacing.
+export function AuditFindings() {
+  return (
+    <>
+      {AUDIT.map(({ n, Evidence, title, text }) => (
+        <Finding key={n} n={n} title={title} text={text}>
+          <Evidence />
+        </Finding>
+      ))}
+    </>
   );
 }
 
@@ -213,9 +200,10 @@ export function MentionCount() {
   ];
   const max = 13;
   return (
-    <figure className="bg-site-line/60 p-5 sm:p-8">
+    // On the 2025 site's navy, like the other 2025 evidence in Problem.
+    <figure className="bg-slate-900 p-5 sm:p-8">
       <div className="mx-auto max-w-[34rem]">
-        <figcaption className={label}>
+        <figcaption className="font-mono text-label uppercase text-slate-400">
           Mentions on the 2025 homepage and About page
         </figcaption>
         <dl className="mt-4 space-y-3">
@@ -224,16 +212,16 @@ export function MentionCount() {
               key={r.term}
               className="grid grid-cols-[9rem_1fr] items-center gap-4 sm:grid-cols-[15rem_1fr]"
             >
-              <dt className="text-[15px] leading-snug text-site-ink">
-                {r.term}
-              </dt>
+              <dt className="text-[15px] leading-snug text-white">{r.term}</dt>
               <dd className="flex items-center gap-3">
                 <span
                   aria-hidden="true"
-                  className="h-2.5 rounded-r-[4px] bg-site-ink"
+                  className="h-2.5 rounded-r-[4px] bg-blue-600"
                   style={{ width: `${(r.n / max) * 82}%` }}
                 />
-                <span className={`${serif} text-[22px] leading-none`}>
+                <span
+                  className={`${serif} text-[22px] leading-none text-white`}
+                >
                   {r.n}
                 </span>
               </dd>
@@ -248,9 +236,9 @@ export function MentionCount() {
 export function LinkPreview() {
   return (
     <figure>
-      <div className="bg-site-line/60 p-5 sm:p-8">
+      <div className="flex justify-center bg-slate-900 p-5 sm:p-8">
         {/* The logo is white on transparent, made for the 2025 site's navy. */}
-        <div className="flex max-w-[34rem] overflow-hidden rounded-[6px] border border-site-line bg-site-paper">
+        <div className="flex w-full max-w-[34rem] overflow-hidden rounded-[6px] border border-site-line bg-site-paper">
           <Image
             src="/ek.png"
             alt=""
@@ -271,58 +259,7 @@ export function LinkPreview() {
           </div>
         </div>
       </div>
-      <Caption>
-        What people see when I paste erinkerr.me into an application or a
-        message, rebuilt from the site’s own metadata. It introduces me as a
-        software engineer before anyone visits.
-      </Caption>
     </figure>
-  );
-}
-
-/* ---------- Process ---------- */
-
-const STEPS = [
-  {
-    title: "Audit",
-    text: "I walked the 2025 site as a hiring manager would and catalogued what it said.",
-  },
-  {
-    title: "Research",
-    text: "I studied what design teams ask portfolios to prove and the portfolios of people hired into the roles I want.",
-  },
-  {
-    title: "Explore",
-    text: "I tried a first direction, threw it out, and started from a blank page.",
-  },
-  {
-    title: "Prototype and test",
-    text: "I built in code, my fastest medium, and test each version with reviewers.",
-  },
-  {
-    title: "Ship and measure",
-    text: "Launch, then watch which design roles reply and which case studies get opened.",
-  },
-];
-
-export function ProcessSteps() {
-  return (
-    <ol className="grid gap-6 md:grid-cols-5 md:gap-5">
-      {STEPS.map((s, i) => (
-        <li
-          key={s.title}
-          className="relative border-l border-site-line pl-5 before:absolute before:-left-[4px] before:top-1.5 before:h-[7px] before:w-[7px] before:rounded-full before:bg-site-ink md:border-l-0 md:border-t md:pl-0 md:pt-5 md:before:-top-[4px] md:before:left-0"
-        >
-          <span className={`${mono} text-[12px] text-site-muted`}>{i + 1}</span>
-          <p className={`${serif} mt-1 text-[20px] leading-snug text-site-ink`}>
-            {s.title}
-          </p>
-          <p className="mt-1.5 text-[14px] leading-[1.55] text-site-ink/75">
-            {s.text}
-          </p>
-        </li>
-      ))}
-    </ol>
   );
 }
 

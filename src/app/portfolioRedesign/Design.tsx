@@ -21,6 +21,7 @@ import PortfolioLandscape from "@/components/portfolio-landscape/PortfolioLandsc
 import {
   AsksChart,
   Audit,
+  AuditFindings,
   BeforeAfter,
   Compare,
   CutClaims,
@@ -31,7 +32,6 @@ import {
   LinkPreview,
   LiveThumbs,
   MentionCount,
-  ProcessSteps,
   Retitled,
   Rewrites,
   Sitemaps,
@@ -103,6 +103,7 @@ const SECTIONS: CaseStudySection[] = [
           would, the evidence was everywhere, starting with the first screen.
         </P>
         <Audit />
+        <AuditFindings />
         <Finding
           n={4}
           title="The copy was about code"
@@ -120,21 +121,20 @@ const SECTIONS: CaseStudySection[] = [
             alt="The 2025 projects page: a pixel-type “Projects” heading, an intro about growing as a developer, and Git Racer as the first card with React, TypeScript and Hono chips."
             width={1440}
             height={900}
-            caption="The 2025 projects page, opening with Git Racer."
           />
         </Finding>
         <Finding
           n={6}
           title="The details people check first were wrong"
-          text="The clock tile still said San Francisco, but I live in New York. The link preview introduced me as a software engineer."
+          text="What people see when I paste erinkerr.me into an application or a message, rebuilt from the site’s own metadata. It introduces me as a software engineer before anyone visits. Also, the clock tile still said San Francisco, even though I’m applying for jobs in New York. Small, but they’re the kind of details a design reviewer notices."
         >
           <LinkPreview />
         </Finding>
         <P>
           <Link href="/archive/2025" className={inlineLink}>
-            Click through the 2025 site yourself
+            See all six problems in context on the archived 2025 site{" "}
+            <span aria-hidden="true">→</span>
           </Link>
-          . It’s still online, unchanged.
         </P>
       </>
     ),
@@ -154,36 +154,30 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
-    id: "process",
-    title: "Process",
-    headline: "Five stages, which overlapped in practice.",
-    content: (
-      <>
-        <ProcessSteps />
-        <P>
-          I started building on September 20 and pulled the job posts for the
-          research on October 1, so the stages ran side by side more than in
-          order.
-        </P>
-      </>
-    ),
-  },
-  {
     id: "research",
     title: "Research",
-    headline: "Design teams judge a portfolio on craft and taste, not code.",
+    headline: "What are hiring teams looking for?",
     content: (
       <>
         <P>
-          I pulled 265 live designer job posts (product, UI/UX, brand and design
-          manager roles) from 98 companies, and 182 of them explicitly mention a
-          portfolio. I gathered the “show us evidence of…” requirement lines
-          too, so the map captures what a portfolio needs to prove, not just the
-          “send a link” mentions. I wrote 204 verbatim quotes on sticky notes
-          and sorted them until 19 clusters and 5 themes emerged. Pick a role to
-          see what posts like it ask for.
+          In pursuit of my own curiosity, I pulled 265 UI/UX and adjacent JDs
+          from 98 companies, with 182 explicitly mentioning portfolios. Then I
+          extracted portfolio-related lines, clustered them into themes, and
+          built a map using a small local dataset.
+        </P>
+        <P>
+          I set filters on the map to show results based on job title, knowing
+          the target “users” of my portfolio would be design leads, hiring
+          managers, and fellow UX professionals. I wanted this section to be an
+          opportunity for those reviewing my portfolio to learn something new or
+          to spark some curiosity about what the research says about their role.
         </P>
         <AffinityMap />
+        <P>
+          I also gathered the “show us evidence of…” requirement lines, so the
+          map captures what a portfolio needs to prove, not just the “send a
+          link” mentions.
+        </P>
         <H3>What the map showed</H3>
         <AsksChart />
         <Columns

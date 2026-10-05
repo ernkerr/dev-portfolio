@@ -51,8 +51,9 @@
   margin: 0;
   font-family: var(--am-serif);
   font-weight: 400;
-  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
-  line-height: 1.05;
+  /* A page can set --am-title-size to fit the map under its own headings. */
+  font-size: var(--am-title-size, clamp(1.9rem, 3.6vw, 2.9rem));
+  line-height: 1.15;
   letter-spacing: -0.02em;
   text-wrap: balance;
 }

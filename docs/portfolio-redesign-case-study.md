@@ -41,12 +41,11 @@ When I walked through the old site the way a design hiring manager would, the ev
    It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13.
 
    ![The 2025 projects page](redesign-2026/before-projects.png)
-   *The 2025 projects page, opening with Git Racer.*
 
 6. **The details people check first were wrong**\
-   The clock tile still said San Francisco, but I live in New York. The link preview introduced me as a software engineer.
+   What people see when I paste erinkerr.me into an application or a message, rebuilt from the site's own metadata. It introduces me as a software engineer before anyone visits. Also, the clock tile still said San Francisco, even though I'm applying for jobs in New York. Small, but they're the kind of details a design reviewer notices.
 
-[Click through the 2025 site yourself](/archive/2025). It's still online, unchanged.
+[See all six problems in context on the archived 2025 site →](/archive/2025)
 
 ---
 
@@ -58,21 +57,17 @@ When I walked through the old site the way a design hiring manager would, the ev
 
 ---
 
-## Process
-
-**[TO MAKE: a simple timeline graphic of these five stages.]**
-
-1. **Audit.** I walked the 2025 site as a hiring manager would and catalogued what it said.
-2. **Research.** I studied what design teams ask portfolios to prove, looked at the portfolios of people hired into the roles I want, and talked to reviewers.
-3. **Explore.** I tried a first direction, threw it out, and started from a blank page.
-4. **Prototype and test.** I built in code, which is my fastest medium, and test each version with reviewers.
-5. **Ship and measure.**
-
-[Optional honesty line: "In practice these overlapped. I started building before the research was done, and the research changed [what]."]
-
----
-
 ## Research
+
+**What are hiring teams looking for?**
+
+In pursuit of my own curiosity, I pulled 265 UI/UX and adjacent JDs from 98 companies, with 182 explicitly mentioning portfolios. Then I extracted portfolio-related lines, clustered them into themes, and built a map using a small local dataset.
+
+I set filters on the map to show results based on job title, knowing the target "users" of my portfolio would be design leads, hiring managers, and fellow UX professionals. I wanted this section to be an opportunity for those reviewing my portfolio to learn something new or to spark some curiosity about what the research says about their role.
+
+[Affinity map]
+
+I also gathered the "show us evidence of…" requirement lines, so the map captures what a portfolio needs to prove, not just the "send a link" mentions.
 
 ### What design teams ask a portfolio to prove
 

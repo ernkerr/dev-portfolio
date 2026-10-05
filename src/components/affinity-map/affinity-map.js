@@ -5,7 +5,8 @@
 //   const unmount = mountAffinityMap(element, data) // data = affinity.json
 //
 // Pass { intro: false } to leave out the lede and the stats row, for a page
-// that introduces the map itself.
+// that introduces the map itself, and { summary: false } to leave out the
+// three written takeaways, so the notes speak for themselves.
 //
 // affinity.json carries hit lists (indexes into data.jds) instead of
 // percentages, so every number recomputes for the chosen role and level.
@@ -40,7 +41,7 @@ function shuffled(list) {
   return a;
 }
 
-export function mountAffinityMap(root, data, { intro = true } = {}) {
+export function mountAffinityMap(root, data, { intro = true, summary = true } = {}) {
   const { meta } = data;
   const tracks = meta.tracks;
   const trackLabel = Object.fromEntries(tracks.map((t) => [t.id, t.label]));
@@ -81,7 +82,7 @@ export function mountAffinityMap(root, data, { intro = true } = {}) {
         <div><dt>Words tracked</dt><dd>${terms.length}</dd></div>
       </dl>` : ''}
     </header>
-    <ol class="am-takeaways" aria-live="polite"></ol>
+    ${summary ? '<ol class="am-takeaways" aria-live="polite"></ol>' : ''}
     <div class="am-toolbar">
       <div class="am-control">
         <span class="am-control-label" id="am-role-label">Role</span>
@@ -239,6 +240,7 @@ export function mountAffinityMap(root, data, { intro = true } = {}) {
   }
 
   function renderTakeaways(pool) {
+    if (!takeaways) return;
     if (pool.port.length < 3) {
       takeaways.innerHTML = `<li><strong>Too few posts to read.</strong> Only ${pool.all.length} ${esc(poolName())} posts are in the sample. Widen the role or level to see patterns.</li>`;
       return;

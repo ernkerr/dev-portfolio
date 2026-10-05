@@ -65,7 +65,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     caseStudies: "2,600 to 3,400 words each, the longest in the set",
     look: "Her homepage, then a sped-up scroll through her Project Decibel case study.",
     suggests:
-      "One sentence on the homepage, and the depth in case studies that ran past 2,500 words. It points to a short homepage and fewer, deeper case studies. My 2025 ones ran about 700 to 850 words.",
+      "1 sentence on the homepage, and the depth in case studies that ran past 2,500 words. It points to a short homepage and fewer, deeper case studies. My 2025 ones ran about 700 to 850 words.",
     source: {
       text: "Captured from the Wayback Machine, January 2019, before any Gusto work was added.",
       href: "https://web.archive.org/web/20190118235857/http://www.caitlinbrisson.com/",
@@ -85,7 +85,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     caseStudies: "1,200 to 1,500 words each",
     look: "House of Discipline, her one real client project: a website and brand for a martial arts studio.",
     suggests:
-      "Three concepts and one real client were enough, and the real project went first. Everyone in the set who had real work led with it, which points to opening my Work page with shipped work.",
+      "3 concepts and 1 real client were enough, and the real project went first. Everyone in the set who had real work led with it, which points to opening my Work page with shipped work.",
     source: {
       text: "Captured from her live site. The 2022 archive lost its images, and this case study is from before her hire.",
       href: "https://www.janelleacademia.com/houseofdiscipline",
@@ -103,7 +103,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
       "“Hey, you. I’m Amy Lima.” and a line about humanizing tech, with a playlist link",
     projects: "4 case studies, plus a Play page for visual work",
     caseStudies: "1,700 to 2,300 words each",
-    look: "Her homepage and four case studies, starting with a Clubhouse redesign she wrote while everyone was talking about Clubhouse.",
+    look: "Her homepage and 4 case studies, starting with a Clubhouse redesign she wrote while everyone was talking about Clubhouse.",
     suggests:
       "Case studies on Work and visual experiments on Play. Across the set, side projects either got their own page or stayed off the site, which points to giving mine a separate place.",
     source: {
@@ -125,7 +125,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     caseStudies: "500 to 1,300 words each",
     look: "Her greeting, then her psychology background, which sits right below the fold.",
     suggests:
-      "Her background is the closest to mine, and she put psychology just below the fold. It’s one of three placements worth testing, along with About only or a case study that draws on it.",
+      "Her background is the closest to mine, and she put psychology just below the fold. It’s 1 of 3 placements worth testing, along with About only or a case study that draws on it.",
     source: {
       text: "Captured from her live site, which doesn’t show any CareDial work yet.",
       href: "https://ogdesignz.framer.website/",
@@ -161,9 +161,9 @@ export const LANDSCAPE: LandscapeEntry[] = [
     projects: "4 case studies",
     caseStudies:
       "Not measured. The pages weren’t archived, and today they’re behind a passcode.",
-    look: "His one-line intro, then “The receipts,” quotes from designers at Wealthsimple and 1Password.",
+    look: "His 1-line intro, then “The receipts,” quotes from designers at Wealthsimple and 1Password.",
     suggests:
-      "Quotes from people he worked with did the vouching. Four of the ten used someone else’s voice, which points to testing App Store reviews or a client quote inside my case studies.",
+      "Quotes from people he worked with did the vouching. 4 of the 10 used someone else’s voice, which points to testing App Store reviews or a client quote inside my case studies.",
     source: {
       text: "Captured from the Wayback Machine, January 2026.",
       href: "https://web.archive.org/web/20260107121738/https://leofu.ca/",
@@ -180,8 +180,8 @@ export const LANDSCAPE: LandscapeEntry[] = [
     leadsWith:
       "A note that he was looking for his next role, as an associate product manager or product analyst",
     projects: "No case studies. 3 project cards and a photography section",
-    caseStudies: "One paragraph per project",
-    look: "His job-hunting intro, then Paprback, with 300+ signups, 1,200+ visitors, 600+ upvotes and 8 Reddit awards in one paragraph.",
+    caseStudies: "1 paragraph per project",
+    look: "His job-hunting intro, then Paprback, with 300+ signups, 1,200+ visitors, 600+ upvotes and 8 Reddit awards in 1 paragraph.",
     suggests:
       "No case studies, just shipped projects with real numbers, and that was enough for a design engineer role. It points to letting the engineering side of my site rest on Carpoolio’s rating and Group Sing Along’s users instead of long write-ups.",
     source: {
@@ -202,7 +202,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     caseStudies: "Notes run 670 to 890 words",
     look: "Her intro, a stack of small experiments, and her notes.",
     suggests:
-      "Working demos plus notes on how she made them. Seven of the ten published writing beyond their case studies, which points to treating my build-in-public posts on @erin.codes as evidence that I can explain my work.",
+      "Working demos plus notes on how she made them. 7 of the 10 published writing beyond their case studies, which points to treating my build-in-public posts on @erin.codes as evidence that I can explain my work.",
     source: {
       text: "Captured from her live site, which looks the same as it did in 2023.",
       href: "https://www.merry.design/",
@@ -222,7 +222,7 @@ export const LANDSCAPE: LandscapeEntry[] = [
     caseStudies: "16 to 104 words per post",
     look: "Her feed, from top to bottom.",
     suggests:
-      "She named the role in her first line and split the feed for design and engineering readers. It points to one clear role in my headline, with a separate route for the second audience.",
+      "She named the role in her first line and split the feed for design and engineering readers. It points to 1 clear role in my headline, with a separate route for the second audience.",
     source: {
       text: "Captured from the Wayback Machine, January 2025.",
       href: "https://web.archive.org/web/20250131165450/https://joyceis.online/",

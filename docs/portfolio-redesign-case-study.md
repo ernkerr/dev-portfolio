@@ -31,21 +31,21 @@ When I walked through the old site the way a design hiring manager would, the ev
 
 1. **The type picked a side**\
    "Designer &" is a thin script and "Full Stack Developer" a heavy pixel face, so the headline argued before anyone read it.
-2. **One tile in ten was about my work**\
+2. **1 tile in 10 was about my work**\
    The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.
 3. **The visual language was a developer's**\
    Pixel display type, monospace body text, and saturated blue on every tile. A disco-ball button wore the same blue as my projects, so color did nothing to show what mattered.
 4. **The copy was about code**\
-   Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. Code is only 2% of what design job posts ask a portfolio to show.
+   Across the homepage and About page, I mentioned development, coding or software 13 times and design 2 times. Code is only 2% of what design job posts ask a portfolio to show.
 5. **The projects page was sorted for engineers**\
-   It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study 4th of 13.
+   It promised "my growth as a developer," opened with Git Racer and a 2-hour ASCII camera, and put my only design case study 4th of 13.
 
    ![The 2025 projects page](redesign-2026/before-projects.png)
 
 6. **The details people check first were wrong**\
    What people see when I paste erinkerr.me into an application or a message, rebuilt from the site's own metadata. It introduces me as a software engineer before anyone visits. Also, the clock tile still said San Francisco, even though I'm applying for jobs in New York. Small, but they're the kind of details a design reviewer notices.
 
-[See all six problems in context on the archived 2025 site →](/archive/2025)
+[See all 6 problems in context on the archived 2025 site →](/archive/2025)
 
 ---
 
@@ -88,7 +88,7 @@ What the map showed. The first number is the share of portfolio mentions that as
 
 1. **A portfolio is judged on craft and taste.** Curation was the single biggest portfolio ask. A few pieces with a clear point of view beat a long list of okay work, and my old site was a long list.
 2. **Code is valued in the job, but it isn't what the portfolio is judged on.** 88% of posts mention prototyping or code somewhere, but only 2% of portfolio asks do. My engineering is a real advantage, but it should support the design work, not lead.
-3. **Shipped work outranks concepts.** Live, used work came second. I have shipped apps with real ratings and users, and my old site hid that behind tech-stack chips.
+3. **Shipped work outranks concepts.** Live, used work came 2nd. I have shipped apps with real ratings and users, and my old site hid that behind tech-stack chips.
 4. **Posts expect a clear story.** 92% of posts mention reasoning, rationale or storytelling. Case studies should run problem, exploration, decision, result, which is why this one is structured the way it is.
 
 ### Landscape analysis
@@ -99,15 +99,15 @@ What the map showed. The first number is the share of portfolio mentions that as
 
 [Who gave the original feedback, and what they said when I followed up.]
 
-[n] sessions with [who]. Each person reviewed the old site as if hiring a junior product or UI/UX designer with two minutes before their next meeting, thinking out loud. [What they remembered, where they stopped, whether they found a design case study. Best quotes.]
+[n] sessions with [who]. Each person reviewed the old site as if hiring a junior product or UI/UX designer with 2 minutes before their next meeting, thinking out loud. [What they remembered, where they stopped, whether they found a design case study. Best quotes.]
 
 ---
 
 ## Exploration
 
-**First direction: a design page bolted onto the old site.** I added a separate `/design` landing page in electric blue, with four case-study cards, a "how I work" section and my tools. [Why it didn't work. Suggested: reviewers land on the homepage, not `/design`, so the front door still said developer.] I threw it out.
+**First direction: a design page bolted onto the old site.** I added a separate `/design` landing page in electric blue, with 4 case-study cards, a "how I work" section and my tools. [Why it didn't work. Suggested: reviewers land on the homepage, not `/design`, so the front door still said developer.] I threw it out.
 
-**Starting over, and keeping the old site.** I froze the 2025 site at `/archive/2025`, unchanged, with its own copies of every component so future redesigns can't break it. The idea came from Lynn Fisher's archive, where every edition of her site stays online. It lets me start from a blank page without deleting work I'm proud of, and anyone can compare the two versions.
+**Starting over, and keeping the old site.** I froze the 2025 site at `/archive/2025`, unchanged, with its own copies of every component so future redesigns can't break it. The idea came from Lynn Fisher's archive, where every edition of her site stays online. It lets me start from a blank page without deleting work I'm proud of, and anyone can compare the 2 versions.
 
 **References.**
 
@@ -116,7 +116,7 @@ What the map showed. The first number is the share of portfolio mentions that as
 
 **[TO MAKE: a grid of 3 to 5 lo-fi homepage directions, including the rejected `/design` page, with a line on each.]**
 
-**[TO MAKE: sitemap before and after.]** The 2025 site put 13 projects, a blog and widgets on one level. The 2026 site splits into Work (six case studies), Fun (seven side projects), About, and the Archive.
+**[TO MAKE: sitemap before and after.]** The 2025 site put 13 projects, a blog and widgets on 1 level. The 2026 site splits into Work (6 case studies), Fun (7 side projects), About, and the Archive.
 
 ---
 
@@ -131,7 +131,7 @@ The prototype went through these versions:
 3. The designer/engineer switch.
 4. [Later iterations.]
 
-**How I'll test it:** I run a first-click test on the homepage, then after two minutes ask reviewers which design project they remember.
+**How I'll test it:** I run a first-click test on the homepage, then after 2 minutes ask reviewers which design project they remember.
 
 **Why 20 seconds fits:** Nielsen Norman Group's [research on how long people stay on web pages](https://www.nngroup.com/articles/how-long-do-users-stay-on-web-pages/) found many leave within 10–20 seconds unless the page shows its value quickly. My new homepage puts case studies on the first screen, so 20 seconds is realistic. (Jakob Nielsen, "How Long Do Users Stay on Web Pages?", September 2011, based on Microsoft Research dwell-time data.)
 
@@ -154,7 +154,7 @@ The prototype went through these versions:
 
 **2. A switch for the engineers.** A pen nib and `</>` toggle moves the italics from "designer" to "engineers" without shifting the surrounding words. It saves the side in the URL (`?side=engineer`), so one site serves both audiences.
 
-**3. Curating hard.** Six case studies on Work. Seven side projects moved to a Fun page, "Side quests, small tools, & one app Apple rejected." The widgets are gone. The research backs this up: curation was the top portfolio ask.
+**3. Curating hard.** 6 case studies on Work. 7 side projects moved to a Fun page, "Side quests, small tools, & one app Apple rejected." The widgets are gone. The research backs this up: curation was the top portfolio ask.
 
 **4. Titles that say what it does, labels that show proof.**
 
@@ -172,7 +172,7 @@ Shipped work outranks concepts, so the labels lead with ratings and users instea
 
 **7. An About page rewritten around design.** "My path into software development wasn't traditional" became "My path into design wasn't traditional," and it now connects my research interviews to how I design.
 
-**8. Every line true.** I checked every claim on my OrderSync case study against the project and cut three:
+**8. Every line true.** I checked every claim on my OrderSync case study against the project and cut 3:
 
 - **Analytics work:** I had credited analytics work that wasn't mine.
 - **"Zero design debt":** My own audit tool disproved this. It found 22 off-palette colors.

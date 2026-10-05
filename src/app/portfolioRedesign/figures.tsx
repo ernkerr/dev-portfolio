@@ -80,7 +80,7 @@ const AUDIT = [
   {
     n: 2,
     Evidence: ProjectsTile2025,
-    title: "One tile in ten was about my work",
+    title: "1 tile in 10 was about my work",
     text: "The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.",
   },
   {
@@ -110,7 +110,7 @@ export function Audit() {
       >
         <Image
           src={`${IMG}/before-home-desktop.png`}
-          alt="The 2025 homepage: ten electric-blue tiles on a navy page, the largest reading “Designer & Full Stack Developer”."
+          alt="The 2025 homepage: 10 electric-blue tiles on a navy page, the largest reading “Designer & Full Stack Developer”."
           width={1440}
           height={900}
           sizes="(min-width: 1024px) 1040px, 116vw"
@@ -414,7 +414,7 @@ const SITEMAPS = [
   {
     year: "2025",
     pages: [
-      { name: "Home", note: "Ten tiles, one about my work" },
+      { name: "Home", note: "10 tiles, 1 about my work" },
       { name: "Projects", note: "13 projects, Git Racer first" },
       { name: "Blog" },
       { name: "About" },
@@ -424,8 +424,8 @@ const SITEMAPS = [
   {
     year: "2026",
     pages: [
-      { name: "Work", note: "Six case studies" },
-      { name: "Fun", note: "Seven side projects" },
+      { name: "Work", note: "6 case studies" },
+      { name: "Fun", note: "7 side projects" },
       { name: "About" },
       { name: "Archive", note: "Every past edition, unchanged" },
     ],
@@ -465,7 +465,7 @@ export function Sitemaps() {
         ))}
       </div>
       <Caption>
-        The 2025 site put every project, the blog and the widgets on one level.
+        The 2025 site put every project, the blog and the widgets on 1 level.
         The 2026 site splits work from side projects and keeps old editions out
         of the way.
       </Caption>
@@ -630,7 +630,7 @@ export function SwitchSpecimen() {
         ))}
       </ul>
       <Caption>
-        The two sides of the switch.{" "}
+        The 2 sides of the switch.{" "}
         <Link href="/" className={inlineLink}>
           Try it on the homepage
         </Link>
@@ -930,7 +930,7 @@ export function BeforeAfter() {
           <p className={label}>2025</p>
           <Image
             src={`${IMG}/before-home-desktop.png`}
-            alt="The 2025 homepage: ten blue tiles, the largest reading “Designer & Full Stack Developer”."
+            alt="The 2025 homepage: 10 blue tiles, the largest reading “Designer & Full Stack Developer”."
             width={1440}
             height={900}
             sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"
@@ -968,7 +968,7 @@ const COMPARE: { what: string; before: ReactNode; after: ReactNode }[] = [
   },
   {
     what: "First screen",
-    before: "Ten tiles, one about work",
+    before: "10 tiles, 1 about work",
     after: "Headline, experience, then case studies",
   },
   {

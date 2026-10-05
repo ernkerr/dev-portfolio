@@ -109,7 +109,7 @@ export default function PortfolioLandscape() {
     <section
       ref={sectionRef}
       aria-roledescription="carousel"
-      aria-label="Ten portfolios from people hired into their first design job"
+      aria-label="10 portfolios from people hired into their first design job"
       style={{ overscrollBehaviorX: "contain" }}
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") {

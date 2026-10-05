@@ -107,14 +107,14 @@ const SECTIONS: CaseStudySection[] = [
         <Finding
           n={4}
           title="The copy was about code"
-          text="Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. Code is only 2% of what design job posts ask a portfolio to show."
+          text="Across the homepage and About page, I mentioned development, coding or software 13 times and design 2 times. Code is only 2% of what design job posts ask a portfolio to show."
         >
           <MentionCount />
         </Finding>
         <Finding
           n={5}
           title="The projects page was sorted for engineers"
-          text="It promised “my growth as a developer,” opened with Git Racer and a two-hour ASCII camera, and put my only design case study 4th of 13."
+          text="It promised “my growth as a developer,” opened with Git Racer and a 2-hour ASCII camera, and put my only design case study 4th of 13."
         >
           <Figure
             src={`${IMG}/before-projects.png`}
@@ -132,7 +132,7 @@ const SECTIONS: CaseStudySection[] = [
         </Finding>
         <P>
           <Link href="/archive/2025" className={inlineLink}>
-            See all six problems in context on the archived 2025 site{" "}
+            See all 6 problems in context on the archived 2025 site{" "}
             <span aria-hidden="true">→</span>
           </Link>
         </P>
@@ -189,7 +189,7 @@ const SECTIONS: CaseStudySection[] = [
             },
             {
               title: "Shipped work outranks concepts.",
-              text: "Live, used work came second. I have shipped apps with real ratings and users, and my old site hid that behind tech-stack chips.",
+              text: "Live, used work came 2nd. I have shipped apps with real ratings and users, and my old site hid that behind tech-stack chips.",
             },
             {
               title: "Posts expect a clear story.",
@@ -199,13 +199,13 @@ const SECTIONS: CaseStudySection[] = [
         />
         <H3>Landscape analysis</H3>
         <P>
-          I looked at ten portfolios from people hired into their first design
-          or design engineering job at startups, mid-size companies and one
-          apprenticeship. Seven are product designers, five of them career
-          switchers like me, and three are design engineers. I coded all ten on
-          the same 20 features, measured 15 of their case studies, and checked
-          each pattern against the 139 product and UI/UX posts from the job-post
-          research that ask for a portfolio.
+          I looked at 10 portfolios from people hired into their first design or
+          design engineering job at startups, mid-size companies and 1
+          apprenticeship. 7 are product designers, 5 of them career switchers
+          like me, and 3 are design engineers. I coded all 10 on the same 20
+          features, measured 15 of their case studies, and checked each pattern
+          against the 139 product and UI/UX posts from the job-post research
+          that ask for a portfolio.
         </P>
         <PortfolioLandscape />
         <H3>What the portfolios showed</H3>
@@ -213,20 +213,20 @@ const SECTIONS: CaseStudySection[] = [
           count={2}
           items={[
             {
-              title: "Product designers showed three to five case studies.",
-              text: "All seven did, and the median was four. Taste and curation is also the top portfolio ask in the job posts.",
+              title: "Product designers showed 3 to 5 case studies.",
+              text: "All 7 did, and the median was 4. Taste and curation is also the top portfolio ask in the job posts.",
             },
             {
               title: "Every case study followed the same shape.",
-              text: "A facts block, the problem, research and testing with real people, the design, and what they learned. Most ran 1,000 to 2,300 words with about 20 images. Only one reported shipped results.",
+              text: "A facts block, the problem, research and testing with real people, the design, and what they learned. Most ran 1,000 to 2,300 words with about 20 images. Only 1 reported shipped results.",
             },
             {
               title: "Real work went first.",
-              text: "All three who had client, lab or internship work led with it. Concept projects didn’t hold anyone back, since five of the seven product designers had at least one.",
+              text: "All 3 who had client, lab or internship work led with it. Concept projects didn’t hold anyone back, since 5 of the 7 product designers had at least 1.",
             },
             {
               title: "Designers named the role, engineers showed the work.",
-              text: "Six of seven product designers said “designer” on their first screen. The three design engineers had no case studies and were hired on live projects, small demos and short posts.",
+              text: "6 of 7 product designers said “designer” on their first screen. The 3 design engineers had no case studies and were hired on live projects, small demos and short posts.",
             },
           ]}
         />
@@ -244,8 +244,8 @@ const SECTIONS: CaseStudySection[] = [
         </P>
         <List ordered>
           <li>
-            Three to five design case studies on the main path, with real,
-            shipped work first and side projects somewhere else.
+            3 to 5 design case studies on the main path, with real, shipped work
+            first and side projects somewhere else.
           </li>
           <li>
             Fewer, deeper case studies in the shape the hires used. My 2025 case
@@ -259,7 +259,7 @@ const SECTIONS: CaseStudySection[] = [
           </li>
           <li>
             A clear place for my psychology and neuroscience background, tested
-            three ways: a line on the homepage, About only, or a case study that
+            3 ways: a line on the homepage, About only, or a case study that
             draws on it.
           </li>
           <li>
@@ -271,18 +271,18 @@ const SECTIONS: CaseStudySection[] = [
         <P>
           <strong>How I measured.</strong> I looked at each portfolio as it was
           when they were hired, using the Wayback Machine where a site has
-          changed since, and counted words with a headless browser. Ten is a
-          small sample, and all ten got hired, so this shows what was typical
-          and enough, not what caused the hire. Three of the five career
-          switchers came from one bootcamp’s success stories. Where an archived
-          page lost its styles or images, the recording uses the closest version
-          that still renders and says which one.
+          changed since, and counted words with a headless browser. 10 is a
+          small sample, and all 10 got hired, so this shows what was typical and
+          enough, not what caused the hire. 3 of the 5 career switchers came
+          from 1 bootcamp’s success stories. Where an archived page lost its
+          styles or images, the recording uses the closest version that still
+          renders and says which one.
         </P>
         <H3>Talking to people</H3>
         <InProgress title="Reviewer sessions">
           Each person reviews the old site as if hiring a junior product or
-          UI/UX designer with two minutes before their next meeting, thinking
-          out loud: what they remember, where they stop, and whether they find a
+          UI/UX designer with 2 minutes before their next meeting, thinking out
+          loud: what they remember, where they stop, and whether they find a
           design case study.
         </InProgress>
       </>
@@ -296,10 +296,10 @@ const SECTIONS: CaseStudySection[] = [
       <>
         <P>
           <strong>First direction: a design page beside the old site.</strong> I
-          added a separate <Code>/design</Code> landing page with four
-          case-study cards, a “how I work” section and my tools. It sat beside
-          the 2025 site instead of replacing it, so anyone landing on the
-          homepage still met “Full Stack Developer” first. I threw it out.
+          added a separate <Code>/design</Code> landing page with 4 case-study
+          cards, a “how I work” section and my tools. It sat beside the 2025
+          site instead of replacing it, so anyone landing on the homepage still
+          met “Full Stack Developer” first. I threw it out.
         </P>
         <Figure
           src={`${IMG}/first-direction.png`}
@@ -315,7 +315,7 @@ const SECTIONS: CaseStudySection[] = [
           with its own copies of every component so future redesigns can’t break
           it. The idea came from Lynn Fisher’s archive, where every edition of
           her site stays online. It let me start from a blank page without
-          deleting work I’m proud of, and anyone can compare the two versions.
+          deleting work I’m proud of, and anyone can compare the 2 versions.
         </P>
         <Figure
           src={`${IMG}/archive.png`}
@@ -360,8 +360,8 @@ const SECTIONS: CaseStudySection[] = [
         <Versions />
         <P>
           <strong>How I’ll test it:</strong> I run a first-click test on the
-          homepage, then after two minutes ask reviewers which design project
-          they remember.
+          homepage, then after 2 minutes ask reviewers which design project they
+          remember.
         </P>
         <P>
           <strong>Why 20 seconds fits:</strong> Nielsen Norman Group’s{" "}
@@ -388,7 +388,7 @@ const SECTIONS: CaseStudySection[] = [
   {
     id: "ideas-to-test",
     title: "Ideas to test",
-    headline: "Eight ideas in the prototype, and how I’ll test each one.",
+    headline: "8 ideas in the prototype, and how I’ll test each one.",
     content: (
       <>
         <P>
@@ -402,15 +402,15 @@ const SECTIONS: CaseStudySection[] = [
             and engineering how I work: “I’m Erin, a designer who engineers.”
           </P>
           <P>
-            <strong>Why.</strong> Six of the seven product designers in the
-            landscape said “designer” on their first screen. Code is valued in
-            the job posts, but it’s 2% of what they ask a portfolio to show.
+            <strong>Why.</strong> 6 of the 7 product designers in the landscape
+            said “designer” on their first screen. Code is valued in the job
+            posts, but it’s 2% of what they ask a portfolio to show.
           </P>
           <P>
-            <strong>How I’ll test it.</strong> Show reviewers two versions of
-            the first line and ask what job I’m applying for. The second version
-            adds an angle, like research or building end to end, to see which
-            one they repeat back.
+            <strong>How I’ll test it.</strong> Show reviewers 2 versions of the
+            first line and ask what job I’m applying for. The 2nd version adds
+            an angle, like research or building end to end, to see which one
+            they repeat back.
           </P>
           <HeadlineSpecimen />
         </Decision>
@@ -423,7 +423,7 @@ const SECTIONS: CaseStudySection[] = [
             serve both audiences.
           </P>
           <P>
-            <strong>Why.</strong> The two kinds of hires in the landscape were
+            <strong>Why.</strong> The 2 kinds of hires in the landscape were
             judged on different things. The product designers had case studies,
             and the design engineers had shipped code, small demos and short
             posts.
@@ -439,20 +439,20 @@ const SECTIONS: CaseStudySection[] = [
         </Decision>
         <Decision n={3} title="Curating hard">
           <P>
-            <strong>The idea.</strong> Six case studies on Work, and seven side
+            <strong>The idea.</strong> 6 case studies on Work, and 7 side
             projects on a Fun page, “Side quests, small tools, &amp; one app
             Apple rejected.” The widgets are gone.
           </P>
           <P>
             <strong>Why.</strong> Curation is the top portfolio ask in the job
             posts. The research also pushes back on the number: every product
-            designer in the landscape showed three to five case studies, so six
-            is above that range.
+            designer in the landscape showed 3 to 5 case studies, so 6 is above
+            that range.
           </P>
           <P>
-            <strong>How I’ll test it.</strong> Compare a Work page with four
-            case studies against one with six, and track which projects
-            reviewers open and which ones they remember.
+            <strong>How I’ll test it.</strong> Compare a Work page with 4 case
+            studies against one with 6, and track which projects reviewers open
+            and which ones they remember.
           </P>
         </Decision>
         <Decision n={4} title="Titles that say what it does">
@@ -462,23 +462,22 @@ const SECTIONS: CaseStudySection[] = [
             users, instead of a tech stack.
           </P>
           <P>
-            <strong>Why.</strong> Shipped work is the second-biggest portfolio
-            ask. In the landscape, everyone who had real work put it first, and
-            Mitul was hired as a design engineer on project cards with real
-            numbers.
+            <strong>Why.</strong> Shipped work is the 2nd-biggest portfolio ask.
+            In the landscape, everyone who had real work put it first, and Mitul
+            was hired as a design engineer on project cards with real numbers.
           </P>
           <P>
-            <strong>How I’ll test it.</strong> After two minutes on the site,
-            ask reviewers which projects they remember and what they remember
-            about them. A title or a proof number coming back means it worked.
+            <strong>How I’ll test it.</strong> After 2 minutes on the site, ask
+            reviewers which projects they remember and what they remember about
+            them. A title or a proof number coming back means it worked.
           </P>
           <Retitled />
         </Decision>
         <Decision n={5} title="Thumbnails built from the real thing">
           <P>
-            <strong>The idea.</strong> Each tile is one brand color with one
-            object on it. Where possible, the object is real UI rebuilt in code,
-            so it stays sharp and shows the design itself. These three are live
+            <strong>The idea.</strong> Each tile is 1 brand color with 1 object
+            on it. Where possible, the object is real UI rebuilt in code, so it
+            stays sharp and shows the design itself. These 3 are live
             components, not images.
           </P>
           <P>
@@ -502,7 +501,7 @@ const SECTIONS: CaseStudySection[] = [
           <P>
             <strong>Why.</strong> Mitul’s homepage listed what he did at each
             job, and it carried a career switch into a design engineering role.
-            It’s one example, so this is a weaker signal than the others.
+            It’s 1 example, so this is a weaker signal than the others.
           </P>
           <P>
             <strong>How I’ll test it.</strong> Ask reviewers what I did before
@@ -516,15 +515,15 @@ const SECTIONS: CaseStudySection[] = [
           </P>
           <P>
             <strong>Why.</strong> No career switcher in the landscape led with
-            their old career. Three showed it on the homepage, two kept it on
-            About, and one left it out. Sara got the most from hers by turning
-            it into a niche.
+            their old career. 3 showed it on the homepage, 2 kept it on About,
+            and 1 left it out. Sara got the most from hers by turning it into a
+            niche.
           </P>
           <P>
             <strong>How I’ll test it.</strong> Try the psychology and
-            neuroscience background in three places: a line on the homepage,
-            About only, or a case study that draws on it. Ask reviewers whether
-            it reads as a strength or a detour.
+            neuroscience background in 3 places: a line on the homepage, About
+            only, or a case study that draws on it. Ask reviewers whether it
+            reads as a strength or a detour.
           </P>
           <Rewrites />
         </Decision>
@@ -532,7 +531,7 @@ const SECTIONS: CaseStudySection[] = [
           <P>
             <strong>The idea.</strong> Every claim traces back to my resume or
             to work someone can see. I checked every claim on my OrderSync case
-            study against the project and cut three.
+            study against the project and cut 3.
           </P>
           <P>
             <strong>Why.</strong> The job posts ask for proof. Shipped work
@@ -548,9 +547,9 @@ const SECTIONS: CaseStudySection[] = [
 
         <H3>Design system</H3>
         <P>
-          The prototype so far uses five color tokens and three typefaces, each
-          with one job. The main components are SiteShell, SiteHeader, Tile,
-          HeroHeadline and SideSwitch.
+          The prototype so far uses 5 color tokens and 3 typefaces, each with 1
+          job. The main components are SiteShell, SiteHeader, Tile, HeroHeadline
+          and SideSwitch.
         </P>
         <Tokens />
         <TypeSpecimens />
@@ -579,7 +578,7 @@ const SECTIONS: CaseStudySection[] = [
         <Compare />
         <Figure
           src={`${IMG}/after-home-full.png`}
-          alt="The full 2026 homepage: the headline and switch, the experience list, then two columns of project tiles."
+          alt="The full 2026 homepage: the headline and switch, the experience list, then 2 columns of project tiles."
           width={1440}
           height={2384}
           caption="The 2026 homepage."
@@ -603,8 +602,8 @@ const SECTIONS: CaseStudySection[] = [
       <>
         <P>
           Counting changed how I saw the old site. I knew it leaned technical,
-          but 13 mentions of code against two of design, and one tile in ten
-          about my work, made it concrete enough to act on.
+          but 13 mentions of code against 2 of design, and 1 tile in 10 about my
+          work, made it concrete enough to act on.
         </P>
         <P>
           The job posts changed what I think engineering is for in a portfolio.

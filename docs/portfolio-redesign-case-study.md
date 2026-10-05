@@ -34,11 +34,11 @@ When I walked through the old site the way a design hiring manager would, the ev
 2. **One tile in ten was about my work**\
    The rest were a photo, my last-played Spotify track, a clock, a GitHub graph, a blog link, a disco-ball mode, a dark-mode toggle and a contact link.
 3. **The visual language was a developer's**\
-   Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.
+   Pixel display type, monospace body text, and saturated blue on every tile. A disco-ball button wore the same blue as my projects, so color did nothing to show what mattered.
 4. **The copy was about code**\
-   Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with "My path into software development wasn't traditional."
+   Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. Code is only 2% of what design job posts ask a portfolio to show.
 5. **The projects page was sorted for engineers**\
-   It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13.
+   It promised "my growth as a developer," opened with Git Racer and a two-hour ASCII camera, and put my only design case study 4th of 13.
 
    ![The 2025 projects page](redesign-2026/before-projects.png)
 
@@ -67,8 +67,6 @@ I set filters on the map to show results based on job title, knowing the target 
 
 [Affinity map]
 
-I also gathered the "show us evidence of…" requirement lines, so the map captures what a portfolio needs to prove, not just the "send a link" mentions.
-
 ### What design teams ask a portfolio to prove
 
 I pulled 265 live designer job posts (product, UI/UX, brand and design manager roles) from 98 companies, and 182 of them explicitly mention a portfolio. I gathered the "show us evidence of…" requirement lines too, so the map captures what a portfolio needs to prove, not just the "send a link" mentions. I wrote 204 verbatim quotes on sticky notes and sorted them until 19 clusters and 5 themes emerged.
@@ -93,7 +91,7 @@ What the map showed. The first number is the share of portfolio mentions that as
 3. **Shipped work outranks concepts.** Live, used work came second. I have shipped apps with real ratings and users, and my old site hid that behind tech-stack chips.
 4. **Posts expect a clear story.** 92% of posts mention reasoning, rationale or storytelling. Case studies should run problem, exploration, decision, result, which is why this one is structured the way it is.
 
-### Other portfolios
+### Landscape analysis
 
 **[TO MAKE: a landscape grid of about 12 portfolios: 5 junior product designers at companies I'm applying to, 3 design engineers, and 4 I admire.]** [2 or 3 patterns, with counts.]
 

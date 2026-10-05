@@ -87,7 +87,7 @@ const AUDIT = [
     n: 3,
     Evidence: ToggleTiles2025,
     title: "The visual language was a developer’s",
-    text: "Pixel display type, monospace body text, and one saturated blue on every tile. A disco-ball button got the same weight as my work, so nothing stood out.",
+    text: "Pixel display type, monospace body text, and saturated blue on every tile. A disco-ball button wore the same blue as my projects, so color did nothing to show what mattered.",
   },
 ];
 

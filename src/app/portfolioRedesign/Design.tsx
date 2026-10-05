@@ -107,14 +107,14 @@ const SECTIONS: CaseStudySection[] = [
         <Finding
           n={4}
           title="The copy was about code"
-          text="Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. About opened with “My path into software development wasn’t traditional.”"
+          text="Across the homepage and About page, I mentioned development, coding or software 13 times and design twice. Code is only 2% of what design job posts ask a portfolio to show."
         >
           <MentionCount />
         </Finding>
         <Finding
           n={5}
           title="The projects page was sorted for engineers"
-          text="It promised “my growth as a developer,” opened with Git Racer and a two-hour ASCII camera, and put my only design case study fourth of 13."
+          text="It promised “my growth as a developer,” opened with Git Racer and a two-hour ASCII camera, and put my only design case study 4th of 13."
         >
           <Figure
             src={`${IMG}/before-projects.png`}
@@ -173,11 +173,6 @@ const SECTIONS: CaseStudySection[] = [
           to spark some curiosity about what the research says about their role.
         </P>
         <AffinityMap />
-        <P>
-          I also gathered the “show us evidence of…” requirement lines, so the
-          map captures what a portfolio needs to prove, not just the “send a
-          link” mentions.
-        </P>
         <H3>What the map showed</H3>
         <AsksChart />
         <Columns
@@ -202,7 +197,7 @@ const SECTIONS: CaseStudySection[] = [
             },
           ]}
         />
-        <H3>Other portfolios</H3>
+        <H3>Landscape analysis</H3>
         <P>
           I looked at ten portfolios from people hired into their first design
           or design engineering job at startups, mid-size companies and one

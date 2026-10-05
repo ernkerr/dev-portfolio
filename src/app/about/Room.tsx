@@ -3832,7 +3832,8 @@ function Books({ version }: { version: BooksVersion }) {
 // 1. the first drawing, from the photos
 // 2. the shape and handles redrawn to the real proportions
 // 3. the same, in lighter shades
-export type BasketVersion = 1 | 2 | 3;
+// 4. the lighter one, a little bigger
+export type BasketVersion = 1 | 2 | 3 | 4;
 
 const BASKET = {
   right: SHELF.right - SHELF.post - 2.5,
@@ -4360,7 +4361,15 @@ function TubEar({
   );
 }
 
-function BasketTub({ id, light = false }: { id: string; light?: boolean }) {
+function BasketTub({
+  id,
+  light = false,
+  size = 1,
+}: {
+  id: string;
+  light?: boolean;
+  size?: number; // drawn this much bigger, standing in the same place
+}) {
   const palette = light ? BASKET_LIGHT : BASKET_DARK;
   const { right: widest, h, aspect, floor, rim, ear } = TUB;
   const rimHalf = (h * aspect) / 2;
@@ -4388,7 +4397,9 @@ function BasketTub({ id, light = false }: { id: string; light?: boolean }) {
   const earTop = top - ear.rise;
 
   return (
-    <g>
+    <g
+      transform={`translate(${widest} ${floor}) scale(${size}) translate(${-widest} ${-floor})`}
+    >
       <defs>
         <linearGradient id="basket-coil-round" x1="0" y1="0" x2="0" y2="1">
           <stop
@@ -4631,12 +4642,14 @@ export const SHELVES: {
     version: 4,
     lamp: "Arm lamp",
     books: { version: 4, label: "Books that look read" },
+    basket: { version: 4, label: "Seagrass basket, bigger" },
   },
   {
     version: 5,
     lamp: "Lamp switch",
     plant: { version: 2, label: "Snake plant, real pot" },
     books: { version: 5, label: "Books, calmer spines" },
+    basket: { version: 4, label: "Seagrass basket, bigger" },
   },
 ];
 
@@ -4708,6 +4721,7 @@ export default function Room({
         {basket === 1 && <Basket id={`${id}-basket`} />}
         {basket === 2 && <BasketTub id={`${id}-basket`} />}
         {basket === 3 && <BasketTub id={`${id}-basket`} light />}
+        {basket === 4 && <BasketTub id={`${id}-basket`} light size={1.06} />}
         {books && <Books version={books} />}
       </LampSwitch>,
     );
@@ -4731,6 +4745,7 @@ export default function Room({
       {basket === 1 && <Basket id={`${id}-basket`} />}
       {basket === 2 && <BasketTub id={`${id}-basket`} />}
       {basket === 3 && <BasketTub id={`${id}-basket`} light />}
+      {basket === 4 && <BasketTub id={`${id}-basket`} light size={1.06} />}
       {books && <Books version={books} />}
     </svg>
   );

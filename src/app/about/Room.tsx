@@ -1,4 +1,5 @@
 import { focusRing } from "@/components/site/links";
+import DraggableCord from "./DraggableCord";
 import LampSwitch from "./LampSwitch";
 
 // My old room. So far: the bookshelf, seen straight on (black metal posts
@@ -4619,7 +4620,9 @@ function BasketTub({
 // 3. lying on their side like the real ones, still, with a bigger loop in
 //    the swaying cord
 // 4. the same, with the band lying on the board
-export type HeadphonesVersion = 1 | 2 | 3 | 4;
+// 5. the same, with a cord you can grab and drag about; let go, it falls
+//    and curls back into its loop
+export type HeadphonesVersion = 1 | 2 | 3 | 4 | 5;
 
 const PHONES = {
   cx: 62, // the middle of the band
@@ -4982,21 +4985,49 @@ const CORD_LOOPS: Record<"small" | "big", [Pt, Pt, Pt][]> = {
   ],
 };
 
-function HangingCord({ start, loop }: { start: Pt; loop: "small" | "big" }) {
+function HangingCord({
+  start,
+  loop,
+  draggable = false,
+}: {
+  start: Pt;
+  loop: "small" | "big";
+  draggable?: boolean; // only the part over the board; Room adds the rest
+}) {
   const { floor } = PHONES;
   const edge: Pt = [start[0] - 8, floor + 5]; // where it goes over the board
   const n = (v: number) => v.toFixed(2);
-  const to = ([x, y]: Pt) => `${n(edge[0] + x)} ${n(edge[1] + y)}`;
-  const toBoard = `M${n(start[0])} ${n(start[1])}C${n(start[0] - 4)} ${n(floor + 0.3)} ${n(start[0] - 7)} ${n(floor + 1)} ${to([0, 0])}`;
+  const pt = ([x, y]: Pt) => `${n(x)} ${n(y)}`;
+  const toBoard = `M${n(start[0])} ${n(start[1])}C${n(start[0] - 4)} ${n(floor + 0.3)} ${n(start[0] - 7)} ${n(floor + 1)} ${pt(edge)}`;
   // Down, the loop round to the right and back over itself, then on down
   // to the plug.
-  const hanging = `M${to([0, 0])}C${to([0.5, 12])} ${to([-1, 22])} ${to([1, 28])}${CORD_LOOPS[
-    loop
-  ]
-    .map(([a, b, c]) => `C${to(a)} ${to(b)} ${to(c)}`)
-    .join(
-      "",
-    )}C${to([-1, 38])} ${to([2, 48])} ${to([1, 58])}C${to([0, 66])} ${to([1, 72])} ${to([1, 80])}`;
+  let from = edge;
+  const segs = (
+    [
+      [
+        [0.5, 12],
+        [-1, 22],
+        [1, 28],
+      ],
+      ...CORD_LOOPS[loop],
+      [
+        [-1, 38],
+        [2, 48],
+        [1, 58],
+      ],
+      [
+        [0, 66],
+        [1, 72],
+        [1, 80],
+      ],
+    ] as [Pt, Pt, Pt][]
+  ).map((points) => {
+    const [a, b, c] = points.map(([x, y]): Pt => [edge[0] + x, edge[1] + y]);
+    const seg: [Pt, Pt, Pt, Pt] = [from, a, b, c];
+    from = c;
+    return seg;
+  });
+  const hanging = `M${pt(edge)}${segs.map(([, a, b, c]) => `C${pt(a)} ${pt(b)} ${pt(c)}`).join("")}`;
   const plug = [edge[0] + 1, edge[1] + 80];
   return (
     <g>
@@ -5007,39 +5038,43 @@ function HangingCord({ start, loop }: { start: Pt; loop: "small" | "big" }) {
         strokeLinecap="round"
         className="stroke-room-headphones-matte"
       />
-      <g
-        className="animate-cord-swing [animation-delay:-1.2s] [transform-box:view-box] motion-reduce:animate-none"
-        style={{ transformOrigin: `${edge[0]}px ${edge[1]}px` }}
-      >
-        <path
-          d={hanging}
-          fill="none"
-          strokeWidth={1.2}
-          strokeLinecap="round"
-          className="stroke-room-headphones-matte"
-        />
-        <rect
-          x={plug[0] - 1}
-          y={plug[1]}
-          width={2}
-          height={4}
-          rx={0.8}
-          className="fill-room-headphones-matte"
-        />
-        <rect
-          x={plug[0] - 0.55}
-          y={plug[1] + 4}
-          width={1.1}
-          height={3.6}
-          rx={0.4}
-          className="fill-room-mirror"
-        />
-        <path
-          d={`M${plug[0] - 0.55} ${plug[1] + 5.2}h1.1M${plug[0] - 0.55} ${plug[1] + 6.3}h1.1`}
-          strokeWidth={0.25}
-          className="stroke-room-headphones-slider"
-        />
-      </g>
+      {draggable ? // The part to drag is drawn above everything, books included, by
+      // Room (see withOverlays), since it hangs in front of the shelf.
+      null : (
+        <g
+          className="animate-cord-swing [animation-delay:-1.2s] [transform-box:view-box] motion-reduce:animate-none"
+          style={{ transformOrigin: `${edge[0]}px ${edge[1]}px` }}
+        >
+          <path
+            d={hanging}
+            fill="none"
+            strokeWidth={1.2}
+            strokeLinecap="round"
+            className="stroke-room-headphones-matte"
+          />
+          <rect
+            x={plug[0] - 1}
+            y={plug[1]}
+            width={2}
+            height={4}
+            rx={0.8}
+            className="fill-room-headphones-matte"
+          />
+          <rect
+            x={plug[0] - 0.55}
+            y={plug[1] + 4}
+            width={1.1}
+            height={3.6}
+            rx={0.4}
+            className="fill-room-mirror"
+          />
+          <path
+            d={`M${plug[0] - 0.55} ${plug[1] + 5.2}h1.1M${plug[0] - 0.55} ${plug[1] + 6.3}h1.1`}
+            strokeWidth={0.25}
+            className="stroke-room-headphones-slider"
+          />
+        </g>
+      )}
     </g>
   );
 }
@@ -5051,6 +5086,15 @@ function HangingCord({ start, loop }: { start: Pt; loop: "small" | "big" }) {
 // cup's face is turned a little (narrower, its padded edge showing more),
 // and the far cup comes out further to the right. They keep still; only
 // the cord moves, with a bigger loop.
+// Where the resting headphones' cord leaves the near cup, and where it goes
+// over the front edge of the board.
+const restingCord = () => {
+  const { cx, scale } = RESTING;
+  const start: Pt = [cx - 3 * scale, PHONES.floor - 0.6 * scale];
+  const edge: Pt = [start[0] - 8, PHONES.floor + 5];
+  return { start, edge };
+};
+
 const RESTING = {
   cx: 66,
   cup: { rx: 9.2, ry: 11.6 },
@@ -5080,13 +5124,19 @@ function restingBand(pose: BandPose, cx: number, floor: number) {
   };
 }
 
-function RestingHeadphones({ band: pose = "held" }: { band?: BandPose }) {
+function RestingHeadphones({
+  band: pose = "held",
+  draggableCord = false,
+}: {
+  band?: BandPose;
+  draggableCord?: boolean;
+}) {
   const { floor } = PHONES;
   const { cx, cup, scale } = RESTING;
   const cy = floor - cup.ry;
   const band = restingBand(pose, cx, floor);
   // The cord leaves the bottom of the near cup.
-  const cordStart: Pt = [cx - 3 * scale, floor - 0.6 * scale];
+  const cordStart = restingCord().start;
 
   return (
     <g>
@@ -5196,7 +5246,7 @@ function RestingHeadphones({ band: pose = "held" }: { band?: BandPose }) {
         </g>
       </g>
 
-      <HangingCord start={cordStart} loop="big" />
+      <HangingCord start={cordStart} loop="big" draggable={draggableCord} />
     </g>
   );
 }
@@ -5250,7 +5300,7 @@ export const SHELVES: {
     lamp: "Lamp switch",
     plant: { version: 2, label: "Snake plant, real pot" },
     books: { version: 5, label: "Books, calmer spines" },
-    headphones: { version: 4, label: "Beats headphones, band down" },
+    headphones: { version: 5, label: "Beats headphones, cord to drag" },
     basket: { version: 4, label: "Seagrass basket, bigger" },
   },
 ];
@@ -5291,26 +5341,40 @@ export default function Room({
 }) {
   const id = `room-${lamp}`;
 
-  // Books 2 and up are HTML laid over the drawing (see TurningBook).
-  const withBooks = (drawing: React.ReactNode) =>
-    books && books > 1 ? (
+  // Books 2 and up are HTML laid over the drawing (see TurningBook), and
+  // headphones 5's cord, which can be dragged in front of anything, is
+  // drawn on top of them: longer than the others, hanging in front of the
+  // board below and past it, without the loop.
+  const withOverlays = (drawing: React.ReactNode) =>
+    (books && books > 1) || headphones === 5 ? (
       <div className="relative">
         {drawing}
-        {books >= 4 && <BookFinishDefs />}
-        <BookRow
-          books={books === 5 ? SHELF_5 : books >= 3 ? SHELF_3 : FULL_SHELF}
-          sweep={books >= 3}
-          finish={books >= 4}
-          read={books >= 4}
-          dim={books === 5}
-        />
+        {books && books >= 4 && <BookFinishDefs />}
+        {books && books > 1 && (
+          <BookRow
+            books={books === 5 ? SHELF_5 : books >= 3 ? SHELF_3 : FULL_SHELF}
+            sweep={books >= 3}
+            finish={books >= 4}
+            read={books >= 4}
+            dim={books === 5}
+          />
+        )}
+        {headphones === 5 && (
+          <svg
+            viewBox={VIEW_BOX}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+          >
+            <DraggableCord anchor={restingCord().edge} length={125} />
+          </svg>
+        )}
       </div>
     ) : (
       drawing
     );
 
   if (lamp === 5) {
-    return withBooks(
+    return withOverlays(
       <LampSwitch
         viewBox={VIEW_BOX}
         title={TITLE}
@@ -5326,6 +5390,7 @@ export default function Room({
         {headphones === 2 && <TossedHeadphones />}
         {headphones === 3 && <RestingHeadphones />}
         {headphones === 4 && <RestingHeadphones band="flat" />}
+        {headphones === 5 && <RestingHeadphones band="flat" draggableCord />}
         {basket === 1 && <Basket id={`${id}-basket`} />}
         {basket === 2 && <BasketTub id={`${id}-basket`} />}
         {basket === 3 && <BasketTub id={`${id}-basket`} light />}
@@ -5354,6 +5419,7 @@ export default function Room({
       {headphones === 2 && <TossedHeadphones />}
       {headphones === 3 && <RestingHeadphones />}
       {headphones === 4 && <RestingHeadphones band="flat" />}
+      {headphones === 5 && <RestingHeadphones band="flat" draggableCord />}
       {basket === 1 && <Basket id={`${id}-basket`} />}
       {basket === 2 && <BasketTub id={`${id}-basket`} />}
       {basket === 3 && <BasketTub id={`${id}-basket`} light />}
@@ -5361,5 +5427,5 @@ export default function Room({
       {books && <Books version={books} />}
     </svg>
   );
-  return withBooks(drawing);
+  return withOverlays(drawing);
 }

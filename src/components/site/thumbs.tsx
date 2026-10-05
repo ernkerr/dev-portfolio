@@ -179,3 +179,37 @@ export function BloggerMark() {
     </div>
   );
 }
+
+// Field Notes: each field's top word from the live data, on sticky notes in
+// the Field Notes site's colors.
+const FIELD_NOTES = [
+  { field: "Design", word: "craft", bg: "#FDE68E", rot: "-2deg" },
+  { field: "Product", word: "roadmap", bg: "#FBD3E3", rot: "1.5deg" },
+  { field: "Engineering", word: "code", bg: "#CFE0FB", rot: "1deg" },
+  { field: "Marketing", word: "campaigns", bg: "#CBEAD0", rot: "-1.5deg" },
+];
+
+export function FieldNotesMark() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-[#EEF2F6]">
+      <div className="grid grid-cols-2 gap-[3cqw]">
+        {FIELD_NOTES.map((n) => (
+          <div
+            key={n.field}
+            className="flex h-[17cqw] w-[26cqw] flex-col justify-between p-[2.2cqw] shadow-[0.6cqw_2cqw_3.2cqw_-1.6cqw_rgba(20,28,40,0.35)]"
+            style={{ background: n.bg, transform: `rotate(${n.rot})` }}
+          >
+            <span
+              className={`${monoFont} text-[length:1.6cqw] uppercase tracking-wider text-[#4F5B6B]`}
+            >
+              {n.field}
+            </span>
+            <span className="font-[family-name:var(--font-serif)] text-[length:4.4cqw] leading-none text-[#1F2835]">
+              {n.word}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

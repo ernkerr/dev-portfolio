@@ -2,18 +2,29 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
 import Tile, { type TileItem } from "@/components/site/Tile";
-import { BloggerMark } from "@/components/site/thumbs";
+import { BloggerMark, FieldNotesMark } from "@/components/site/thumbs";
 import { focusRing, mono, serif } from "@/components/site/links";
 import { EDITIONS } from "@/data/editions";
 
 export const metadata: Metadata = {
   title: "Fun",
   description:
-    "Side projects by Erin Kerr: Git Racer, ASCII Cam, an auto-clicker Apple rejected, and every past version of this site.",
+    "Side projects by Erin Kerr: Field Notes, Git Racer, ASCII Cam, an auto-clicker Apple rejected, and every past version of this site.",
   alternates: { canonical: "/fun" },
 };
 
 const SIDE_QUESTS: TileItem[] = [
+  {
+    href: "https://fieldnotes.erinkerr.me",
+    title: "What job posts ask you to prove, in your field’s own words",
+    meta: ["Field Notes", "MCP server + site"],
+    art: {
+      kind: "custom",
+      alt: "Four sticky notes, each with a field's most-used word from job posts: Design, craft; Product, roadmap; Engineering, code; Marketing, campaigns.",
+      node: <FieldNotesMark />,
+    },
+    aspect: "aspect-[16/10]",
+  },
   {
     href: "/gitRacer",
     title: "GitHub contributions as a competitive sport",

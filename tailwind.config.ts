@@ -52,6 +52,22 @@ export default {
           light: "#FFD45C", // the glow around lamp 5 when it's on
           frost: "#EEF2F4", // lamp 5's bubbles and bulb glass, off
           mirror: "#D3DADF", // silver shards on the disco ball
+          // The snake plant: leaves, their pale bands, back leaves, yellow-green
+          // leaves; its pot
+          plant: {
+            DEFAULT: "#3E5A34",
+            light: "#A9B86E",
+            dark: "#2C4128",
+            yellow: "#8A9450",
+          },
+          pot: {
+            DEFAULT: "#F2E4D8", // blush cream glaze
+            band: "#E7B6A2", // the pink stripe near the bottom
+            foot: "#C9D4D4", // the pale blue-grey foot
+            soil: "#4A3A2C",
+            white: "#F3F0EA", // plant 1's plain white pot
+            "white-shade": "#D6CFC4", // its rim and foot lines
+          },
           // The disco ball's colored glass shards
           disco: {
             plum: "#5B3F6B",

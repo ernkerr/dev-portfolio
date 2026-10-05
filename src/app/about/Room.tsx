@@ -2,7 +2,8 @@ import LampSwitch from "./LampSwitch";
 
 // My old room. So far: the bookshelf, seen straight on (black metal posts
 // that rise past the top board, five walnut boards), and my lamp on the top
-// board, in five versions to compare (5 is a switch for dark mode).
+// board in five versions to compare (5 is a switch for dark mode), and my
+// snake plant beside it on the first shelf.
 // Everything is in viewBox units, so objects added later can be placed with
 // the same numbers.
 
@@ -788,22 +789,544 @@ function SwitchLampLight() {
   );
 }
 
+/* ---------- Snake plant ---------- */
+
+// My snake plant, traced from a photo of it: tall sword leaves in olive
+// green with pale zigzag bands, a big banded paddle in front, in a tall
+// white pot. It stands on the right of the top board, drawn at the same
+// scale to the lamp as in the photo.
+//
+// Each leaf is in the photo's coordinates (2000 wide): its left edge from
+// the base up to the tip, then its right edge back down. Tips cut off by
+// the top of the photo are carried on along the leaf. Back to front.
+type TracedLeaf = {
+  left: Pt[];
+  tip: Pt;
+  right: Pt[];
+  shade: "back" | "mid" | "yellow" | "front";
+};
+const LEAVES: TracedLeaf[] = [
+  // Tall, leaning right
+  {
+    shade: "back",
+    left: [
+      [1405, 495],
+      [1410, 350],
+      [1418, 257],
+      [1432, 171],
+      [1450, 110],
+      [1465, 80],
+      [1485, 40],
+      [1514, 0],
+    ],
+    tip: [1540, -25],
+    right: [
+      [1532, 0],
+      [1521, 20],
+      [1507, 40],
+      [1494, 60],
+      [1490, 80],
+      [1488, 110],
+      [1460, 171],
+      [1438, 257],
+      [1420, 350],
+      [1412, 495],
+    ],
+  },
+  // Beside it, a little shorter
+  {
+    shade: "back",
+    left: [
+      [1395, 495],
+      [1402, 257],
+      [1408, 171],
+      [1418, 120],
+      [1433, 100],
+      [1449, 80],
+      [1458, 60],
+      [1474, 40],
+      [1486, 20],
+    ],
+    tip: [1492, 8],
+    right: [
+      [1495, 20],
+      [1482, 45],
+      [1470, 60],
+      [1458, 100],
+      [1450, 120],
+      [1430, 171],
+      [1415, 257],
+      [1405, 495],
+    ],
+  },
+  // Tall and nearly straight, in the middle
+  {
+    shade: "back",
+    left: [
+      [1378, 495],
+      [1378, 350],
+      [1380, 250],
+      [1381, 160],
+      [1384, 120],
+      [1388, 80],
+      [1396, 40],
+      [1404, 0],
+    ],
+    tip: [1414, -25],
+    right: [
+      [1419, 0],
+      [1416, 40],
+      [1411, 80],
+      [1408, 120],
+      [1406, 160],
+      [1405, 250],
+      [1402, 350],
+      [1398, 495],
+    ],
+  },
+  // Long, leaning far left
+  {
+    shade: "mid",
+    left: [
+      [1345, 495],
+      [1340, 450],
+      [1330, 400],
+      [1318, 350],
+      [1305, 300],
+      [1290, 250],
+      [1262, 200],
+      [1236, 150],
+      [1212, 100],
+      [1190, 50],
+      [1160, 20],
+      [1148, 0],
+    ],
+    tip: [1130, -30],
+    right: [
+      [1170, 0],
+      [1188, 20],
+      [1224, 50],
+      [1250, 100],
+      [1280, 150],
+      [1313, 200],
+      [1336, 250],
+      [1345, 300],
+      [1350, 350],
+      [1353, 400],
+      [1356, 450],
+      [1360, 495],
+    ],
+  },
+  // Thin and yellow-green, along the long left one
+  {
+    shade: "yellow",
+    left: [
+      [1338, 495],
+      [1322, 400],
+      [1296, 300],
+      [1278, 250],
+      [1250, 200],
+      [1225, 150],
+      [1200, 100],
+      [1186, 80],
+    ],
+    tip: [1183, 71],
+    right: [
+      [1192, 80],
+      [1210, 100],
+      [1236, 150],
+      [1262, 200],
+      [1290, 250],
+      [1306, 300],
+      [1332, 400],
+      [1346, 495],
+    ],
+  },
+  // Yellow-green, between the long left one and the hooked one
+  {
+    shade: "yellow",
+    left: [
+      [1338, 495],
+      [1330, 420],
+      [1315, 350],
+      [1305, 300],
+      [1295, 240],
+      [1290, 200],
+    ],
+    tip: [1287, 172],
+    right: [
+      [1300, 195],
+      [1312, 240],
+      [1328, 300],
+      [1340, 360],
+      [1347, 420],
+      [1350, 495],
+    ],
+  },
+  // Tall, with a hooked tip
+  {
+    shade: "mid",
+    left: [
+      [1352, 495],
+      [1350, 350],
+      [1347, 250],
+      [1348, 160],
+      [1346, 140],
+      [1338, 100],
+      [1335, 70],
+      [1327, 45],
+    ],
+    tip: [1322, 25],
+    right: [
+      [1343, 48],
+      [1352, 60],
+      [1362, 80],
+      [1366, 100],
+      [1373, 120],
+      [1378, 140],
+      [1380, 250],
+      [1376, 350],
+      [1370, 495],
+    ],
+  },
+  // Low on the left, its thin tip curling up
+  {
+    shade: "mid",
+    left: [
+      [1325, 500],
+      [1310, 475],
+      [1285, 440],
+      [1260, 400],
+      [1235, 365],
+      [1215, 330],
+      [1203, 300],
+    ],
+    tip: [1197, 270],
+    right: [
+      [1206, 298],
+      [1220, 325],
+      [1232, 338],
+      [1250, 348],
+      [1275, 355],
+      [1300, 372],
+      [1320, 392],
+      [1335, 410],
+      [1345, 450],
+      [1350, 495],
+    ],
+  },
+  // Short, pointing right
+  {
+    shade: "mid",
+    left: [
+      [1395, 480],
+      [1415, 410],
+      [1432, 375],
+      [1450, 355],
+      [1467, 340],
+    ],
+    tip: [1482, 331],
+    right: [
+      [1478, 352],
+      [1468, 378],
+      [1455, 400],
+      [1440, 425],
+      [1425, 450],
+      [1410, 475],
+      [1402, 497],
+    ],
+  },
+  // The big banded paddle in front
+  {
+    shade: "front",
+    left: [
+      [1362, 497],
+      [1352, 483],
+      [1346, 447],
+      [1342, 413],
+      [1342, 380],
+      [1350, 347],
+      [1367, 313],
+      [1387, 280],
+    ],
+    tip: [1406, 255],
+    right: [
+      [1420, 297],
+      [1428, 330],
+      [1432, 363],
+      [1430, 397],
+      [1420, 430],
+      [1410, 463],
+      [1400, 483],
+      [1395, 497],
+    ],
+  },
+];
+// Each round of changes to the plant is a new version on the next shelf,
+// so the earlier ones stay to look back on:
+// 1. traced from the shelf photo, in a guessed plain white pot
+// 2. in the real pot, from a photo of it, with the leaves down in the soil
+export type PlantVersion = 1 | 2;
+
+// The pot, centered under the leaves with its rim at y 505 and its foot on
+// the shelf at y 700. Only a sliver of it shows in the shelf photo; version
+// 2's shape comes from a photo of the pot itself, about as wide as it is
+// tall.
+const PHOTO_POT = { x: 1372, top: 505, floor: 700, w: { 1: 214, 2: 205 } };
+
+const PLANT = { x: 200, floor: BOARDS[0] };
+const PLANT_SCALE = 0.21; // the lamp is about 0.21 of its size in the photo
+
+// From the photo's coordinates to the drawing's.
+const traced = ([x, y]: Pt): Pt => [
+  PLANT.x + (x - PHOTO_POT.x) * PLANT_SCALE,
+  PLANT.floor + (y - PHOTO_POT.floor) * PLANT_SCALE,
+];
+
+const PLANT_TOP =
+  Math.min(
+    ...LEAVES.flatMap((leaf) =>
+      [leaf.tip, ...leaf.left, ...leaf.right].map((p) => traced(p)[1]),
+    ),
+  ) - 2;
+
+// A smooth line through traced points that passes through every one of
+// them (a Catmull-Rom curve, as cubic Béziers). It continues from wherever
+// the path is, which must be the first point.
+function smoothThrough(pts: Pt[]) {
+  const n = (v: number) => v.toFixed(1);
+  const at = (i: number) => pts[Math.max(0, Math.min(pts.length - 1, i))];
+  let d = "";
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [p0, p1, p2, p3] = [at(i - 1), at(i), at(i + 1), at(i + 2)];
+    const c1: Pt = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2: Pt = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += `C${n(c1[0])} ${n(c1[1])} ${n(c2[0])} ${n(c2[1])} ${n(p2[0])} ${n(p2[1])}`;
+  }
+  return d;
+}
+
+// Evens out small wobbles in hand-traced points by averaging each with its
+// neighbors, keeping the two ends where they are.
+function steady(pts: Pt[]): Pt[] {
+  return pts.map((p, i) =>
+    i === 0 || i === pts.length - 1
+      ? p
+      : [
+          (pts[i - 1][0] + 2 * p[0] + pts[i + 1][0]) / 4,
+          (pts[i - 1][1] + 2 * p[1] + pts[i + 1][1]) / 4,
+        ],
+  );
+}
+
+// A leaf's outline: smooth up its left edge to a sharp tip and back down
+// its right edge. With intoSoil, its base reaches down into the soil, under
+// the front of the pot's rim.
+function leafOutline({ left, tip, right }: TracedLeaf, intoSoil: boolean) {
+  const soil = traced([0, PHOTO_POT.top])[1] + 1.5;
+  const sink = ([x, y]: Pt): Pt => [x, intoSoil ? Math.max(y, soil) : y];
+  const up = steady([...left, tip].map(traced));
+  const down = steady([tip, ...right].map(traced));
+  up[0] = sink(up[0]);
+  down[down.length - 1] = sink(down[down.length - 1]);
+  const [x0, y0] = up[0];
+  return `M${x0.toFixed(1)} ${y0.toFixed(1)}${smoothThrough(up)}${smoothThrough(down)}Z`;
+}
+
+const LEAF_FILL = {
+  back: "fill-room-plant-dark",
+  mid: "fill-room-plant",
+  yellow: "fill-room-plant-yellow",
+  front: "fill-room-plant",
+};
+// Pale bands on the green leaves; dark mottling on the yellow ones.
+const BAND_STROKE = {
+  back: "stroke-room-plant-light/25",
+  mid: "stroke-room-plant-light/35",
+  yellow: "stroke-room-plant-dark/30",
+  front: "stroke-room-plant-light/55",
+};
+
+// Soft wavy bands across a leaf, square to its length and clipped to it,
+// unevenly spaced and each a little different, like the real markings.
+function LeafBands({ leaf, seed }: { leaf: TracedLeaf; seed: number }) {
+  const [bx, by] = traced([
+    (leaf.left[0][0] + leaf.right[leaf.right.length - 1][0]) / 2,
+    (leaf.left[0][1] + leaf.right[leaf.right.length - 1][1]) / 2,
+  ]);
+  const [tx, ty] = traced(leaf.tip);
+  const len = Math.hypot(tx - bx, ty - by);
+  const [ux, uy] = [(tx - bx) / len, (ty - by) / len];
+  const [nx, ny] = [-uy, ux];
+  // A point t along the leaf and s across it.
+  const at = (t: number, s: number) =>
+    `${(bx + ux * t + nx * s).toFixed(1)} ${(by + uy * t + ny * s).toFixed(1)}`;
+  const bands: { t: number; wave: number; width: number }[] = [];
+  for (let t = 3, i = 0; t < len - 4; i++) {
+    bands.push({
+      t,
+      wave: 0.6 + (jitter(seed * 97 + i * 13) + 0.5) * 0.9,
+      width: 1.2 + (jitter(seed * 31 + i * 7) + 0.5) * 1.1,
+    });
+    t += 3.6 + (jitter(seed * 53 + i * 11) + 0.5) * 2.4;
+  }
+  return (
+    <g fill="none" strokeLinecap="round" className={BAND_STROKE[leaf.shade]}>
+      {bands.map(({ t, wave, width }) => (
+        <path
+          key={t}
+          strokeWidth={width}
+          d={`M${at(t, -14)}Q${at(t - wave * 2, -7)} ${at(t, 0)}T${at(t, 14)}`}
+        />
+      ))}
+    </g>
+  );
+}
+
+function Leaves({ id, intoSoil }: { id: string; intoSoil: boolean }) {
+  return (
+    <>
+      {LEAVES.map((leaf, i) => {
+        const d = leafOutline(leaf, intoSoil);
+        return (
+          <g key={i}>
+            <clipPath id={`${id}-${i}`}>
+              <path d={d} />
+            </clipPath>
+            <path d={d} className={LEAF_FILL[leaf.shade]} />
+            <g clipPath={`url(#${id}-${i})`}>
+              <LeafBands leaf={leaf} seed={i + 1} />
+            </g>
+          </g>
+        );
+      })}
+    </>
+  );
+}
+
+function SnakePlant({ id, version }: { id: string; version: PlantVersion }) {
+  const { x, floor } = PLANT;
+  const w = PHOTO_POT.w[version] * PLANT_SCALE; // rim width
+  const top = traced([0, PHOTO_POT.top])[1]; // rim
+
+  if (version === 1) {
+    // A plain white pot, a little narrower at the foot, with a rim.
+    return (
+      <g>
+        <Leaves id={id} intoSoil={false} />
+        <path
+          d={`M${x - w / 2} ${top}H${x + w / 2}L${x + w * 0.44} ${floor}H${x - w * 0.44}Z`}
+          className="fill-room-pot-white"
+        />
+        <rect
+          x={x - w / 2 - 1}
+          y={top - 1}
+          width={w + 2}
+          height={4}
+          rx={1}
+          className="fill-room-pot-white"
+        />
+        <rect
+          x={x - w / 2}
+          y={top + 3}
+          width={w}
+          height={1}
+          className="fill-room-pot-white-shade"
+        />
+        <rect
+          x={x - w * 0.44}
+          y={floor - 2}
+          width={w * 0.88}
+          height={2}
+          className="fill-room-pot-white-shade"
+        />
+      </g>
+    );
+  }
+
+  const h = floor - top;
+  const half = w / 2;
+  const lip = 3; // the rim's rounded lip
+  // Cream ceramic, widest at the flared rim, tapering in a gentle curve to a
+  // foot about 60% as wide, with rounded bottom corners.
+  const body = `M${x - half * 0.95} ${top + lip}C${x - half * 0.95} ${top + h * 0.45} ${x - half * 0.8} ${top + h * 0.8} ${x - half * 0.63} ${floor - 2}Q${x - half * 0.6} ${floor} ${x - half * 0.5} ${floor}H${x + half * 0.5}Q${x + half * 0.6} ${floor} ${x + half * 0.63} ${floor - 2}C${x + half * 0.8} ${top + h * 0.8} ${x + half * 0.95} ${top + h * 0.45} ${x + half * 0.95} ${top + lip}Z`;
+  const rim = `${half} ${lip}`;
+
+  return (
+    <g>
+      {/* The rim's top and the soil inside it, behind the leaves */}
+      <ellipse cx={x} cy={top} rx={half} ry={lip} className="fill-room-pot" />
+      <ellipse
+        cx={x}
+        cy={top + 0.4}
+        rx={half - 2.4}
+        ry={lip - 1.5}
+        className="fill-room-pot-soil"
+      />
+
+      <Leaves id={id} intoSoil />
+
+      {/* The pot: body, then the blush stripe and blue-grey foot near the
+          bottom, kept inside the body */}
+      <clipPath id={`${id}-pot`}>
+        <path d={body} />
+      </clipPath>
+      <path d={body} className="fill-room-pot" />
+      <g clipPath={`url(#${id}-pot)`}>
+        <rect
+          x={x - half}
+          y={floor - h * 0.09}
+          width={w}
+          height={h * 0.03}
+          className="fill-room-pot-band"
+        />
+        <rect
+          x={x - half}
+          y={floor - h * 0.06}
+          width={w}
+          height={h * 0.06}
+          className="fill-room-pot-foot"
+        />
+      </g>
+
+      {/* The front of the rim's lip, over the bases of the leaves */}
+      <path
+        d={`M${x - half} ${top}A${rim} 0 0 0 ${x + half} ${top}V${top + lip - 0.5}A${rim} 0 0 1 ${x - half} ${top + lip - 0.5}Z`}
+        className="fill-room-pot"
+      />
+    </g>
+  );
+}
+
 /* ---------- Room ---------- */
 
 export type LampVersion = 1 | 2 | 3 | 4 | 5;
 
-// The lamp versions, shown side by side to pick one.
-export const LAMPS: { version: LampVersion; label: string }[] = [
-  { version: 1, label: "01. First lamp" },
-  { version: 2, label: "02. Solid shade" },
-  { version: 3, label: "03. Clear shade" },
-  { version: 4, label: "04. Arm lamp" },
-  { version: 5, label: "05. Lamp switch" },
+// The shelves shown side by side, each with its own version of the
+// objects on it, to pick and mix from and to look back on.
+export const SHELVES: {
+  version: LampVersion;
+  lamp: string;
+  plant?: { version: PlantVersion; label: string };
+}[] = [
+  {
+    version: 1,
+    lamp: "First lamp",
+    plant: { version: 1, label: "Snake plant" },
+  },
+  {
+    version: 2,
+    lamp: "Solid shade",
+    plant: { version: 2, label: "Snake plant, real pot" },
+  },
+  { version: 3, lamp: "Clear shade" },
+  { version: 4, lamp: "Arm lamp" },
+  { version: 5, lamp: "Lamp switch" },
 ];
 
-// The lamps rise above the shelf. Every version starts at the tallest, so
-// the shelves line up side by side.
-const VIEW_TOP = Math.min(SHELF.top, ARM_LAMP_TOP, STEM_SHADE_TOP);
+// The lamps and plants rise above the shelf. Every version starts at the
+// tallest, so the shelves line up side by side.
+const VIEW_TOP = Math.min(SHELF.top, ARM_LAMP_TOP, STEM_SHADE_TOP, PLANT_TOP);
 const VIEW = {
   left: SHELF.left,
   top: VIEW_TOP,
@@ -812,7 +1335,7 @@ const VIEW = {
 };
 const VIEW_BOX = `${VIEW.left} ${VIEW.top} ${VIEW.width} ${VIEW.height}`;
 const TITLE =
-  "My old bookshelf, with my lamp and its disco ball on the top shelf.";
+  "My old bookshelf, with my lamp, its disco ball and my snake plant on the top shelf.";
 
 // Lamp 5's clickable area, as percentages of the drawing.
 const SWITCH_HIT = {
@@ -822,7 +1345,13 @@ const SWITCH_HIT = {
   height: ((STEM_LAMP.floor - STEM_SHADE_TOP) / VIEW.height) * 100,
 };
 
-export default function Room({ lamp }: { lamp: LampVersion }) {
+export default function Room({
+  lamp,
+  plant,
+}: {
+  lamp: LampVersion;
+  plant?: PlantVersion;
+}) {
   const id = `room-${lamp}`;
 
   if (lamp === 5) {
@@ -837,6 +1366,7 @@ export default function Room({ lamp }: { lamp: LampVersion }) {
       >
         <Bookshelf />
         <SwitchLamp id={`${id}-ball`} />
+        {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
       </LampSwitch>
     );
   }
@@ -855,6 +1385,7 @@ export default function Room({ lamp }: { lamp: LampVersion }) {
       ) : (
         <StemLamp version={lamp} id={`${id}-ball`} />
       )}
+      {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
     </svg>
   );
 }

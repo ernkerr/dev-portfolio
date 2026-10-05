@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/site/SiteShell";
-import Room, { LAMPS } from "./Room";
+import Room, { SHELVES } from "./Room";
 
 export const metadata: Metadata = {
   title: "About",
@@ -17,11 +17,14 @@ export default function AboutPage() {
           sideways, which leaves a lit lamp's glow free to spill. The
           footer's mt-section matches the space above. */}
       <div className="flex gap-x-10 pt-section">
-        {LAMPS.map(({ version, label }) => (
+        {SHELVES.map(({ version, lamp, plant }) => (
           <figure key={version} className="shrink-0">
-            <Room lamp={version} />
+            <Room lamp={version} plant={plant?.version} />
             <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
-              {label}
+              <p>
+                {String(version).padStart(2, "0")}. {lamp}
+              </p>
+              {plant && <p className="mt-1">{plant.label}</p>}
             </figcaption>
           </figure>
         ))}

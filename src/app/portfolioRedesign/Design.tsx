@@ -28,7 +28,6 @@ import {
   Decision,
   Finding,
   HeadlineSpecimen,
-  Hero,
   LinkPreview,
   LiveThumbs,
   MentionCount,
@@ -40,6 +39,7 @@ import {
   TypeSpecimens,
   Versions,
 } from "./figures";
+import { LiveHome2026 } from "./liveFrames";
 
 // Drafted in docs/portfolio-redesign-case-study.md. Every claim traces back
 // to the site, its commit history or Erin's answers; the research still
@@ -82,7 +82,6 @@ const SECTIONS: CaseStudySection[] = [
             },
           ]}
         />
-        <Hero />
       </>
     ),
   },
@@ -631,6 +630,7 @@ export default function Design() {
   return (
     <SiteShell>
       <CaseStudyArticle
+        hero={<LiveHome2026 />}
         label="Portfolio redesign • 2026"
         title="Turning a developer portfolio into a design portfolio"
         sections={SECTIONS}

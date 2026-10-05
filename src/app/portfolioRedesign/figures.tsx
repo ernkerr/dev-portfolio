@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { LuCodeXml, LuPenTool } from "react-icons/lu";
 import { mono, serif } from "@/components/site/links";
 import { Caption, inlineLink, label } from "@/components/site/prose";
+import { Live2025Home } from "./liveFrames";
 import {
   HeadlineTile2025,
   ProjectsTile2025,
@@ -49,24 +50,11 @@ function ShotPlaceholder({
   );
 }
 
-// The new homepage, right under the overview, where every hired designer's
-// case study showed its solution. A placeholder until the first screen is
-// final.
-export function Hero() {
-  return (
-    <figure>
-      <ShotPlaceholder>
-        A screenshot of the new homepage goes here once its first screen is
-        final.
-      </ShotPlaceholder>
-    </figure>
-  );
-}
-
 /* ---------- Problem ---------- */
 
-// The figure crops the 2025 homepage screenshot (1440 × 900) to the tiles.
-const AUDIT_CROP = { x: 100, y: 110, w: 1240, h: 680 };
+// The phone fallback shows the whole 2025 homepage screenshot (1440 × 900),
+// matching the live window on wider screens.
+const AUDIT_CROP = { x: 0, y: 0, w: 1440, h: 900 };
 
 // Findings 1–3 are about tiles on the 2025 homepage, and each shows that tile
 // rendered from the 2025 code (see tiles2025.tsx).
@@ -101,11 +89,17 @@ function Pin({ n }: { n: number }) {
   );
 }
 
+// From 768px up, the live 2025 homepage (see live2025.tsx). On phones it
+// would be scaled to about a quarter size with no hover, so they get the
+// screenshot instead.
 export function Audit() {
   return (
     <figure>
+      <div className="hidden md:block">
+        <Live2025Home />
+      </div>
       <div
-        className="relative overflow-hidden border border-site-line"
+        className="relative overflow-hidden border border-site-line md:hidden"
         style={{ aspectRatio: `${AUDIT_CROP.w} / ${AUDIT_CROP.h}` }}
       >
         <Image
@@ -122,6 +116,13 @@ export function Audit() {
           }}
         />
       </div>
+      <Caption>
+        <span className="hidden md:inline">
+          The 2025 homepage, running live from the archive. Hover the tiles or
+          click around.
+        </span>
+        <span className="md:hidden">The 2025 homepage.</span>
+      </Caption>
     </figure>
   );
 }

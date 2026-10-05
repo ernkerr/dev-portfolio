@@ -17,17 +17,24 @@ import { geistMono, poiretOne, pressStart } from "../../../public/fonts/fonts";
 // dark-mode toggle switches the whole page to dark mode when it mounts, which
 // would restyle this site.
 
-// The 2025 page's navy background, so the tiles sit where they used to.
+// The 2025 page's navy background, so the tiles sit where they used to. In
+// light mode it's the 2025 site's light gray instead.
 function Stage({
   caption,
+  light = false,
   children,
 }: {
   caption: string;
+  light?: boolean;
   children: ReactNode;
 }) {
   return (
     <figure>
-      <div className="flex justify-center bg-slate-900 p-5 sm:p-8">
+      <div
+        className={`flex justify-center p-5 transition-colors duration-300 sm:p-8 ${
+          light ? "bg-slate-100" : "bg-slate-900"
+        }`}
+      >
         {children}
       </div>
       <Caption>{caption}</Caption>
@@ -64,31 +71,45 @@ export function ProjectsTile2025() {
   );
 }
 
+// The toggle switches this panel between the 2025 site's dark and light
+// backgrounds, as it switched the whole 2025 page.
 export function ToggleTiles2025() {
+  const [isDarkMode, setIsDarkMode] = useState(true);
   return (
-    <Stage caption="The 2025 disco-ball and dark-mode tiles, rebuilt from their code.">
+    <Stage
+      caption="The 2025 disco-ball and dark-mode tiles, rebuilt from their code. Try the toggle."
+      light={!isDarkMode}
+    >
       <div className="grid h-16 w-full max-w-[389px] grid-cols-2 gap-2">
         <div className="flex items-center justify-center overflow-hidden rounded-lg bg-blue-500 shadow-md">
           <Disco />
         </div>
         <div className="flex items-center justify-center rounded-lg bg-blue-600 shadow-md">
-          <DarkModeSwitch />
+          <DarkModeSwitch
+            isDarkMode={isDarkMode}
+            onChange={() => setIsDarkMode(!isDarkMode)}
+          />
         </div>
       </div>
     </Stage>
   );
 }
 
-// The 2025 toggle's markup, flipping only itself.
-function DarkModeSwitch() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+// The 2025 toggle's markup, switching only the panel it sits in.
+function DarkModeSwitch({
+  isDarkMode,
+  onChange,
+}: {
+  isDarkMode: boolean;
+  onChange: () => void;
+}) {
   return (
     <label className="relative inline-flex cursor-pointer items-center">
       <input
         type="checkbox"
         aria-label="2025 dark-mode toggle"
         checked={!isDarkMode}
-        onChange={() => setIsDarkMode(!isDarkMode)}
+        onChange={onChange}
         className="peer sr-only"
       />
       <div className="group peer h-7 w-14 rounded-full bg-gradient-to-tr from-blue-800 via-gray-800 to-slate-900 shadow-md outline-none ring-0 duration-300 after:absolute after:left-1 after:top-1 after:flex after:h-5 after:w-5 after:-rotate-180 after:items-center after:justify-center after:rounded-full after:bg-gray-50 after:text-sm after:text-indigo-900 after:outline-none after:duration-300 after:content-['☽'] peer-checked:bg-gradient-to-tr peer-checked:from-yellow-100 peer-checked:via-yellow-400 peer-checked:to-yellow-500 peer-checked:after:translate-x-7 peer-checked:after:rotate-0 peer-checked:after:text-sm peer-checked:after:text-amber-500 peer-checked:after:content-['☼'] peer-hover:after:scale-95 peer-focus:outline-none sm:h-8 sm:w-16 sm:after:h-6 sm:after:w-6 sm:after:text-base sm:peer-checked:after:translate-x-8 sm:peer-checked:after:text-base lg:h-12 lg:w-24 lg:after:h-10 lg:after:w-10 lg:after:text-xl lg:peer-checked:after:translate-x-12 lg:peer-checked:after:text-xl"></div>

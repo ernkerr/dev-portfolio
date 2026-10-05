@@ -18,10 +18,13 @@ export type CaseStudySection = {
 // list marks the section being read in ink and the rest in muted gray, and
 // clicking one scrolls to it.
 export default function CaseStudyArticle({
+  hero,
   label,
   title,
   sections,
 }: {
+  /** A wide image or live page shown above the label and title. */
+  hero?: ReactNode;
   /** Small line above the title, e.g. the project and year. */
   label?: string;
   title: string;
@@ -70,7 +73,10 @@ export default function CaseStudyArticle({
         </nav>
       </aside>
 
-      <article className="pt-16 md:pt-20">
+      {/* With a hero, less space above it and under it, so the title still
+          sits high on the first screen. */}
+      <article className={hero ? "pt-8 md:pt-10" : "pt-16 md:pt-20"}>
+        {hero && <div className="mb-8 md:mb-10">{hero}</div>}
         {label && (
           <p className="mb-4 font-mono text-label uppercase text-site-muted">
             {label}

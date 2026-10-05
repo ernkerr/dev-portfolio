@@ -1,11 +1,10 @@
 import LampSwitch from "./LampSwitch";
 
 // My old room. So far: the bookshelf, seen straight on (black metal posts
-// that rise past the top board, five walnut boards), and my lamp on the top
-// board in five versions to compare (5 is a switch for dark mode), and my
-// snake plant beside it on the first shelf.
-// Everything is in viewBox units, so objects added later can be placed with
-// the same numbers.
+// that rise past the top board, five walnut boards), my lamp on the top
+// board in five versions to compare (5 is a switch for dark mode), and
+// my snake plant beside it. Everything is in viewBox units, so objects added
+// later can be placed with the same numbers.
 
 const BOARD = 16; // board thickness
 const RAIL = 5; // metal under each board's sides
@@ -1321,7 +1320,11 @@ export const SHELVES: {
   },
   { version: 3, lamp: "Clear shade" },
   { version: 4, lamp: "Arm lamp" },
-  { version: 5, lamp: "Lamp switch" },
+  {
+    version: 5,
+    lamp: "Lamp switch",
+    plant: { version: 2, label: "Snake plant, real pot" },
+  },
 ];
 
 // The lamps and plants rise above the shelf. Every version starts at the

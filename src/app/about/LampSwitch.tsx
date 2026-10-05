@@ -63,12 +63,14 @@ export default function LampSwitch({
 
   return (
     <div className="relative">
-      {/* overflow-visible lets the glow spill past the drawing's edges */}
+      {/* overflow-visible lets the glow spill past the drawing's edges, even
+          over other lamps, so the drawing ignores the pointer and leaves
+          clicks to the buttons */}
       <svg
         viewBox={viewBox}
         role="img"
         aria-labelledby={titleId}
-        className="block h-auto w-48 overflow-visible md:w-60"
+        className="pointer-events-none block h-auto w-48 overflow-visible md:w-60"
       >
         <title id={titleId}>{title}</title>
         <defs>

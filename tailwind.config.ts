@@ -33,6 +33,34 @@ export default {
           line: "rgb(var(--site-line) / <alpha-value>)",
           blue: "rgb(var(--site-blue) / <alpha-value>)",
         },
+        // The room illustration on About (src/app/about/Room.tsx), picked
+        // from a photo of my old bedroom. Not part of the site palette.
+        room: {
+          wood: "#4A3527", // walnut shelf board edges
+          "wood-light": "#6B4F3A", // board tops catching the light
+          metal: "#1E1D1B", // black shelf frame
+          brass: "#C9A25E", // lamp base, pole, arm and cap
+          // Lamp 5's gold: the metal, its highlights and its shadows
+          gold: {
+            DEFAULT: "#D9A932",
+            light: "#F7DE8C",
+            dark: "#A9781C",
+          },
+          glass: "#A9B8C0", // the lamp's clear glass shade (edges; tint at low opacity)
+          "glass-amber": "#F2A88A", // the first lamp's amber shade, for comparison
+          glow: "#FFEAB0", // lit bulb, highlights and the disco ball's glint
+          light: "#FFD45C", // the glow around lamp 5 when it's on
+          frost: "#EEF2F4", // lamp 5's bubbles and bulb glass, off
+          mirror: "#D3DADF", // silver shards on the disco ball
+          // The disco ball's colored glass shards
+          disco: {
+            plum: "#5B3F6B",
+            lilac: "#8E7BA3",
+            wine: "#7A2C3C",
+            bronze: "#9A7146",
+            taupe: "#6A5A50",
+          },
+        },
       },
 
       // ---- 2026 edition design tokens (see CLAUDE.md) ----

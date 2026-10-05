@@ -4,7 +4,8 @@ import LampSwitch from "./LampSwitch";
 // My old room. So far: the bookshelf, seen straight on (black metal posts
 // that rise past the top board, five walnut boards), my lamp on the top
 // board in five versions to compare (5 is a switch for dark mode), my
-// snake plant beside it, and books and a basket on the board below.
+// snake plant beside it, books and a basket on the board below, and my
+// headphones on the one below that.
 // Everything is in viewBox units, so objects added later can be placed
 // with the same numbers.
 
@@ -4605,6 +4606,601 @@ function BasketTub({
   );
 }
 
+/* ---------- Headphones ---------- */
+
+// My black Beats headphones, standing on the third board with the band up
+// and the cups resting on the board, turned a little toward us so the red
+// "b" shows on each cup. The cord runs from the bottom of the left cup over
+// the front of the board and dangles down to the board below, its plug
+// lying there. Versions, like the books:
+// 1. the first drawing
+// 2. laid down as if set down quickly: cuter, matte black, the cord curled
+//    in a loop, rocking and swaying gently
+// 3. lying on their side like the real ones, still, with a bigger loop in
+//    the swaying cord
+// 4. the same, with the band lying on the board
+export type HeadphonesVersion = 1 | 2 | 3 | 4;
+
+const PHONES = {
+  cx: 62, // the middle of the band
+  floor: BOARDS[2], // the board they stand on
+  below: BOARDS[3], // the board the cord reaches
+  cup: { dx: 15.5, rx: 5.6, ry: 9 }, // each cup: from the middle, its size
+};
+
+function Headphones() {
+  const { cx, floor, below, cup } = PHONES;
+  const cupY = floor - cup.ry;
+  const cups = [cx - cup.dx, cx + cup.dx];
+  const end = floor - 23; // where the band meets the sliders
+  // The band: its top edge out and over, then its underside back.
+  const band = `M${cx - 17} ${end}C${cx - 26} ${floor - 37} ${cx - 19} ${floor - 48.5} ${cx} ${floor - 48.5}C${cx + 19} ${floor - 48.5} ${cx + 26} ${floor - 37} ${cx + 17} ${end}L${cx + 13.5} ${end}C${cx + 21.5} ${floor - 35} ${cx + 15.5} ${floor - 44.5} ${cx} ${floor - 44.5}C${cx - 15.5} ${floor - 44.5} ${cx - 21.5} ${floor - 35} ${cx - 13.5} ${end}Z`;
+  const underside = `M${cx - 13.5} ${end}C${cx - 21.5} ${floor - 35} ${cx - 15.5} ${floor - 44.5} ${cx} ${floor - 44.5}C${cx + 15.5} ${floor - 44.5} ${cx + 21.5} ${floor - 35} ${cx + 13.5} ${end}`;
+  const cord = `M${cx - cup.dx} ${floor - 1}C${cx - 20} ${floor + 0.5} ${cx - 24} ${floor + 1} ${cx - 25} ${floor + 6}C${cx - 26.5} ${floor + 30} ${cx - 18} ${floor + 45} ${cx - 21} ${floor + 64}C${cx - 23.5} ${floor + 80} ${cx - 25} ${below - 6} ${cx - 19} ${below - 1.2}L${cx - 9} ${below - 1.2}`;
+
+  return (
+    <g>
+      <ellipse
+        cx={cx}
+        cy={floor}
+        rx={23}
+        ry={1.4}
+        className="fill-room-metal/25"
+      />
+
+      {/* The cord, from under the left cup down to the next board */}
+      <path
+        d={cord}
+        fill="none"
+        strokeWidth={1.1}
+        strokeLinecap="round"
+        className="stroke-room-headphones"
+      />
+      <path
+        d={cord}
+        fill="none"
+        strokeWidth={0.3}
+        strokeLinecap="round"
+        transform="translate(-0.3 -0.2)"
+        className="stroke-room-headphones-slider/70"
+      />
+      {/* Its plug, lying on the board: the strain relief and the jack */}
+      <rect
+        x={cx - 9.5}
+        y={below - 2.2}
+        width={4}
+        height={2}
+        rx={0.8}
+        className="fill-room-headphones"
+      />
+      <rect
+        x={cx - 5.6}
+        y={below - 1.75}
+        width={3.6}
+        height={1.1}
+        rx={0.4}
+        className="fill-room-mirror"
+      />
+      <path
+        d={`M${cx - 4.4} ${below - 1.75}v1.1M${cx - 3.3} ${below - 1.75}v1.1`}
+        strokeWidth={0.25}
+        className="stroke-room-headphones-slider"
+      />
+
+      {/* The cushions, peeking out on the inside of each cup */}
+      {cups.map((x, i) => (
+        <ellipse
+          key={x}
+          cx={x + (i ? -3 : 3)}
+          cy={cupY - 0.2}
+          rx={cup.rx * 0.85}
+          ry={cup.ry * 0.94}
+          className="fill-room-headphones-cushion"
+        />
+      ))}
+
+      {/* The band, with its padded underside and a shine along the top */}
+      <path d={band} className="fill-room-headphones" />
+      <path
+        d={underside}
+        pathLength={100}
+        fill="none"
+        strokeWidth={2.2}
+        strokeDasharray="0 24 52 100"
+        strokeLinecap="round"
+        transform="translate(0 1)"
+        className="stroke-room-headphones-cushion"
+      />
+      <path
+        d={`M${cx - 14} ${floor - 45}Q${cx - 6} ${floor - 48.2} ${cx + 2} ${floor - 47.9}`}
+        fill="none"
+        strokeWidth={0.6}
+        strokeLinecap="round"
+        className="stroke-room-book-paper/30"
+      />
+
+      {/* The sliders, from the band down to each cup */}
+      {cups.map((x) => (
+        <g key={x}>
+          <rect
+            x={x - 1.2}
+            y={end - 1.5}
+            width={2.4}
+            height={7}
+            rx={0.6}
+            className="fill-room-headphones-slider"
+          />
+          <rect
+            x={x - 0.3}
+            y={end - 1}
+            width={0.5}
+            height={6}
+            className="fill-room-mirror/70"
+          />
+        </g>
+      ))}
+
+      {/* The cups: glossy black shells with the red "b" */}
+      {cups.map((x, i) => (
+        <g key={x}>
+          <ellipse
+            cx={x}
+            cy={cupY}
+            rx={cup.rx}
+            ry={cup.ry}
+            className="fill-room-headphones"
+          />
+          <path
+            d={`M${x - cup.rx * 0.7} ${cupY - cup.ry * 0.45}Q${x - cup.rx * 0.45} ${cupY - cup.ry * 0.85} ${x} ${cupY - cup.ry * 0.9}`}
+            fill="none"
+            strokeWidth={0.5}
+            strokeLinecap="round"
+            className="stroke-room-book-paper/30"
+          />
+          <g
+            transform={`translate(${x + (i ? -0.4 : 0.4)} ${cupY + 0.4}) scale(0.82 1)`}
+          >
+            <circle r={3.3} className="fill-room-headphones-red" />
+            <rect
+              x={-1.25}
+              y={-2.35}
+              width={0.85}
+              height={4.1}
+              className="fill-room-book-paper"
+            />
+            <circle
+              cx={0.35}
+              cy={0.6}
+              r={1.15}
+              fill="none"
+              strokeWidth={0.8}
+              className="stroke-room-book-paper"
+            />
+          </g>
+        </g>
+      ))}
+    </g>
+  );
+}
+
+// Headphones 2: cuter (rounder cups, a chunkier band) and matte black, with
+// the "b" in a slightly lighter black, as on the real matte pair. They lie
+// tipped over on their side as if set down quickly, resting on the lower
+// cup and the band, and rock gently back and forth. The cord leaves the
+// lower cup, goes over the front of the board, curls into a loop as it
+// hangs and sways a little behind them, its plug dangling just above the
+// board below. With reduced motion, they keep still.
+const TOSS = { angle: 95, x: 50 }; // its tilt, and where the lower cup rests
+
+// The headphones standing, centered on (0, 0) between the cups, which are
+// circles of radius 9.5 at x = ±15.
+const TOSS_BAND: [Pt, Pt, Pt, Pt][] = [
+  [
+    [-21, -12],
+    [-27, -30],
+    [-16, -42],
+    [0, -42],
+  ],
+  [
+    [0, -42],
+    [16, -42],
+    [27, -30],
+    [21, -12],
+  ],
+];
+const TOSS_CUP = { dx: 15, r: 9.5 };
+
+// Where the tipped-over shape sits: rotated, then moved so its lowest point
+// rests on the board with the lower cup at TOSS.x.
+const TOSS_POSE = (() => {
+  const a = (TOSS.angle * Math.PI) / 180;
+  const rot = ([x, y]: Pt): Pt => [
+    x * Math.cos(a) - y * Math.sin(a),
+    x * Math.sin(a) + y * Math.cos(a),
+  ];
+  const cups = [-1, 1].flatMap((side) =>
+    Array.from(
+      { length: 48 },
+      (_, i): Pt => [
+        side * TOSS_CUP.dx + TOSS_CUP.r * Math.cos((i / 48) * 2 * Math.PI),
+        TOSS_CUP.r * Math.sin((i / 48) * 2 * Math.PI),
+      ],
+    ).map(rot),
+  );
+  const band = TOSS_BAND.flatMap((seg) =>
+    Array.from({ length: 31 }, (_, i) => rot(bezierAt(seg, i / 30).at)),
+  );
+  const lowest = Math.max(...[...cups, ...band].map(([, y]) => y));
+  const cupLow = cups.reduce((p, q) => (q[1] > p[1] ? q : p));
+  const dx = TOSS.x - cupLow[0];
+  const dy = PHONES.floor - lowest;
+  // The lower cup's center, for where the cord leaves it.
+  const lower = [-1, 1]
+    .map((side) => rot([side * TOSS_CUP.dx, 0]))
+    .reduce((p, q) => (q[1] > p[1] ? q : p));
+  return {
+    transform: `translate(${dx.toFixed(2)} ${dy.toFixed(2)}) rotate(${TOSS.angle})`,
+    pivot: [TOSS.x, PHONES.floor] as Pt,
+    lowerCup: [lower[0] + dx, lower[1] + dy] as Pt,
+  };
+})();
+
+function TossedHeadphones() {
+  const { floor } = PHONES;
+  const { r } = TOSS_CUP;
+  const [cupX, cupY] = TOSS_POSE.lowerCup;
+  const start: Pt = [cupX - r * 0.62, cupY + r * 0.72];
+  const local = (x: number, y: number) => `${x} ${y}`;
+
+  return (
+    <g>
+      {/* Its soft shadow on the board */}
+      <ellipse
+        cx={TOSS.x + 11}
+        cy={floor}
+        rx={17}
+        ry={1.4}
+        className="fill-room-metal/20"
+      />
+
+      <HangingCord start={start} loop="small" />
+
+      {/* The headphones, rocking on the lower cup */}
+      <g
+        className="animate-phones-rock [transform-box:view-box] motion-reduce:animate-none"
+        style={{
+          transformOrigin: `${TOSS_POSE.pivot[0]}px ${TOSS_POSE.pivot[1]}px`,
+        }}
+      >
+        <g transform={TOSS_POSE.transform}>
+          {/* Cushions, peeking out between the cups */}
+          {[-1, 1].map((side) => (
+            <ellipse
+              key={side}
+              cx={side * 7.6}
+              cy={0}
+              rx={3.8}
+              ry={8.3}
+              className="fill-room-headphones-cushion"
+            />
+          ))}
+          {/* The band, chunky, with a padded underside and a soft edge */}
+          <path
+            d={`M${local(-21, -12)}C${local(-27, -30)} ${local(-16, -42)} ${local(0, -42)}C${local(16, -42)} ${local(27, -30)} ${local(21, -12)}L${local(15.2, -12)}C${local(20, -26)} ${local(12, -35.6)} ${local(0, -35.6)}C${local(-12, -35.6)} ${local(-20, -26)} ${local(-15.2, -12)}Z`}
+            className="fill-room-headphones-matte"
+          />
+          <path
+            d={`M${local(-15.2, -12)}C${local(-20, -26)} ${local(-12, -35.6)} ${local(0, -35.6)}C${local(12, -35.6)} ${local(20, -26)} ${local(15.2, -12)}`}
+            pathLength={100}
+            fill="none"
+            strokeWidth={2.6}
+            strokeDasharray="0 22 56 100"
+            strokeLinecap="round"
+            transform="translate(0 1.2)"
+            className="stroke-room-headphones-cushion"
+          />
+          <path
+            d={`M${local(-21, -12)}C${local(-27, -30)} ${local(-16, -42)} ${local(0, -42)}C${local(16, -42)} ${local(27, -30)} ${local(21, -12)}`}
+            fill="none"
+            strokeWidth={0.8}
+            className="stroke-room-headphones-rim"
+          />
+          {/* Sliders */}
+          {[-1, 1].map((side) => (
+            <rect
+              key={side}
+              x={side * 18.1 - 1.3}
+              y={-13}
+              width={2.6}
+              height={5.5}
+              rx={0.8}
+              className="fill-room-headphones-slider"
+            />
+          ))}
+          {/* The cups: matte black with a soft rim and the "b" tone on tone */}
+          {[-1, 1].map((side) => (
+            <g key={side} transform={`translate(${side * TOSS_CUP.dx} 0)`}>
+              <circle r={r} className="fill-room-headphones-matte" />
+              <circle
+                r={r - 0.6}
+                fill="none"
+                strokeWidth={0.9}
+                className="stroke-room-headphones-rim"
+              />
+              <circle r={3.3} className="fill-room-headphones-rim" />
+              <rect
+                x={-1.2}
+                y={-2.3}
+                width={0.8}
+                height={3.9}
+                className="fill-room-headphones-logo"
+              />
+              <circle
+                cx={0.35}
+                cy={0.6}
+                r={1.1}
+                fill="none"
+                strokeWidth={0.75}
+                className="stroke-room-headphones-logo"
+              />
+            </g>
+          ))}
+        </g>
+      </g>
+    </g>
+  );
+}
+
+// A headphone cord from where it leaves a cup at `start`: along the board
+// and over its front edge, then hanging down, curling into a loop and on to
+// the plug, which dangles just above the board below. The hanging length
+// sways gently from the edge (unless motion is reduced).
+const CORD_LOOPS: Record<"small" | "big", [Pt, Pt, Pt][]> = {
+  small: [
+    [
+      [3, 34],
+      [10, 36],
+      [10, 30],
+    ],
+    [
+      [10, 24],
+      [3, 23],
+      [1, 30],
+    ],
+  ],
+  big: [
+    [
+      [4, 37],
+      [21, 41],
+      [21, 28],
+    ],
+    [
+      [21, 13],
+      [5, 12],
+      [1, 27],
+    ],
+  ],
+};
+
+function HangingCord({ start, loop }: { start: Pt; loop: "small" | "big" }) {
+  const { floor } = PHONES;
+  const edge: Pt = [start[0] - 8, floor + 5]; // where it goes over the board
+  const n = (v: number) => v.toFixed(2);
+  const to = ([x, y]: Pt) => `${n(edge[0] + x)} ${n(edge[1] + y)}`;
+  const toBoard = `M${n(start[0])} ${n(start[1])}C${n(start[0] - 4)} ${n(floor + 0.3)} ${n(start[0] - 7)} ${n(floor + 1)} ${to([0, 0])}`;
+  // Down, the loop round to the right and back over itself, then on down
+  // to the plug.
+  const hanging = `M${to([0, 0])}C${to([0.5, 12])} ${to([-1, 22])} ${to([1, 28])}${CORD_LOOPS[
+    loop
+  ]
+    .map(([a, b, c]) => `C${to(a)} ${to(b)} ${to(c)}`)
+    .join(
+      "",
+    )}C${to([-1, 38])} ${to([2, 48])} ${to([1, 58])}C${to([0, 66])} ${to([1, 72])} ${to([1, 80])}`;
+  const plug = [edge[0] + 1, edge[1] + 80];
+  return (
+    <g>
+      <path
+        d={toBoard}
+        fill="none"
+        strokeWidth={1.2}
+        strokeLinecap="round"
+        className="stroke-room-headphones-matte"
+      />
+      <g
+        className="animate-cord-swing [animation-delay:-1.2s] [transform-box:view-box] motion-reduce:animate-none"
+        style={{ transformOrigin: `${edge[0]}px ${edge[1]}px` }}
+      >
+        <path
+          d={hanging}
+          fill="none"
+          strokeWidth={1.2}
+          strokeLinecap="round"
+          className="stroke-room-headphones-matte"
+        />
+        <rect
+          x={plug[0] - 1}
+          y={plug[1]}
+          width={2}
+          height={4}
+          rx={0.8}
+          className="fill-room-headphones-matte"
+        />
+        <rect
+          x={plug[0] - 0.55}
+          y={plug[1] + 4}
+          width={1.1}
+          height={3.6}
+          rx={0.4}
+          className="fill-room-mirror"
+        />
+        <path
+          d={`M${plug[0] - 0.55} ${plug[1] + 5.2}h1.1M${plug[0] - 0.55} ${plug[1] + 6.3}h1.1`}
+          strokeWidth={0.25}
+          className="stroke-room-headphones-slider"
+        />
+      </g>
+    </g>
+  );
+}
+
+// Headphones 3: lying on their side the way the real ones sit when set
+// down: one cup standing on its rim facing us, the band to the left and the
+// other cup behind, its cushion showing on the right. They're turned so the
+// band runs back, away from us: it's short and narrows as it goes, the near
+// cup's face is turned a little (narrower, its padded edge showing more),
+// and the far cup comes out further to the right. They keep still; only
+// the cord moves, with a bigger loop.
+const RESTING = {
+  cx: 66,
+  cup: { rx: 9.2, ry: 11.6 },
+  scale: 1.25, // drawn this much bigger, grown from where it rests
+};
+
+// How the band lies, for headphones 3 and 4: its outline, wide where it
+// leaves the near cup and narrower as it runs back with its far end
+// rounded; the soft edge along its top; and where the joint to the cup
+// starts.
+type BandPose = "held" | "flat";
+function restingBand(pose: BandPose, cx: number, floor: number) {
+  const at = (x: number, y: number) => `${cx + x} ${floor + y}`;
+  if (pose === "flat") {
+    // Lying on the board, its underside along it.
+    return {
+      outline: `M${at(-4, -11.2)}C${at(-10, -11.6)} ${at(-15, -11.2)} ${at(-19.5, -9.6)}C${at(-24, -8.4)} ${at(-24, -0.2)} ${at(-19, 0)}L${at(-4, 0)}Z`,
+      top: `M${at(-4, -10.9)}C${at(-10, -11.3)} ${at(-15, -10.9)} ${at(-19.3, -9.4)}`,
+      joint: floor - 11.8,
+    };
+  }
+  // Held up off the board.
+  return {
+    outline: `M${at(-4, -14.8)}C${at(-10, -15.3)} ${at(-15, -15.1)} ${at(-19.5, -13.8)}A4 4 0 0 0 ${at(-20.6, -6)}C${at(-15, -5.2)} ${at(-10, -4.4)} ${at(-4, -4.2)}Z`,
+    top: `M${at(-4, -14.5)}C${at(-10, -15)} ${at(-15, -14.8)} ${at(-19, -13.6)}`,
+    joint: floor - 13,
+  };
+}
+
+function RestingHeadphones({ band: pose = "held" }: { band?: BandPose }) {
+  const { floor } = PHONES;
+  const { cx, cup, scale } = RESTING;
+  const cy = floor - cup.ry;
+  const band = restingBand(pose, cx, floor);
+  // The cord leaves the bottom of the near cup.
+  const cordStart: Pt = [cx - 3 * scale, floor - 0.6 * scale];
+
+  return (
+    <g>
+      <g
+        transform={`translate(${cx} ${floor}) scale(${scale}) translate(${-cx} ${-floor})`}
+      >
+        <ellipse
+          cx={cx + 2}
+          cy={floor}
+          rx={25}
+          ry={1.5}
+          className="fill-room-metal/20"
+        />
+
+        {/* The far cup behind: its shell, and its cushion turned toward us,
+          with a seam round it */}
+        <ellipse
+          cx={cx + 18}
+          cy={floor - 10.6}
+          rx={7.6}
+          ry={10.6}
+          className="fill-room-headphones-matte"
+        />
+        <ellipse
+          cx={cx + 13.5}
+          cy={floor - 10.9}
+          rx={8.6}
+          ry={10.9}
+          className="fill-room-headphones-cushion"
+        />
+        <path
+          d={`M${cx + 7.5} ${floor - 17.5}Q${cx + 14} ${floor - 11.5} ${cx + 19.5} ${floor - 16.5}`}
+          fill="none"
+          strokeWidth={0.5}
+          className="stroke-room-headphones-rim"
+        />
+
+        {/* The band, running back to the left, with a soft top edge */}
+        <path d={band.outline} className="fill-room-headphones-matte" />
+        <path
+          d={band.top}
+          fill="none"
+          strokeWidth={0.7}
+          strokeLinecap="round"
+          className="stroke-room-headphones-rim"
+        />
+        <rect
+          x={cx - 10.6}
+          y={band.joint}
+          width={2.6}
+          height={7.6}
+          rx={1}
+          className="fill-room-headphones-rim"
+        />
+
+        {/* The near cup: its padded edge showing on the right, then its face
+          with a groove round the plate, the "b" tone on tone and a small
+          button */}
+        <ellipse
+          cx={cx + 5}
+          cy={cy + 0.2}
+          rx={cup.rx + 0.6}
+          ry={cup.ry * 0.98}
+          className="fill-room-headphones-cushion"
+        />
+        <g transform={`rotate(-6 ${cx} ${cy})`}>
+          <ellipse
+            cx={cx}
+            cy={cy}
+            rx={cup.rx}
+            ry={cup.ry}
+            className="fill-room-headphones-matte"
+          />
+          <ellipse
+            cx={cx}
+            cy={cy}
+            rx={cup.rx - 2}
+            ry={cup.ry - 2.3}
+            fill="none"
+            strokeWidth={0.8}
+            className="stroke-room-headphones-rim"
+          />
+          <g transform={`translate(${cx - 1} ${cy - 0.2}) scale(0.97 1.15)`}>
+            <circle r={3.3} className="fill-room-headphones-rim" />
+            <rect
+              x={-1.2}
+              y={-2.3}
+              width={0.8}
+              height={3.9}
+              className="fill-room-headphones-logo"
+            />
+            <circle
+              cx={0.35}
+              cy={0.6}
+              r={1.1}
+              fill="none"
+              strokeWidth={0.75}
+              className="stroke-room-headphones-logo"
+            />
+          </g>
+          <circle
+            cx={cx + cup.rx - 1}
+            cy={cy + 1}
+            r={0.6}
+            className="fill-room-headphones-rim"
+          />
+        </g>
+      </g>
+
+      <HangingCord start={cordStart} loop="big" />
+    </g>
+  );
+}
+
 /* ---------- Room ---------- */
 
 export type LampVersion = 1 | 2 | 3 | 4 | 5;
@@ -4617,6 +5213,7 @@ export const SHELVES: {
   plant?: { version: PlantVersion; label: string };
   books?: { version: BooksVersion; label: string };
   basket?: { version: BasketVersion; label: string };
+  headphones?: { version: HeadphonesVersion; label: string };
 }[] = [
   {
     version: 1,
@@ -4624,6 +5221,7 @@ export const SHELVES: {
     plant: { version: 1, label: "Snake plant" },
     books: { version: 1, label: "Thinking, Fast and Slow" },
     basket: { version: 1, label: "Seagrass basket" },
+    headphones: { version: 1, label: "Beats headphones" },
   },
   {
     version: 2,
@@ -4631,17 +5229,20 @@ export const SHELVES: {
     plant: { version: 2, label: "Snake plant, real pot" },
     books: { version: 2, label: "A full shelf of books" },
     basket: { version: 2, label: "Seagrass basket, real shape" },
+    headphones: { version: 2, label: "Beats headphones, set down" },
   },
   {
     version: 3,
     lamp: "Clear shade",
     books: { version: 3, label: "A full shelf, opening bigger" },
     basket: { version: 3, label: "Seagrass basket, lighter" },
+    headphones: { version: 3, label: "Beats headphones, resting" },
   },
   {
     version: 4,
     lamp: "Arm lamp",
     books: { version: 4, label: "Books that look read" },
+    headphones: { version: 4, label: "Beats headphones, band down" },
     basket: { version: 4, label: "Seagrass basket, bigger" },
   },
   {
@@ -4649,6 +5250,7 @@ export const SHELVES: {
     lamp: "Lamp switch",
     plant: { version: 2, label: "Snake plant, real pot" },
     books: { version: 5, label: "Books, calmer spines" },
+    headphones: { version: 4, label: "Beats headphones, band down" },
     basket: { version: 4, label: "Seagrass basket, bigger" },
   },
 ];
@@ -4679,11 +5281,13 @@ export default function Room({
   plant,
   books,
   basket,
+  headphones,
 }: {
   lamp: LampVersion;
   plant?: PlantVersion;
   books?: BooksVersion;
   basket?: BasketVersion;
+  headphones?: HeadphonesVersion;
 }) {
   const id = `room-${lamp}`;
 
@@ -4718,6 +5322,10 @@ export default function Room({
         <Bookshelf />
         <SwitchLamp id={`${id}-ball`} />
         {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
+        {headphones === 1 && <Headphones />}
+        {headphones === 2 && <TossedHeadphones />}
+        {headphones === 3 && <RestingHeadphones />}
+        {headphones === 4 && <RestingHeadphones band="flat" />}
         {basket === 1 && <Basket id={`${id}-basket`} />}
         {basket === 2 && <BasketTub id={`${id}-basket`} />}
         {basket === 3 && <BasketTub id={`${id}-basket`} light />}
@@ -4742,6 +5350,10 @@ export default function Room({
         <StemLamp version={lamp} id={`${id}-ball`} />
       )}
       {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
+      {headphones === 1 && <Headphones />}
+      {headphones === 2 && <TossedHeadphones />}
+      {headphones === 3 && <RestingHeadphones />}
+      {headphones === 4 && <RestingHeadphones band="flat" />}
       {basket === 1 && <Basket id={`${id}-basket`} />}
       {basket === 2 && <BasketTub id={`${id}-basket`} />}
       {basket === 3 && <BasketTub id={`${id}-basket`} light />}

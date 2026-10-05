@@ -106,6 +106,17 @@ export default {
             wheat: "#C89C6A",
             pale: "#E0BF8B",
           },
+          // My black Beats headphones
+          headphones: {
+            DEFAULT: "#19191B", // glossy black shell, band and cord
+            cushion: "#2E2E33",
+            slider: "#5C5E63",
+            red: "#D9232B", // the "b" logo
+            // Headphones 2: matte black, a soft rim, and the "b" tone on tone
+            matte: "#26262A",
+            rim: "#38383E",
+            logo: "#4A4A52",
+          },
           // The disco ball's colored glass shards
           disco: {
             plum: "#5B3F6B",
@@ -175,6 +186,22 @@ export default {
         knob: "0 4px 12px rgba(15, 23, 42, 0.25)",
         float: "0 18px 48px rgba(15, 23, 42, 0.22)",
         switch: "0 8px 24px rgba(15, 23, 42, 0.35)",
+      },
+
+      // The About room's headphones: rocking on a cup, the cord swaying
+      keyframes: {
+        "phones-rock": {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "50%": { transform: "rotate(-3deg)" },
+        },
+        "cord-swing": {
+          "0%, 100%": { transform: "rotate(2.5deg)" },
+          "50%": { transform: "rotate(-2.5deg)" },
+        },
+      },
+      animation: {
+        "phones-rock": "phones-rock 5s ease-in-out infinite",
+        "cord-swing": "cord-swing 5s ease-in-out infinite",
       },
 
       transitionTimingFunction: {

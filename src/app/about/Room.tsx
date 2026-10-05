@@ -1,10 +1,12 @@
+import { focusRing } from "@/components/site/links";
 import LampSwitch from "./LampSwitch";
 
 // My old room. So far: the bookshelf, seen straight on (black metal posts
 // that rise past the top board, five walnut boards), my lamp on the top
-// board in five versions to compare (5 is a switch for dark mode), and
-// my snake plant beside it. Everything is in viewBox units, so objects added
-// later can be placed with the same numbers.
+// board in five versions to compare (5 is a switch for dark mode), my
+// snake plant beside it, and books and a basket on the board below.
+// Everything is in viewBox units, so objects added later can be placed
+// with the same numbers.
 
 const BOARD = 16; // board thickness
 const RAIL = 5; // metal under each board's sides
@@ -1297,6 +1299,3301 @@ function SnakePlant({ id, version }: { id: string; version: PlantVersion }) {
   );
 }
 
+/* ---------- Books ---------- */
+
+// Books stand on the second board, like on the real shelf, each drawn as
+// its spine, straight on, from photos of my copies. Hovering a book pulls
+// it out of the row, one at a time. Versions, like the plant:
+// 1. one book to start, Thinking, Fast and Slow, lifting up on hover
+// 2. a full shelf, each book coming out toward you and turning to show
+//    its front cover
+// 3. the same, opening bigger, with the books touching and an open book
+//    letting the pointer through, so you can run along the row and open
+//    each in turn
+// 4. the same books made to look real and read: a faint grain for cloth,
+//    leather and paper, faded, scuffed and worn, with light and shade, and
+//    opening big enough to read, above the row
+// 5. the same as 4, with the spines on the shelf a little dimmer and less
+//    colorful, so the row is calmer; a cover still comes out in full color
+export type BooksVersion = 1 | 2 | 3 | 4 | 5;
+
+const BOOK_BOARD = BOARDS[1]; // top of the board the books stand on
+const BOOK_LIFT = 10; // how far a hovered book comes up out of the row
+
+// Text running down a spine (the way spine titles read), centered across
+// x, starting at y and stretched to fill `length`.
+function SpineText({
+  x,
+  y,
+  length,
+  size,
+  className = "fill-room-metal",
+  children,
+}: {
+  x: number;
+  y: number;
+  length: number;
+  size: number;
+  className?: string;
+  children: string;
+}) {
+  return (
+    <text
+      transform={`translate(${x - size * 0.35} ${y}) rotate(90)`}
+      fontSize={size}
+      textLength={length}
+      lengthAdjust="spacingAndGlyphs"
+      className={`${className} font-serif`}
+    >
+      {children}
+    </text>
+  );
+}
+
+// Thinking, Fast and Slow by Daniel Kahneman: a cream paperback spine, the
+// title and author in black serif capitals running down it, and between
+// them the yellow pencil, point up, with its black band and pink eraser.
+const THINKING = { w: 9, h: 50 };
+
+function ThinkingFastAndSlow() {
+  const { w, h } = THINKING;
+  const pencil = { x: w * 0.46, top: h * 0.38, bottom: h * 0.62, w: 1.5 };
+  return (
+    <>
+      <rect width={w} height={h} rx={0.6} className="fill-room-book-paper" />
+      <SpineText x={w * 0.66} y={h * 0.09} length={h * 0.25} size={2}>
+        THINKING,
+      </SpineText>
+      <SpineText x={w * 0.3} y={h * 0.11} length={h * 0.25} size={2}>
+        FAST AND SLOW
+      </SpineText>
+
+      {/* The pencil: graphite, sharpened wood, yellow body, band, eraser */}
+      <path
+        d={`M${pencil.x} ${pencil.top}L${pencil.x + pencil.w / 2} ${pencil.top + 2.6}H${pencil.x - pencil.w / 2}Z`}
+        className="fill-room-pot"
+      />
+      <path
+        d={`M${pencil.x} ${pencil.top}L${pencil.x + 0.35} ${pencil.top + 0.9}H${pencil.x - 0.35}Z`}
+        className="fill-room-metal"
+      />
+      <rect
+        x={pencil.x - pencil.w / 2}
+        y={pencil.top + 2.6}
+        width={pencil.w}
+        height={pencil.bottom - pencil.top - 4.6}
+        className="fill-room-book-pencil"
+      />
+      <rect
+        x={pencil.x - pencil.w / 2}
+        y={pencil.bottom - 2}
+        width={pencil.w}
+        height={1}
+        className="fill-room-metal"
+      />
+      <rect
+        x={pencil.x - pencil.w / 2}
+        y={pencil.bottom - 1}
+        width={pencil.w}
+        height={1}
+        rx={0.4}
+        className="fill-room-book-eraser"
+      />
+
+      <SpineText x={w * 0.62} y={h * 0.68} length={h * 0.11} size={1.7}>
+        DANIEL
+      </SpineText>
+      <SpineText x={w * 0.36} y={h * 0.68} length={h * 0.16} size={1.7}>
+        KAHNEMAN
+      </SpineText>
+      <rect
+        x={w / 2 - 1.2}
+        y={h * 0.9}
+        width={2.4}
+        height={1.6}
+        rx={0.3}
+        className="fill-room-metal/70"
+      />
+    </>
+  );
+}
+
+// A book standing on the board at x, drawn by `children` in a w by h box.
+// The hover area stays put (and covers the lifted spot), so a book doesn't
+// jitter when the pointer is near its bottom as it rises.
+function ShelfBook({
+  x,
+  w,
+  h,
+  title,
+  children,
+}: {
+  x: number;
+  w: number;
+  h: number;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <g
+      transform={`translate(${x} ${BOOK_BOARD - h})`}
+      className="group pointer-events-auto"
+    >
+      <title>{title}</title>
+      <rect
+        y={-BOOK_LIFT}
+        width={w}
+        height={h + BOOK_LIFT}
+        fill="transparent"
+      />
+      <g className="origin-bottom transition-transform duration-300 ease-switch [transform-box:fill-box] group-hover:-translate-y-2.5 group-hover:scale-[1.08] motion-reduce:transition-none">
+        {children}
+      </g>
+    </g>
+  );
+}
+
+// The front cover of Thinking, Fast and Slow, in a 33 by 50 box: cream,
+// the title in black serif capitals, the yellow pencil standing in the
+// middle, and the author at the foot.
+function ThinkingFastAndSlowCover() {
+  const pencil = { x: 16.5, top: 18, bottom: 37, w: 2.4 };
+  return (
+    <>
+      <rect width={33} height={50} className="fill-room-book-paper" />
+      <text
+        x={16.5}
+        y={8.5}
+        fontSize={3.4}
+        textAnchor="middle"
+        textLength={20}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-room-metal font-serif"
+      >
+        THINKING,
+      </text>
+      <text
+        x={16.5}
+        y={13.4}
+        fontSize={3.4}
+        textAnchor="middle"
+        textLength={27}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-room-metal font-serif"
+      >
+        FAST AND SLOW
+      </text>
+      <path
+        d={`M${pencil.x} ${pencil.top}L${pencil.x + pencil.w / 2} ${pencil.top + 4}H${pencil.x - pencil.w / 2}Z`}
+        className="fill-room-pot"
+      />
+      <path
+        d={`M${pencil.x} ${pencil.top}L${pencil.x + 0.55} ${pencil.top + 1.4}H${pencil.x - 0.55}Z`}
+        className="fill-room-metal"
+      />
+      <rect
+        x={pencil.x - pencil.w / 2}
+        y={pencil.top + 4}
+        width={pencil.w}
+        height={pencil.bottom - pencil.top - 7}
+        className="fill-room-book-pencil"
+      />
+      <rect
+        x={pencil.x - pencil.w / 2}
+        y={pencil.bottom - 3}
+        width={pencil.w}
+        height={1.5}
+        className="fill-room-metal"
+      />
+      <rect
+        x={pencil.x - pencil.w / 2}
+        y={pencil.bottom - 1.5}
+        width={pencil.w}
+        height={1.5}
+        rx={0.6}
+        className="fill-room-book-eraser"
+      />
+      <text
+        x={16.5}
+        y={45}
+        fontSize={2.4}
+        textAnchor="middle"
+        textLength={21}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-room-metal font-serif"
+      >
+        DANIEL KAHNEMAN
+      </text>
+    </>
+  );
+}
+
+// Books 2 and 3 turn to show their covers. Each is HTML laid over the
+// drawing, since turning in 3D needs CSS 3D transforms, which SVG doesn't
+// have: a spine facing out with the front cover on its right side, edge on.
+// Hovering pulls the book out toward you (bigger, lifted, slid so its cover
+// will center where the spine stood), then turns it a quarter so the cover
+// faces you. Moving away turns it back first, then slides it home.
+type BookSpec = {
+  title: string; // for the tooltip
+  w: number; // spine width
+  h: number; // height
+  d: number; // cover width
+  spine: React.ReactNode; // drawn in a w by h box, or spineBox
+  cover: React.ReactNode; // drawn in a d by h box, or coverBox
+  spineBox?: [number, number];
+  coverBox?: [number, number];
+  material: Material; // what it's bound in, for book 4's finish
+  unscratched?: boolean; // an old book left without the finish's scratches
+  dark?: boolean; // a dark book: pale grain, and faded without yellowing
+};
+
+// How a pulled book comes out: how much bigger and how far its foot comes
+// up off the board. Book 2 holds open while the pointer is anywhere on its
+// cover; book 3 opens bigger and lets the pointer pass through to the books
+// beside and under it.
+const PULL = {
+  hold: { scale: 1.6, lift: 6 },
+  sweep: { scale: 2.2, lift: 6 },
+};
+// Book 4 opens big enough to read: every cover to this height, whatever
+// the book's size, held up above the row so the spines stay in view.
+const READ_HEIGHT = 280;
+const READ_ABOVE = BOOK_BOARD - (BOARDS[0] + BOARD); // the top of the gap above the books
+
+const pct = (v: number, total: number) => `${(v / total) * 100}%`;
+
+function TurningBook({
+  x,
+  book,
+  sweep = false,
+  finish = false,
+  read = false,
+  dim = false,
+}: {
+  x: number;
+  book: BookSpec;
+  sweep?: boolean;
+  finish?: boolean;
+  read?: boolean;
+  dim?: boolean;
+}) {
+  const { w: t, h, d } = book;
+  const { lift } = sweep ? PULL.sweep : PULL.hold;
+  const scale = read
+    ? READ_HEIGHT / h
+    : sweep
+      ? PULL.sweep.scale
+      : PULL.hold.scale;
+  const top = BOOK_BOARD - h;
+  const [sw, sh] = book.spineBox ?? [t, h];
+  const [cw, ch] = book.coverBox ?? [d, h];
+  // The turned cover spans t to t + d across the spine's box; scaled about
+  // the spine's center, this slide puts it where the spine stood.
+  const slideX = ((-scale * (t + d)) / (2 * t)) * 100;
+  // Its foot stays near the board, or, to read, comes up to the top of the
+  // gap above the books.
+  const slideY = read
+    ? (0.5 - READ_ABOVE / h - scale / 2) * 100
+    : -((scale - 1) / 2 + lift / h) * 100;
+  const box = {
+    left: pct(x - VIEW.left, VIEW.width),
+    top: pct(top - VIEW.top, VIEW.height),
+    width: pct(t, VIEW.width),
+    height: pct(h, VIEW.height),
+  };
+  const faces = (
+    <div className="relative h-full w-full transition-transform duration-500 ease-switch [transform-origin:right_center] [transform-style:preserve-3d] group-hover:delay-150 group-hover:[transform:rotateY(-90deg)] group-focus:delay-150 group-focus:[transform:rotateY(-90deg)] motion-reduce:transition-none">
+      <svg
+        viewBox={`0 0 ${sw} ${sh}`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        className={`absolute inset-0 h-full w-full [backface-visibility:hidden] ${dim ? "[filter:saturate(0.7)_brightness(0.93)]" : ""}`}
+      >
+        {book.spine}
+        {finish && (
+          <Finish
+            face="spine"
+            material={book.material}
+            w={sw}
+            h={sh}
+            seed={bookSeed(book.title)}
+            scratched={!book.unscratched}
+            dark={book.dark}
+          />
+        )}
+      </svg>
+      <svg
+        viewBox={`0 0 ${cw} ${ch}`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        className="absolute left-full top-0 h-full [backface-visibility:hidden] [transform-origin:left_center] [transform:rotateY(90deg)]"
+        style={{ width: pct(d, t) }}
+      >
+        {book.cover}
+        {finish && (
+          <Finish
+            face="cover"
+            material={book.material}
+            w={cw}
+            h={ch}
+            seed={bookSeed(book.title) + 1}
+            scratched={!book.unscratched}
+            dark={book.dark}
+          />
+        )}
+      </svg>
+    </div>
+  );
+  const pull = {
+    "--pull": `translate(${slideX}%, ${slideY}%) scale(${scale})`,
+  } as React.CSSProperties;
+
+  if (read) {
+    // Book 4 is laid out at its open size and shrunk onto the shelf, so
+    // the browser draws it at the size it opens to and it stays sharp the
+    // whole way out (scaling up a book drawn small blurs it until it
+    // stops). Its perspective scales with it, so it moves exactly as book
+    // 3's does. Otherwise it behaves like book 3 (below).
+    const shift = (slide: number) =>
+      (((1 - scale) / 2 + slide / 100) / scale) * 100;
+    return (
+      <div
+        tabIndex={0}
+        role="img"
+        aria-label={book.title}
+        title={book.title}
+        className={`group absolute z-0 transition-[z-index] duration-700 hover:z-20 hover:duration-0 focus:z-20 focus:duration-0 ${focusRing}`}
+        style={{ ...box, perspective: `${700 * scale}px` }}
+      >
+        <div
+          className="pointer-events-none absolute left-0 top-0 origin-top-left transition-transform delay-150 duration-300 ease-switch [transform-style:preserve-3d] [transform:var(--rest)] group-hover:delay-0 group-hover:[transform:var(--pull)] group-focus:delay-0 group-focus:[transform:var(--pull)] motion-reduce:transition-none"
+          style={
+            {
+              width: `${scale * 100}%`,
+              height: `${scale * 100}%`,
+              "--rest": `translate(0%, 0%) scale(${1 / scale})`,
+              "--pull": `translate(${shift(slideX)}%, ${shift(slideY)}%) scale(1)`,
+            } as React.CSSProperties
+          }
+        >
+          {faces}
+        </div>
+      </div>
+    );
+  }
+
+  if (sweep) {
+    // Only the spine's spot on the shelf takes the pointer; the book that
+    // comes out lets it through. A closing book stays on top until it's
+    // back, and the one opening goes over it straight away. Focusing it
+    // (Tab, or a tap on a phone) opens it too.
+    return (
+      <div
+        tabIndex={0}
+        role="img"
+        aria-label={book.title}
+        title={book.title}
+        className={`group absolute z-0 transition-[z-index] duration-700 [perspective:700px] hover:z-20 hover:duration-0 focus:z-20 focus:duration-0 ${focusRing}`}
+        style={box}
+      >
+        <div
+          className="pointer-events-none h-full w-full transition-transform delay-150 duration-300 ease-switch [transform-style:preserve-3d] group-hover:delay-0 group-hover:[transform:var(--pull)] group-focus:delay-0 group-focus:[transform:var(--pull)] motion-reduce:transition-none"
+          style={pull}
+        >
+          {faces}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      title={book.title}
+      className="group absolute [perspective:700px] hover:z-10"
+      style={box}
+    >
+      {/* While the book is out, this covers where its cover shows, so the
+          pointer can rest anywhere on the cover without it going back */}
+      <div
+        className="pointer-events-none absolute group-hover:pointer-events-auto"
+        style={{
+          left: pct(t / 2 - (scale * d) / 2, t),
+          width: pct(scale * d, t),
+          top: pct(h * (1 - scale) - lift, h),
+          height: pct(scale * h, h),
+        }}
+      />
+      <div
+        className="h-full w-full transition-transform delay-150 duration-300 ease-switch [transform-style:preserve-3d] group-hover:delay-0 group-hover:[transform:var(--pull)] motion-reduce:transition-none"
+        style={pull}
+      >
+        {faces}
+      </div>
+    </div>
+  );
+}
+
+// Book 4's finish, laid over each spine and cover so the books look like
+// real ones that have been read: a faint grain for their material, a
+// spine faded by the light and rubbed at its ends, softly worn corners and
+// edges, a few thin scratches on the old cloth and leather books, softened
+// creases on paperbacks, paper gone a little yellow, and shade where a book
+// meets the board. Nothing is glossy. The grain is
+// three small tiles (public/images/about/book-grain-*.png), since live
+// noise filters are slow to draw; they and the gradients are defined once
+// (BookFinishDefs) and shared.
+type Material = "cloth" | "leather" | "paperback" | "jacket";
+
+const GRAIN: Record<Material, { fill: string; opacity: number }> = {
+  cloth: { fill: "url(#book-grain-cloth)", opacity: 0.1 },
+  leather: { fill: "url(#book-grain-leather)", opacity: 0.1 },
+  paperback: { fill: "url(#book-grain-paper)", opacity: 0.06 },
+  jacket: { fill: "url(#book-grain-paper)", opacity: 0.04 },
+};
+
+// A number for each book from its title, so its wear is its own and the
+// same every time.
+function bookSeed(title: string) {
+  let n = 0;
+  for (const c of title) n = (n * 31 + c.charCodeAt(0)) % 9973;
+  return n;
+}
+
+function Finish({
+  face,
+  material,
+  w,
+  h,
+  seed,
+  scratched = true,
+  dark = false,
+}: {
+  face: "spine" | "cover";
+  material: Material;
+  w: number;
+  h: number;
+  seed: number;
+  scratched?: boolean;
+  dark?: boolean;
+}) {
+  const r = face === "spine" ? 0.5 : 0;
+  // The old cloth and leather books get a few thin dark scratches, as
+  // from ordinary handling, placed and angled by the book's seed.
+  const old = scratched && (material === "cloth" || material === "leather");
+  const rand = (k: number) => jitter(seed * 13 + k * 7) + 0.5;
+  const scratches = old
+    ? Array.from({ length: face === "spine" ? 2 : 3 }, (_, i) => ({
+        x: w * (0.2 + 0.6 * rand(i * 4)),
+        y: h * (0.1 + 0.8 * rand(i * 4 + 1)),
+        rx:
+          w * (face === "spine" ? 0.28 : 0.12) * (0.7 + 0.6 * rand(i * 4 + 2)),
+        ry: h * 0.0025,
+        angle: (rand(i * 4 + 3) - 0.5) * (face === "spine" ? 16 : 40),
+      }))
+    : [];
+  const paper = material === "paperback" || material === "jacket";
+  return (
+    <g pointerEvents="none">
+      {/* Dark grain shows on a light book; a dark book gets it pale */}
+      <rect
+        width={w}
+        height={h}
+        rx={r}
+        fill={
+          dark
+            ? GRAIN[material].fill.replace(")", "-light)")
+            : GRAIN[material].fill
+        }
+        opacity={GRAIN[material].opacity * (dark ? 2 : 1)}
+      />
+      {/* Paper gone a little yellow, which would turn a dark book brown */}
+      {paper && !dark && (
+        <rect width={w} height={h} rx={r} className="fill-room-book-pencil/5" />
+      )}
+      {/* Faded by the light, most at the top; gently on a dark book */}
+      <rect
+        width={w}
+        height={h}
+        rx={r}
+        className={dark ? "fill-room-book-paper/5" : "fill-room-book-paper/10"}
+      />
+      <rect width={w} height={h} rx={r} fill="url(#book-fade)" />
+      <rect
+        width={w}
+        height={h}
+        rx={r}
+        fill={face === "spine" ? "url(#book-round)" : "url(#book-board)"}
+      />
+
+      {face === "spine" && material === "paperback" && (
+        // Reading creases down the spine, softened with use
+        <g fill="none" strokeLinecap="round">
+          {[0.3, 0.56, 0.74].map((f, i) => {
+            const x = w * f;
+            const d = `M${x} ${h * (0.12 + i * 0.05)}Q${x + w * 0.05} ${h * 0.45} ${x - w * 0.03} ${h * (0.8 - i * 0.04)}`;
+            return (
+              <path
+                key={f}
+                d={d}
+                strokeWidth={w * 0.025}
+                className="stroke-room-book-paper/40"
+              />
+            );
+          })}
+        </g>
+      )}
+
+      {scratches.map((scratch, i) => (
+        <ellipse
+          key={i}
+          cx={scratch.x}
+          cy={scratch.y}
+          rx={scratch.rx}
+          ry={scratch.ry}
+          transform={`rotate(${scratch.angle} ${scratch.x} ${scratch.y})`}
+          className="fill-room-metal/30"
+        />
+      ))}
+
+      {/* Rubbed edges, and on a spine its rubbed head and tail */}
+      <rect
+        x={0.25}
+        y={0.25}
+        width={w - 0.5}
+        height={h - 0.5}
+        rx={r}
+        fill="none"
+        strokeWidth={face === "spine" ? 0.45 : 0.6}
+        className="stroke-room-book-paper/25"
+      />
+      {face === "spine" && (
+        <>
+          <rect
+            width={w}
+            height={h * 0.014}
+            className="fill-room-book-paper/30"
+          />
+          <rect
+            y={h * 0.986}
+            width={w}
+            height={h * 0.014}
+            className="fill-room-book-paper/25"
+          />
+        </>
+      )}
+      {/* Bumped outer corners on a cover */}
+      {face === "cover" && (
+        <>
+          <circle
+            cx={w}
+            cy={0}
+            r={w * 0.045}
+            className="fill-room-book-paper/35"
+          />
+          <circle
+            cx={w}
+            cy={h}
+            r={w * 0.05}
+            className="fill-room-book-paper/35"
+          />
+        </>
+      )}
+      <rect width={w} height={h} rx={r} fill="url(#book-ends)" />
+    </g>
+  );
+}
+
+// Shared by every finished book: the grain of each material, and the
+// gradients that light them.
+// Gradient stops take their colors through currentColor.
+function BookFinishDefs() {
+  const dark = "text-room-metal";
+  const light = "text-room-book-paper";
+  return (
+    <svg aria-hidden="true" className="absolute h-0 w-0">
+      <defs>
+        {/* Grain: a small tile of each, repeated, and pale ones for dark
+            books */}
+        {(
+          [
+            "cloth",
+            "leather",
+            "paper",
+            "cloth-light",
+            "leather-light",
+            "paper-light",
+          ] as const
+        ).map((grain) => (
+          <pattern
+            key={grain}
+            id={`book-grain-${grain}`}
+            patternUnits="userSpaceOnUse"
+            width={16}
+            height={16}
+          >
+            <image
+              href={`/images/about/book-grain-${grain}.png`}
+              width={16}
+              height={16}
+            />
+          </pattern>
+        ))}
+        {/* A rounded spine: dark at both edges, a soft light on its curve */}
+        <linearGradient id="book-round">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.28}
+            className={dark}
+          />
+          <stop
+            offset="0.12"
+            stopColor="currentColor"
+            stopOpacity={0.06}
+            className={dark}
+          />
+          <stop
+            offset="0.32"
+            stopColor="currentColor"
+            stopOpacity={0.08}
+            className={light}
+          />
+          <stop
+            offset="0.5"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className={light}
+          />
+          <stop
+            offset="0.8"
+            stopColor="currentColor"
+            stopOpacity={0.06}
+            className={dark}
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.3}
+            className={dark}
+          />
+        </linearGradient>
+        {/* A cover: the hinge groove beside the spine, the board's edge */}
+        <linearGradient id="book-board">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.26}
+            className={dark}
+          />
+          <stop
+            offset="0.03"
+            stopColor="currentColor"
+            stopOpacity={0.06}
+            className={dark}
+          />
+          <stop
+            offset="0.05"
+            stopColor="currentColor"
+            stopOpacity={0.08}
+            className={light}
+          />
+          <stop
+            offset="0.075"
+            stopColor="currentColor"
+            stopOpacity={0.12}
+            className={dark}
+          />
+          <stop
+            offset="0.12"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className={dark}
+          />
+          <stop
+            offset="0.95"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className={dark}
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.16}
+            className={dark}
+          />
+        </linearGradient>
+        {/* Faded by years of light, more at the top */}
+        <linearGradient id="book-fade" x1="0" y1="0" x2="0" y2="1">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.16}
+            className={light}
+          />
+          <stop
+            offset="0.45"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className={light}
+          />
+        </linearGradient>
+        {/* Shade at the top, and more at the foot on the board */}
+        <linearGradient id="book-ends" x1="0" y1="0" x2="0" y2="1">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.14}
+            className={dark}
+          />
+          <stop
+            offset="0.03"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className={dark}
+          />
+          <stop
+            offset="0.93"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className={dark}
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.28}
+            className={dark}
+          />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+// Thinking, Fast and Slow, its spine and cover drawn in smaller boxes and
+// scaled up.
+const THINKING_TURNING: BookSpec = {
+  title: "Thinking, Fast and Slow by Daniel Kahneman",
+  material: "paperback",
+  w: 12,
+  h: 66,
+  d: 44,
+  spine: <ThinkingFastAndSlow />,
+  spineBox: [9, 50],
+  cover: <ThinkingFastAndSlowCover />,
+  coverBox: [33, 50],
+};
+
+/* The full shelf (books 2 and 3). The second board as it really was, with books
+   added at both ends: Shantaram, Love Does and Water for Elephants first,
+   then my books in their order on the shelf, then The Power of Kindness,
+   The Five People You Meet in Heaven and Hyperion. Spines and covers are
+   drawn from photos; the old cloth and leather books, whose covers I don't
+   have, get plain covers in their own colors. */
+
+// Text across a spine or cover, centered on x, fitted to `len` if given.
+function Across({
+  x,
+  y,
+  size,
+  len,
+  className = "fill-room-metal",
+  children,
+}: {
+  x: number;
+  y: number;
+  size: number;
+  len?: number;
+  className?: string;
+  children: string;
+}) {
+  return (
+    <text
+      x={x}
+      y={y}
+      fontSize={size}
+      textAnchor="middle"
+      textLength={len}
+      lengthAdjust={len ? "spacingAndGlyphs" : undefined}
+      className={`${className} font-serif`}
+    >
+      {children}
+    </text>
+  );
+}
+
+// A plain cloth or leather cover in a d by h box: its color, an optional
+// gold border, the title lines a third of the way down and the author
+// lower down.
+function PlainCover({
+  d,
+  h,
+  fill,
+  ink,
+  title,
+  author,
+  gilt = false,
+}: {
+  d: number;
+  h: number;
+  fill: string;
+  ink: string;
+  title: string[];
+  author: string;
+  gilt?: boolean;
+}) {
+  const size = h * 0.05;
+  return (
+    <>
+      <rect width={d} height={h} className={fill} />
+      {gilt && (
+        <>
+          <rect
+            x={2.5}
+            y={2.5}
+            width={d - 5}
+            height={h - 5}
+            fill="none"
+            strokeWidth={0.5}
+            className="stroke-room-gold"
+          />
+          <rect
+            x={4}
+            y={4}
+            width={d - 8}
+            height={h - 8}
+            fill="none"
+            strokeWidth={0.25}
+            className="stroke-room-gold"
+          />
+        </>
+      )}
+      {title.map((line, i) => (
+        <Across
+          key={line}
+          x={d / 2}
+          y={h * 0.32 + i * size * 1.35}
+          size={size}
+          len={Math.min(d * 0.72, line.length * size * 0.62)}
+          className={ink}
+        >
+          {line}
+        </Across>
+      ))}
+      <Across
+        x={d / 2}
+        y={h * 0.78}
+        size={size * 0.62}
+        len={Math.min(d * 0.7, author.length * size * 0.4)}
+        className={ink}
+      >
+        {author}
+      </Across>
+    </>
+  );
+}
+
+// Two thin gold rules across a leather spine at y.
+function GoldRules({ y, w }: { y: number; w: number }) {
+  return (
+    <>
+      <rect y={y} width={w} height={0.45} className="fill-room-gold" />
+      <rect y={y + 0.9} width={w} height={0.25} className="fill-room-gold" />
+    </>
+  );
+}
+
+const SHANTARAM: BookSpec = {
+  title: "Shantaram by Gregory David Roberts",
+  material: "jacket",
+  w: 18,
+  h: 74,
+  d: 50,
+  spine: (
+    <>
+      <rect width={18} height={74} className="fill-room-book-teal" />
+      <path
+        d="M0 22H3V19.5Q4.5 17 6 19.5V22H8V16Q9 13.5 10 16V22H12V19.5Q13.5 17 15 19.5V22H18V63H0Z"
+        className="fill-room-book-red"
+      />
+      <SpineText
+        x={9.5}
+        y={24}
+        length={24}
+        size={4.2}
+        className="fill-room-gold"
+      >
+        SHANTARAM
+      </SpineText>
+      <circle cx={9} cy={50.5} r={1} className="fill-room-gold" />
+      <SpineText
+        x={9.5}
+        y={53}
+        length={9}
+        size={1.5}
+        className="fill-room-gold"
+      >
+        GREGORY DAVID ROBERTS
+      </SpineText>
+      <circle cx={9} cy={68.5} r={1.5} className="fill-room-metal/50" />
+    </>
+  ),
+  cover: (
+    <>
+      <rect width={50} height={74} className="fill-room-book-teal" />
+      <path
+        d="M0 74V34H4V26H5V34H8V30Q12 23 16 30V34H18V28H19V34H22V27Q25 18 28 27V34H31V30Q34 25 37 30V34H40V26H41V34H50V74Z"
+        className="fill-room-book-red"
+      />
+      <path
+        d="M0 66Q12 60 22 66T50 64V74H0Z"
+        className="fill-room-book-teal/70"
+      />
+      <Across x={25} y={6} size={1.6} len={30} className="fill-room-book-paper">
+        THE MOST ASTONISHING ADVENTURE
+      </Across>
+      <Across
+        x={25}
+        y={8.4}
+        size={1.6}
+        len={22}
+        className="fill-room-book-paper"
+      >
+        STORY YOU WILL EVER READ
+      </Across>
+      <Across x={25} y={45} size={5} len={34} className="fill-room-gold">
+        SHANTARAM
+      </Across>
+      <circle cx={25} cy={49.5} r={1.2} className="fill-room-gold" />
+      <Across x={25} y={55} size={2.4} len={26} className="fill-room-gold">
+        Gregory David Roberts
+      </Across>
+      <Across x={25} y={58.5} size={1.4} len={20} className="fill-room-gold">
+        THE INTERNATIONAL BESTSELLER
+      </Across>
+    </>
+  ),
+};
+
+const LOVE_DOES: BookSpec = {
+  title: "Love Does by Bob Goff",
+  material: "paperback",
+  w: 7,
+  h: 64,
+  d: 42,
+  spine: (
+    <>
+      <rect width={7} height={64} className="fill-room-book-sky" />
+      <circle cx={3.5} cy={4} r={1.2} className="fill-room-book-pencil" />
+      <circle cx={3.5} cy={7.5} r={1.1} className="fill-room-book-red" />
+      <SpineText
+        x={3.5}
+        y={12}
+        length={26}
+        size={2.6}
+        className="fill-room-book-paper"
+      >
+        LOVE DOES
+      </SpineText>
+      <SpineText
+        x={3.5}
+        y={47}
+        length={10}
+        size={1.7}
+        className="fill-room-book-paper"
+      >
+        BOB GOFF
+      </SpineText>
+    </>
+  ),
+  cover: (
+    <>
+      <rect width={42} height={64} className="fill-room-book-sky" />
+      <path
+        d="M30 7Q26 14 28 20T22 32Q18 40 21 48"
+        fill="none"
+        strokeWidth={0.3}
+        className="stroke-room-book-paper/70"
+      />
+      <circle cx={30} cy={6} r={3.2} className="fill-room-book-pencil" />
+      <circle cx={28} cy={19} r={2.4} className="fill-room-book-red" />
+      <circle cx={23} cy={31} r={2} className="fill-room-book-red" />
+      <circle cx={21} cy={47} r={1.8} className="fill-room-book-teal" />
+      <Across x={21} y={30} size={7} len={30} className="fill-room-book-paper">
+        LOVE
+      </Across>
+      <Across x={21} y={39} size={7} len={30} className="fill-room-book-paper">
+        DOES
+      </Across>
+      <Across
+        x={21}
+        y={44}
+        size={1.3}
+        len={30}
+        className="fill-room-book-paper"
+      >
+        DISCOVER A SECRETLY INCREDIBLE LIFE
+      </Across>
+      <Across
+        x={21}
+        y={46.2}
+        size={1.3}
+        len={18}
+        className="fill-room-book-paper"
+      >
+        IN AN ORDINARY WORLD
+      </Across>
+      <Across
+        x={21}
+        y={58}
+        size={2.6}
+        len={16}
+        className="fill-room-book-paper"
+      >
+        BOB GOFF
+      </Across>
+    </>
+  ),
+};
+
+const WATER_FOR_ELEPHANTS: BookSpec = {
+  title: "Water for Elephants by Sara Gruen",
+  material: "paperback",
+  w: 8,
+  h: 64,
+  d: 42,
+  spine: (
+    <>
+      <rect width={8} height={64} className="fill-room-metal" />
+      <rect width={8} height={7} className="fill-room-book-red" />
+      <rect y={40} width={8} height={7} className="fill-room-book-red" />
+      <rect y={60} width={8} height={4} className="fill-room-book-red" />
+      <SpineText x={4} y={9} length={29} size={2.4} className="fill-room-gold">
+        WATER for ELEPHANTS
+      </SpineText>
+      <SpineText
+        x={4}
+        y={48.5}
+        length={10}
+        size={1.7}
+        className="fill-room-book-paper"
+      >
+        SARA GRUEN
+      </SpineText>
+    </>
+  ),
+  cover: (
+    <>
+      <rect width={42} height={64} className="fill-room-book-cream" />
+      {/* The curtain parted on a figure in a red sequined coat */}
+      <path
+        d="M17 7Q21 30 15 56H27Q21 30 25 7Z"
+        className="fill-room-metal/80"
+      />
+      <ellipse cx={21} cy={36} rx={3.6} ry={9} className="fill-room-book-red" />
+      {[5, 9, 13, 29, 33, 37].map((x) => (
+        <path
+          key={x}
+          d={`M${x} 7Q${x + 1.5} 30 ${x - 1} 56`}
+          fill="none"
+          strokeWidth={0.3}
+          className="stroke-room-metal/15"
+        />
+      ))}
+      <rect y={54} width={42} height={10} className="fill-room-book-olive" />
+      {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+        <rect
+          key={i}
+          x={i * 6}
+          width={6}
+          height={6}
+          className={i % 2 ? "fill-room-metal" : "fill-room-book-red"}
+        />
+      ))}
+      <Across x={21} y={4} size={1.6} len={30} className="fill-room-book-paper">
+        #1 NEW YORK TIMES BESTSELLER
+      </Across>
+      <Across x={21} y={20} size={5} len={22} className="fill-room-gold">
+        WATER
+      </Across>
+      <Across x={21} y={24.5} size={2.4} className="fill-room-gold">
+        for
+      </Across>
+      <Across x={21} y={30} size={5} len={32} className="fill-room-gold">
+        ELEPHANTS
+      </Across>
+      <Across x={21} y={60} size={2.6} len={18} className="fill-room-gold">
+        SARA GRUEN
+      </Across>
+    </>
+  ),
+};
+
+const GILT_EDGED: BookSpec = {
+  title: "A gilt-edged book, page edges out",
+  material: "leather",
+  w: 6.5,
+  h: 67,
+  d: 44,
+  spine: (
+    <>
+      <rect width={6.5} height={67} rx={0.4} className="fill-room-metal" />
+      <rect
+        x={1}
+        y={0.8}
+        width={4.5}
+        height={65.4}
+        className="fill-room-gold"
+      />
+      {[1.9, 2.8, 3.7, 4.6].map((x) => (
+        <rect
+          key={x}
+          x={x}
+          y={0.8}
+          width={0.15}
+          height={65.4}
+          className="fill-room-gold-dark/40"
+        />
+      ))}
+    </>
+  ),
+  cover: (
+    <>
+      <PlainCover
+        d={44}
+        h={67}
+        fill="fill-room-metal"
+        ink="fill-room-gold"
+        title={[]}
+        author=""
+        gilt
+      />
+      <path d="M22 28L26 33.5L22 39L18 33.5Z" className="fill-room-gold" />
+    </>
+  ),
+};
+
+const PSYCHOLOGY: BookSpec = {
+  title: "Psychology by William James",
+  unscratched: true,
+  material: "leather",
+  w: 12.5,
+  h: 66,
+  d: 44,
+  spine: (
+    <>
+      <rect width={12.5} height={66} rx={0.5} className="fill-room-book-rust" />
+      <rect
+        x={1.5}
+        y={13.5}
+        width={9.5}
+        height={9.5}
+        className="fill-room-book-maroon"
+      />
+      <Across x={6.25} y={17.6} size={1.5} len={8.5} className="fill-room-gold">
+        PSYCHOLOGY
+      </Across>
+      <Across x={6.25} y={21} size={1.3} len={4.5} className="fill-room-gold">
+        JAMES
+      </Across>
+      {[4, 12, 23.5, 34.5, 45.5, 56.5, 63].map((y) => (
+        <GoldRules key={y} y={y} w={12.5} />
+      ))}
+      {[29.5, 40.5, 51.5].map((c) => (
+        <g key={c}>
+          <path
+            d={`M6.25 ${c - 2.4}L7.6 ${c}L6.25 ${c + 2.4}L4.9 ${c}Z`}
+            className="fill-room-gold"
+          />
+          <circle cx={3.6} cy={c} r={0.5} className="fill-room-gold" />
+          <circle cx={8.9} cy={c} r={0.5} className="fill-room-gold" />
+        </g>
+      ))}
+    </>
+  ),
+  cover: (
+    <PlainCover
+      d={44}
+      h={66}
+      fill="fill-room-book-rust"
+      ink="fill-room-gold"
+      title={["PSYCHOLOGY"]}
+      author="WILLIAM JAMES"
+      gilt
+    />
+  ),
+};
+
+const HARVARD_CLASSICS: BookSpec = {
+  title: "The Harvard Classics: Plato, Epictetus, Marcus Aurelius",
+  material: "leather",
+  w: 11,
+  h: 70,
+  d: 46,
+  spine: (
+    <>
+      <rect width={11} height={70} rx={0.5} className="fill-room-book-maroon" />
+      <rect
+        x={2}
+        y={3}
+        width={7}
+        height={5.5}
+        fill="none"
+        strokeWidth={0.4}
+        className="stroke-room-gold"
+      />
+      <circle cx={5.5} cy={5.75} r={1.3} className="fill-room-gold" />
+      <rect
+        x={1}
+        y={11}
+        width={9}
+        height={13.5}
+        className="fill-room-metal/40"
+      />
+      {[
+        ["PLATO", 13.8],
+        ["EPICTETUS", 16.8],
+        ["MARCUS", 19.8],
+        ["AURELIUS", 22.8],
+      ].map(([line, y]) => (
+        <Across
+          key={line}
+          x={5.5}
+          y={y as number}
+          size={1.3}
+          len={Math.min(8, (line as string).length * 0.85)}
+          className="fill-room-gold"
+        >
+          {line as string}
+        </Across>
+      ))}
+      {[28, 44].map((y) => (
+        <g key={y}>
+          <rect
+            x={1.5}
+            y={y}
+            width={8}
+            height={13}
+            fill="none"
+            strokeWidth={0.4}
+            className="stroke-room-gold"
+          />
+          <path
+            d={`M5.5 ${y + 2.5}L8 ${y + 6.5}L5.5 ${y + 10.5}L3 ${y + 6.5}Z`}
+            fill="none"
+            strokeWidth={0.5}
+            className="stroke-room-gold"
+          />
+        </g>
+      ))}
+      {[10, 25.5, 42.3, 58.5].map((y) => (
+        <GoldRules key={y} y={y} w={11} />
+      ))}
+      <Across x={5.5} y={62} size={1.2} len={3} className="fill-room-gold">
+        THE
+      </Across>
+      <Across x={5.5} y={64.4} size={1.2} len={7} className="fill-room-gold">
+        HARVARD
+      </Across>
+      <Across x={5.5} y={66.8} size={1.2} len={7.5} className="fill-room-gold">
+        CLASSICS
+      </Across>
+    </>
+  ),
+  cover: (
+    <PlainCover
+      d={46}
+      h={70}
+      fill="fill-room-book-maroon"
+      ink="fill-room-gold"
+      title={["THE HARVARD", "CLASSICS"]}
+      author="PLATO · EPICTETUS · MARCUS AURELIUS"
+      gilt
+    />
+  ),
+};
+
+// Pride and Prejudice by Jane Austen, on the Harvard Classics' gilt
+// maroon leather spine.
+const PRIDE_AND_PREJUDICE: BookSpec = {
+  title: "Pride and Prejudice by Jane Austen",
+  material: "leather",
+  w: 11,
+  h: 70,
+  d: 46,
+  spine: (
+    <>
+      <rect width={11} height={70} rx={0.5} className="fill-room-book-maroon" />
+      <rect
+        x={2}
+        y={3}
+        width={7}
+        height={5.5}
+        fill="none"
+        strokeWidth={0.4}
+        className="stroke-room-gold"
+      />
+      <circle cx={5.5} cy={5.75} r={1.3} className="fill-room-gold" />
+      <rect
+        x={1}
+        y={11}
+        width={9}
+        height={13.5}
+        className="fill-room-metal/40"
+      />
+      {[
+        ["PRIDE", 14.4],
+        ["AND", 17.4],
+        ["PREJUDICE", 20.4],
+      ].map(([line, y]) => (
+        <Across
+          key={line}
+          x={5.5}
+          y={y as number}
+          size={1.3}
+          len={Math.min(8, (line as string).length * 0.85)}
+          className="fill-room-gold"
+        >
+          {line as string}
+        </Across>
+      ))}
+      {[28, 44].map((y) => (
+        <g key={y}>
+          <rect
+            x={1.5}
+            y={y}
+            width={8}
+            height={13}
+            fill="none"
+            strokeWidth={0.4}
+            className="stroke-room-gold"
+          />
+          <path
+            d={`M5.5 ${y + 2.5}L8 ${y + 6.5}L5.5 ${y + 10.5}L3 ${y + 6.5}Z`}
+            fill="none"
+            strokeWidth={0.5}
+            className="stroke-room-gold"
+          />
+        </g>
+      ))}
+      {[10, 25.5, 42.3, 58.5].map((y) => (
+        <GoldRules key={y} y={y} w={11} />
+      ))}
+      <Across x={5.5} y={63.2} size={1.2} len={4} className="fill-room-gold">
+        JANE
+      </Across>
+      <Across x={5.5} y={65.8} size={1.2} len={6} className="fill-room-gold">
+        AUSTEN
+      </Across>
+    </>
+  ),
+  cover: (
+    <>
+      <PlainCover
+        d={46}
+        h={70}
+        fill="fill-room-book-maroon"
+        ink="fill-room-gold"
+        title={["PRIDE AND", "PREJUDICE"]}
+        author="JANE AUSTEN"
+        gilt
+      />
+      {/* The spine's gilt lozenge, between the title and the author */}
+      <path
+        d="M23 33L27 39.5L23 46L19 39.5Z"
+        fill="none"
+        strokeWidth={0.6}
+        className="stroke-room-gold"
+      />
+      <path
+        d="M23 36.5L24.8 39.5L23 42.5L21.2 39.5Z"
+        className="fill-room-gold"
+      />
+      <circle cx={16} cy={39.5} r={0.7} className="fill-room-gold" />
+      <circle cx={30} cy={39.5} r={0.7} className="fill-room-gold" />
+    </>
+  ),
+};
+
+// One of Ishihara's colored dot plates: a circle of dots, with a 7 picked
+// out in orange among the greens.
+const ISHIHARA_DOTS = (() => {
+  const c = { x: 23, y: 29, r: 14 };
+  const inSeven = (x: number, y: number) => {
+    if (x >= 16.5 && x <= 29 && y >= 21 && y <= 24.5) return true;
+    // The 7's stroke, from its top right corner down to the left.
+    const [ax, ay, bx, by] = [28, 24.5, 20.5, 38.5];
+    const t = Math.max(
+      0,
+      Math.min(
+        1,
+        ((x - ax) * (bx - ax) + (y - ay) * (by - ay)) /
+          ((bx - ax) ** 2 + (by - ay) ** 2),
+      ),
+    );
+    return Math.hypot(x - (ax + t * (bx - ax)), y - (ay + t * (by - ay))) < 1.9;
+  };
+  const dots: { x: number; y: number; r: number; fill: string }[] = [];
+  let i = 0;
+  for (let y = c.y - c.r; y <= c.y + c.r; y += 2.3) {
+    for (let x = c.x - c.r; x <= c.x + c.r; x += 2.3) {
+      i++;
+      const dx = x + jitter(i * 3) * 1.2;
+      const dy = y + jitter(i * 7) * 1.2;
+      if (Math.hypot(dx - c.x, dy - c.y) > c.r - 0.8) continue;
+      const pick = Math.floor((jitter(i * 11) + 0.5) * 3);
+      const fill = inSeven(dx, dy)
+        ? [
+            "fill-room-book-amber",
+            "fill-room-book-red",
+            "fill-room-book-amber",
+          ][pick]
+        : [
+            "fill-room-book-olive",
+            "fill-room-book-leaf",
+            "fill-room-plant-light",
+          ][pick];
+      dots.push({ x: dx, y: dy, r: 0.75 + (jitter(i * 5) + 0.5) * 0.45, fill });
+    }
+  }
+  return dots;
+})();
+
+const ISHIHARA: BookSpec = {
+  title: "Ishihara's Tests for Colour Deficiency, Concise Edition",
+  material: "cloth",
+  w: 6.4,
+  h: 66,
+  d: 46,
+  spine: (
+    <>
+      <rect width={6.4} height={66} rx={0.4} className="fill-room-book-slate" />
+      <rect
+        x={0.8}
+        y={2}
+        width={4.8}
+        height={0.3}
+        className="fill-room-book-paper/60"
+      />
+      <rect
+        x={0.8}
+        y={63.7}
+        width={4.8}
+        height={0.3}
+        className="fill-room-book-paper/60"
+      />
+      <SpineText
+        x={3.4}
+        y={4}
+        length={44}
+        size={1.7}
+        className="fill-room-book-paper"
+      >
+        ISHIHARA&apos;S TESTS FOR COLOUR DEFICIENCY
+      </SpineText>
+      <SpineText
+        x={3.4}
+        y={50}
+        length={12}
+        size={1.5}
+        className="fill-room-book-paper"
+      >
+        Concise Edition
+      </SpineText>
+    </>
+  ),
+  cover: (
+    <>
+      <rect width={46} height={66} className="fill-room-book-slate" />
+      <circle cx={23} cy={29} r={14.6} className="fill-room-book-paper/90" />
+      {ISHIHARA_DOTS.map((dot, i) => (
+        <circle key={i} cx={dot.x} cy={dot.y} r={dot.r} className={dot.fill} />
+      ))}
+      <Across
+        x={23}
+        y={53}
+        size={1.9}
+        len={28}
+        className="fill-room-book-paper"
+      >
+        ISHIHARA&apos;S TESTS FOR
+      </Across>
+      <Across
+        x={23}
+        y={56.2}
+        size={1.9}
+        len={26}
+        className="fill-room-book-paper"
+      >
+        COLOUR DEFICIENCY
+      </Across>
+      <Across
+        x={23}
+        y={60.5}
+        size={1.3}
+        len={14}
+        className="fill-room-book-paper/70"
+      >
+        CONCISE EDITION
+      </Across>
+    </>
+  ),
+};
+
+const ASTONISHING_HYPOTHESIS: BookSpec = {
+  title: "The Astonishing Hypothesis by Francis Crick",
+  material: "cloth",
+  w: 13.5,
+  h: 76,
+  d: 50,
+  spine: (
+    <>
+      <rect
+        width={13.5}
+        height={76}
+        rx={0.5}
+        className="fill-room-book-taupe"
+      />
+      <SpineText
+        x={7.5}
+        y={4}
+        length={32}
+        size={3}
+        className="fill-room-book-paper"
+      >
+        The Astonishing Hypothesis
+      </SpineText>
+      <SpineText
+        x={7.5}
+        y={42}
+        length={18}
+        size={2}
+        className="fill-room-book-paper"
+      >
+        FRANCIS CRICK
+      </SpineText>
+      <circle
+        cx={6.75}
+        cy={71.5}
+        r={1.7}
+        fill="none"
+        strokeWidth={0.3}
+        className="stroke-room-book-paper"
+      />
+      <circle cx={6.75} cy={71.5} r={0.6} className="fill-room-book-paper" />
+    </>
+  ),
+  cover: (
+    <PlainCover
+      d={50}
+      h={76}
+      fill="fill-room-book-taupe"
+      ink="fill-room-book-paper"
+      title={["THE ASTONISHING", "HYPOTHESIS"]}
+      author="FRANCIS CRICK"
+    />
+  ),
+};
+
+const MODERN_ANALYSIS: BookSpec = {
+  title: "A Course of Modern Analysis by Whittaker and Watson",
+  material: "cloth",
+  w: 15,
+  h: 73,
+  d: 48,
+  spine: (
+    <>
+      <rect width={15} height={73} rx={0.5} className="fill-room-book-slate" />
+      {[
+        ["MODERN", 15, 1.5, 8],
+        ["ANALYSIS", 17.6, 1.5, 9],
+        ["WHITTAKER", 23.2, 1.3, 8.5],
+        ["AND", 25.5, 1.3, 3],
+        ["WATSON", 27.8, 1.3, 6.5],
+        ["4th", 35, 1.3, 2.6],
+        ["Edition", 37.3, 1.3, 5.5],
+        ["CAMBRIDGE", 43.5, 1.3, 9],
+      ].map(([line, y, size, len]) => (
+        <Across
+          key={line as string}
+          x={7.5}
+          y={y as number}
+          size={size as number}
+          len={len as number}
+          className="fill-room-book-paper/90"
+        >
+          {line as string}
+        </Across>
+      ))}
+      <rect
+        x={4.5}
+        y={19.7}
+        width={6}
+        height={0.2}
+        className="fill-room-book-paper/60"
+      />
+      <circle cx={7.5} cy={31} r={0.4} className="fill-room-book-paper/80" />
+    </>
+  ),
+  cover: (
+    <PlainCover
+      d={48}
+      h={73}
+      fill="fill-room-book-slate"
+      ink="fill-room-book-paper"
+      title={["A COURSE OF", "MODERN ANALYSIS"]}
+      author="WHITTAKER & WATSON"
+    />
+  ),
+};
+
+const REFLECTIONS: BookSpec = {
+  title: "Reflections on the Human Condition by Eric Hoffer",
+  material: "cloth",
+  w: 9,
+  h: 58,
+  d: 38,
+  spine: (
+    <>
+      <rect width={9} height={58} rx={0.5} className="fill-room-book-taupe" />
+      <rect
+        width={9}
+        height={58}
+        rx={0.5}
+        className="fill-room-book-paper/10"
+      />
+      <Across x={4.5} y={4} size={1.3} len={4} className="fill-room-book-paper">
+        ERIC
+      </Across>
+      <Across
+        x={4.5}
+        y={6.3}
+        size={1.3}
+        len={5.5}
+        className="fill-room-book-paper"
+      >
+        HOFFER
+      </Across>
+      <SpineText
+        x={4.6}
+        y={10}
+        length={38}
+        size={2.2}
+        className="fill-room-book-paper"
+      >
+        Reflections on the Human Condition
+      </SpineText>
+      <Across
+        x={4.5}
+        y={53}
+        size={1.2}
+        len={5}
+        className="fill-room-book-paper/80"
+      >
+        Harper
+      </Across>
+      <Across
+        x={4.5}
+        y={55.3}
+        size={1.2}
+        len={4}
+        className="fill-room-book-paper/80"
+      >
+        &amp; Row
+      </Across>
+    </>
+  ),
+  cover: (
+    <PlainCover
+      d={38}
+      h={58}
+      fill="fill-room-book-taupe"
+      ink="fill-room-book-paper"
+      title={["REFLECTIONS ON", "THE HUMAN", "CONDITION"]}
+      author="ERIC HOFFER"
+    />
+  ),
+};
+
+const DIVINE_COMEDY: BookSpec = {
+  title: "The Divine Comedy by Dante",
+  material: "cloth",
+  w: 7.3,
+  h: 52,
+  d: 34,
+  spine: (
+    <>
+      <rect width={7.3} height={52} rx={0.4} className="fill-room-book-olive" />
+      {[
+        ["THE", 4, 2.6],
+        ["DIVINE", 6, 4.6],
+        ["COMEDY", 8, 5],
+        ["DANTE", 12, 4],
+      ].map(([line, y, len]) => (
+        <Across
+          key={line as string}
+          x={3.65}
+          y={y as number}
+          size={1.1}
+          len={len as number}
+          className="fill-room-metal/80"
+        >
+          {line as string}
+        </Across>
+      ))}
+      <rect
+        x={1.6}
+        y={9.6}
+        width={4.1}
+        height={0.2}
+        className="fill-room-metal/50"
+      />
+      <Across
+        x={3.65}
+        y={47.5}
+        size={1}
+        len={5.6}
+        className="fill-room-metal/80"
+      >
+        EVERYMAN&apos;S
+      </Across>
+      <Across
+        x={3.65}
+        y={49.3}
+        size={1}
+        len={4.6}
+        className="fill-room-metal/80"
+      >
+        LIBRARY
+      </Across>
+    </>
+  ),
+  cover: (
+    <PlainCover
+      d={34}
+      h={52}
+      fill="fill-room-book-olive"
+      ink="fill-room-metal"
+      title={["THE DIVINE", "COMEDY"]}
+      author="DANTE ALIGHIERI"
+    />
+  ),
+};
+
+const THINKING_ON_SHELF: BookSpec = {
+  ...THINKING_TURNING,
+  w: 10.9,
+  h: 61,
+  d: 40,
+};
+
+const OBSCURE_SORROWS: BookSpec = {
+  title: "The Dictionary of Obscure Sorrows by John Koenig",
+  material: "jacket",
+  w: 10,
+  h: 52,
+  d: 35,
+  spine: (
+    <>
+      <rect width={10} height={52} rx={0.4} className="fill-room-metal" />
+      <Across x={5} y={4} size={1.3} len={3} className="fill-room-gold">
+        THE
+      </Across>
+      <SpineText
+        x={5.4}
+        y={6.5}
+        length={37}
+        size={2.4}
+        className="fill-room-gold"
+      >
+        DICTIONARY of OBSCURE SORROWS
+      </SpineText>
+      {[
+        [2.3, 12],
+        [8, 20],
+        [2.1, 31],
+        [8.2, 38],
+      ].map(([x, y]) => (
+        <circle key={y} cx={x} cy={y} r={0.35} className="fill-room-gold/70" />
+      ))}
+      <rect
+        x={1.8}
+        y={48}
+        width={6.4}
+        height={2.8}
+        fill="none"
+        strokeWidth={0.2}
+        className="stroke-room-book-paper"
+      />
+      <Across
+        x={5}
+        y={50}
+        size={1.3}
+        len={5.6}
+        className="fill-room-book-paper"
+      >
+        KOENIG
+      </Across>
+    </>
+  ),
+  cover: (
+    <>
+      <rect width={35} height={52} className="fill-room-metal" />
+      {[
+        [5, 6],
+        [29, 9],
+        [8, 40],
+        [30, 44],
+        [17, 4],
+        [25, 38],
+      ].map(([x, y]) => (
+        <circle
+          key={`${x}-${y}`}
+          cx={x}
+          cy={y}
+          r={0.4}
+          className="fill-room-gold/70"
+        />
+      ))}
+      <Across x={17.5} y={18} size={2} len={22} className="fill-room-gold">
+        THE DICTIONARY OF
+      </Across>
+      <Across x={17.5} y={24} size={4} len={22} className="fill-room-gold">
+        OBSCURE
+      </Across>
+      <Across x={17.5} y={29.5} size={4} len={22} className="fill-room-gold">
+        SORROWS
+      </Across>
+      <Across
+        x={17.5}
+        y={46}
+        size={1.8}
+        len={14}
+        className="fill-room-book-paper"
+      >
+        JOHN KOENIG
+      </Across>
+    </>
+  ),
+};
+
+// The Power of Kindness's sprout: a stem and two leaves, at x, y.
+function Sprout({ x, y, size }: { x: number; y: number; size: number }) {
+  return (
+    <>
+      <rect
+        x={x - size * 0.08}
+        y={y}
+        width={size * 0.16}
+        height={size * 1.1}
+        className="fill-room-book-leaf"
+      />
+      <ellipse
+        cx={x - size * 0.45}
+        cy={y}
+        rx={size * 0.5}
+        ry={size * 0.26}
+        transform={`rotate(-20 ${x - size * 0.45} ${y})`}
+        className="fill-room-book-leaf"
+      />
+      <ellipse
+        cx={x + size * 0.45}
+        cy={y - size * 0.1}
+        rx={size * 0.5}
+        ry={size * 0.26}
+        transform={`rotate(25 ${x + size * 0.45} ${y - size * 0.1})`}
+        className="fill-room-book-leaf"
+      />
+    </>
+  );
+}
+
+const POWER_OF_KINDNESS: BookSpec = {
+  title: "The Power of Kindness by Piero Ferrucci",
+  material: "paperback",
+  w: 6,
+  h: 64,
+  d: 42,
+  spine: (
+    <>
+      <rect width={6} height={64} rx={0.4} className="fill-room-book-paper" />
+      <Sprout x={3} y={5} size={2.2} />
+      <SpineText
+        x={3.1}
+        y={11}
+        length={30}
+        size={2}
+        className="fill-room-metal"
+      >
+        the power of kindness
+      </SpineText>
+      <SpineText
+        x={3.1}
+        y={46}
+        length={14}
+        size={1.5}
+        className="fill-room-metal/70"
+      >
+        PIERO FERRUCCI
+      </SpineText>
+    </>
+  ),
+  cover: (
+    <>
+      <rect width={42} height={64} className="fill-room-book-paper" />
+      <circle cx={8} cy={9} r={5.5} className="fill-room-book-leaf" />
+      <Across
+        x={8}
+        y={8.4}
+        size={1.6}
+        len={5.5}
+        className="fill-room-book-paper"
+      >
+        10TH
+      </Across>
+      <Across
+        x={8}
+        y={10.8}
+        size={1.1}
+        len={8}
+        className="fill-room-book-paper"
+      >
+        ANNIVERSARY
+      </Across>
+      {[5, 7.5, 13, 15.5].map((y) => (
+        <rect
+          key={y}
+          x={18}
+          y={y}
+          width={18}
+          height={0.6}
+          className="fill-room-metal/25"
+        />
+      ))}
+      <Sprout x={21} y={29} size={3.2} />
+      <Across x={21} y={38} size={3.2} len={30} className="fill-room-metal">
+        the power of kindness
+      </Across>
+      <rect
+        x={6}
+        y={39.5}
+        width={30}
+        height={0.25}
+        className="fill-room-metal/40"
+      />
+      <Across
+        x={21}
+        y={43.5}
+        size={1.3}
+        len={24}
+        className="fill-room-metal/70"
+      >
+        The Unexpected Benefits of
+      </Across>
+      <Across
+        x={21}
+        y={45.7}
+        size={1.3}
+        len={26}
+        className="fill-room-metal/70"
+      >
+        Leading a Compassionate Life
+      </Across>
+      <Across x={21} y={57} size={1.7} len={17} className="fill-room-metal/70">
+        PIERO FERRUCCI
+      </Across>
+    </>
+  ),
+};
+
+const FIVE_PEOPLE: BookSpec = {
+  title: "The Five People You Meet in Heaven by Mitch Albom",
+  material: "jacket",
+  w: 7,
+  h: 62,
+  d: 42,
+  spine: (
+    <>
+      <rect width={7} height={62} rx={0.4} className="fill-room-book-maroon" />
+      <SpineText
+        x={3.7}
+        y={4}
+        length={36}
+        size={2}
+        className="fill-room-book-cream"
+      >
+        the five people you meet in heaven
+      </SpineText>
+      <rect
+        x={1.2}
+        y={43}
+        width={4.6}
+        height={11}
+        className="fill-room-book-cream"
+      />
+      <SpineText
+        x={3.7}
+        y={44}
+        length={9}
+        size={1.5}
+        className="fill-room-book-maroon"
+      >
+        Mitch Albom
+      </SpineText>
+      <rect
+        x={2.5}
+        y={57}
+        width={2}
+        height={2.5}
+        className="fill-room-book-cream/60"
+      />
+    </>
+  ),
+  cover: (
+    <>
+      <rect width={42} height={62} className="fill-room-book-cream" />
+      <rect
+        x={1.2}
+        y={1.2}
+        width={39.6}
+        height={59.6}
+        fill="none"
+        strokeWidth={0.8}
+        className="stroke-room-book-maroon"
+      />
+      <rect
+        x={5}
+        y={4}
+        width={32}
+        height={6}
+        className="fill-room-book-maroon"
+      />
+      <Across
+        x={21}
+        y={8.5}
+        size={3.2}
+        len={22}
+        className="fill-room-book-cream"
+      >
+        Mitch Albom
+      </Across>
+      <Across x={21} y={12.8} size={1.1} len={5} className="fill-room-metal/70">
+        Author of
+      </Across>
+      <Across x={21} y={14.8} size={1.6} len={18} className="fill-room-metal">
+        Tuesdays with Morrie
+      </Across>
+      {/* The Ferris wheel */}
+      <circle
+        cx={21}
+        cy={27}
+        r={5}
+        fill="none"
+        strokeWidth={0.3}
+        className="stroke-room-metal"
+      />
+      {[0, 45, 90, 135].map((a) => (
+        <line
+          key={a}
+          x1={21 - 5 * Math.cos((a * Math.PI) / 180)}
+          y1={27 - 5 * Math.sin((a * Math.PI) / 180)}
+          x2={21 + 5 * Math.cos((a * Math.PI) / 180)}
+          y2={27 + 5 * Math.sin((a * Math.PI) / 180)}
+          strokeWidth={0.2}
+          className="stroke-room-metal"
+        />
+      ))}
+      <path
+        d="M18 34L21 27L24 34M17 34H25"
+        fill="none"
+        strokeWidth={0.3}
+        className="stroke-room-metal"
+      />
+      <Across x={21} y={42} size={3.4} len={26} className="fill-room-book-red">
+        the five people
+      </Across>
+      <Across x={21} y={47} size={3.4} len={32} className="fill-room-book-red">
+        you meet in heaven
+      </Across>
+    </>
+  ),
+};
+
+const HYPERION: BookSpec = {
+  title: "Hyperion by Dan Simmons",
+  material: "jacket",
+  w: 14,
+  h: 74,
+  d: 50,
+  // The jacket's painting runs onto the spine: pale lavender sky at the
+  // top, through cream and soft pink to gold, then the brown ground.
+  spine: (
+    <>
+      <defs>
+        <linearGradient id="hyperion-spine" x1="0" y1="0" x2="0" y2="1">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={1}
+            className="text-room-book-hyperion-lavender"
+          />
+          <stop
+            offset="0.2"
+            stopColor="currentColor"
+            stopOpacity={1}
+            className="text-room-book-hyperion-cream"
+          />
+          <stop
+            offset="0.38"
+            stopColor="currentColor"
+            stopOpacity={1}
+            className="text-room-book-hyperion-pink"
+          />
+          <stop
+            offset="0.52"
+            stopColor="currentColor"
+            stopOpacity={1}
+            className="text-room-book-hyperion-cream"
+          />
+          <stop
+            offset="0.66"
+            stopColor="currentColor"
+            stopOpacity={1}
+            className="text-room-book-hyperion-gold"
+          />
+          <stop
+            offset="0.82"
+            stopColor="currentColor"
+            stopOpacity={1}
+            className="text-room-book-hyperion-ochre"
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={1}
+            className="text-room-book-hyperion-umber"
+          />
+        </linearGradient>
+      </defs>
+      <rect width={14} height={74} fill="url(#hyperion-spine)" />
+      <SpineText
+        x={7.4}
+        y={5}
+        length={30}
+        size={4.2}
+        className="fill-room-metal"
+      >
+        HYPERION
+      </SpineText>
+      <SpineText
+        x={7.4}
+        y={40}
+        length={22}
+        size={2.6}
+        className="fill-room-metal"
+      >
+        DAN SIMMONS
+      </SpineText>
+      <rect
+        x={5}
+        y={68.8}
+        width={2}
+        height={2.4}
+        className="fill-room-book-red"
+      />
+      <rect
+        x={7}
+        y={68.8}
+        width={2}
+        height={2.4}
+        className="fill-room-book-sky"
+      />
+    </>
+  ),
+  // The real jacket, from a photo of it.
+  cover: (
+    <image
+      href="/images/about/books/hyperion.jpg"
+      width={50}
+      height={74}
+      preserveAspectRatio="xMidYMid slice"
+    />
+  ),
+};
+
+// The full shelf, left to right.
+const FULL_SHELF: BookSpec[] = [
+  SHANTARAM,
+  LOVE_DOES,
+  WATER_FOR_ELEPHANTS,
+  GILT_EDGED,
+  PSYCHOLOGY,
+  HARVARD_CLASSICS,
+  ISHIHARA,
+  ASTONISHING_HYPOTHESIS,
+  MODERN_ANALYSIS,
+  REFLECTIONS,
+  DIVINE_COMEDY,
+  THINKING_ON_SHELF,
+  OBSCURE_SORROWS,
+  POWER_OF_KINDNESS,
+  FIVE_PEOPLE,
+  HYPERION,
+];
+
+// Books 3 and 4's shelf: the same, without the gilt-edged book or Love
+// Does.
+const SHELF_3 = FULL_SHELF.filter(
+  (book) => book !== GILT_EDGED && book !== LOVE_DOES,
+);
+
+// The Pragmatic Programmer: From Journeyman to Master (1999), by Andrew
+// Hunt and David Thomas: a black paperback with the title in large pale
+// khaki serif, a dimly lit photo of an old wooden hand plane in the middle,
+// the authors in white and Addison-Wesley's small red triangle.
+const PRAGMATIC_PROGRAMMER: BookSpec = {
+  title: "The Pragmatic Programmer by Andrew Hunt and David Thomas",
+  dark: true,
+  material: "paperback",
+  w: 10,
+  h: 72,
+  d: 56,
+  spine: (
+    <>
+      <rect width={10} height={72} className="fill-room-metal" />
+      <SpineText
+        x={5.3}
+        y={5}
+        length={40}
+        size={2.8}
+        className="fill-room-book-khaki"
+      >
+        The Pragmatic Programmer
+      </SpineText>
+      <SpineText
+        x={5.3}
+        y={50}
+        length={13}
+        size={1.7}
+        className="fill-room-book-paper/90"
+      >
+        Hunt · Thomas
+      </SpineText>
+      <path d="M5 66.6L6.6 69.4H3.4Z" className="fill-room-book-red" />
+    </>
+  ),
+  cover: (
+    <>
+      <defs>
+        {/* The light falling on the plane from the upper left */}
+        <radialGradient id="tpp-light" cx="0.3" cy="0.25" r="0.85">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.75}
+            className="text-room-book-khaki"
+          />
+          <stop
+            offset="0.5"
+            stopColor="currentColor"
+            stopOpacity={0.2}
+            className="text-room-book-khaki"
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-book-khaki"
+          />
+        </radialGradient>
+      </defs>
+      <rect width={56} height={72} className="fill-room-metal" />
+      <path d="M52.7 3.4L53.6 5H51.8Z" className="fill-room-book-red" />
+      <text
+        x={8.9}
+        y={9.3}
+        fontSize={6.2}
+        className="fill-room-book-khaki font-serif"
+      >
+        The
+      </text>
+      <text
+        x={8.9}
+        y={14.8}
+        fontSize={6.2}
+        textLength={35}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-room-book-khaki font-serif"
+      >
+        Pragmatic
+      </text>
+      <text
+        x={12}
+        y={20.4}
+        fontSize={6.2}
+        textLength={40}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-room-book-khaki font-serif"
+      >
+        Programmer
+      </text>
+      {/* The photo: an old wooden plane on a bench, lit from the left */}
+      <rect
+        x={19.8}
+        y={25}
+        width={16.7}
+        height={21.3}
+        className="fill-room-metal"
+      />
+      <rect x={19.8} y={25} width={16.7} height={21.3} fill="url(#tpp-light)" />
+      <path
+        d="M19.8 42L36.5 37.5V46.3H19.8Z"
+        className="fill-room-book-khaki/20"
+      />
+      <g transform="rotate(-14 28 38)">
+        {/* Body */}
+        <rect
+          x={21.5}
+          y={36.2}
+          width={14}
+          height={4}
+          rx={0.6}
+          className="fill-room-wood-light"
+        />
+        <rect
+          x={21.5}
+          y={36.2}
+          width={14}
+          height={1}
+          className="fill-room-brass/50"
+        />
+        {/* The tote, the handle at the back */}
+        <path
+          d="M30.5 36.2V31.5Q31.5 30 33 31L33.6 36.2Z"
+          className="fill-room-wood"
+        />
+        {/* The iron and its wedge, rising through the middle */}
+        <path
+          d="M26.5 36.2L27.6 31.4H29.1L28.6 36.2Z"
+          className="fill-room-wood"
+        />
+        <rect
+          x={27.2}
+          y={30.6}
+          width={1.6}
+          height={1.2}
+          className="fill-room-mirror/60"
+        />
+        {/* The front knob */}
+        <ellipse
+          cx={23.6}
+          cy={35.4}
+          rx={1.1}
+          ry={1}
+          className="fill-room-wood"
+        />
+      </g>
+      <Across
+        x={28.2}
+        y={48.8}
+        size={1.9}
+        len={14}
+        className="fill-room-book-paper/80"
+      >
+        from journeyman
+      </Across>
+      <Across
+        x={28.2}
+        y={50.9}
+        size={1.9}
+        len={8}
+        className="fill-room-book-paper/80"
+      >
+        to master
+      </Across>
+      <Across
+        x={28}
+        y={58.6}
+        size={3.6}
+        len={19}
+        className="fill-room-book-paper"
+      >
+        Andrew Hunt
+      </Across>
+      <Across
+        x={28}
+        y={63.3}
+        size={3.6}
+        len={23}
+        className="fill-room-book-paper"
+      >
+        David Thomas
+      </Across>
+      <Across
+        x={28}
+        y={68.4}
+        size={1.8}
+        len={28}
+        className="fill-room-book-paper/80"
+      >
+        Foreword by Ward Cunningham
+      </Across>
+    </>
+  ),
+};
+
+// Book 5's shelf: Ishihara's out, Pride and Prejudice in the Harvard
+// Classics' place, Water for Elephants and The Dictionary of Obscure
+// Sorrows moved to the right end, and The Pragmatic Programmer between
+// them.
+const SHELF_5: BookSpec[] = [
+  SHANTARAM,
+  PSYCHOLOGY,
+  PRIDE_AND_PREJUDICE,
+  ASTONISHING_HYPOTHESIS,
+  MODERN_ANALYSIS,
+  REFLECTIONS,
+  DIVINE_COMEDY,
+  THINKING_ON_SHELF,
+  POWER_OF_KINDNESS,
+  FIVE_PEOPLE,
+  HYPERION,
+  WATER_FOR_ELEPHANTS,
+  PRAGMATIC_PROGRAMMER,
+  OBSCURE_SORROWS,
+];
+
+// Books side by side on the second board, from just inside the left post.
+// Book 2 leaves a sliver between them; book 3's touch, like on a real
+// shelf, so the pointer never falls between two books.
+function BookRow({
+  books,
+  sweep = false,
+  finish = false,
+  read = false,
+  dim = false,
+}: {
+  books: BookSpec[];
+  sweep?: boolean;
+  finish?: boolean;
+  read?: boolean;
+  dim?: boolean;
+}) {
+  const gap = sweep ? 0 : 0.3;
+  let x = SHELF.left + SHELF.post + 2;
+  return (
+    <>
+      {books.map((book) => {
+        const at = x;
+        x += book.w + gap;
+        return (
+          <TurningBook
+            key={book.title}
+            x={at}
+            book={book}
+            sweep={sweep}
+            finish={finish}
+            read={read}
+            dim={dim}
+          />
+        );
+      })}
+    </>
+  );
+}
+
+// Books drawn inside the room's SVG. Version 2 is HTML instead (see
+// TurningBook), so it draws nothing here.
+function Books({ version }: { version: BooksVersion }) {
+  if (version === 1) {
+    return (
+      <ShelfBook
+        x={SHELF.left + SHELF.post + 6}
+        w={THINKING.w}
+        h={THINKING.h}
+        title="Thinking, Fast and Slow by Daniel Kahneman"
+      >
+        <ThinkingFastAndSlow />
+      </ShelfBook>
+    );
+  }
+  return null;
+}
+
+/* ---------- Basket ---------- */
+
+// My seagrass basket, drawn from photos of it: a wide round tub of thick
+// twisted seagrass coiled round in about nine rows, a thicker rope rim,
+// pale stakes woven in and out between the coils, jute twine in the gaps,
+// and a loop handle at each end wrapped in seagrass. It stands against the
+// right post of the second board, sized from the photo: about 45% of the
+// shelf's width, its body about 70% of the gap between boards and its
+// handles reaching about 85%. Versions, like the books:
+// 1. the first drawing, from the photos
+// 2. the shape and handles redrawn to the real proportions
+// 3. the same, in lighter shades
+export type BasketVersion = 1 | 2 | 3;
+
+const BASKET = {
+  right: SHELF.right - SHELF.post - 2.5,
+  w: 111, // across the rim
+  foot: 0.76, // the foot's width, as a share of the rim's
+  h: 55, // the body, from the foot to the top of the rim
+  floor: BOARDS[1],
+  rim: 7.2, // the rim's thickness
+  handle: { w: 12, rise: 12 }, // each loop, and how far it rises above the rim
+};
+const BASKET_TONES = [
+  "fill-room-basket-wheat",
+  "fill-room-basket-straw",
+  "fill-room-basket-wheat",
+  "fill-room-basket-pale",
+  "fill-room-basket-straw",
+  "fill-room-basket-wheat",
+  "fill-room-basket-tan",
+  "fill-room-basket-straw",
+];
+
+// The shades a basket is drawn in: its strands' tones, the dark between
+// and under them, and the gradients that round its coils. Basket 3 is
+// lighter.
+type BasketPalette = {
+  tones: string[];
+  base: string;
+  groove: string;
+  streak: string;
+  weave: string;
+  round: string;
+  ends: string;
+};
+const BASKET_DARK: BasketPalette = {
+  tones: BASKET_TONES,
+  base: "fill-room-basket-shadow",
+  groove: "stroke-room-basket-shadow/70",
+  streak: "stroke-room-basket-shadow/50",
+  weave: "fill-room-basket-deep",
+  round: "basket-coil-round",
+  ends: "basket-coil-ends",
+};
+const BASKET_LIGHT: BasketPalette = {
+  tones: [
+    "fill-room-basket-wheat",
+    "fill-room-basket-pale",
+    "fill-room-basket-wheat",
+    "fill-room-basket-straw",
+    "fill-room-basket-pale",
+    "fill-room-basket-wheat",
+  ],
+  base: "fill-room-basket-tan",
+  groove: "stroke-room-basket-brown/50",
+  streak: "stroke-room-basket-tan/50",
+  weave: "fill-room-basket-brown",
+  round: "basket-coil-round-light",
+  ends: "basket-coil-ends-light",
+};
+
+// The lens-shaped outline of a twisted strand from p, `len` long and `w`
+// wide, along the angle a (radians, measured up from the right).
+function strandOutline([px, py]: Pt, len: number, w: number, a: number) {
+  const u: Pt = [Math.cos(a), -Math.sin(a)];
+  const v: Pt = [Math.sin(a), Math.cos(a)];
+  const at = (t: number, s: number): string =>
+    `${(px + u[0] * len * t + v[0] * w * s).toFixed(2)} ${(py + u[1] * len * t + v[1] * w * s).toFixed(2)}`;
+  return `M${at(0, 0)}C${at(0.3, 0.65)} ${at(0.7, 0.65)} ${at(1, 0)}C${at(0.7, -0.65)} ${at(0.3, -0.65)} ${at(0, 0)}Z`;
+}
+
+// One coil of twisted seagrass across x0 to x1 at y, h tall, with rounded
+// ends. Its strands lean along it, grouped by tone so it's a few paths, with
+// streaks down them and a pale edge where the light catches. It's shaded to
+// look round, and darker toward the ends.
+function Coil({
+  id,
+  x0,
+  x1,
+  y,
+  h,
+  lean,
+  seed,
+  palette = BASKET_DARK,
+}: {
+  id: string;
+  x0: number;
+  x1: number;
+  y: number;
+  h: number;
+  lean: number; // degrees; positive leans the strands up to the right
+  seed: number;
+  palette?: BasketPalette;
+}) {
+  const r = (k: number) => jitter(seed * 37 + k * 11) + 0.5;
+  const tones: Record<string, string> = {};
+  let streaks = "";
+  let lights = "";
+  let grooves = "";
+  const step = h * 0.72;
+  const len = h * 2.1;
+  const w = h * 0.78;
+  const a0 = (lean * Math.PI) / 180;
+  for (let x = x0 - len, i = 0; x < x1 + step; x += step, i++) {
+    const a = a0 + (r(i) - 0.5) * 0.12;
+    const dir = Math.sign(lean) || 1;
+    // Start below or above the coil so the strand crosses it diagonally.
+    const p: Pt = [
+      x,
+      y +
+        h / 2 +
+        (dir * len * Math.sin(Math.abs(a))) / 2 +
+        (r(i + 50) - 0.5) * h * 0.25,
+    ];
+    const tone = palette.tones[Math.floor(r(i + 100) * palette.tones.length)];
+    const outline = strandOutline(p, len, w, a);
+    tones[tone] = (tones[tone] ?? "") + outline;
+    grooves += outline;
+    const u: Pt = [Math.cos(a), -Math.sin(a)];
+    const v: Pt = [Math.sin(a), Math.cos(a)];
+    for (const [off, t0, t1] of [
+      [0.18, 0.15, 0.8],
+      [-0.12, 0.25, 0.9],
+    ]) {
+      streaks += `M${(p[0] + u[0] * len * t0 + v[0] * w * off).toFixed(2)} ${(p[1] + u[1] * len * t0 + v[1] * w * off).toFixed(2)}L${(p[0] + u[0] * len * t1 + v[0] * w * off).toFixed(2)} ${(p[1] + u[1] * len * t1 + v[1] * w * off).toFixed(2)}`;
+    }
+    lights += `M${(p[0] + u[0] * len * 0.2 - v[0] * w * 0.38).toFixed(2)} ${(p[1] + u[1] * len * 0.2 - v[1] * w * 0.38).toFixed(2)}L${(p[0] + u[0] * len * 0.75 - v[0] * w * 0.38).toFixed(2)} ${(p[1] + u[1] * len * 0.75 - v[1] * w * 0.38).toFixed(2)}`;
+  }
+  const shape = { x: x0, y, width: x1 - x0, height: h, rx: h / 2 };
+  return (
+    <g>
+      <clipPath id={id}>
+        <rect {...shape} />
+      </clipPath>
+      <g clipPath={`url(#${id})`}>
+        <rect {...shape} className={palette.base} />
+        {Object.entries(tones).map(([tone, d]) => (
+          <path key={tone} d={d} className={tone} />
+        ))}
+        <path
+          d={grooves}
+          fill="none"
+          strokeWidth={0.32}
+          className={palette.groove}
+        />
+        <path
+          d={streaks}
+          fill="none"
+          strokeWidth={0.2}
+          strokeLinecap="round"
+          className={palette.streak}
+        />
+        <path
+          d={lights}
+          fill="none"
+          strokeWidth={0.28}
+          strokeLinecap="round"
+          className="stroke-room-basket-pale/70"
+        />
+        <rect {...shape} fill={`url(#${palette.round})`} />
+        <rect {...shape} fill={`url(#${palette.ends})`} />
+      </g>
+    </g>
+  );
+}
+
+// A handle: a thick loop of seagrass rising from the rim at cx, wrapped
+// round in strands.
+function BasketHandle({
+  cx,
+  base,
+  seed,
+}: {
+  cx: number;
+  base: number;
+  seed: number;
+}) {
+  const { w, rise } = BASKET.handle;
+  const top = base - BASKET.rim / 2 - rise;
+  const curve: [Pt, Pt, Pt, Pt] = [
+    [cx - w / 2 + 1, base],
+    [cx - w * 0.7, top - 2],
+    [cx + w * 0.7, top - 2],
+    [cx + w / 2 - 1, base],
+  ];
+  const d = `M${curve[0].join(" ")}C${curve[1].join(" ")} ${curve[2].join(" ")} ${curve[3].join(" ")}`;
+  const n = 16;
+  const tones: Record<string, string> = {};
+  for (let i = 0; i <= n; i++) {
+    const { at, angle } = bezierAt(curve, i / n);
+    const a = (-(angle + 62) * Math.PI) / 180;
+    const p: Pt = [at[0] - Math.cos(a) * 2.6, at[1] + Math.sin(a) * 2.6];
+    const tone =
+      BASKET_TONES[
+        Math.floor((jitter(seed * 19 + i * 7) + 0.5) * BASKET_TONES.length)
+      ];
+    tones[tone] = (tones[tone] ?? "") + strandOutline(p, 5.2, 1.9, a);
+  }
+  return (
+    <g>
+      <path
+        d={d}
+        fill="none"
+        strokeWidth={5.2}
+        strokeLinecap="round"
+        className="stroke-room-basket-shadow"
+      />
+      {Object.entries(tones).map(([tone, path]) => (
+        <path key={tone} d={path} className={tone} />
+      ))}
+      <path
+        d={d}
+        fill="none"
+        strokeWidth={1.2}
+        transform="translate(0.8 1)"
+        className="stroke-room-basket-deep/30"
+      />
+    </g>
+  );
+}
+
+// A point and its direction on a cubic Bézier curve, at t from 0 to 1.
+function bezierAt(
+  [p0, p1, p2, p3]: [Pt, Pt, Pt, Pt],
+  t: number,
+): { at: Pt; angle: number } {
+  const u = 1 - t;
+  const at: Pt = [
+    u ** 3 * p0[0] +
+      3 * u * u * t * p1[0] +
+      3 * u * t * t * p2[0] +
+      t ** 3 * p3[0],
+    u ** 3 * p0[1] +
+      3 * u * u * t * p1[1] +
+      3 * u * t * t * p2[1] +
+      t ** 3 * p3[1],
+  ];
+  const dx =
+    3 * u * u * (p1[0] - p0[0]) +
+    6 * u * t * (p2[0] - p1[0]) +
+    3 * t * t * (p3[0] - p2[0]);
+  const dy =
+    3 * u * u * (p1[1] - p0[1]) +
+    6 * u * t * (p2[1] - p1[1]) +
+    3 * t * t * (p3[1] - p2[1]);
+  return { at, angle: (Math.atan2(dy, dx) * 180) / Math.PI };
+}
+
+function Basket({ id }: { id: string }) {
+  const { right, w, foot, h, floor, rim } = BASKET;
+  const left = right - w;
+  const cx = left + w / 2;
+  const top = floor - h; // top of the rim
+  // Half its width at a height t down from the rim (0) to the foot (1):
+  // straight sides that curve in toward the foot.
+  const half = (t: number) => (w / 2) * (1 - (1 - foot) * t ** 3);
+  const rowH = 5.8;
+  const gap = 0.9;
+  const rows: { y: number; half: number }[] = [];
+  for (let y = top + rim + gap; y + rowH <= floor + 0.5; y += rowH + gap) {
+    rows.push({ y, half: half((y + rowH / 2 - top) / h) });
+  }
+  // The stakes: pale rods woven over every other coil.
+  const stakes = Array.from(
+    { length: 9 },
+    (_, i) => cx - w * 0.36 + (i * w * 0.72) / 8,
+  );
+
+  return (
+    <g>
+      <defs>
+        {/* A coil reads round: dark at its top and bottom edges */}
+        <linearGradient id="basket-coil-round" x1="0" y1="0" x2="0" y2="1">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.2}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="0.25"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="0.55"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.35}
+            className="text-room-basket-deep"
+          />
+        </linearGradient>
+        {/* And the basket reads round: darker toward its sides, the right
+            more than the left, which faces the light */}
+        <linearGradient id="basket-coil-ends">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.15}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="0.15"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="0.8"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.3}
+            className="text-room-basket-deep"
+          />
+        </linearGradient>
+      </defs>
+
+      {/* Its shadow on the board */}
+      <ellipse
+        cx={cx}
+        cy={floor}
+        rx={half(1) + 2}
+        ry={1.8}
+        className="fill-room-metal/30"
+      />
+
+      {/* The dark inside of the weave, behind the coils */}
+      <path
+        d={`M${cx - half(0) + 1} ${top + rim / 2}L${cx + half(0) - 1} ${top + rim / 2}${rows
+          .map((row) => `L${cx + row.half - 1} ${row.y + rowH / 2}`)
+          .join(
+            "",
+          )}L${cx + half(1) - 3} ${floor}L${cx - half(1) + 3} ${floor}${[
+          ...rows,
+        ]
+          .reverse()
+          .map((row) => `L${cx - row.half + 1} ${row.y + rowH / 2}`)
+          .join("")}Z`}
+        className="fill-room-basket-deep"
+      />
+
+      {/* Jute twine in the gaps between the coils */}
+      {rows.map((row, i) => (
+        <path
+          key={row.y}
+          d={`M${cx - row.half + 2} ${row.y - gap / 2}H${cx + row.half - 2}`}
+          strokeWidth={0.5}
+          strokeDasharray="0.9 0.5"
+          className={
+            i % 2 ? "stroke-room-basket-tan/80" : "stroke-room-basket-straw/70"
+          }
+        />
+      ))}
+
+      {rows.map((row, i) => (
+        <Coil
+          key={row.y}
+          id={`${id}-coil-${i}`}
+          x0={cx - row.half}
+          x1={cx + row.half}
+          y={row.y}
+          h={rowH}
+          lean={32}
+          seed={i + 1}
+        />
+      ))}
+
+      {/* The stakes, over every other coil */}
+      {stakes.map((x, i) =>
+        rows.map((row, j) => {
+          const sx = cx + ((x - cx) * row.half) / (w / 2);
+          return (i + j) % 2 ? null : (
+            <g key={`${i}-${j}`}>
+              <rect
+                x={sx - 0.6}
+                y={row.y - gap}
+                width={1.2}
+                height={rowH * 0.85}
+                rx={0.5}
+                className="fill-room-basket-wheat"
+              />
+              <rect
+                x={sx + 0.2}
+                y={row.y - gap}
+                width={0.4}
+                height={rowH * 0.85}
+                className="fill-room-basket-tan/70"
+              />
+            </g>
+          );
+        }),
+      )}
+
+      <BasketHandle cx={left + 6} base={top + rim / 2} seed={1} />
+      <BasketHandle cx={right - 6} base={top + rim / 2} seed={2} />
+
+      {/* The rim: a thicker coil, its strands leaning the other way */}
+      <Coil
+        id={`${id}-rim`}
+        x0={left}
+        x1={right}
+        y={top}
+        h={rim}
+        lean={-30}
+        seed={9}
+      />
+    </g>
+  );
+}
+
+// Basket 2: the shape and handles redrawn to the real proportions, measured
+// from the photo of the whole shelf. It's about 1.3 times as wide as it is
+// tall: a round tub that bulges a little below the rim, then curves in to a
+// narrower foot with rounded corners. Its handles are narrow upright ears
+// at each end, seen nearly edge on and wrapped in seagrass, rising about a
+// quarter of its height above the rim and leaning out a little. The coils'
+// twists run shallow down to the right; the rim's are steep.
+const TUB = {
+  right: SHELF.right - SHELF.post - 2, // its widest point, near the post
+  h: 57.6, // from the foot to the top of the rim
+  aspect: 1.28, // its rim's width over its height
+  floor: BOARDS[1],
+  rim: 8,
+  ear: { w: 6.2, rise: 14 },
+};
+
+// Half its width at a height t down from the top of the rim (0) to the
+// foot (1), as a share of the rim's half width: out a little to the belly,
+// then in to the foot, fastest at the bottom corners.
+const TUB_PROFILE: [number, number][] = [
+  [0, 1],
+  [0.16, 1.02],
+  [0.42, 1.04],
+  [0.66, 1.02],
+  [0.8, 0.97],
+  [0.9, 0.9],
+  [0.96, 0.82],
+  [1, 0.72],
+];
+function tubHalf(t: number) {
+  for (let i = 1; i < TUB_PROFILE.length; i++) {
+    const [t1, v1] = TUB_PROFILE[i];
+    const [t0, v0] = TUB_PROFILE[i - 1];
+    if (t <= t1) return v0 + ((t - t0) / (t1 - t0)) * (v1 - v0);
+  }
+  return TUB_PROFILE[TUB_PROFILE.length - 1][1];
+}
+
+// A handle: a narrow upright ear of wrapped seagrass, its base behind the
+// rim at x, leaning out by `lean` degrees, with the loop's opening a dark
+// slit seen edge on.
+function TubEar({
+  id,
+  x,
+  base,
+  top,
+  lean,
+  seed,
+  palette = BASKET_DARK,
+}: {
+  id: string;
+  x: number;
+  base: number;
+  top: number;
+  lean: number;
+  seed: number;
+  palette?: BasketPalette;
+}) {
+  const w = TUB.ear.w;
+  const l = x - w / 2;
+  const r = x + w / 2;
+  const tab = `M${l} ${base}L${l + 0.2} ${top + 3.4}Q${l + 0.6} ${top} ${x} ${top - 0.3}Q${r - 0.6} ${top} ${r - 0.2} ${top + 3.4}L${r} ${base}Z`;
+  const tones: Record<string, string> = {};
+  let grooves = "";
+  for (let y = base + 2, i = 0; y > top - 3; y -= 2.1, i++) {
+    const tone =
+      palette.tones[
+        Math.floor((jitter(seed * 23 + i * 7) + 0.5) * palette.tones.length)
+      ];
+    const outline = strandOutline(
+      [l - 1.5, y],
+      w + 3.4,
+      2.4,
+      (32 * Math.PI) / 180,
+    );
+    tones[tone] = (tones[tone] ?? "") + outline;
+    grooves += outline;
+  }
+  return (
+    <g transform={`rotate(${lean} ${x} ${base})`}>
+      <clipPath id={id}>
+        <path d={tab} />
+      </clipPath>
+      <g clipPath={`url(#${id})`}>
+        <path d={tab} className={palette.base} />
+        {Object.entries(tones).map(([tone, d]) => (
+          <path key={tone} d={d} className={tone} />
+        ))}
+        <path
+          d={grooves}
+          fill="none"
+          strokeWidth={0.3}
+          className={palette.groove}
+        />
+        {/* The loop's opening, seen edge on */}
+        <ellipse
+          cx={x + 0.3}
+          cy={(top + base) / 2 - 1.5}
+          rx={0.7}
+          ry={(base - top) * 0.22}
+          className="fill-room-basket-deep/60"
+        />
+        <path d={tab} fill={`url(#${palette.ends})`} />
+      </g>
+    </g>
+  );
+}
+
+function BasketTub({ id, light = false }: { id: string; light?: boolean }) {
+  const palette = light ? BASKET_LIGHT : BASKET_DARK;
+  const { right: widest, h, aspect, floor, rim, ear } = TUB;
+  const rimHalf = (h * aspect) / 2;
+  const cx = widest - rimHalf * 1.04;
+  const top = floor - h;
+  const halfAt = (y: number) => rimHalf * tubHalf((y - top) / h);
+  const rowH = 6;
+  const gap = 0.8;
+  const rows: { y: number; half: number }[] = [];
+  for (let y = top + rim + gap; y + rowH <= floor + 0.6; y += rowH + gap) {
+    rows.push({ y, half: halfAt(y + rowH / 2) });
+  }
+  // Its outline, sampled down each side, for the dark weave behind the coils.
+  const sides = Array.from(
+    { length: 21 },
+    (_, i) => top + rim / 2 + (i / 20) * (h - rim / 2),
+  );
+  const outline = `M${sides.map((y) => `${(cx - halfAt(y) + 0.6).toFixed(2)} ${y.toFixed(2)}`).join("L")}L${[
+    ...sides,
+  ]
+    .reverse()
+    .map((y) => `${(cx + halfAt(y) - 0.6).toFixed(2)} ${y.toFixed(2)}`)
+    .join("L")}Z`;
+  const stakes = Array.from({ length: 7 }, (_, i) => -0.72 + (i * 1.44) / 6);
+  const earTop = top - ear.rise;
+
+  return (
+    <g>
+      <defs>
+        <linearGradient id="basket-coil-round" x1="0" y1="0" x2="0" y2="1">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.2}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="0.25"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="0.55"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.35}
+            className="text-room-basket-deep"
+          />
+        </linearGradient>
+        <linearGradient id="basket-coil-ends">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.15}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="0.15"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="0.8"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-deep"
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.3}
+            className="text-room-basket-deep"
+          />
+        </linearGradient>
+        <linearGradient
+          id="basket-coil-round-light"
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="1"
+        >
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.12}
+            className="text-room-basket-shadow"
+          />
+          <stop
+            offset="0.25"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-shadow"
+          />
+          <stop
+            offset="0.55"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-shadow"
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.25}
+            className="text-room-basket-shadow"
+          />
+        </linearGradient>
+        <linearGradient id="basket-coil-ends-light">
+          <stop
+            offset="0"
+            stopColor="currentColor"
+            stopOpacity={0.1}
+            className="text-room-basket-shadow"
+          />
+          <stop
+            offset="0.15"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-shadow"
+          />
+          <stop
+            offset="0.8"
+            stopColor="currentColor"
+            stopOpacity={0}
+            className="text-room-basket-shadow"
+          />
+          <stop
+            offset="1"
+            stopColor="currentColor"
+            stopOpacity={0.2}
+            className="text-room-basket-shadow"
+          />
+        </linearGradient>
+      </defs>
+
+      <ellipse
+        cx={cx}
+        cy={floor}
+        rx={rimHalf * 0.8}
+        ry={1.8}
+        className="fill-room-metal/30"
+      />
+
+      {/* The ears, their bases behind the rim */}
+      <TubEar
+        id={`${id}-ear-l`}
+        x={cx - rimHalf + ear.w / 2 - 0.4}
+        base={top + rim}
+        top={earTop}
+        lean={-9}
+        seed={1}
+        palette={palette}
+      />
+      <TubEar
+        id={`${id}-ear-r`}
+        x={cx + rimHalf - ear.w / 2 + 0.4}
+        base={top + rim}
+        top={earTop + 0.8}
+        lean={9}
+        seed={2}
+        palette={palette}
+      />
+
+      <path d={outline} className={palette.weave} />
+      {rows.map((row, i) => (
+        <path
+          key={`t${row.y}`}
+          d={`M${cx - row.half + 2} ${row.y - gap / 2}H${cx + row.half - 2}`}
+          strokeWidth={0.5}
+          strokeDasharray="0.9 0.5"
+          className={
+            i % 2 ? "stroke-room-basket-tan/80" : "stroke-room-basket-straw/70"
+          }
+        />
+      ))}
+      {rows.map((row, i) => (
+        <Coil
+          key={row.y}
+          id={`${id}-coil-${i}`}
+          x0={cx - row.half}
+          x1={cx + row.half}
+          y={row.y}
+          h={rowH}
+          lean={-20}
+          seed={i + 21}
+          palette={palette}
+        />
+      ))}
+      {/* The stakes, over every other coil */}
+      {stakes.map((f, i) =>
+        rows.map((row, j) =>
+          (i + j) % 2 ? null : (
+            <g key={`${i}-${j}`}>
+              <rect
+                x={cx + f * row.half - 0.6}
+                y={row.y - gap}
+                width={1.2}
+                height={rowH * 0.85}
+                rx={0.5}
+                className="fill-room-basket-wheat"
+              />
+              <rect
+                x={cx + f * row.half + 0.2}
+                y={row.y - gap}
+                width={0.4}
+                height={rowH * 0.85}
+                className="fill-room-basket-tan/70"
+              />
+            </g>
+          ),
+        ),
+      )}
+      {/* The rim, its twists steep */}
+      <Coil
+        id={`${id}-rim`}
+        x0={cx - rimHalf}
+        x1={cx + rimHalf}
+        y={top}
+        h={rim}
+        lean={64}
+        seed={29}
+        palette={palette}
+      />
+    </g>
+  );
+}
+
 /* ---------- Room ---------- */
 
 export type LampVersion = 1 | 2 | 3 | 4 | 5;
@@ -1307,23 +4604,39 @@ export const SHELVES: {
   version: LampVersion;
   lamp: string;
   plant?: { version: PlantVersion; label: string };
+  books?: { version: BooksVersion; label: string };
+  basket?: { version: BasketVersion; label: string };
 }[] = [
   {
     version: 1,
     lamp: "First lamp",
     plant: { version: 1, label: "Snake plant" },
+    books: { version: 1, label: "Thinking, Fast and Slow" },
+    basket: { version: 1, label: "Seagrass basket" },
   },
   {
     version: 2,
     lamp: "Solid shade",
     plant: { version: 2, label: "Snake plant, real pot" },
+    books: { version: 2, label: "A full shelf of books" },
+    basket: { version: 2, label: "Seagrass basket, real shape" },
   },
-  { version: 3, lamp: "Clear shade" },
-  { version: 4, lamp: "Arm lamp" },
+  {
+    version: 3,
+    lamp: "Clear shade",
+    books: { version: 3, label: "A full shelf, opening bigger" },
+    basket: { version: 3, label: "Seagrass basket, lighter" },
+  },
+  {
+    version: 4,
+    lamp: "Arm lamp",
+    books: { version: 4, label: "Books that look read" },
+  },
   {
     version: 5,
     lamp: "Lamp switch",
     plant: { version: 2, label: "Snake plant, real pot" },
+    books: { version: 5, label: "Books, calmer spines" },
   },
 ];
 
@@ -1351,14 +4664,36 @@ const SWITCH_HIT = {
 export default function Room({
   lamp,
   plant,
+  books,
+  basket,
 }: {
   lamp: LampVersion;
   plant?: PlantVersion;
+  books?: BooksVersion;
+  basket?: BasketVersion;
 }) {
   const id = `room-${lamp}`;
 
+  // Books 2 and up are HTML laid over the drawing (see TurningBook).
+  const withBooks = (drawing: React.ReactNode) =>
+    books && books > 1 ? (
+      <div className="relative">
+        {drawing}
+        {books >= 4 && <BookFinishDefs />}
+        <BookRow
+          books={books === 5 ? SHELF_5 : books >= 3 ? SHELF_3 : FULL_SHELF}
+          sweep={books >= 3}
+          finish={books >= 4}
+          read={books >= 4}
+          dim={books === 5}
+        />
+      </div>
+    ) : (
+      drawing
+    );
+
   if (lamp === 5) {
-    return (
+    return withBooks(
       <LampSwitch
         viewBox={VIEW_BOX}
         title={TITLE}
@@ -1370,11 +4705,15 @@ export default function Room({
         <Bookshelf />
         <SwitchLamp id={`${id}-ball`} />
         {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
-      </LampSwitch>
+        {basket === 1 && <Basket id={`${id}-basket`} />}
+        {basket === 2 && <BasketTub id={`${id}-basket`} />}
+        {basket === 3 && <BasketTub id={`${id}-basket`} light />}
+        {books && <Books version={books} />}
+      </LampSwitch>,
     );
   }
 
-  return (
+  const drawing = (
     <svg
       viewBox={VIEW_BOX}
       role="img"
@@ -1389,6 +4728,11 @@ export default function Room({
         <StemLamp version={lamp} id={`${id}-ball`} />
       )}
       {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
+      {basket === 1 && <Basket id={`${id}-basket`} />}
+      {basket === 2 && <BasketTub id={`${id}-basket`} />}
+      {basket === 3 && <BasketTub id={`${id}-basket`} light />}
+      {books && <Books version={books} />}
     </svg>
   );
+  return withBooks(drawing);
 }

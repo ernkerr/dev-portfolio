@@ -20,14 +20,21 @@ export default function AboutPage() {
           The footer's mt-section matches the space above. */}
       <div className="mx-[calc(50%-50vw)] overflow-x-auto px-[calc(50vw-50%)] pt-section">
         <div className="flex w-max gap-x-10">
-          {SHELVES.map(({ version, lamp, plant }) => (
+          {SHELVES.map(({ version, lamp, plant, books, basket }) => (
             <figure key={version} className="shrink-0">
-              <Room lamp={version} plant={plant?.version} />
+              <Room
+                lamp={version}
+                plant={plant?.version}
+                books={books?.version}
+                basket={basket?.version}
+              />
               <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
                 <p>
                   {String(version).padStart(2, "0")}. {lamp}
                 </p>
                 {plant && <p className="mt-1">{plant.label}</p>}
+                {books && <p className="mt-1">{books.label}</p>}
+                {basket && <p className="mt-1">{basket.label}</p>}
               </figcaption>
             </figure>
           ))}

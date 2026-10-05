@@ -68,6 +68,44 @@ export default {
             white: "#F3F0EA", // plant 1's plain white pot
             "white-shade": "#D6CFC4", // its rim and foot lines
           },
+          // The books: paperback spines, Thinking, Fast and Slow's pencil
+          book: {
+            paper: "#F4F0E6",
+            pencil: "#F2C230",
+            eraser: "#E8A3A0",
+            // Spine and cover colors, from photos of the books
+            teal: "#1F8C95", // Shantaram's jacket
+            red: "#C23A35", // Shantaram's palace, Water for Elephants, Five People's title
+            rust: "#B4532F", // Psychology's worn leather
+            maroon: "#5E1F27", // the Harvard Classics, Five People's spine
+            slate: "#2E3238", // Ishihara, Modern Analysis
+            taupe: "#4F4741", // The Astonishing Hypothesis, Reflections
+            khaki: "#C4BC98", // The Pragmatic Programmer's title
+            olive: "#A39A45", // The Divine Comedy
+            sky: "#2C9AC4", // Love Does
+            leaf: "#5BA346", // The Power of Kindness's sprout
+            cream: "#EFE6D2", // Five People's cover, Water for Elephants' curtain
+            amber: "#F0A24A", // Ishihara's dots
+            // Hyperion's spine, sampled from a photo of the jacket
+            hyperion: {
+              lavender: "#C3C2E0", // top of the spine
+              cream: "#FBF1DC",
+              pink: "#E8B2B4",
+              gold: "#E2B35E",
+              ochre: "#C98A3E",
+              umber: "#6B4330", // foot of the spine
+            },
+          },
+          // The seagrass basket, dark to light, from a photo of it
+          basket: {
+            deep: "#1C0D06",
+            shadow: "#4A2D1A",
+            brown: "#6F492D",
+            tan: "#90633F",
+            straw: "#AD7E53",
+            wheat: "#C89C6A",
+            pale: "#E0BF8B",
+          },
           // The disco ball's colored glass shards
           disco: {
             plum: "#5B3F6B",

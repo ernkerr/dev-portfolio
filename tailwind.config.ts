@@ -179,6 +179,26 @@ export default {
             flare: "#B47CFF",
             bezel: "#26262D",
           },
+          // My lava lamp, from a photo of it off: the silver cap and foot,
+          // the darker collar, the pale liquid and the wax settled under
+          // it; then lit, guessed until I have a photo of it on
+          lava: {
+            chrome: "#C9CED3",
+            "chrome-light": "#F0F3F5",
+            "chrome-dark": "#878E95",
+            collar: "#5A5557",
+            "collar-light": "#8F8A8C",
+            liquid: "#E2E5C6",
+            "liquid-edge": "#C4C8A6",
+            wax: "#D5CE9F",
+            "lit-liquid": "#EEF4A6",
+            "lit-wax": "#FFF3D2",
+            // Lava lamp 4: its wax off, a warm cream; lit, amber, and the
+            // light through its clear glass
+            cream: "#E6D1A2",
+            amber: "#FFB144",
+            warm: "#FFE0A0",
+          },
           // The disco ball's colored glass shards
           disco: {
             plum: "#5B3F6B",
@@ -292,6 +312,20 @@ export default {
           "0%, 60%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        // The lava lamp's wax, drifting up and back down, stretching as it
+        // rises
+        "lava-a": {
+          "0%, 100%": { transform: "translateY(0) scale(1, 1)" },
+          "50%": { transform: "translateY(-17px) scale(0.85, 1.25)" },
+        },
+        "lava-b": {
+          "0%, 100%": { transform: "translateY(-2px) scale(1, 1)" },
+          "45%": { transform: "translateY(-20px) scale(1.15, 0.9)" },
+        },
+        "lava-c": {
+          "0%, 100%": { transform: "translateY(0) scale(0.9, 1.1)" },
+          "55%": { transform: "translateY(-12px) scale(1.1, 0.95)" },
+        },
         "dj-level": {
           "0%, 100%": { transform: "scaleY(1)" },
           "35%": { transform: "scaleY(0.55)" },
@@ -308,6 +342,9 @@ export default {
         "dj-blink": "dj-blink 1s step-end infinite",
         "camera-flash": "camera-flash 400ms ease-out forwards",
         "dj-note": "dj-note 2s ease-out",
+        "lava-a": "lava-a 14s ease-in-out infinite",
+        "lava-b": "lava-b 19s ease-in-out infinite",
+        "lava-c": "lava-c 23s ease-in-out infinite",
       },
 
       transitionTimingFunction: {

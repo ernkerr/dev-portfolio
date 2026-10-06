@@ -30,6 +30,7 @@ export default function AboutPage() {
               headphones,
               dj,
               camera,
+              lava,
             }) => (
               <figure key={version} className="shrink-0">
                 <Room
@@ -40,6 +41,7 @@ export default function AboutPage() {
                   headphones={headphones?.version}
                   dj={dj?.version}
                   camera={camera?.version}
+                  lava={lava?.version}
                 />
                 <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
                   <p>
@@ -51,6 +53,7 @@ export default function AboutPage() {
                   {headphones && <p className="mt-1">{headphones.label}</p>}
                   {dj && <p className="mt-1">{dj.label}</p>}
                   {camera && <p className="mt-1">{camera.label}</p>}
+                  {lava && <p className="mt-1">{lava.label}</p>}
                 </figcaption>
               </figure>
             ),

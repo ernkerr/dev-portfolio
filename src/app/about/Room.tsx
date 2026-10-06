@@ -6,6 +6,8 @@ import OpusQuadLive from "./OpusQuadLive";
 import { overviewBars, waveBands } from "./opusQuadArt";
 import TiltingDeck from "./TiltingDeck";
 import CameraOnShelf from "./Camera";
+import LavaLamp from "./LavaLamp";
+import { LAVA } from "./lavaShape";
 import { MY_PHOTOS } from "./cameraPhotos";
 
 // My old room. So far: the bookshelf, seen straight on (black metal posts
@@ -6299,7 +6301,7 @@ function OpusQuadLights({
 //    open, then turns round. Its shutter keeps each photo; the trash
 //    deletes it
 // 4. the same, traced closer to the photos, with more colors and shine
-// 5. the same, a little smaller, near the board's right end
+// 5. the same, a little smaller, left of the lava lamp
 export type CameraVersion = 1 | 2 | 3 | 4 | 5;
 
 // Where each sits on the board: its left end and how wide it is
@@ -6308,7 +6310,7 @@ const CAMERA = {
   2: { left: 118, width: 70 },
   3: { left: 124, width: 66 },
   4: { left: 124, width: 66 },
-  5: { left: 188, width: 56 },
+  5: { left: 160, width: 56 },
 };
 const cameraBox = (version: CameraVersion) => {
   const { left, width } = CAMERA[version];
@@ -6317,6 +6319,34 @@ const cameraBox = (version: CameraVersion) => {
   return {
     left: `${((left - VIEW.left) / VIEW.width) * 100}%`,
     top: `${((BOARDS[3] - height - VIEW.top) / VIEW.height) * 100}%`,
+    width: `${(width / VIEW.width) * 100}%`,
+    height: `${(height / VIEW.height) * 100}%`,
+  };
+};
+
+/* ---------- Lava lamp ---------- */
+
+// My lava lamp on the board below the DJ deck, beside the camera. It's
+// HTML over the drawing, as one of the room's lights it can switch (see
+// LavaLamp.tsx). Versions:
+// 1. traced from a photo of it off, slim and sharp-edged with clear glass;
+//    glows when the lights are on
+// 2. wider, and taller, nearly up to the board above; glows brighter
+// 3. its glass sitting down in a bigger metal base; its wax settles wavy
+//    and, lit, rises and sinks in blobs like a real lava lamp's
+// 4. its glass meeting the base exactly, clear; its wax cream, and amber
+//    lit; its glow amber, softer and further reaching
+// 5. the same, right of the camera, near the board's right end
+export type LavaVersion = 1 | 2 | 3 | 4 | 5;
+
+// Its foot's middle on the board, by version
+const LAVA_SPOT = { 1: 120, 2: 101, 3: 108, 4: 108, 5: 236 };
+const lavaBox = (version: LavaVersion) => {
+  const { width, height } = LAVA[version];
+  const x = LAVA_SPOT[version];
+  return {
+    left: `${((x - width / 2 - VIEW.left) / VIEW.width) * 100}%`,
+    top: `${((BOARDS[3] + 2 - height - VIEW.top) / VIEW.height) * 100}%`,
     width: `${(width / VIEW.width) * 100}%`,
     height: `${(height / VIEW.height) * 100}%`,
   };
@@ -6337,6 +6367,7 @@ export const SHELVES: {
   headphones?: { version: HeadphonesVersion; label: string };
   dj?: { version: DjVersion; label: string };
   camera?: { version: CameraVersion; label: string };
+  lava?: { version: LavaVersion; label: string };
 }[] = [
   {
     version: 1,
@@ -6347,6 +6378,7 @@ export const SHELVES: {
     headphones: { version: 1, label: "Beats headphones" },
     dj: { version: 1, label: "Opus Quad" },
     camera: { version: 1, label: "FinePix camera" },
+    lava: { version: 1, label: "Lava lamp" },
   },
   {
     version: 2,
@@ -6357,6 +6389,7 @@ export const SHELVES: {
     headphones: { version: 2, label: "Beats headphones, set down" },
     dj: { version: 2, label: "Opus Quad, tilted" },
     camera: { version: 2, label: "FinePix camera, slides on" },
+    lava: { version: 2, label: "Lava lamp, bigger" },
   },
   {
     version: 3,
@@ -6364,6 +6397,7 @@ export const SHELVES: {
     books: { version: 3, label: "A full shelf, opening bigger" },
     basket: { version: 3, label: "Seagrass basket, lighter" },
     camera: { version: 3, label: "FinePix camera, lying down" },
+    lava: { version: 3, label: "Lava lamp, real wax" },
     headphones: { version: 3, label: "Beats headphones, resting" },
     dj: { version: 3, label: "Opus Quad, plug in to play" },
   },
@@ -6375,6 +6409,7 @@ export const SHELVES: {
     basket: { version: 4, label: "Seagrass basket, bigger" },
     dj: { version: 4, label: "Opus Quad, tilts up to play" },
     camera: { version: 4, label: "FinePix camera, traced" },
+    lava: { version: 4, label: "Lava lamp, clear and amber" },
   },
   {
     version: 5,
@@ -6385,6 +6420,7 @@ export const SHELVES: {
     basket: { version: 4, label: "Seagrass basket, bigger" },
     dj: { version: 5, label: "Opus Quad, play and scratch" },
     camera: { version: 5, label: "FinePix camera, smaller" },
+    lava: { version: 5, label: "Lava lamp, by the camera" },
   },
 ];
 
@@ -6417,6 +6453,7 @@ export default function Room({
   headphones,
   dj,
   camera,
+  lava,
 }: {
   lamp: LampVersion;
   plant?: PlantVersion;
@@ -6425,6 +6462,7 @@ export default function Room({
   headphones?: HeadphonesVersion;
   dj?: DjVersion;
   camera?: CameraVersion;
+  lava?: LavaVersion;
 }) {
   const id = `room-${lamp}`;
 
@@ -6437,10 +6475,11 @@ export default function Room({
   // them), and over the next shelf, which DJ 4 and 5 come out past.
   const plugIn = dj !== undefined && dj >= 3;
   const withOverlays = (drawing: React.ReactNode) =>
-    (books && books > 1) || headphones === 5 || plugIn || camera ? (
+    (books && books > 1) || headphones === 5 || plugIn || camera || lava ? (
       <div className="relative">
         {drawing}
         {books && books >= 4 && <BookFinishDefs />}
+        {lava && <LavaLamp version={lava} box={lavaBox(lava)} />}
         {camera && (
           <CameraOnShelf
             version={camera}

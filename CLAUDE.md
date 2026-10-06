@@ -63,7 +63,7 @@ Keep running text, captions and section headlines within `max-w-measure`.
 
 ### Shapes and depth
 
-- Everything is square (no `rounded-*`) with `border border-site-line` hairlines. Only the switch, its knob and status dots are `rounded-full`; app icons on tiles are `rounded-app-icon`.
+- Everything is square (no `rounded-*`) with `border border-site-line` hairlines. Only the switch, its knob and status dots are `rounded-full`; app icons on tiles are `rounded-app-icon`, and phone screenshots in case studies are `rounded-phone-screen`.
 - Hierarchy comes from hairlines and type, not shadows. Shadows only on floating things: `shadow-knob`, `shadow-float` (with `ring-1 ring-black/5`), `shadow-switch`.
 
 ### Interaction
@@ -76,6 +76,7 @@ Keep running text, captions and section headlines within `max-w-measure`.
 
 - `SiteShell`: page frame with `SiteHeader` and footer. `CaseStudyArticle`: case-study layout with the pinned section list. `CaseStudy`: design/engineering sides of a case study.
 - `prose.tsx`: `P`, `Lead`, `H3`, `List`, `Code`, `Columns`, `Figure`, `Caption`, `Table`, `Facts`, `Quote`, `InProgress`, plus the `label` and `inlineLink` class strings.
+- `appStudy.tsx`: figures for the app case studies: `BrandField` and `Screens` (screens on the project's brand color), `Review` (a real user's words) and `BuildNote` (a pointer to the engineering side).
 - `Tile`: project tile. Thumbnails are a brand-colored field with one thing on it (app icon, logo or one UI component), never a page screenshot.
 - `SideSwitch` + `SideContext`: the designer/engineer switch and its state.
 

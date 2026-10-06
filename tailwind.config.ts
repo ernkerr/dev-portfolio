@@ -180,6 +180,9 @@ export default {
 
       borderRadius: {
         "app-icon": "22%",
+        // An iPhone screen's corners on a 390 × 844 screenshot (about 55pt),
+        // as a share of its width and height so it scales with the image
+        "phone-screen": "14% / 6.5%",
       },
 
       boxShadow: {

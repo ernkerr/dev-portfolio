@@ -339,6 +339,22 @@ const SHAPES: {
     ),
   },
   {
+    name: "App screen",
+    detail: "rounded-phone-screen · shadow-float",
+    usage: "A phone screenshot on a case study's colored field.",
+    node: (
+      <div className="relative aspect-[1320/2868] h-[84%] overflow-hidden rounded-phone-screen shadow-float ring-1 ring-black/5">
+        <Image
+          src="/images/heartsScoreTracker/roundScores.png"
+          alt="Hearts Score Tracker round scores screen."
+          fill
+          sizes="48px"
+          className="object-cover"
+        />
+      </div>
+    ),
+  },
+  {
     name: "Floating switch",
     detail: "shadow-switch",
     usage: "The switch pinned to a case study's corner.",

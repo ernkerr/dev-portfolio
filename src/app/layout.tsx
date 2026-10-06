@@ -126,7 +126,7 @@ export default function RootLayout({
         <Script id="easter-egg" strategy="afterInteractive">
           {`
             setTimeout(function() {
-              console.log("%c⋆˙⟡ hi there ⟡˙⋆", "color: #60a5fa; font-size: 20px; font-weight: bold;");
+              console.log("%c⋆˙⟡ hi there ⟡˙⋆", "color: #A5B1FF; font-size: 20px; font-weight: bold;");
               console.log("%c" +
                 "⠀⠀⠀⢸⣦⡀⠀⠀⠀⠀⢀⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\\n" +
                 "⠀⠀⠀⢸⣏⠻⣶⣤⡶⢾⡿⠁⠀⢠⣄⡀⢀⣴⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\\n" +
@@ -143,7 +143,7 @@ export default function RootLayout({
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⠀⠀⠀⠀⠀⠀⠀\\n" +
                 "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀",
                 "color: #000000; font-size: 14px; line-height: 1.1;");
-              console.log("%cthanks for peeking behind the curtain :-)", "color: #93c5fd; font-size: 14px;");
+              console.log("%cthanks for peeking behind the curtain :-)", "color: #A5B1FF; font-size: 14px;");
             }, 2000);
           `}
         </Script>

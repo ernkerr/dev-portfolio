@@ -4,10 +4,10 @@ import { useState, type ReactNode } from "react";
 import SideSwitch from "./SideSwitch";
 import SiteShell from "./SiteShell";
 
-// A project's case study, told from either side. On a written-up side the
-// switch floats in the corner so readers can flip between the design and
-// engineering write-ups from anywhere on the page. A side that isn't written
-// yet shows a short note instead, with the switch right under it.
+// A project's case study, told from either side. The switch floats in the
+// corner so readers can flip between the design and engineering write-ups
+// from anywhere on the page. A side that isn't written yet shows a short
+// note instead; the switch stays in the same corner.
 export default function CaseStudy({
   project,
   engineerFirst,
@@ -28,13 +28,9 @@ export default function CaseStudy({
     setEngineer(next);
   }
 
-  if (!writeUp) {
-    return <ComingSoon project={project} engineer={engineer} onFlip={flip} />;
-  }
-
   return (
     <>
-      {writeUp}
+      {writeUp ?? <ComingSoon project={project} engineer={engineer} />}
       <SideSwitch
         engineer={engineer}
         onFlip={flip}
@@ -47,11 +43,9 @@ export default function CaseStudy({
 function ComingSoon({
   project,
   engineer,
-  onFlip,
 }: {
   project: string;
   engineer: boolean;
-  onFlip: (engineer: boolean) => void;
 }) {
   return (
     <SiteShell>
@@ -67,11 +61,6 @@ function ComingSoon({
           Until then, flip the switch to see how it was{" "}
           {engineer ? "designed" : "built"}.
         </p>
-        <SideSwitch
-          engineer={engineer}
-          onFlip={onFlip}
-          className="relative mt-8 block h-14 w-28 md:mt-10 md:h-20 md:w-40"
-        />
       </section>
     </SiteShell>
   );

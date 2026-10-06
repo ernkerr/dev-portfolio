@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import NavBar from "@/components/NavBar";
+import SiteHeader from "@/components/site/SiteHeader";
 import Shine from "@/components/Shine";
 import { PolkaDots } from "@/components/ui/PolkaDots";
 import { geistSans, geistMono } from "../../../public/fonts/fonts";
@@ -163,7 +163,7 @@ const STACK_CHIPS = [
 export default function OrderSyncAgent() {
   return (
     <div className={`${geistSans.className} min-h-screen bg-navy-1 text-white`}>
-      <NavBar />
+      <SiteHeader />
 
       {/* HERO */}
       <section className="relative overflow-hidden bg-navy-1 px-8 pb-20 pt-10 md:px-16 md:pt-16 lg:px-24">

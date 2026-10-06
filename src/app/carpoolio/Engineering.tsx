@@ -6,10 +6,12 @@
 // import NavBar from "@/components/NavBar";
 // import Link from "next/link";
 import ProjectTemplate from "@/components/ProjectTemplate";
+import SiteHeader from "@/components/site/SiteHeader";
 export default function Carpoolio() {
   return (
     <div>
       <ProjectTemplate
+        header={<SiteHeader />}
         title="Carpoolio"
         description={
           <>

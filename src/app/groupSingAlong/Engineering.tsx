@@ -1,11 +1,13 @@
 "use client";
 
 import ProjectTemplate from "@/components/ProjectTemplate";
+import SiteHeader from "@/components/site/SiteHeader";
 
 export default function GroupSingAlong() {
   return (
     <>
       <ProjectTemplate
+        header={<SiteHeader />}
         title="Group Sing Along"
         description={
           <>

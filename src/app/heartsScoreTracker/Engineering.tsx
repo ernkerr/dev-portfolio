@@ -1,11 +1,13 @@
 "use client";
 
 import ProjectTemplate from "@/components/ProjectTemplate";
+import SiteHeader from "@/components/site/SiteHeader";
 
 export default function HeartsScoreTracker() {
   return (
     <>
       <ProjectTemplate
+        header={<SiteHeader />}
         title="Hearts Score Tracker"
         description={
           <>

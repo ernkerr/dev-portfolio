@@ -1,10 +1,12 @@
 "use client";
 
 import ProjectTemplate from "@/components/ProjectTemplate";
+import SiteHeader from "@/components/site/SiteHeader";
 export default function GinScoreTracker() {
   return (
     <>
       <ProjectTemplate
+        header={<SiteHeader />}
         title="Gin Score Tracker"
         description={
           <>

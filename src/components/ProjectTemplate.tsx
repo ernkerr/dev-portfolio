@@ -25,6 +25,9 @@ interface ProjectTemplateProps {
   video4?: string;
   lessons: ReactNode;
   stackImages?: boolean;
+  /** What sits above the page: the 2025 NavBar unless a case study's
+   *  engineering side passes the new SiteHeader. */
+  header?: ReactNode;
 }
 
 export default function ProjectTemplate({
@@ -46,10 +49,11 @@ export default function ProjectTemplate({
   video4,
   lessons,
   stackImages,
+  header = <NavBar />,
 }: ProjectTemplateProps) {
   return (
     <div className="bg-slate-900 text-white">
-      <NavBar />
+      {header}
 
       <div className="flex flex-col p-8 md:p-12 lg:px-48">
         <h1

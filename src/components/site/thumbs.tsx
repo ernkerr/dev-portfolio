@@ -1,10 +1,12 @@
+import { Space_Mono } from "next/font/google";
 import Image from "next/image";
-import { LuBuilding2, LuMail } from "react-icons/lu";
+import { LuBuilding2, LuMail, LuMartini } from "react-icons/lu";
 
 // Hand-built thumbnails for projects that have no single image that works.
 // Every size is in cqw (percent of the tile's width) so the composition
 // scales like an image. Content is real: OrderSync's own tokens, buttons and
-// order flow; Carpoolio's own mark and landing-page colors.
+// order flow; Carpoolio's own mark and landing-page colors; Gin Score
+// Tracker's own buttons and gin icon.
 
 const ORDERSYNC_LOGO = "/images/home/thumbs/ordersync-logo.png";
 
@@ -209,6 +211,48 @@ export function FieldNotesMark() {
             </span>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+const spaceMono = Space_Mono({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// Gin Score Tracker's name on a card in the app's neo-brutalist style (as
+// rebuilt in the case study's LiveBoard): 2px black borders, hard black
+// shadows, Space Mono, and its #26ABFF. The martini glass stands in for
+// "Gin", the same icon the app puts on a round won by gin. The two buttons
+// are the app's own; the platform is from the case study's Facts.
+const GIN_BLUE = "#26ABFF";
+const ginHard = "0.7cqw 0.7cqw 0 #000";
+
+export function GinMark() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-[#D3EEFF]">
+      <div
+        className={`${spaceMono.className} w-[44%] rounded-[1cqw] border-[0.35cqw] border-black bg-white p-[3.2cqw] text-black`}
+        style={{ boxShadow: "1.2cqw 1.2cqw 0 #000" }}
+      >
+        <p className="flex items-center justify-center gap-[0.8cqw] py-[1.2cqw] text-[length:3.3cqw] font-bold leading-none tracking-tight">
+          <LuMartini className="h-[3.8cqw] w-[3.8cqw]" strokeWidth={2.5} />
+          Score Tracker
+        </p>
+        <div
+          className="mt-[3cqw] flex h-[6.4cqw] items-center justify-center rounded-[0.8cqw] border-[0.3cqw] border-black text-[length:2.4cqw]"
+          style={{ boxShadow: ginHard }}
+        >
+          Mobile app
+        </div>
+        <div
+          className="mt-[2.4cqw] flex h-[6.4cqw] items-center justify-center rounded-[0.8cqw] border-[0.3cqw] border-black font-sans text-[length:2.4cqw] font-semibold text-white"
+          style={{ boxShadow: ginHard, background: GIN_BLUE }}
+        >
+          iPhone and iPad
+        </div>
       </div>
     </div>
   );

@@ -21,6 +21,7 @@ import {
   label,
 } from "@/components/site/prose";
 import { isEngineerSide } from "@/components/site/side";
+import { GinMark } from "@/components/site/thumbs";
 import SideDemo from "./SideDemo";
 
 // The 2026 edition's design tokens (tailwind.config.ts) and components,
@@ -389,16 +390,11 @@ const GIN: TileItem = {
   title: "Gin Rummy scores, round by round",
   meta: ["Gin Score Tracker", "App Store"],
   art: {
-    kind: "float",
-    src: "/images/ginScoreTracker/GinLogo.png",
-    alt: "Gin Score Tracker app icon: a jester in profile beside the word GIN.",
-    ratio: 1,
-    width: "w-[30%]",
-    radius: "rounded-app-icon",
-    shadow: true,
+    kind: "custom",
+    alt: "Gin Score Tracker, with a martini glass for Gin, above two of the app's buttons: Mobile app and iPhone and iPad.",
+    node: <GinMark />,
   },
   aspect: "aspect-[4/3]",
-  bg: "#E3E69B",
 };
 
 function Part({

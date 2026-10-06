@@ -6,6 +6,7 @@ import SiteShell from "@/components/site/SiteShell";
 import Tile, { type TileItem } from "@/components/site/Tile";
 import {
   CarpoolioMark,
+  GinMark,
   OrderSyncFlow,
   OrderSyncTokens,
 } from "@/components/site/thumbs";
@@ -72,16 +73,11 @@ const RIGHT: TileItem[] = [
     title: "Gin Rummy scores, round by round",
     meta: ["Gin Score Tracker", "App Store"],
     art: {
-      kind: "float",
-      src: "/images/ginScoreTracker/GinLogo.png",
-      alt: "Gin Score Tracker app icon: a jester in profile beside the word GIN.",
-      ratio: 1,
-      width: "w-[30%]",
-      radius: "rounded-[22%]",
-      shadow: true,
+      kind: "custom",
+      alt: "Gin Score Tracker, with a martini glass for Gin, above two of the app's buttons: Mobile app and iPhone and iPad.",
+      node: <GinMark />,
     },
     aspect: "aspect-[4/3]",
-    bg: "#E3E69B",
   },
   {
     href: "/groupSingAlong",

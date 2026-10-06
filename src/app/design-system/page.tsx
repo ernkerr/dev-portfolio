@@ -343,10 +343,10 @@ const SHAPES: {
     detail: "rounded-phone-screen · shadow-float",
     usage: "A phone screenshot on a case study's colored field.",
     node: (
-      <div className="relative aspect-[1320/2868] h-[84%] overflow-hidden rounded-phone-screen shadow-float ring-1 ring-black/5">
+      <div className="relative aspect-[780/1688] h-[84%] overflow-hidden rounded-phone-screen shadow-float ring-1 ring-black/5">
         <Image
-          src="/images/heartsScoreTracker/roundScores.png"
-          alt="Hearts Score Tracker round scores screen."
+          src="/images/heartsScoreTracker/study/v1-moon.webp"
+          alt="Hearts Score Tracker’s round entry, with shoot the moon on."
           fill
           sizes="48px"
           className="object-cover"

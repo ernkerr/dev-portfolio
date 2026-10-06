@@ -125,6 +125,60 @@ export default {
             rim: "#38383E",
             logo: "#4A4A52",
           },
+          // My Pioneer DJ Opus Quad, from the maker's photo: matte black, the
+          // wood-and-brass front panel, copper knobs
+          dj: {
+            body: "#333335",
+            base: "#1C1C1D",
+            screen: "#141416",
+            jog: "#3A3A3C",
+            groove: "#4A4A4D",
+            wood: "#4D4133",
+            "wood-light": "#6A5640",
+            "wood-dark": "#33291F",
+            copper: "#B07755",
+            "copper-light": "#D9A07A",
+            // Turned on, once the headphones are plugged in: the lit
+            // screens, the waveforms (lows blue, mids amber, highs white,
+            // as Rekordbox draws them), the jog rings and hot cue pads
+            "lit-screen": "#0E1830",
+            "lit-blue": "#3A7BFF",
+            "lit-amber": "#FFA928",
+            "lit-green": "#3DDC84",
+            "lit-cyan": "#38D3F2",
+            "lit-pink": "#FF5FA2",
+            // More hot cue colors, for DJ 5's pads, which set the jog rings'
+            "lit-red": "#FF4B4B",
+            "lit-yellow": "#FFE14D",
+            "lit-violet": "#9B6BFF",
+          },
+          // My purple Fujifilm FinePix Z37, from the maker's photos
+          camera: {
+            DEFAULT: "#6C22D4", // the body
+            dark: "#4B139E", // its rim and feet
+            light: "#A463F7", // the brushed front panel's sheen
+            panel: "#7A30E2", // the front panel
+            chrome: "#D9DEE3", // the top plate, shutter and lens ring
+            "chrome-dark": "#9AA2AB",
+            lens: "#151A2B",
+            glint: "#9FB4FF", // reflections in the lens
+            glass: "#141417", // round the screen, and the button panel
+            screen: "#2B2B31", // the screen, off
+            key: "#2C2C33", // the buttons
+            label: "#F1EEF6", // their labels and the front lettering
+            accent: "#C8A43C", // the gold arrows on the buttons
+            // Camera 4, traced closer to the photos: the light catching the
+            // top of the body and the brushed cover, the deepest shadow,
+            // the chrome's bright edge, the lens's blue depth and its
+            // purple flare, and the screen surround's sheen
+            violet: "#8B42F2",
+            shine: "#C7A0FF",
+            deep: "#360B7D",
+            "chrome-light": "#F5F7F9",
+            "lens-blue": "#24357F",
+            flare: "#B47CFF",
+            bezel: "#26262D",
+          },
           // The disco ball's colored glass shards
           disco: {
             plum: "#5B3F6B",
@@ -180,6 +234,10 @@ export default {
         section: "24rem", // between sections from 768px up, above the footer
       },
 
+      aspectRatio: {
+        photo: "4 / 3", // photos taken with the About page's camera
+      },
+
       maxWidth: {
         measure: "40rem", // reading width, about 75 characters
         article: "56rem", // case-study column from 1024px
@@ -199,7 +257,12 @@ export default {
         switch: "0 8px 24px rgba(15, 23, 42, 0.35)",
       },
 
-      // The About room's headphones: rocking on a cup, the cord swaying
+      // The About room's headphones: rocking on a cup, the cord swaying.
+      // The Opus Quad once they're plugged in: its lights coming on, the
+      // waveforms scrolling (one 96px stretch of beats, at 120 BPM), the
+      // jog wheels turning at 33 rpm, the level meters bouncing and the
+      // play buttons blinking until they're pressed, and the note on how to
+      // turn it off fading in after it's out. The camera's flash.
       keyframes: {
         "phones-rock": {
           "0%, 100%": { transform: "rotate(0deg)" },
@@ -209,10 +272,42 @@ export default {
           "0%, 100%": { transform: "rotate(2.5deg)" },
           "50%": { transform: "rotate(-2.5deg)" },
         },
+        "dj-on": {
+          from: { opacity: "0" },
+        },
+        "dj-scroll": {
+          to: { transform: "translateX(-96px)" },
+        },
+        "jog-spin": {
+          to: { transform: "rotate(360deg)" },
+        },
+        "dj-blink": {
+          "50%": { opacity: "0.25" },
+        },
+        "camera-flash": {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
+        },
+        "dj-note": {
+          "0%, 60%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "dj-level": {
+          "0%, 100%": { transform: "scaleY(1)" },
+          "35%": { transform: "scaleY(0.55)" },
+          "70%": { transform: "scaleY(0.75)" },
+        },
       },
       animation: {
         "phones-rock": "phones-rock 5s ease-in-out infinite",
         "cord-swing": "cord-swing 5s ease-in-out infinite",
+        "dj-on": "dj-on 600ms ease-out",
+        "dj-scroll": "dj-scroll 2s linear infinite",
+        "jog-spin": "jog-spin 1.8s linear infinite",
+        "dj-level": "dj-level 500ms ease-out infinite",
+        "dj-blink": "dj-blink 1s step-end infinite",
+        "camera-flash": "camera-flash 400ms ease-out forwards",
+        "dj-note": "dj-note 2s ease-out",
       },
 
       transitionTimingFunction: {

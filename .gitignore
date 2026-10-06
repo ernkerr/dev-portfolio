@@ -42,3 +42,6 @@ next-env.d.ts
 
 # claude code (local settings)
 .claude/
+
+# Photos left on the About page camera while developing locally
+/.data/

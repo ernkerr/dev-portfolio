@@ -10,8 +10,15 @@ type Pt = [number, number];
 // anywhere and pulled any way the cord reaches, even past the shelf: it
 // stays fixed at the edge and the rest trails behind. Let go, it falls,
 // sweeps down in a slow swing from the edge and settles back into its
-// bow. It bends like a cable, in smooth curves rather than sharp corners. With reduced motion
-// it keeps still at rest and settles without swinging.
+// bow. It bends like a cable, in smooth curves rather than sharp corners.
+// With reduced motion it keeps still at rest and settles without swinging.
+// Given a jack, its plug plugs in when it comes close: the end stays there,
+// following the jack if it moves, and the cord hangs between, until the
+// plug is grabbed and pulled out, or the cord is pulled hard enough away
+// from the jack to yank it out. With `magnet`, plugging in and out is
+// easier: held within a quarter of its length of the jack, the plug is
+// pulled in, and grabbing anywhere on its last quarter, or pulling the
+// cord nearly taut, pulls it out.
 //
 // The rope is a row of points a fixed distance apart (Verlet integration
 // with distance constraints), pulled toward their resting places. All in
@@ -37,6 +44,11 @@ const BEND_PASSES = 4; // more passes spread a bend over more of the cord
 const LEAVE = 3; // points below the edge that follow it leaving downward
 const NUDGE = 0.4; // how hard a hover jiggles it
 const REACH = 14; // how far a hover jiggles along the cord
+const SNAP = 8; // how close the plug has to come to a jack to plug in
+const PLUG_GRIP = 8; // points from the end that count as grabbing the plug
+const PLUG_SPOT = 12; // the reach of the spot round the plug to grab it by
+const YANK = 10; // how much further than it reaches a pull yanks the plug out
+const SEAT = 0.15; // seconds the plug takes to slide into the jack
 
 const f = (v: number) => v.toFixed(2);
 
@@ -76,19 +88,34 @@ function plugTransform(pts: Pt[]) {
 export default function DraggableCord({
   anchor,
   length,
+  jack,
+  magnet = false,
+  onPlugChange,
+  onHoldChange,
 }: {
   /** Where it hangs from: the front edge of the board. */
   anchor: Pt;
   /** How long it is, from the anchor to the plug. */
   length: number;
+  /** A jack its plug can plug into, or where it is now, if it moves. */
+  jack?: Pt | (() => Pt);
+  /** Plug in and out more easily (see above). */
+  magnet?: boolean;
+  onPlugChange?: (plugged: boolean) => void;
+  onHoldChange?: (held: boolean) => void;
 }) {
   const rest = restShape(anchor, length);
   const groupRef = useRef<SVGGElement>(null);
   const cordRef = useRef<SVGPathElement>(null);
   const hitRef = useRef<SVGPathElement>(null);
   const plugRef = useRef<SVGGElement>(null);
+  const tipRef = useRef<SVGGElement>(null);
+  const spotRef = useRef<SVGCircleElement>(null);
+  // The latest callbacks, so the simulation needn't restart when they change.
+  const report = useRef({ onPlugChange, onHoldChange, jack });
+  report.current = { onPlugChange, onHoldChange, jack };
   const controls = useRef<{
-    grab: (p: Pt) => void;
+    grab: (p: Pt, plug?: boolean) => void;
     move: (p: Pt) => void;
     release: () => void;
     jiggle: (p: Pt) => void;
@@ -106,8 +133,33 @@ export default function DraggableCord({
     let held = -1;
     let target: Pt = [0, 0];
     let releasedAt = 0;
+    let plugged = false;
+    // Pulled out, the plug has to leave the jack before it can go back in.
+    let clear = true;
+    // Plugging in, where the plug slides in from, and when
+    let seat: { from: Pt; at: number } | null = null;
+    // How close plugs it in, how near the end a grab pulls it out, and
+    // how far from the jack a pull on the cord yanks it out
+    const snap = magnet ? length / 4 : SNAP;
+    const grip = magnet ? Math.round(n / 4) : PLUG_GRIP;
+    const yanked = (dist: number, reach: number) =>
+      magnet ? dist > reach * 0.9 : dist > reach + YANK;
+    const hasJack = report.current.jack !== undefined;
+    const jackNow = (): Pt => {
+      const { jack } = report.current;
+      return typeof jack === "function" ? jack() : (jack ?? [NaN, NaN]);
+    };
+    // The anchor, the held point and a plugged-in plug don't move.
+    const fixed = (i: number) =>
+      i === 0 || (mode === "held" && i === held) || (plugged && i === n - 1);
+    const setPlugged = (on: boolean) => {
+      plugged = on;
+      tipRef.current?.setAttribute("opacity", on ? "0" : "1");
+      report.current.onPlugChange?.(on);
+    };
 
     const step = (t: number) => {
+      const [jx, jy] = jackNow();
       const angle = reduce.matches
         ? 0
         : SWAY * Math.sin((2 * Math.PI * t) / SWAY_PERIOD);
@@ -124,8 +176,9 @@ export default function DraggableCord({
       };
       const ease = smooth(SWING, SETTLE);
       const calm = smooth(CALM_FROM, CALM);
-      const k =
-        mode === "held"
+      const k = plugged
+        ? 0
+        : mode === "held"
           ? LOOSE
           : mode === "falling"
             ? LOOSE + (SHAPE - LOOSE) * ease
@@ -158,6 +211,17 @@ export default function DraggableCord({
         ];
       }
       if (mode === "held") pos[held] = [target[0], target[1]];
+      if (plugged) {
+        const e = seat ? Math.min(1, (t - seat.at) / SEAT) : 1;
+        const k = e * e * (3 - 2 * e);
+        pos[n - 1] = seat
+          ? [
+              seat.from[0] + (jx - seat.from[0]) * k,
+              seat.from[1] + (jy - seat.from[1]) * k,
+            ]
+          : [jx, jy];
+        if (e >= 1) seat = null;
+      }
       // It leaves the board's edge heading down, as it comes over it, so a
       // pull bends it in a curve below the edge rather than at it.
       for (let i = 1; i <= LEAVE; i++) {
@@ -171,7 +235,7 @@ export default function DraggableCord({
         // held. Lengths are put right after.
         if (pass < BEND_PASSES) {
           for (let i = 1; i < n - 1; i++) {
-            if (mode === "held" && i === held) continue;
+            if (fixed(i)) continue;
             pos[i][0] +=
               ((pos[i - 1][0] + pos[i + 1][0]) / 2 - pos[i][0]) * BEND;
             pos[i][1] +=
@@ -185,8 +249,8 @@ export default function DraggableCord({
           const dy = b[1] - a[1];
           const dist = Math.hypot(dx, dy) || 1e-6;
           const diff = (dist - len) / dist;
-          const aFixed = i === 0 || (mode === "held" && i === held);
-          const bFixed = mode === "held" && i + 1 === held;
+          const aFixed = fixed(i);
+          const bFixed = fixed(i + 1);
           if (aFixed && bFixed) continue;
           const wa = aFixed ? 0 : bFixed ? 1 : 0.5;
           const wb = 1 - wa;
@@ -194,6 +258,26 @@ export default function DraggableCord({
           a[1] += dy * diff * wa;
           b[0] -= dx * diff * wb;
           b[1] -= dy * diff * wb;
+        }
+      }
+      // Close enough to the jack, the plug slides in (with a magnet, only
+      // while the cord's held), and if it was the plug being held, it's
+      // let go.
+      const toJack = Math.hypot(pos[n - 1][0] - jx, pos[n - 1][1] - jy);
+      if (toJack > 2 * snap) clear = true;
+      if (
+        hasJack &&
+        !plugged &&
+        clear &&
+        toJack < snap &&
+        (!magnet || mode === "held")
+      ) {
+        setPlugged(true);
+        seat = { from: [pos[n - 1][0], pos[n - 1][1]], at: t };
+        if (mode === "held" && held >= n - grip) {
+          mode = "falling";
+          releasedAt = t;
+          report.current.onHoldChange?.(false);
         }
       }
       if (mode === "falling" && since > SWING + SETTLE + 1) mode = "rest";
@@ -204,35 +288,67 @@ export default function DraggableCord({
       cordRef.current?.setAttribute("d", d);
       hitRef.current?.setAttribute("d", d);
       plugRef.current?.setAttribute("transform", plugTransform(pos));
+      spotRef.current?.setAttribute("cx", f(pos[n - 1][0]));
+      spotRef.current?.setAttribute("cy", f(pos[n - 1][1]));
     };
 
-    // As far as the cord reaches from the edge, in any direction.
-    const clamp = ([x, y]: Pt): Pt => {
-      const reach = len * held * 0.9; // a little slack for the bend at the edge
-      const dist = Math.hypot(x - ax, y - ay);
+    // As far as the cord reaches from the edge, in any direction, and
+    // while it's plugged in, from the jack too.
+    const within = ([x, y]: Pt, [cx, cy]: Pt, reach: number): Pt => {
+      const dist = Math.hypot(x - cx, y - cy);
       if (dist <= reach) return [x, y];
-      return [ax + ((x - ax) * reach) / dist, ay + ((y - ay) * reach) / dist];
+      return [cx + ((x - cx) * reach) / dist, cy + ((y - cy) * reach) / dist];
+    };
+    const clamp = (p: Pt): Pt => {
+      const fromEdge = len * held * 0.9; // a little slack for the bend at the edge
+      let q = within(p, [ax, ay], fromEdge);
+      if (!plugged) return q;
+      const jack = jackNow();
+      for (let i = 0; i < 3; i++) {
+        q = within(q, jack, len * (n - 1 - held) * 0.95);
+        q = within(q, [ax, ay], fromEdge);
+      }
+      return q;
     };
 
     controls.current = {
-      grab: (p) => {
-        let best = 2;
-        for (let i = 2; i < n; i++) {
+      grab: (p, plug = false) => {
+        // The point nearest the pointer, or the plug, grabbed by its spot
+        let best = plug ? n - 1 : 2;
+        for (let i = 2; i < n && !plug; i++) {
           const d = Math.hypot(pos[i][0] - p[0], pos[i][1] - p[1]);
           if (d < Math.hypot(pos[best][0] - p[0], pos[best][1] - p[1]))
             best = i;
         }
+        // Grabbing the plug while it's plugged in pulls it out.
+        if (plugged && best >= n - grip) {
+          setPlugged(false);
+          clear = false;
+          seat = null;
+          best = n - 1;
+        }
         held = best;
         mode = "held";
         target = clamp(p);
+        report.current.onHoldChange?.(true);
       },
       move: (p) => {
-        if (mode === "held") target = clamp(p);
+        if (mode !== "held") return;
+        // Pulled hard enough away from the jack, the plug comes out.
+        const [jx, jy] = jackNow();
+        const reach = len * (n - 1 - held);
+        if (plugged && yanked(Math.hypot(p[0] - jx, p[1] - jy), reach)) {
+          setPlugged(false);
+          clear = false;
+          seat = null;
+        }
+        target = clamp(p);
       },
       release: () => {
         if (mode !== "held") return;
         mode = "falling";
         releasedAt = performance.now() / 1000;
+        report.current.onHoldChange?.(false);
       },
       jiggle: (p) => {
         if (mode !== "rest" || reduce.matches) return;
@@ -269,7 +385,7 @@ export default function DraggableCord({
       cancelAnimationFrame(frame);
       controls.current = null;
     };
-  }, [ax, ay, length]);
+  }, [ax, ay, length, magnet]);
 
   // From the pointer to the room's viewBox units.
   const toRoom = (e: React.PointerEvent): Pt | null => {
@@ -279,6 +395,28 @@ export default function DraggableCord({
     const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse());
     return [p.x, p.y];
   };
+
+  // Grabbing the cord, or the plug by the spot round it
+  const grip = (plug: boolean) => ({
+    className: "cursor-grab touch-none active:cursor-grabbing",
+    onPointerEnter: (e: React.PointerEvent) => {
+      const p = toRoom(e);
+      if (p) controls.current?.jiggle(p);
+    },
+    onPointerDown: (e: React.PointerEvent<SVGElement>) => {
+      const p = toRoom(e);
+      if (!p) return;
+      e.currentTarget.setPointerCapture(e.pointerId);
+      controls.current?.grab(p, plug);
+    },
+    onPointerMove: (e: React.PointerEvent) => {
+      const p = toRoom(e);
+      if (p) controls.current?.move(p);
+    },
+    onPointerUp: () => controls.current?.release(),
+    onPointerCancel: () => controls.current?.release(),
+  });
+  const end = rest[rest.length - 1];
 
   return (
     <g ref={groupRef}>
@@ -300,19 +438,21 @@ export default function DraggableCord({
           rx={0.8}
           className="fill-room-headphones-matte"
         />
-        <rect
-          x={-0.55}
-          y={3}
-          width={1.1}
-          height={3.6}
-          rx={0.4}
-          className="fill-room-mirror"
-        />
-        <path
-          d="M-0.55 4.2h1.1M-0.55 5.3h1.1"
-          strokeWidth={0.25}
-          className="stroke-room-headphones-slider"
-        />
+        <g ref={tipRef}>
+          <rect
+            x={-0.55}
+            y={3}
+            width={1.1}
+            height={3.6}
+            rx={0.4}
+            className="fill-room-mirror"
+          />
+          <path
+            d="M-0.55 4.2h1.1M-0.55 5.3h1.1"
+            strokeWidth={0.25}
+            className="stroke-room-headphones-slider"
+          />
+        </g>
       </g>
       {/* A wide, invisible band along the cord to grab it by */}
       <path
@@ -323,23 +463,16 @@ export default function DraggableCord({
         strokeWidth={7}
         strokeLinecap="round"
         pointerEvents="stroke"
-        className="cursor-grab touch-none active:cursor-grabbing"
-        onPointerEnter={(e) => {
-          const p = toRoom(e);
-          if (p) controls.current?.jiggle(p);
-        }}
-        onPointerDown={(e) => {
-          const p = toRoom(e);
-          if (!p) return;
-          e.currentTarget.setPointerCapture(e.pointerId);
-          controls.current?.grab(p);
-        }}
-        onPointerMove={(e) => {
-          const p = toRoom(e);
-          if (p) controls.current?.move(p);
-        }}
-        onPointerUp={() => controls.current?.release()}
-        onPointerCancel={() => controls.current?.release()}
+        {...grip(false)}
+      />
+      <circle
+        ref={spotRef}
+        cx={end[0]}
+        cy={end[1]}
+        r={PLUG_SPOT}
+        fill="transparent"
+        pointerEvents="all"
+        {...grip(true)}
       />
     </g>
   );

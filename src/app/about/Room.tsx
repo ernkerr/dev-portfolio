@@ -1,12 +1,18 @@
 import { focusRing } from "@/components/site/links";
 import DraggableCord from "./DraggableCord";
 import LampSwitch from "./LampSwitch";
+import PlugInDeck from "./PlugInDeck";
+import OpusQuadLive from "./OpusQuadLive";
+import { overviewBars, waveBands } from "./opusQuadArt";
+import TiltingDeck from "./TiltingDeck";
+import CameraOnShelf from "./Camera";
+import { MY_PHOTOS } from "./cameraPhotos";
 
 // My old room. So far: the bookshelf, seen straight on (black metal posts
 // that rise past the top board, five walnut boards), my lamp on the top
 // board in five versions to compare (5 is a switch for dark mode), my
 // snake plant beside it, books and a basket on the board below, and my
-// headphones on the one below that.
+// headphones and DJ controller on the one below that.
 // Everything is in viewBox units, so objects added later can be placed
 // with the same numbers.
 
@@ -4793,7 +4799,8 @@ function Headphones() {
 // lower cup, goes over the front of the board, curls into a loop as it
 // hangs and sways a little behind them, its plug dangling just above the
 // board below. With reduced motion, they keep still.
-const TOSS = { angle: 95, x: 50 }; // its tilt, and where the lower cup rests
+const TOSS = { angle: 95, x: 30 }; // its tilt, and where the lower cup rests,
+// near the left post to leave room for the DJ controller
 
 // The headphones standing, centered on (0, 0) between the cups, which are
 // circles of radius 9.5 at x = ±15.
@@ -5038,9 +5045,7 @@ function HangingCord({
         strokeLinecap="round"
         className="stroke-room-headphones-matte"
       />
-      {draggable ? // The part to drag is drawn above everything, books included, by
-      // Room (see withOverlays), since it hangs in front of the shelf.
-      null : (
+      {draggable ? null : ( // Room (see withOverlays), since it hangs in front of the shelf. // The part to drag is drawn above everything, books included, by
         <g
           className="animate-cord-swing [animation-delay:-1.2s] [transform-box:view-box] motion-reduce:animate-none"
           style={{ transformOrigin: `${edge[0]}px ${edge[1]}px` }}
@@ -5088,8 +5093,8 @@ function HangingCord({
 // the cord moves, with a bigger loop.
 // Where the resting headphones' cord leaves the near cup, and where it goes
 // over the front edge of the board.
-const restingCord = () => {
-  const { cx, scale } = RESTING;
+const restingCord = (cx: number = RESTING.cx) => {
+  const { scale } = RESTING;
   const start: Pt = [cx - 3 * scale, PHONES.floor - 0.6 * scale];
   const edge: Pt = [start[0] - 8, PHONES.floor + 5];
   return { start, edge };
@@ -5127,16 +5132,18 @@ function restingBand(pose: BandPose, cx: number, floor: number) {
 function RestingHeadphones({
   band: pose = "held",
   draggableCord = false,
+  cx = RESTING.cx,
 }: {
   band?: BandPose;
   draggableCord?: boolean;
+  cx?: number; // where the near cup's center rests
 }) {
   const { floor } = PHONES;
-  const { cx, cup, scale } = RESTING;
+  const { cup, scale } = RESTING;
   const cy = floor - cup.ry;
   const band = restingBand(pose, cx, floor);
   // The cord leaves the bottom of the near cup.
-  const cordStart = restingCord().start;
+  const cordStart = restingCord(cx).start;
 
   return (
     <g>
@@ -5251,6 +5258,1070 @@ function RestingHeadphones({
   );
 }
 
+/* ---------- DJ controller ---------- */
+
+// My Pioneer DJ Opus Quad on the third board beside the headphones: a low
+// matte black wedge with the touchscreen rising in the middle, two jog
+// wheels, copper knobs and a wood-and-brass front panel with the headphone
+// jacks the headphones plug into to turn it on. Drawn from the maker's
+// photos, in each photo's pixels, and shrunk to fit beside the headphones.
+// Versions, like the books:
+// 1. straight on, from the front photo, off: screens dark, rings unlit
+// 2. bigger, and seen from a little above, from the angled photo, so its
+//    screen, decks and mixer show
+// 3. the same, to plug into: drag the headphone cord's plug to its jack and
+//    it turns on and comes out bigger (see PlugInDeck)
+// 4. flat and straight on like 1, until it's plugged in: then it tilts up
+//    into 3's view as it comes out, twice as big, and turns on (see
+//    TiltingDeck)
+// 5. the same, to play: plugged in, it only lights up and waits for play;
+//    then it plays and stops, its faders slide and its jog wheels scratch
+//    (see OpusQuadLive)
+export type DjVersion = 1 | 2 | 3 | 4 | 5;
+
+// In the front photo the body runs from x 40 to 860 and the base sits on
+// y 386.
+const OPUS_FRONT = {
+  left: 100, // where its left end sits on the board
+  width: 148, // a little smaller than the real one, to fit
+  floor: BOARDS[2],
+};
+const OPUS_FRONT_SCALE = OPUS_FRONT.width / 820;
+const OPUS_FRONT_PLACE = `translate(${OPUS_FRONT.left - 40 * OPUS_FRONT_SCALE} ${OPUS_FRONT.floor - 386 * OPUS_FRONT_SCALE}) scale(${OPUS_FRONT_SCALE})`;
+
+// In the angled photo the body runs from x 40 to 862 and the base sits on
+// y 478.
+const OPUS_ANGLED = {
+  left: 74, // where its front left corner sits
+  width: 172,
+  floor: BOARDS[2],
+};
+const OPUS_ANGLED_SCALE = OPUS_ANGLED.width / 822;
+const OPUS_ANGLED_PLACE = `translate(${OPUS_ANGLED.left - 40 * OPUS_ANGLED_SCALE} ${OPUS_ANGLED.floor - 478 * OPUS_ANGLED_SCALE}) scale(${OPUS_ANGLED_SCALE})`;
+
+// DJ 3's big headphone jack (at 370, 460 in the photo), in the room, and
+// where shelf 3's resting headphones move to, left of the deck, with a
+// longer cord so its plug reaches the jack.
+const OPUS_JACK: Pt = [
+  OPUS_ANGLED.left + (370 - 40) * OPUS_ANGLED_SCALE,
+  OPUS_ANGLED.floor - (478 - 460) * OPUS_ANGLED_SCALE,
+];
+const PLUG_IN = { phones: 39, cord: 140 };
+
+// DJ 4: each photo's body ends, base and big headphone jack, in its
+// pixels; where the deck lies on the board, as wide as 3; and where it
+// comes out to, twice that, in the middle of the bookcase and a little
+// lower, in front of the board. DJ 5 comes out bigger still, to play, as
+// big as fits the window and the cord's reach, and higher, its base above
+// the headphones so they stay in view with the cord running from them up
+// to the jack, and room between for a note on how to turn it off.
+const OPUS_PHOTOS = {
+  flat: { body: [40, 860], base: 386, jack: [373, 350] },
+  tilted: { body: [40, 862], base: 478, jack: [370, 460] },
+} satisfies Record<string, { body: Pt; base: number; jack: Pt }>;
+const OPUS_TILT = {
+  rest: { center: OPUS_ANGLED.left + 86, width: 172, floor: BOARDS[2] },
+  out: { center: SHELF.right / 2, width: 344, floor: BOARDS[2] + 24 },
+  play: { center: SHELF.right / 2, width: 760, floor: BOARDS[2] - 62 },
+  playCord: 150,
+};
+
+// `place` puts it on the board; null leaves it in the photo's pixels.
+function OpusQuadFront({
+  place = OPUS_FRONT_PLACE,
+}: {
+  place?: string | null;
+}) {
+  const knob = (x: number) => (
+    <g key={x}>
+      <circle cx={x} cy={350} r={7} className="fill-room-dj-base" />
+      <circle cx={x} cy={349} r={4.5} className="fill-room-dj-jog" />
+      <rect
+        x={x - 0.6}
+        y={343}
+        width={1.2}
+        height={4}
+        className="fill-room-mirror"
+      />
+    </g>
+  );
+  const copper = (x: number, y: number, w: number, h: number) => (
+    <g key={`${x}-${y}`}>
+      <rect
+        x={x}
+        y={y}
+        width={w}
+        height={h}
+        rx={3}
+        className="fill-room-dj-copper"
+      />
+      {Array.from({ length: Math.floor(w / 3) }, (_, i) => (
+        <rect
+          key={i}
+          x={x + 1.5 + i * 3}
+          y={y + 2}
+          width={1}
+          height={h - 4}
+          className="fill-room-dj-wood-dark/40"
+        />
+      ))}
+      <rect
+        x={x + 2}
+        y={y + 1}
+        width={w - 4}
+        height={2.5}
+        rx={1.2}
+        className="fill-room-dj-copper-light"
+      />
+    </g>
+  );
+  const jog = (cx: number, rx: number) => (
+    <g key={cx}>
+      <ellipse cx={cx} cy={313} rx={rx} ry={9} className="fill-room-dj-jog" />
+      <ellipse
+        cx={cx}
+        cy={313}
+        rx={rx * 0.76}
+        ry={6.5}
+        fill="none"
+        strokeWidth={1.5}
+        className="stroke-room-dj-groove"
+      />
+      <ellipse
+        cx={cx}
+        cy={313}
+        rx={rx * 0.52}
+        ry={4.5}
+        fill="none"
+        strokeWidth={1.5}
+        className="stroke-room-dj-groove"
+      />
+      <ellipse cx={cx} cy={313} rx={7} ry={1.8} className="fill-room-dj-base" />
+    </g>
+  );
+
+  return (
+    <g transform={place ?? undefined}>
+      <ellipse
+        cx={450}
+        cy={386}
+        rx={440}
+        ry={7}
+        className="fill-room-metal/25"
+      />
+
+      {/* On top: the touchscreen in its housing, the jog platters, the
+          mixer's fader caps and the copper knobs */}
+      <path
+        d="M318 320L322 270Q323 266 327 266H545Q549 266 550 270L554 320Z"
+        className="fill-room-dj-body"
+      />
+      <rect
+        x={352}
+        y={270}
+        width={194}
+        height={30}
+        rx={1.5}
+        className="fill-room-dj-screen"
+      />
+      <path
+        d="M356 272L400 272L372 298H356Z"
+        className="fill-room-book-paper/5"
+      />
+      {[278, 288].map((y) => (
+        <rect
+          key={y}
+          x={326}
+          y={y}
+          width={18}
+          height={6}
+          rx={1}
+          className="fill-room-dj-base"
+        />
+      ))}
+      {jog(218, 76)}
+      {jog(682, 80)}
+      {[362, 397, 432, 467, 502].map((x) => (
+        <g key={x}>
+          <rect
+            x={x}
+            y={301}
+            width={14}
+            height={18}
+            rx={1.5}
+            className="fill-room-dj-base"
+          />
+          <rect
+            x={x + 2}
+            y={302}
+            width={10}
+            height={3}
+            rx={1}
+            className="fill-room-dj-jog"
+          />
+        </g>
+      ))}
+      {copper(114, 289, 18, 21)}
+      {copper(557, 278, 20, 20)}
+      {copper(563, 298, 15, 19)}
+      <rect
+        x={767}
+        y={286}
+        width={10}
+        height={22}
+        rx={2}
+        className="fill-room-dj-base"
+      />
+
+      {/* The base it stands on, set in a little */}
+      <rect
+        x={90}
+        y={366}
+        width={720}
+        height={20}
+        rx={3}
+        className="fill-room-dj-base"
+      />
+
+      {/* The body's front: the top slab, chamfered at its ends, with the
+          seams between its three sections */}
+      <path
+        d="M40 323L52 316H848L860 323V370H40Z"
+        className="fill-room-dj-body"
+      />
+      <rect
+        x={52}
+        y={316}
+        width={796}
+        height={1.5}
+        className="fill-room-dj-groove"
+      />
+      {[345, 560].map((x) => (
+        <rect
+          key={x}
+          x={x - 0.75}
+          y={316}
+          width={1.5}
+          height={17}
+          className="fill-room-dj-base"
+        />
+      ))}
+
+      {/* The wood-and-brass front panel, with its grain */}
+      <rect
+        x={40}
+        y={333}
+        width={820}
+        height={33}
+        className="fill-room-dj-wood"
+      />
+      <rect
+        x={40}
+        y={334}
+        width={820}
+        height={1.5}
+        className="fill-room-dj-wood-light"
+      />
+      <rect
+        x={40}
+        y={351}
+        width={820}
+        height={1}
+        className="fill-room-dj-wood-light/60"
+      />
+      <rect
+        x={40}
+        y={343}
+        width={820}
+        height={0.8}
+        className="fill-room-dj-wood-dark/60"
+      />
+      <rect
+        x={40}
+        y={359}
+        width={820}
+        height={0.8}
+        className="fill-room-dj-wood-dark/60"
+      />
+      <rect
+        x={40}
+        y={364}
+        width={820}
+        height={2}
+        className="fill-room-dj-wood-dark"
+      />
+
+      {/* The mic input, its switch and level knobs on the left */}
+      <circle cx={135} cy={350} r={10.5} className="fill-room-dj-base" />
+      <circle
+        cx={135}
+        cy={350}
+        r={7}
+        fill="none"
+        strokeWidth={1.5}
+        className="stroke-room-dj-groove"
+      />
+      <circle cx={135} cy={350} r={3.5} className="fill-room-dj-base" />
+      <rect
+        x={176}
+        y={344}
+        width={20}
+        height={12}
+        rx={1.5}
+        className="fill-room-dj-base"
+      />
+      <rect
+        x={179}
+        y={346}
+        width={7}
+        height={8}
+        rx={1}
+        className="fill-room-dj-jog"
+      />
+      {[216, 240, 263, 287].map(knob)}
+
+      {/* The headphone jacks, in the middle: a big one and a small one */}
+      <circle cx={373} cy={350} r={7} className="fill-room-brass" />
+      <circle cx={373} cy={350} r={4} className="fill-room-dj-base" />
+      <circle cx={393} cy={350} r={3.6} className="fill-room-brass" />
+      <circle cx={393} cy={350} r={2} className="fill-room-dj-base" />
+    </g>
+  );
+}
+
+// `live` leaves out the fader caps, for DJ 5, which draws them to move.
+function OpusQuadAngled({
+  place = OPUS_ANGLED_PLACE,
+  live = false,
+}: {
+  place?: string | null;
+  live?: boolean;
+}) {
+  const jog = (cx: number) => (
+    <g key={cx}>
+      <ellipse
+        cx={cx}
+        cy={353}
+        rx={100}
+        ry={64}
+        className="fill-room-dj-base"
+      />
+      <ellipse
+        cx={cx}
+        cy={353}
+        rx={96}
+        ry={61}
+        fill="none"
+        strokeWidth={3}
+        className="stroke-room-dj-copper/40"
+      />
+      <ellipse cx={cx} cy={352} rx={88} ry={56} className="fill-room-dj-jog" />
+      <ellipse
+        cx={cx}
+        cy={352}
+        rx={74}
+        ry={47}
+        fill="none"
+        strokeWidth={1.5}
+        className="stroke-room-dj-groove"
+      />
+      <ellipse
+        cx={cx}
+        cy={351}
+        rx={57}
+        ry={36}
+        fill="none"
+        strokeWidth={1.5}
+        className="stroke-room-dj-groove"
+      />
+      <ellipse cx={cx} cy={347} rx={22} ry={13} className="fill-room-dj-base" />
+      <ellipse
+        cx={cx}
+        cy={347}
+        rx={9}
+        ry={5.5}
+        fill="none"
+        strokeWidth={2}
+        className="stroke-room-mirror/60"
+      />
+    </g>
+  );
+  const button = (cx: number, cy: number) => (
+    <ellipse
+      key={`${cx}-${cy}`}
+      cx={cx}
+      cy={cy}
+      rx={16}
+      ry={12}
+      strokeWidth={2}
+      className="fill-room-dj-base stroke-room-book-paper/60"
+    />
+  );
+  const knob = (cx: number, cy: number, r = 6) => (
+    <g key={`${cx}-${cy}`}>
+      <ellipse
+        cx={cx}
+        cy={cy}
+        rx={r}
+        ry={r * 0.85}
+        className="fill-room-dj-base"
+      />
+      <ellipse
+        cx={cx}
+        cy={cy - 1}
+        rx={r * 0.65}
+        ry={r * 0.5}
+        className="fill-room-dj-jog"
+      />
+    </g>
+  );
+  const copper = (cx: number, cy: number) => (
+    <g key={`${cx}-${cy}`}>
+      <ellipse
+        cx={cx}
+        cy={cy + 2}
+        rx={11}
+        ry={9}
+        className="fill-room-dj-base"
+      />
+      <ellipse
+        cx={cx}
+        cy={cy}
+        rx={9}
+        ry={7.5}
+        className="fill-room-dj-copper"
+      />
+      <ellipse
+        cx={cx}
+        cy={cy - 2}
+        rx={6}
+        ry={4}
+        className="fill-room-dj-copper-light"
+      />
+    </g>
+  );
+  const fader = (
+    cx: number,
+    top: number,
+    bottom: number,
+    cap: number,
+    w = 18,
+  ) => (
+    <g key={`${cx}-${top}`}>
+      <rect
+        x={cx - 1.5}
+        y={top}
+        width={3}
+        height={bottom - top}
+        className="fill-room-dj-base"
+      />
+      {!live && (
+        <>
+          <rect
+            x={cx - w / 2}
+            y={cap}
+            width={w}
+            height={10}
+            rx={1.5}
+            className="fill-room-dj-jog"
+          />
+          <rect
+            x={cx - w / 2}
+            y={cap + 4.5}
+            width={w}
+            height={1}
+            className="fill-room-book-paper/40"
+          />
+        </>
+      )}
+    </g>
+  );
+
+  return (
+    <g transform={place ?? undefined}>
+      <ellipse
+        cx={451}
+        cy={478}
+        rx={430}
+        ry={8}
+        className="fill-room-metal/25"
+      />
+
+      {/* The top, narrower at the back than at the front, its front edge
+          curving down a little in the middle */}
+      <path
+        d="M118 222H805L862 442Q451 449 40 442Z"
+        className="fill-room-dj-body"
+      />
+      <path
+        d="M118 222H805"
+        strokeWidth={2}
+        className="stroke-room-dj-groove"
+      />
+      <path
+        d="M338 262L335 444M550 262L553 444"
+        strokeWidth={2.5}
+        className="stroke-room-dj-base"
+      />
+
+      {/* The touchscreen, standing up from the back of the mixer, with its
+          side buttons and browse knob */}
+      <rect
+        x={316}
+        y={175}
+        width={247}
+        height={87}
+        rx={6}
+        className="fill-room-dj-body"
+      />
+      <rect
+        x={352}
+        y={179}
+        width={190}
+        height={79}
+        rx={2}
+        className="fill-room-dj-screen"
+      />
+      <path d="M356 181H420L372 256H356Z" className="fill-room-book-paper/5" />
+      {[188, 204, 220, 236].map((y) => (
+        <rect
+          key={y}
+          x={322}
+          y={y}
+          width={24}
+          height={9}
+          rx={1.5}
+          className="fill-room-dj-base"
+        />
+      ))}
+      {copper(552, 214)}
+
+      {/* Each deck: its small screen, hot cue pads, jog wheel, cue and play
+          buttons, tempo fader and copper knob */}
+      {[158, 598].map((x) => (
+        <rect
+          key={x}
+          x={x}
+          y={228}
+          width={142}
+          height={34}
+          rx={2}
+          className="fill-room-dj-screen"
+        />
+      ))}
+      {[145, 588].map((x0) =>
+        Array.from({ length: 8 }, (_, i) => (
+          <rect
+            key={`${x0}-${i}`}
+            x={x0 + i * 21}
+            y={274}
+            width={16}
+            height={8}
+            rx={1.5}
+            className="fill-room-dj-base"
+          />
+        )),
+      )}
+      {jog(211)}
+      {jog(683)}
+      {[92, 568].flatMap((x) => [button(x, 383), button(x, 413)])}
+      {fader(316, 345, 420, 358, 24)}
+      {fader(789, 360, 432, 380, 24)}
+      {copper(122, 288)}
+      {copper(568, 288)}
+      {[230, 252].map((y) => knob(178, y, 7))}
+      {[230, 252].map((y) => knob(782, y, 7))}
+
+      {/* The mixer: a knob grid, the copper sound-color knobs, the channel
+          buttons and faders, the crossfader and the master section */}
+      {[398, 432, 465, 500].map((x) => (
+        <g key={x}>
+          {[276, 292, 310].map((y) => knob(x, y))}
+          <ellipse
+            cx={x}
+            cy={330}
+            rx={8}
+            ry={6.5}
+            strokeWidth={1.8}
+            className="fill-room-dj-base stroke-room-dj-copper"
+          />
+          <rect
+            x={x - 10}
+            y={352}
+            width={20}
+            height={6}
+            rx={1.5}
+            className="fill-room-mirror/40"
+          />
+          {fader(x, 365, 402, 370)}
+        </g>
+      ))}
+      <rect
+        x={420}
+        y={416}
+        width={62}
+        height={3}
+        className="fill-room-dj-base"
+      />
+      {!live && (
+        <rect
+          x={445}
+          y={408}
+          width={12}
+          height={18}
+          rx={1.5}
+          className="fill-room-dj-jog"
+        />
+      )}
+      {[300, 330, 360].map((y) => knob(522, y))}
+      <ellipse
+        cx={522}
+        cy={413}
+        rx={7}
+        ry={6}
+        strokeWidth={2}
+        className="fill-room-dj-base stroke-room-dj-copper"
+      />
+      <text
+        x={451}
+        y={438}
+        fontSize={7}
+        textAnchor="middle"
+        textLength={42}
+        lengthAdjust="spacingAndGlyphs"
+        className="fill-room-mirror/50 font-mono"
+      >
+        OPUS-QUAD
+      </text>
+
+      {/* The base, then the wood-and-brass front panel with its grain */}
+      <path d="M78 468H824L816 478H86Z" className="fill-room-dj-base" />
+      <path
+        d="M40 442Q451 449 862 442V468Q451 475 40 468Z"
+        className="fill-room-dj-wood"
+      />
+      <path
+        d="M40 444Q451 451 862 444"
+        fill="none"
+        strokeWidth={1.5}
+        className="stroke-room-dj-wood-light"
+      />
+      <path
+        d="M40 454Q451 461 862 454"
+        fill="none"
+        strokeWidth={0.8}
+        className="stroke-room-dj-wood-dark/60"
+      />
+      <path
+        d="M40 466Q451 473 862 466"
+        fill="none"
+        strokeWidth={2}
+        className="stroke-room-dj-wood-dark"
+      />
+
+      {/* The mic input, its switch and level knobs, and the headphone
+          jacks in the middle */}
+      <circle cx={136} cy={458} r={8} className="fill-room-dj-base" />
+      <circle
+        cx={136}
+        cy={458}
+        r={5}
+        fill="none"
+        strokeWidth={1.2}
+        className="stroke-room-dj-groove"
+      />
+      <rect
+        x={174}
+        y={453}
+        width={18}
+        height={10}
+        rx={1.5}
+        className="fill-room-dj-base"
+      />
+      {[217, 240, 262, 286].map((x) => (
+        <g key={x}>
+          <circle cx={x} cy={459} r={6.5} className="fill-room-dj-base" />
+          <circle cx={x} cy={458} r={4} className="fill-room-dj-jog" />
+        </g>
+      ))}
+      <circle cx={370} cy={460} r={6} className="fill-room-brass" />
+      <circle cx={370} cy={460} r={3.4} className="fill-room-dj-base" />
+      <circle cx={392} cy={460} r={3.2} className="fill-room-brass" />
+      <circle cx={392} cy={460} r={1.8} className="fill-room-dj-base" />
+    </g>
+  );
+}
+
+// DJ 3 turned on, drawn over it once it's plugged in: the touchscreen with
+// both decks' waveforms scrolling past the playhead, beatmatched, and
+// their tracks below; the deck screens lit; hot cues set in color; the jog
+// rings glowing amber with their center displays turning; cue and play
+// lit; and the first two channels' level meters bouncing. In the angled
+// photo's pixels, like the deck. `live` leaves out everything that moves
+// or changes, for DJ 5, which draws it as it's played: the waveforms,
+// playhead and where each track's at, the jog rings and displays, the
+// pads, cue and play, and the meters.
+function OpusQuadLights({
+  id,
+  place = OPUS_ANGLED_PLACE,
+  live = false,
+}: {
+  id: string;
+  place?: string | null;
+  live?: boolean;
+}) {
+  const decks = [
+    { cy: 199, phase: 0, delay: "0s" },
+    { cy: 225, phase: 9, delay: "-0.25s" },
+  ];
+  const pads: (string | null)[][] = [
+    ["pink", "amber", "green", "cyan", null, null, "blue", null],
+    ["green", "cyan", null, "amber", "pink", null, null, null],
+  ];
+  const padColor: Record<string, string> = {
+    pink: "fill-room-dj-lit-pink",
+    amber: "fill-room-dj-lit-amber",
+    green: "fill-room-dj-lit-green",
+    cyan: "fill-room-dj-lit-cyan",
+    blue: "fill-room-dj-lit-blue",
+  };
+  const meter = ["green", "green", "green", "green", "amber", "amber"];
+
+  return (
+    <g transform={place ?? undefined}>
+      <defs>
+        <radialGradient
+          id={`${id}-screen-glow`}
+          className="text-room-dj-lit-blue"
+        >
+          <stop offset="0" stopColor="currentColor" stopOpacity={0.3} />
+          <stop offset="1" stopColor="currentColor" stopOpacity={0} />
+        </radialGradient>
+        <clipPath id={`${id}-screen`}>
+          <rect x={352} y={179} width={190} height={79} rx={2} />
+        </clipPath>
+      </defs>
+      <ellipse
+        cx={447}
+        cy={218}
+        rx={150}
+        ry={90}
+        fill={`url(#${id}-screen-glow)`}
+      />
+
+      {/* The touchscreen: a status line, both waveforms scrolling past the
+          playhead, and each track's whole waveform with where it's at */}
+      <rect
+        x={352}
+        y={179}
+        width={190}
+        height={79}
+        rx={2}
+        className="fill-room-dj-lit-screen"
+      />
+      {!live && (
+        <>
+          <g clipPath={`url(#${id}-screen)`}>
+            <g className="animate-dj-scroll motion-reduce:animate-none">
+              {decks.map(({ cy, phase }) => {
+                const bands = waveBands(cy, phase);
+                return (
+                  <g key={cy}>
+                    <path d={bands.low} className="fill-room-dj-lit-blue" />
+                    <path d={bands.mid} className="fill-room-dj-lit-amber" />
+                    <path d={bands.high} className="fill-room-frost" />
+                  </g>
+                );
+              })}
+            </g>
+          </g>
+          <path
+            d="M447 188V236"
+            strokeWidth={1.5}
+            className="stroke-room-frost"
+          />
+        </>
+      )}
+      <rect
+        x={357}
+        y={182}
+        width={34}
+        height={3.5}
+        rx={1}
+        className="fill-room-frost/70"
+      />
+      <rect
+        x={395}
+        y={182}
+        width={14}
+        height={3.5}
+        rx={1}
+        className="fill-room-dj-lit-amber"
+      />
+      <rect
+        x={485}
+        y={182}
+        width={34}
+        height={3.5}
+        rx={1}
+        className="fill-room-frost/70"
+      />
+      <rect
+        x={523}
+        y={182}
+        width={14}
+        height={3.5}
+        rx={1}
+        className="fill-room-dj-lit-amber"
+      />
+      {[
+        { cy: 244, at: 0.4, seed: 0 },
+        { cy: 252, at: 0.65, seed: 40 },
+      ].map(({ cy, at, seed }) => (
+        <g key={cy}>
+          <path
+            d={overviewBars(357, 537, cy, seed)}
+            className="fill-room-dj-lit-blue/70"
+          />
+          {!live && (
+            <rect
+              x={357 + 180 * at}
+              y={cy - 4}
+              width={1.5}
+              height={8}
+              className="fill-room-frost"
+            />
+          )}
+        </g>
+      ))}
+      {!live && (
+        <path
+          d="M356 181H420L372 256H356Z"
+          className="fill-room-book-paper/5"
+        />
+      )}
+
+      {/* Each deck's screen: its track, tempo and time, and where it's at */}
+      {[
+        { x: 158, at: 0.4, seed: 7 },
+        { x: 598, at: 0.65, seed: 61 },
+      ].map(({ x, at, seed }) => (
+        <g key={x}>
+          <rect
+            x={x}
+            y={228}
+            width={142}
+            height={34}
+            rx={2}
+            className="fill-room-dj-lit-screen"
+          />
+          <rect
+            x={x + 6}
+            y={232}
+            width={54}
+            height={4}
+            rx={1}
+            className="fill-room-frost/70"
+          />
+          <rect
+            x={x + 68}
+            y={232}
+            width={22}
+            height={4}
+            rx={1}
+            className="fill-room-dj-lit-amber"
+          />
+          <rect
+            x={x + 100}
+            y={232}
+            width={36}
+            height={4}
+            rx={1}
+            className="fill-room-frost/70"
+          />
+          <path
+            d={overviewBars(x + 6, x + 136, 250, seed)}
+            className="fill-room-dj-lit-blue/70"
+          />
+          {!live && (
+            <rect
+              x={x + 6 + 130 * at}
+              y={243}
+              width={1.5}
+              height={14}
+              className="fill-room-frost"
+            />
+          )}
+        </g>
+      ))}
+
+      {/* Hot cues set on some pads, each in its own color */}
+      {!live &&
+        [145, 588].map((x0, deck) =>
+          pads[deck].map((color, i) =>
+            color ? (
+              <rect
+                key={`${x0}-${i}`}
+                x={x0 + i * 21}
+                y={274}
+                width={16}
+                height={8}
+                rx={1.5}
+                className={padColor[color]}
+              />
+            ) : null,
+          ),
+        )}
+
+      {/* The jog wheels: their rings glowing, their center displays turning */}
+      {[211, 683].map((cx) => (
+        <g key={cx}>
+          {!live && (
+            <>
+              <ellipse
+                cx={cx}
+                cy={353}
+                rx={96}
+                ry={61}
+                fill="none"
+                strokeWidth={10}
+                className="stroke-room-dj-lit-amber/20"
+              />
+              <ellipse
+                cx={cx}
+                cy={353}
+                rx={96}
+                ry={61}
+                fill="none"
+                strokeWidth={3}
+                className="stroke-room-dj-lit-amber"
+              />
+            </>
+          )}
+          <ellipse
+            cx={cx}
+            cy={347}
+            rx={22}
+            ry={13}
+            className="fill-room-dj-lit-screen"
+          />
+          {!live && (
+            <g transform={`translate(${cx} 347) scale(1 ${13 / 22})`}>
+              <g className="origin-center animate-jog-spin [transform-box:fill-box] motion-reduce:animate-none">
+                <circle
+                  r={18}
+                  fill="none"
+                  strokeWidth={2}
+                  className="stroke-room-dj-lit-amber/40"
+                />
+                <path
+                  d="M0 -18V-9"
+                  strokeWidth={4}
+                  strokeLinecap="round"
+                  className="stroke-room-frost"
+                />
+              </g>
+            </g>
+          )}
+        </g>
+      ))}
+
+      {/* Cue lit amber and play green */}
+      {!live &&
+        [92, 568].map((x) => (
+          <g key={x}>
+            <ellipse
+              cx={x}
+              cy={383}
+              rx={16}
+              ry={12}
+              strokeWidth={3}
+              className="fill-room-dj-base stroke-room-dj-lit-amber"
+            />
+            <ellipse
+              cx={x}
+              cy={413}
+              rx={16}
+              ry={12}
+              strokeWidth={3}
+              className="fill-room-dj-base stroke-room-dj-lit-green"
+            />
+          </g>
+        ))}
+
+      {/* The level meters beside channels 1 and 2's faders, on the beat */}
+      {!live &&
+        [411, 445].map((x, i) => (
+          <g key={x}>
+            <rect
+              x={x - 2.5}
+              y={365}
+              width={5}
+              height={37}
+              rx={1}
+              className="fill-room-dj-base"
+            />
+            <g
+              className="origin-bottom animate-dj-level [transform-box:fill-box] motion-reduce:animate-none"
+              style={{ animationDelay: decks[i].delay }}
+            >
+              {meter.map((color, k) => (
+                <rect
+                  key={k}
+                  x={x - 1.5}
+                  y={396 - k * 5.6}
+                  width={3}
+                  height={4.4}
+                  className={
+                    color === "green"
+                      ? "fill-room-dj-lit-green"
+                      : "fill-room-dj-lit-amber"
+                  }
+                />
+              ))}
+            </g>
+          </g>
+        ))}
+    </g>
+  );
+}
+
+/* ---------- Camera ---------- */
+
+// My purple Fujifilm FinePix Z37 on the board below the DJ deck, straight
+// on, bigger than life so it can be picked up. It's HTML over the drawing,
+// so it can come off the shelf and be used (see Camera.tsx). Versions:
+// 1. comes out and turns round to show its back, to take a photo and leave
+//    it, or see the ones left, mine first
+// 2. bigger, sitting off with its lens cover closed; slides it open to turn
+//    on, comes out bigger still and starts up, its shutter pulsing
+// 3. lying on its back; stands up as it comes out, then slides its cover
+//    open, then turns round. Its shutter keeps each photo; the trash
+//    deletes it
+// 4. the same, traced closer to the photos, with more colors and shine
+// 5. the same, a little smaller, near the board's right end
+export type CameraVersion = 1 | 2 | 3 | 4 | 5;
+
+// Where each sits on the board: its left end and how wide it is
+const CAMERA = {
+  1: { left: 136, width: 46 },
+  2: { left: 118, width: 70 },
+  3: { left: 124, width: 66 },
+  4: { left: 124, width: 66 },
+  5: { left: 188, width: 56 },
+};
+const cameraBox = (version: CameraVersion) => {
+  const { left, width } = CAMERA[version];
+  // Its drawing's shape: standing, or for cameras 3 and 4 lying down
+  const height = (width * (version >= 3 ? 52 : 112)) / 184;
+  return {
+    left: `${((left - VIEW.left) / VIEW.width) * 100}%`,
+    top: `${((BOARDS[3] - height - VIEW.top) / VIEW.height) * 100}%`,
+    width: `${(width / VIEW.width) * 100}%`,
+    height: `${(height / VIEW.height) * 100}%`,
+  };
+};
+
 /* ---------- Room ---------- */
 
 export type LampVersion = 1 | 2 | 3 | 4 | 5;
@@ -5264,6 +6335,8 @@ export const SHELVES: {
   books?: { version: BooksVersion; label: string };
   basket?: { version: BasketVersion; label: string };
   headphones?: { version: HeadphonesVersion; label: string };
+  dj?: { version: DjVersion; label: string };
+  camera?: { version: CameraVersion; label: string };
 }[] = [
   {
     version: 1,
@@ -5272,6 +6345,8 @@ export const SHELVES: {
     books: { version: 1, label: "Thinking, Fast and Slow" },
     basket: { version: 1, label: "Seagrass basket" },
     headphones: { version: 1, label: "Beats headphones" },
+    dj: { version: 1, label: "Opus Quad" },
+    camera: { version: 1, label: "FinePix camera" },
   },
   {
     version: 2,
@@ -5280,13 +6355,17 @@ export const SHELVES: {
     books: { version: 2, label: "A full shelf of books" },
     basket: { version: 2, label: "Seagrass basket, real shape" },
     headphones: { version: 2, label: "Beats headphones, set down" },
+    dj: { version: 2, label: "Opus Quad, tilted" },
+    camera: { version: 2, label: "FinePix camera, slides on" },
   },
   {
     version: 3,
     lamp: "Clear shade",
     books: { version: 3, label: "A full shelf, opening bigger" },
     basket: { version: 3, label: "Seagrass basket, lighter" },
+    camera: { version: 3, label: "FinePix camera, lying down" },
     headphones: { version: 3, label: "Beats headphones, resting" },
+    dj: { version: 3, label: "Opus Quad, plug in to play" },
   },
   {
     version: 4,
@@ -5294,6 +6373,8 @@ export const SHELVES: {
     books: { version: 4, label: "Books that look read" },
     headphones: { version: 4, label: "Beats headphones, band down" },
     basket: { version: 4, label: "Seagrass basket, bigger" },
+    dj: { version: 4, label: "Opus Quad, tilts up to play" },
+    camera: { version: 4, label: "FinePix camera, traced" },
   },
   {
     version: 5,
@@ -5302,6 +6383,8 @@ export const SHELVES: {
     books: { version: 5, label: "Books, calmer spines" },
     headphones: { version: 5, label: "Beats headphones, cord to drag" },
     basket: { version: 4, label: "Seagrass basket, bigger" },
+    dj: { version: 5, label: "Opus Quad, play and scratch" },
+    camera: { version: 5, label: "FinePix camera, smaller" },
   },
 ];
 
@@ -5332,24 +6415,39 @@ export default function Room({
   books,
   basket,
   headphones,
+  dj,
+  camera,
 }: {
   lamp: LampVersion;
   plant?: PlantVersion;
   books?: BooksVersion;
   basket?: BasketVersion;
   headphones?: HeadphonesVersion;
+  dj?: DjVersion;
+  camera?: CameraVersion;
 }) {
   const id = `room-${lamp}`;
 
   // Books 2 and up are HTML laid over the drawing (see TurningBook), and
   // headphones 5's cord, which can be dragged in front of anything, is
   // drawn on top of them: longer than the others, hanging in front of the
-  // board below and past it, without the loop.
+  // board below and past it, without the loop. DJ 3 and 4 are drawn up
+  // there too, with the headphone cord to plug into them, so they come out
+  // over the books when they're plugged in (a pulled book still goes over
+  // them), and over the next shelf, which DJ 4 and 5 come out past.
+  const plugIn = dj !== undefined && dj >= 3;
   const withOverlays = (drawing: React.ReactNode) =>
-    (books && books > 1) || headphones === 5 ? (
+    (books && books > 1) || headphones === 5 || plugIn || camera ? (
       <div className="relative">
         {drawing}
         {books && books >= 4 && <BookFinishDefs />}
+        {camera && (
+          <CameraOnShelf
+            version={camera}
+            box={cameraBox(camera)}
+            mine={MY_PHOTOS}
+          />
+        )}
         {books && books > 1 && (
           <BookRow
             books={books === 5 ? SHELF_5 : books >= 3 ? SHELF_3 : FULL_SHELF}
@@ -5359,13 +6457,54 @@ export default function Room({
             dim={books === 5}
           />
         )}
-        {headphones === 5 && (
+        {(headphones === 5 || plugIn) && (
           <svg
             viewBox={VIEW_BOX}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
+            className={`pointer-events-none absolute inset-0 h-full w-full overflow-visible ${plugIn ? "z-10" : ""}`}
           >
-            <DraggableCord anchor={restingCord().edge} length={125} />
+            {dj === 5 ? (
+              <TiltingDeck
+                flat={<OpusQuadFront place={null} />}
+                tilted={
+                  <>
+                    <OpusQuadAngled place={null} live />
+                    <OpusQuadLive id={`${id}-dj`}>
+                      <OpusQuadLights id={`${id}-dj`} place={null} live />
+                    </OpusQuadLive>
+                  </>
+                }
+                photos={OPUS_PHOTOS}
+                rest={OPUS_TILT.rest}
+                out={OPUS_TILT.play}
+                fit
+                magnet
+                note="Unplug the headphones to turn it off"
+                anchor={restingCord(PLUG_IN.phones).edge}
+                length={OPUS_TILT.playCord}
+              />
+            ) : dj === 4 ? (
+              <TiltingDeck
+                flat={<OpusQuadFront place={null} />}
+                tilted={<OpusQuadAngled place={null} />}
+                lights={<OpusQuadLights id={`${id}-dj`} place={null} />}
+                photos={OPUS_PHOTOS}
+                rest={OPUS_TILT.rest}
+                out={OPUS_TILT.out}
+                anchor={restingCord(PLUG_IN.phones).edge}
+                length={PLUG_IN.cord}
+              />
+            ) : plugIn ? (
+              <PlugInDeck
+                deck={<OpusQuadAngled />}
+                lights={<OpusQuadLights id={`${id}-dj`} />}
+                jack={OPUS_JACK}
+                anchor={restingCord(PLUG_IN.phones).edge}
+                length={PLUG_IN.cord}
+              />
+            ) : (
+              <DraggableCord anchor={restingCord().edge} length={125} />
+            )}
           </svg>
         )}
       </div>
@@ -5387,10 +6526,28 @@ export default function Room({
         <SwitchLamp id={`${id}-ball`} />
         {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
         {headphones === 1 && <Headphones />}
+        {dj === 1 && <OpusQuadFront />}
+        {dj === 2 && <OpusQuadAngled />}
         {headphones === 2 && <TossedHeadphones />}
-        {headphones === 3 && <RestingHeadphones />}
-        {headphones === 4 && <RestingHeadphones band="flat" />}
-        {headphones === 5 && <RestingHeadphones band="flat" draggableCord />}
+        {headphones === 3 &&
+          (plugIn ? (
+            <RestingHeadphones cx={PLUG_IN.phones} draggableCord />
+          ) : (
+            <RestingHeadphones />
+          ))}
+        {headphones === 4 &&
+          (plugIn ? (
+            <RestingHeadphones band="flat" cx={PLUG_IN.phones} draggableCord />
+          ) : (
+            <RestingHeadphones band="flat" />
+          ))}
+        {headphones === 5 && (
+          <RestingHeadphones
+            band="flat"
+            draggableCord
+            cx={plugIn ? PLUG_IN.phones : undefined}
+          />
+        )}
         {basket === 1 && <Basket id={`${id}-basket`} />}
         {basket === 2 && <BasketTub id={`${id}-basket`} />}
         {basket === 3 && <BasketTub id={`${id}-basket`} light />}
@@ -5416,10 +6573,28 @@ export default function Room({
       )}
       {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
       {headphones === 1 && <Headphones />}
+      {dj === 1 && <OpusQuadFront />}
+      {dj === 2 && <OpusQuadAngled />}
       {headphones === 2 && <TossedHeadphones />}
-      {headphones === 3 && <RestingHeadphones />}
-      {headphones === 4 && <RestingHeadphones band="flat" />}
-      {headphones === 5 && <RestingHeadphones band="flat" draggableCord />}
+      {headphones === 3 &&
+        (plugIn ? (
+          <RestingHeadphones cx={PLUG_IN.phones} draggableCord />
+        ) : (
+          <RestingHeadphones />
+        ))}
+      {headphones === 4 &&
+        (plugIn ? (
+          <RestingHeadphones band="flat" cx={PLUG_IN.phones} draggableCord />
+        ) : (
+          <RestingHeadphones band="flat" />
+        ))}
+      {headphones === 5 && (
+        <RestingHeadphones
+          band="flat"
+          draggableCord
+          cx={plugIn ? PLUG_IN.phones : undefined}
+        />
+      )}
       {basket === 1 && <Basket id={`${id}-basket`} />}
       {basket === 2 && <BasketTub id={`${id}-basket`} />}
       {basket === 3 && <BasketTub id={`${id}-basket`} light />}

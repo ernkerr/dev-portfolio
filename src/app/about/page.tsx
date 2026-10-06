@@ -21,7 +21,16 @@ export default function AboutPage() {
       <div className="mx-[calc(50%-50vw)] overflow-x-auto px-[calc(50vw-50%)] pt-section">
         <div className="flex w-max gap-x-10">
           {SHELVES.map(
-            ({ version, lamp, plant, books, basket, headphones }) => (
+            ({
+              version,
+              lamp,
+              plant,
+              books,
+              basket,
+              headphones,
+              dj,
+              camera,
+            }) => (
               <figure key={version} className="shrink-0">
                 <Room
                   lamp={version}
@@ -29,6 +38,8 @@ export default function AboutPage() {
                   books={books?.version}
                   basket={basket?.version}
                   headphones={headphones?.version}
+                  dj={dj?.version}
+                  camera={camera?.version}
                 />
                 <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
                   <p>
@@ -38,6 +49,8 @@ export default function AboutPage() {
                   {books && <p className="mt-1">{books.label}</p>}
                   {basket && <p className="mt-1">{basket.label}</p>}
                   {headphones && <p className="mt-1">{headphones.label}</p>}
+                  {dj && <p className="mt-1">{dj.label}</p>}
+                  {camera && <p className="mt-1">{camera.label}</p>}
                 </figcaption>
               </figure>
             ),

@@ -7,6 +7,8 @@ import { overviewBars, waveBands } from "./opusQuadArt";
 import TiltingDeck from "./TiltingDeck";
 import CameraOnShelf from "./Camera";
 import LavaLamp from "./LavaLamp";
+import Clock from "./Clock";
+import Sway from "./Sway";
 import { LAVA } from "./lavaShape";
 import { MY_PHOTOS } from "./cameraPhotos";
 
@@ -6306,11 +6308,11 @@ export type CameraVersion = 1 | 2 | 3 | 4 | 5;
 
 // Where each sits on the board: its left end and how wide it is
 const CAMERA = {
-  1: { left: 136, width: 46 },
-  2: { left: 118, width: 70 },
-  3: { left: 124, width: 66 },
-  4: { left: 124, width: 66 },
-  5: { left: 170, width: 46 },
+  1: { left: 163, width: 46 },
+  2: { left: 151, width: 70 },
+  3: { left: 151, width: 66 },
+  4: { left: 151, width: 66 },
+  5: { left: 166, width: 46 },
 };
 const cameraBox = (version: CameraVersion) => {
   const { left, width } = CAMERA[version];
@@ -6323,6 +6325,495 @@ const cameraBox = (version: CameraVersion) => {
     height: `${(height / VIEW.height) * 100}%`,
   };
 };
+
+/* ---------- Pothos cuttings and the clock ---------- */
+
+// My pothos cuttings rooting in water, beside the lava lamp: three clear
+// glass milk bottles in a black wire stand, each about two thirds full,
+// a cutting in each, its roots pale in the water and its heart-shaped
+// leaves out of the neck: one big leaf on the left, a big one and a small
+// one in the middle, and one leaning out on the right. Beside them, my
+// black and gold clock, telling the time wherever whoever's looking is
+// (see Clock.tsx). Versions:
+// 1. straight on, from a photo of my shelf
+// 2. the cuttings traced to look real, their wire stand thicker; the
+//    clock a little bigger
+// 3. the same, the leaves without their gloss
+// 4. the cuttings with true pothos leaves; the clock minimal, a single
+//    gold dash at each hour in a gold rim
+// 5. the same on bookcase 5, the clock first, everything on the board
+//    spaced out evenly, and the leaves swaying in time with the headphone
+//    cord (Sway.tsx)
+// All sit on the lava lamp's board, beside it, in my shelf's order:
+// cuttings, clock, lava lamp, camera.
+export type CuttingsVersion = 1 | 2 | 3 | 4 | 5;
+export type ClockVersion = 1 | 2 | 3 | 4 | 5;
+
+// The stand's left end, and the clock's middle and size, by version
+const CUTTINGS = {
+  1: { x: 64, floor: BOARDS[3] },
+  2: { x: 36, floor: BOARDS[3] },
+  3: { x: 36, floor: BOARDS[3] },
+  4: { x: 36, floor: BOARDS[3] },
+  5: { x: 101, floor: BOARDS[3] },
+};
+const CLOCK = {
+  1: { x: 125, floor: BOARDS[3], r: 13 },
+  2: { x: 104, floor: BOARDS[3], r: 15 },
+  3: { x: 104, floor: BOARDS[3], r: 15 },
+  4: { x: 104, floor: BOARDS[3], r: 15, minimal: true },
+  5: { x: 70, floor: BOARDS[3], r: 15, minimal: true },
+};
+const BOTTLE = { w: 12.5, h: 26, gap: 2, neck: 7.4, water: 16 };
+
+// A pothos leaf, heart shaped, its stalk at 0, 0 and its tip `size` up
+const leaf = (size: number) => {
+  const p = (x: number, y: number) =>
+    `${(x * size).toFixed(2)} ${(y * size).toFixed(2)}`;
+  return `M0 0C${p(-0.25, 0.12)} ${p(-0.62, -0.05)} ${p(-0.55, -0.42)}C${p(-0.48, -0.72)} ${p(-0.15, -0.9)} ${p(0, -1)}C${p(0.15, -0.9)} ${p(0.48, -0.72)} ${p(0.55, -0.42)}C${p(0.62, -0.05)} ${p(0.25, 0.12)} 0 0Z`;
+};
+
+// Each cutting: the stem's lean out of the neck, and its leaves, each
+// where it grows from the stem, how big and which way it points
+const CUTTING_LEAVES = [
+  { stem: -1.5, leaves: [{ at: [-1.5, -4], size: 12, turn: -14 }] },
+  {
+    stem: 0.5,
+    leaves: [
+      { at: [-0.6, -6], size: 12.5, turn: -8 },
+      { at: [1.6, -2.5], size: 8, turn: 62 },
+    ],
+  },
+  { stem: 3, leaves: [{ at: [3, -3], size: 11, turn: 58 }] },
+];
+
+function Cuttings() {
+  const { x, floor } = CUTTINGS[1];
+  const { w, h, gap, neck, water } = BOTTLE;
+  const width = 3 * w + 2 * gap + 2;
+  return (
+    <g>
+      {CUTTING_LEAVES.map(({ stem, leaves }, i) => {
+        const left = x + 1 + i * (w + gap);
+        const mid = left + w / 2;
+        const top = floor - h;
+        const n = neck / 2;
+        // The bottle: round shouldered, a short neck and a lip
+        const bottle = `M${left + 1.2} ${floor}Q${left} ${floor} ${left} ${floor - 1.2}V${top + 9}C${left} ${top + 6} ${mid - n} ${top + 6.5} ${mid - n} ${top + 4}V${top + 1.6}H${mid - n - 0.5}V${top}H${mid + n + 0.5}V${top + 1.6}H${mid + n}V${top + 4}C${mid + n} ${top + 6.5} ${left + w} ${top + 6} ${left + w} ${top + 9}V${floor - 1.2}Q${left + w} ${floor} ${left + w - 1.2} ${floor}Z`;
+        const neckTop = top - 0.5;
+        return (
+          <g key={i}>
+            {/* The water, two thirds up, and its surface */}
+            <rect
+              x={left + 0.6}
+              y={floor - water}
+              width={w - 1.2}
+              height={water - 0.6}
+              rx={1}
+              className="fill-room-glass/30"
+            />
+            <path
+              d={`M${left + 0.8} ${floor - water}H${left + w - 0.8}`}
+              strokeWidth={0.4}
+              className="stroke-room-frost"
+            />
+            {/* The stem down into the water, and its pale roots */}
+            <path
+              d={`M${mid + stem} ${neckTop - 1}Q${mid + stem * 0.3} ${top + 4} ${mid} ${floor - 6}`}
+              fill="none"
+              strokeWidth={0.7}
+              className="stroke-room-plant"
+            />
+            <path
+              d={`M${mid} ${floor - 6}q-1.6 1.6 -2.6 4.2M${mid} ${floor - 6}q1.2 2 0.6 4.6M${mid} ${floor - 6.4}q2.6 0.6 3.4 3`}
+              fill="none"
+              strokeWidth={0.35}
+              strokeLinecap="round"
+              className="stroke-room-frost"
+            />
+            {/* The glass, clear, its edge and a highlight down it */}
+            <path
+              d={bottle}
+              strokeWidth={0.5}
+              className="fill-room-glass/15 stroke-room-glass"
+            />
+            <path
+              d={`M${left + 1.6} ${floor - 2}V${top + 9.5}`}
+              strokeWidth={0.6}
+              strokeLinecap="round"
+              className="stroke-room-frost/80"
+            />
+            {/* The leaves out of the neck */}
+            {leaves.map(({ at: [lx, ly], size, turn }, k) => (
+              <g
+                key={k}
+                transform={`translate(${mid + lx} ${neckTop + ly}) rotate(${turn})`}
+              >
+                <path
+                  d={`M0 0L${-lx * 0.4} ${-ly - 3}`}
+                  strokeWidth={0.6}
+                  className="stroke-room-plant"
+                  transform={`rotate(${-turn})`}
+                />
+                <path d={leaf(size)} className="fill-room-plant" />
+                <path
+                  d={`M0 -0.4L0 ${-size * 0.85}`}
+                  strokeWidth={0.4}
+                  className="stroke-room-plant-light/60"
+                />
+              </g>
+            ))}
+          </g>
+        );
+      })}
+
+      {/* The black wire stand round them: a band at the middle, a base,
+          and posts between the bottles */}
+      <path
+        d={`M${x} ${floor - 12}H${x + width}M${x} ${floor - 0.6}H${x + width}`}
+        strokeWidth={0.9}
+        className="stroke-room-metal"
+      />
+      {[0, 1, 2, 3].map((k) => {
+        const px = x + 0.5 + k * (w + gap) - (k > 0 ? gap / 2 - 0.5 : 0);
+        return (
+          <path
+            key={k}
+            d={`M${px} ${floor}V${floor - 13.5}`}
+            strokeWidth={0.8}
+            strokeLinecap="round"
+            className="stroke-room-metal"
+          />
+        );
+      })}
+    </g>
+  );
+}
+
+// Cuttings 4's leaf, a true pothos leaf, its stalk at 0, 0 and `L` long:
+// an elongated heart, one side a little wider, its long tip drawn out and
+// curling over to one side; a lighter half, shade at the lobes, a curved
+// midrib, veins sweeping up toward the tip, and golden streaks, as on
+// golden pothos.
+function PothosLeaf({ L }: { L: number }) {
+  const f = (v: number) => v.toFixed(2);
+  const q = (u: number, v: number) => `${f(u * L)} ${f(v * L)}`;
+  const tip = `C${q(-0.09, -0.92)} ${q(-0.02, -0.97)} ${q(0.07, -1.05)}C${q(0.08, -0.95)} ${q(0.1, -0.91)} ${q(0.18, -0.85)}`;
+  const right = `C${q(0.42, -0.69)} ${q(0.56, -0.47)} ${q(0.5, -0.22)}C${q(0.45, 0)} ${q(0.16, 0.08)} 0 0Z`;
+  // Veins: where each leaves the midrib, and where it ends on each side
+  const veins = [
+    [0.18, -0.34, -0.45, 0.4],
+    [0.34, -0.5, -0.44, 0.4],
+    [0.5, -0.66, -0.34, 0.32],
+    [0.64, -0.8, -0.2, 0.2],
+  ];
+  // A vein as a curve: out from the midrib, then bending up toward the tip
+  type Pt = [number, number];
+  const vein = (i: number, side: -1 | 1): [Pt, Pt, Pt] => {
+    const [t, end, l, r] = veins[i];
+    const out = side < 0 ? l : r;
+    return [
+      [0.03, -t],
+      [out * 0.5, -t - (side < 0 ? 0.04 : 0.03)],
+      [out, end],
+    ];
+  };
+  // The golden streaks lie along the veins, just above them, out from
+  // near the midrib toward the edge: part of a vein's curve, a to b
+  const streak = (i: number, side: -1 | 1, a: number, b: number) => {
+    const [p0, c, p1] = vein(i, side);
+    const at = (u: number): Pt =>
+      [0, 1].map(
+        (k) =>
+          (1 - u) * (1 - u) * p0[k] + 2 * (1 - u) * u * c[k] + u * u * p1[k],
+      ) as Pt;
+    const mid = [0, 1].map(
+      (k) =>
+        (1 - a) * (1 - b) * p0[k] +
+        (a * (1 - b) + b * (1 - a)) * c[k] +
+        a * b * p1[k],
+    );
+    const [x0, y0] = at(a);
+    const [x1, y1] = at(b);
+    const lift = -0.03;
+    return `M${q(x0, y0 + lift)}Q${q(mid[0], mid[1] + lift)} ${q(x1, y1 + lift)}`;
+  };
+  return (
+    <>
+      <path
+        d={`M0 0C${q(-0.18, 0.08)} ${q(-0.5, 0.03)} ${q(-0.58, -0.2)}C${q(-0.66, -0.46)} ${q(-0.44, -0.72)} ${q(-0.18, -0.87)}${tip}${right}`}
+        className="fill-room-pothos"
+      />
+      <path
+        d={`M0 0Q${q(0.04, -0.55)} ${q(0.07, -1.05)}${tip.slice(tip.indexOf("C", 1))}${right}`}
+        className="fill-room-pothos-light/30"
+      />
+      <ellipse
+        cx={-0.04 * L}
+        cy={-0.1 * L}
+        rx={0.36 * L}
+        ry={0.11 * L}
+        className="fill-room-pothos-dark/35"
+      />
+      {(
+        [
+          [1, -1, 0.15, 0.85, 0.045],
+          [0, 1, 0.2, 0.8, 0.035],
+          [2, -1, 0.2, 0.75, 0.03],
+          [2, 1, 0.3, 0.7, 0.025],
+        ] as const
+      ).map(([i, side, a, b, w]) => (
+        <path
+          key={`${i}${side}`}
+          d={streak(i, side, a, b)}
+          fill="none"
+          strokeWidth={w * L}
+          strokeLinecap="round"
+          className="stroke-room-pothos-streak/70"
+        />
+      ))}
+      <path
+        d={`M0 0Q${q(0.04, -0.55)} ${q(0.07, -1)}`}
+        fill="none"
+        strokeWidth={0.45}
+        className="stroke-room-pothos-light/70"
+      />
+      {veins.map((_, i) => (
+        <path
+          key={i}
+          d={([-1, 1] as const)
+            .map((side) => {
+              const [p0, c, p1] = vein(i, side);
+              return `M${q(...p0)}Q${q(...c)} ${q(...p1)}`;
+            })
+            .join("")}
+          fill="none"
+          strokeWidth={0.25}
+          className="stroke-room-pothos-light/35"
+        />
+      ))}
+    </>
+  );
+}
+
+// Cuttings 2 and 3, traced to look real: glass with thick walls, a heavy
+// base, a lip and the light down its sides; water with its surface and a
+// darker bottom, the stems bending where they go into it; roots branching
+// across the bottom; leaves in two greens, darker at the lobes, with a
+// curved midrib and side veins (and on cuttings 2, a gloss); and a
+// thicker black stand.
+function RealCuttings({ version }: { version: 2 | 3 | 4 | 5 }) {
+  const pothos = version >= 4;
+  const sway = version === 5; // the leaves sway with the headphone cord
+  const { x, floor } = CUTTINGS[version];
+  const { w, h, gap, neck, water } = BOTTLE;
+  const width = 3 * w + 2 * gap + 2;
+  const top = floor - h;
+  const surface = floor - water;
+  const n = neck / 2;
+  const f = (v: number) => v.toFixed(2);
+  const drawing = (
+    <g>
+      {CUTTING_LEAVES.map(({ stem, leaves }, i) => {
+        const left = x + 1 + i * (w + gap);
+        const mid = left + w / 2;
+        const neckTop = top - 0.5;
+        const node: [number, number] = [mid + stem * 0.6, neckTop - 1];
+        const bottle = `M${left + 1.4} ${floor}Q${left} ${floor} ${left} ${floor - 1.4}V${top + 9}C${left} ${top + 6} ${mid - n} ${top + 6.5} ${mid - n} ${top + 4}V${top + 1.6}H${mid - n - 0.5}V${top}H${mid + n + 0.5}V${top + 1.6}H${mid + n}V${top + 4}C${mid + n} ${top + 6.5} ${left + w} ${top + 6} ${left + w} ${top + 9}V${floor - 1.4}Q${left + w} ${floor} ${left + w - 1.4} ${floor}Z`;
+        // Where the stem goes into the water, and where it ends
+        const enter = mid + stem * 0.25;
+        const end: [number, number] = [mid - 0.4 + i * 0.4, floor - 4.5];
+        return (
+          <g key={i}>
+            {/* The water: its body, darker at the bottom, and its surface */}
+            <rect
+              x={left + 0.8}
+              y={surface}
+              width={w - 1.6}
+              height={water - 1}
+              rx={1}
+              className="fill-room-glass/35"
+            />
+            <rect
+              x={left + 0.8}
+              y={floor - 5}
+              width={w - 1.6}
+              height={4}
+              rx={1}
+              className="fill-room-glass/30"
+            />
+            <path
+              d={`M${left + 0.9} ${surface}H${left + w - 0.9}`}
+              strokeWidth={0.5}
+              className="stroke-room-frost"
+            />
+            {/* The stem, bending where it meets the water, a node at the
+                surface, and its roots branching across the bottom */}
+            <path
+              d={`M${f(node[0])} ${f(node[1])}Q${f(mid + stem * 0.3)} ${top + 6} ${f(enter)} ${surface}`}
+              fill="none"
+              strokeWidth={0.8}
+              strokeLinecap="round"
+              className="stroke-room-plant"
+            />
+            <path
+              d={`M${f(enter + 0.5)} ${surface}Q${f(mid + 0.6)} ${floor - 10} ${f(end[0])} ${f(end[1])}`}
+              fill="none"
+              strokeWidth={0.8}
+              strokeLinecap="round"
+              className="stroke-room-plant/70"
+            />
+            <ellipse
+              cx={enter + 0.4}
+              cy={surface + 0.3}
+              rx={0.7}
+              ry={0.5}
+              className="fill-room-plant-dark"
+            />
+            <path
+              d={`M${f(end[0])} ${f(end[1])}q-1.8 1.4 -3.4 2.8q-0.6 0.5 -1.4 0.6M${f(end[0] - 1.6)} ${f(end[1] + 1.5)}q-0.2 1.2 -0.9 1.9M${f(end[0])} ${f(end[1])}q1.4 1.8 0.9 3.6M${f(end[0])} ${f(end[1] - 0.4)}q2.4 0.4 3.6 2.6q0.4 0.8 1.2 1M${f(end[0] + 2.4)} ${f(end[1] + 0.6)}q0.6 1 0.2 2`}
+              fill="none"
+              strokeWidth={0.35}
+              strokeLinecap="round"
+              className="stroke-room-frost"
+            />
+            {/* The glass: clear, thick walls, a heavy base, the lip, and
+                the light down its sides and on its shoulder */}
+            <path
+              d={bottle}
+              strokeWidth={0.8}
+              className="fill-room-glass/15 stroke-room-glass"
+            />
+            <path
+              d={`M${left + 0.9} ${floor - 2}H${left + w - 0.9}`}
+              strokeWidth={1.4}
+              className="stroke-room-glass/50"
+            />
+            <rect
+              x={mid - n - 0.5}
+              y={top}
+              width={neck + 1}
+              height={1.6}
+              rx={0.4}
+              className="fill-room-glass/50"
+            />
+            <path
+              d={`M${left + 1.7} ${floor - 2.4}V${top + 9.5}`}
+              strokeWidth={0.7}
+              strokeLinecap="round"
+              className="stroke-room-frost/80"
+            />
+            <path
+              d={`M${left + w - 1.6} ${floor - 3}V${top + 11}`}
+              strokeWidth={0.35}
+              strokeLinecap="round"
+              className="stroke-room-frost/50"
+            />
+            <path
+              d={`M${left + 2.2} ${top + 8}Q${mid - n - 0.6} ${top + 6.4} ${mid - n + 0.4} ${top + 4.6}`}
+              fill="none"
+              strokeWidth={0.5}
+              strokeLinecap="round"
+              className="stroke-room-frost/70"
+            />
+            {/* Each leaf on its stalk from the node: two greens, darker at
+                the lobes, a curved midrib, side veins and a gloss */}
+            {leaves.map(({ at: [lx, ly], size: L, turn }, k) => {
+              const base: [number, number] = [mid + lx, neckTop + ly];
+              const q = (u: number, v: number) => `${f(u * L)} ${f(v * L)}`;
+              return (
+                <g key={k}>
+                  <path
+                    d={`M${f(node[0])} ${f(node[1])}Q${f((node[0] + base[0]) / 2 + (k ? 1.4 : -0.8))} ${f((node[1] + base[1]) / 2)} ${f(base[0])} ${f(base[1])}`}
+                    fill="none"
+                    strokeWidth={0.6}
+                    strokeLinecap="round"
+                    className={
+                      pothos ? "stroke-room-pothos" : "stroke-room-plant"
+                    }
+                  />
+                  <g transform={`translate(${f(base[0])} ${f(base[1])})`}>
+                    <g data-sway={sway || undefined}>
+                      <g transform={`rotate(${turn})`}>
+                        {pothos ? (
+                          <PothosLeaf L={L * 1.08} />
+                        ) : (
+                          <>
+                            <path
+                              d={`M0 0C${q(-0.3, 0.1)} ${q(-0.66, -0.1)} ${q(-0.56, -0.46)}C${q(-0.46, -0.76)} ${q(-0.14, -0.92)} ${q(0.02, -1)}C${q(0.17, -0.9)} ${q(0.5, -0.7)} ${q(0.54, -0.4)}C${q(0.6, -0.08)} ${q(0.27, 0.11)} 0 0Z`}
+                              className="fill-room-plant"
+                            />
+                            <path
+                              d={`M0 0L${q(0.02, -1)}C${q(0.17, -0.9)} ${q(0.5, -0.7)} ${q(0.54, -0.4)}C${q(0.6, -0.08)} ${q(0.27, 0.11)} 0 0Z`}
+                              className="fill-room-plant-light/20"
+                            />
+                            <ellipse
+                              cx={-0.1 * L}
+                              cy={-0.12 * L}
+                              rx={0.34 * L}
+                              ry={0.14 * L}
+                              className="fill-room-plant-dark/40"
+                            />
+                            <path
+                              d={`M0 ${f(-0.02 * L)}Q${q(0.06, -0.5)} ${q(0.02, -0.97)}`}
+                              fill="none"
+                              strokeWidth={0.45}
+                              className="stroke-room-plant-light/55"
+                            />
+                            {[0.3, 0.5, 0.7].map((t) => (
+                              <path
+                                key={t}
+                                d={`M${q(0.04, -t)}Q${q(-0.2, -t - 0.02)} ${q(-0.36, -t - 0.14)}M${q(0.04, -t)}Q${q(0.24, -t - 0.02)} ${q(0.38, -t - 0.14)}`}
+                                fill="none"
+                                strokeWidth={0.25}
+                                className="stroke-room-plant-light/30"
+                              />
+                            ))}
+                            {version === 2 && (
+                              <ellipse
+                                cx={-0.24 * L}
+                                cy={-0.56 * L}
+                                rx={0.07 * L}
+                                ry={0.2 * L}
+                                transform={`rotate(-18 ${f(-0.24 * L)} ${f(-0.56 * L)})`}
+                                className="fill-room-frost/20"
+                              />
+                            )}
+                          </>
+                        )}
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              );
+            })}
+          </g>
+        );
+      })}
+
+      {/* The black wire stand, thicker: a band at the middle, a base, the
+          posts between the bottles, and little feet */}
+      <path
+        d={`M${x} ${floor - 12}H${x + width}M${x} ${floor - 0.9}H${x + width}`}
+        strokeWidth={1.5}
+        className="stroke-room-metal"
+      />
+      {[0, 1, 2, 3].map((k) => {
+        const px = x + 0.5 + k * (w + gap) - (k > 0 ? gap / 2 - 0.5 : 0);
+        return (
+          <path
+            key={k}
+            d={`M${px} ${floor}V${floor - 13.8}`}
+            strokeWidth={1.3}
+            strokeLinecap="round"
+            className="stroke-room-metal"
+          />
+        );
+      })}
+    </g>
+  );
+  return sway ? <Sway degrees={4}>{drawing}</Sway> : drawing;
+}
 
 /* ---------- Lava lamp ---------- */
 
@@ -6340,7 +6831,7 @@ const cameraBox = (version: CameraVersion) => {
 export type LavaVersion = 1 | 2 | 3 | 4 | 5;
 
 // Its foot's middle on the board, by version
-const LAVA_SPOT = { 1: 120, 2: 101, 3: 108, 4: 108, 5: 236 };
+const LAVA_SPOT = { 1: 150, 2: 135, 3: 135, 4: 135, 5: 236 };
 const lavaBox = (version: LavaVersion) => {
   const { width, height } = LAVA[version];
   const x = LAVA_SPOT[version];
@@ -6368,6 +6859,8 @@ export const SHELVES: {
   dj?: { version: DjVersion; label: string };
   camera?: { version: CameraVersion; label: string };
   lava?: { version: LavaVersion; label: string };
+  cuttings?: { version: CuttingsVersion; label: string };
+  clock?: { version: ClockVersion; label: string };
 }[] = [
   {
     version: 1,
@@ -6379,6 +6872,8 @@ export const SHELVES: {
     dj: { version: 1, label: "Opus Quad" },
     camera: { version: 1, label: "FinePix camera" },
     lava: { version: 1, label: "Lava lamp" },
+    cuttings: { version: 1, label: "Pothos cuttings" },
+    clock: { version: 1, label: "Clock" },
   },
   {
     version: 2,
@@ -6390,6 +6885,8 @@ export const SHELVES: {
     dj: { version: 2, label: "Opus Quad, tilted" },
     camera: { version: 2, label: "FinePix camera, slides on" },
     lava: { version: 2, label: "Lava lamp, bigger" },
+    cuttings: { version: 2, label: "Pothos cuttings, realer" },
+    clock: { version: 2, label: "Clock, bigger" },
   },
   {
     version: 3,
@@ -6398,6 +6895,8 @@ export const SHELVES: {
     basket: { version: 3, label: "Seagrass basket, lighter" },
     camera: { version: 3, label: "FinePix camera, lying down" },
     lava: { version: 3, label: "Lava lamp, real wax" },
+    cuttings: { version: 3, label: "Pothos cuttings, no shine" },
+    clock: { version: 3, label: "Clock, bigger" },
     headphones: { version: 3, label: "Beats headphones, resting" },
     dj: { version: 3, label: "Opus Quad, plug in to play" },
   },
@@ -6410,6 +6909,8 @@ export const SHELVES: {
     dj: { version: 4, label: "Opus Quad, tilts up to play" },
     camera: { version: 4, label: "FinePix camera, traced" },
     lava: { version: 4, label: "Lava lamp, clear and amber" },
+    cuttings: { version: 4, label: "Pothos cuttings, true leaves" },
+    clock: { version: 4, label: "Clock, minimal" },
   },
   {
     version: 5,
@@ -6421,6 +6922,8 @@ export const SHELVES: {
     dj: { version: 5, label: "Opus Quad, play and scratch" },
     camera: { version: 5, label: "FinePix camera, smaller" },
     lava: { version: 5, label: "Lava lamp, by the camera" },
+    cuttings: { version: 5, label: "Pothos cuttings, swaying" },
+    clock: { version: 5, label: "Clock, minimal" },
   },
 ];
 
@@ -6454,6 +6957,8 @@ export default function Room({
   dj,
   camera,
   lava,
+  cuttings,
+  clock,
 }: {
   lamp: LampVersion;
   plant?: PlantVersion;
@@ -6463,6 +6968,8 @@ export default function Room({
   dj?: DjVersion;
   camera?: CameraVersion;
   lava?: LavaVersion;
+  cuttings?: CuttingsVersion;
+  clock?: ClockVersion;
 }) {
   const id = `room-${lamp}`;
 
@@ -6592,6 +7099,9 @@ export default function Room({
         {basket === 3 && <BasketTub id={`${id}-basket`} light />}
         {basket === 4 && <BasketTub id={`${id}-basket`} light size={1.06} />}
         {books && <Books version={books} />}
+        {cuttings === 1 && <Cuttings />}
+        {cuttings && cuttings !== 1 && <RealCuttings version={cuttings} />}
+        {clock && <Clock {...CLOCK[clock]} />}
       </LampSwitch>,
     );
   }
@@ -6639,6 +7149,9 @@ export default function Room({
       {basket === 3 && <BasketTub id={`${id}-basket`} light />}
       {basket === 4 && <BasketTub id={`${id}-basket`} light size={1.06} />}
       {books && <Books version={books} />}
+      {cuttings === 1 && <Cuttings />}
+      {cuttings && cuttings !== 1 && <RealCuttings version={cuttings} />}
+      {clock && <Clock {...CLOCK[clock]} />}
     </svg>
   );
   return withOverlays(drawing);

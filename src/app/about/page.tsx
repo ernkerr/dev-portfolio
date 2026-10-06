@@ -31,6 +31,8 @@ export default function AboutPage() {
               dj,
               camera,
               lava,
+              cuttings,
+              clock,
             }) => (
               <figure key={version} className="shrink-0">
                 <Room
@@ -42,6 +44,8 @@ export default function AboutPage() {
                   dj={dj?.version}
                   camera={camera?.version}
                   lava={lava?.version}
+                  cuttings={cuttings?.version}
+                  clock={clock?.version}
                 />
                 <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
                   <p>
@@ -54,6 +58,8 @@ export default function AboutPage() {
                   {dj && <p className="mt-1">{dj.label}</p>}
                   {camera && <p className="mt-1">{camera.label}</p>}
                   {lava && <p className="mt-1">{lava.label}</p>}
+                  {cuttings && <p className="mt-1">{cuttings.label}</p>}
+                  {clock && <p className="mt-1">{clock.label}</p>}
                 </figcaption>
               </figure>
             ),

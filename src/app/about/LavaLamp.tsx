@@ -15,7 +15,7 @@ import { LAVA } from "./lavaShape";
 // 1: slim, the liquid pale in clear glass, its wax lying flat and, lit,
 //    drifting up and down in blobs.
 // 2: the same, wider and taller, nearly up to the board above, and lit,
-//    its glow reaching further and pooling on the board.
+//    its glow reaching further.
 // 3: 2, its glass sitting down in a bigger metal base, its wax like the
 //    real thing's (see Wax).
 // 4: 3, its glass meeting the base exactly, clear, its wax cream and, lit,
@@ -264,8 +264,7 @@ export default function LavaLamp({
           </filter>
         </defs>
 
-        {/* Lit, its glow round the globe, behind it, and from lava lamp 2
-            on, its light pooling on the board */}
+        {/* Lit, its glow round the globe, behind it */}
         <circle
           cx={0}
           cy={-46 * sy}
@@ -273,15 +272,6 @@ export default function LavaLamp({
           fill={`url(#${id}-glow)`}
           className={lit}
         />
-        {bright && (
-          <ellipse
-            cx={0}
-            cy={0}
-            rx={clear ? 40 : 30}
-            ry={2.5}
-            className={`${clear ? "fill-room-lava-amber/25" : "fill-room-lava-lit-liquid/40"} ${lit}`}
-          />
-        )}
 
         <g transform={sx !== 1 || sy !== 1 ? `scale(${sx} ${sy})` : undefined}>
           {/* The foot: silver, flaring straight out to the board, a light

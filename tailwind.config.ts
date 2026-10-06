@@ -199,6 +199,22 @@ export default {
             amber: "#FFB144",
             warm: "#FFE0A0",
           },
+          // Pothos 4's leaves: a brighter green than the snake plant, its
+          // shade and its light, and golden pothos's streaks
+          pothos: {
+            DEFAULT: "#4E7D33",
+            dark: "#355A22",
+            light: "#86AC57",
+            streak: "#E4D27E",
+          },
+          // My black and gold clock: its case, face, rim and white numbers
+          // (its hands and legs are room-gold)
+          clock: {
+            DEFAULT: "#1B1B1D",
+            face: "#242427",
+            rim: "#3C3C41",
+            numeral: "#EDE7D8",
+          },
           // The disco ball's colored glass shards
           disco: {
             plum: "#5B3F6B",

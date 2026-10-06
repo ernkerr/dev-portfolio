@@ -3,16 +3,20 @@ import CaseStudyArticle, {
   type CaseStudySection,
 } from "@/components/site/CaseStudyArticle";
 import {
+  Caption,
   Columns,
   Facts,
   H3,
   InProgress,
   inlineLink,
+  label,
   Lead,
   P,
 } from "@/components/site/prose";
 import { BuildNote, Review, Screens } from "@/components/site/appStudy";
+import { PhoneAndReview, ReviewShots } from "./findings";
 import LiveBoard from "./LiveBoard";
+import Sketches from "./Sketches";
 
 // Every claim traces back to the gin-score-tracker repo (commits named in
 // the research notes), the live App Store listing and its reviews (fetched
@@ -73,7 +77,7 @@ const SECTIONS: CaseStudySection[] = [
         <Columns
           items={[
             {
-              title: "1 winner per hand",
+              title: "One winner",
               text: "Only the player who wins a hand scores it, so the app should ask who won before it asks for points.",
             },
             {
@@ -90,12 +94,174 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
-    id: "design",
-    title: "Design",
+    id: "goal",
+    title: "Goal",
+    headline: "Everyone in my family should be able to use it.",
+    content: (
+      <div className="border-t border-site-line pt-5">
+        <p className={label}>How I’ll know I’ve succeeded</p>
+        <p className="mt-3 max-w-measure font-serif text-column-title text-site-ink">
+          The “grandpa test,” as I call it: if my grandpa can understand it,
+          anyone can.
+        </p>
+      </div>
+    ),
+  },
+  {
+    id: "research",
+    title: "Research",
+    content: (
+      <>
+        <P>I started with how users were already keeping score, on paper.</P>
+        <InProgress title="Our paper sheets">
+          What our paper sheets showed: how we laid out the columns, totals and
+          bonuses, and what was hard to look back at.
+        </InProgress>
+        <figure>
+          <div className="flex aspect-[4/3] max-w-measure items-center justify-center border border-dashed border-site-muted/50 text-caption text-site-muted">
+            Photo of our paper scorecard
+          </div>
+          <Caption>
+            Our paper scorecards set the mental model: a column for each player,
+            a row for each hand, and a running total. The app keeps that
+            structure.
+          </Caption>
+        </figure>
+
+        <P>
+          Then I went to where users were already looking for a solution, the
+          App Store. I found every app that keeps score for Gin played with real
+          cards.
+        </P>
+        <P>
+          In the reviews of other apps, I found things users wanted, like the
+          ability to use other house rules, so I added that to my design to
+          allow flexibility for other play styles.
+        </P>
+
+        <H3>Players wanted their own rules</H3>
+        <P>
+          Reviews kept asking for a different target score or different bonus
+          values. Gin Rummy Score Tracker’s developer replied in January 2023
+          that both were coming, and they never shipped.
+        </P>
+        <ReviewShots
+          shots={[
+            {
+              name: "grst-house-rules",
+              alt: "A 5-star App Store review of Gin Rummy Score Tracker titled Great start, from January 2, 2023, asking for customizations for their house rules: an option to change the target points (sometimes they play to 200 instead of 100) and a double points bonus. The developer replied that they were planning to add options for the target points and the value of bonuses.",
+              height: 558,
+            },
+            {
+              name: "grst-250",
+              alt: "A 2-star App Store review of Gin Rummy Score Tracker titled Not happy, from January 1, 2024: “It’s a beautifully designed app with no customization. We like to play til 250, this declares winner after 100, and you can’t change it.”",
+              height: 362,
+            },
+            {
+              name: "ginsc-undercut",
+              alt: "A 2-star App Store review of GinSC titled Ok but, from March 20, 2010: “Would have got 5 stars IF you could customise the points systems used. I play with 10pt bonus for undercut. This means I can't use this app propperly”",
+              height: 288,
+            },
+          ]}
+          caption="Reviews of Gin Rummy Score Tracker from 2023 and 2024, and of GinSC from 2010."
+        />
+
+        <H3>Most of them hadn’t changed in years</H3>
+        <P>
+          At least 84 apps on the App Store let you play Gin on your phone, but
+          only 5 kept score for a game at a real table. 3 of those 5 hadn’t been
+          updated in over 18 months. GinSC’s last update was in November 2022,
+          and by 2025 it crashed as soon as it opened. I set my app apart by
+          providing a free trial game instead of asking for payment up front,
+          which I learned from the one that crashed.
+        </P>
+        <PhoneAndReview
+          phone={{
+            name: "ginsc",
+            alt: "GinSC: 2 green player columns of scores with Knocker and Undercut notes, and a list to pick the hand: Big Gin, Gin, or 1 to 8.",
+            height: 1298,
+          }}
+          review={{
+            name: "ginsc-crash",
+            alt: "A 1-star App Store review of GinSC titled Crashes on launch, from May 24, 2025: “Looked hopeful, paid and app won’t open on iPhone. Launches and then closes immediately. Could not find support option on web page”",
+            height: 254,
+          }}
+        />
+
+        <H3>The free ones were built for something else</H3>
+        <P>
+          Game ScoreKeeper+ adds up whatever you type, for any game. Ginscorer
+          Pro is a grid for 2 to 4 players playing for money. Rummy Score Sheet
+          is for a different Rummy, and most of its reviews were about ads.
+        </P>
+        <Screens
+          screens={[
+            {
+              src: `${IMG}/landscape/game-scorekeeper.webp`,
+              alt: "Game ScoreKeeper+: a plain list of 4 players and their scores, each with a plus button, and Add Player and Reset buttons.",
+              width: 600,
+              height: 1300,
+              label: "Game ScoreKeeper+",
+            },
+            {
+              src: `${IMG}/landscape/ginscorer-pro.webp`,
+              alt: "Ginscorer Pro: a dark Game Score grid with 6 team columns and a Melds column, above Score, Games and Main Menu buttons.",
+              width: 600,
+              height: 1304,
+              label: "Ginscorer Pro",
+            },
+            {
+              src: `${IMG}/landscape/rummy-score-sheet.webp`,
+              alt: "Rummy Score Sheet: a red Scoring Sheet with a blue panel where each of 4 players gets a score box and D, M, F and R buttons, with Close and Add Scores.",
+              width: 600,
+              height: 1299,
+              label: "Rummy Score Sheet",
+            },
+          ]}
+        />
+
+        <H3>The closest one already asked who won first</H3>
+        <P>
+          I found Gin Rummy Score Tracker to be the easiest to use, not just for
+          me but for other users I asked as well. When taking score with pen and
+          paper, 5 of the 5 people I asked counted the cards first, then added
+          the bonus after. This app mimicked this behavior by first asking for
+          the winner, then the points, then the bonus. But it cost $2.99 up
+          front, its rules were fixed, and it hadn’t been updated since May
+          2023.
+        </P>
+        <Screens
+          screens={[
+            {
+              src: `${IMG}/landscape/gin-rummy-score-tracker-tall.webp`,
+              alt: "Gin Rummy Score Tracker: a sheet with Winner (You or Kate), a Score of 13, Bonus with Big Gin selected, a Total of 44 Points and Save Round 4.",
+              width: 600,
+              height: 1300,
+              label: "Gin Rummy Score Tracker",
+            },
+            {
+              src: `${IMG}/v1-modal.webp`,
+              alt: "Gin Score Tracker’s New Score screen in 1.0: blue and black buttons with hard black shadows, Gin selected, Bonus: +25 and a total of 34.",
+              ...phone,
+              label: "Mine, 1.0",
+            },
+          ]}
+        />
+      </>
+    ),
+  },
+  {
+    id: "ideation",
+    title: "Ideation",
     headline: "Who won, then how much.",
     content: (
       <>
-        <H3>The scoring model came before the look</H3>
+        <P>
+          Before writing any code, I took a sharpie and a blank page and
+          sketched the 2 screens I’d use most: the game and entering a score.
+        </P>
+        <Sketches />
+        <H3>From sketch to code</H3>
         <P>
           My first working version, on May 13, 2025, had 2 number boxes per
           round, one for each player. That matched paper but not the game: only
@@ -126,7 +292,61 @@ const SECTIONS: CaseStudySection[] = [
           ]}
           caption="Entering a hand, from the first working version to 1.0. Rebuilt from the code at each commit with sample scores."
         />
-
+      </>
+    ),
+  },
+  {
+    id: "testing",
+    title: "Prototyping & testing",
+    content: (
+      <>
+        <H3>Testing with family</H3>
+        <InProgress title="Before launch">
+          Who tested the early builds, what you saw or heard, and what you
+          changed because of it.
+        </InProgress>
+        <H3>A 1-star review found the paywall in the wrong place</H3>
+        <Review
+          stars={1}
+          quote="This sucks, I can’t actually finish a game, guess I have to delete it."
+          who="“Can only play up to 100 points???”, App Store review, May 2026"
+        />
+        <P>
+          Free games went up to 100 points. In version 1.0 the app checked that
+          limit when you saved a hand, and opened the paywall instead of saving
+          any hand that took a total past 100. The hand that ends a game usually
+          does, so most free games couldn’t be finished.
+        </P>
+        <P>
+          The fix moved the paywall to after the win. Scoring is never blocked
+          now: you finish the game, see who won, and then get the choice to keep
+          playing past 100 with Premium. I made editing and deleting games free
+          in the same update, which another reviewer had asked for. Version
+          1.0.5 shipped on June 17, 2026, and I replied to the review: “The free
+          game is meant to play all the way through so you can try the app
+          before buying, and it wasn’t doing that for you.”
+        </P>
+        <P>
+          Try both. Each game is 1 good hand from 100: tap Add Score, pick You,
+          choose Gin and save.
+        </P>
+        <div className="mx-auto grid max-w-64 gap-10 sm:max-w-xl sm:grid-cols-2 sm:gap-8">
+          <LiveBoard version="1.0" label="Version 1.0" />
+          <LiveBoard version="now" label="Since 1.0.5" />
+        </div>
+        <Review
+          stars={5}
+          quote="Thanks for adding the delete function!! Love this tracker. Works great on planes and trains!"
+          who="App Store review, edited June 2026, after it first asked for delete"
+        />
+      </>
+    ),
+  },
+  {
+    id: "decisions",
+    title: "Design decisions",
+    content: (
+      <>
         <H3>Neo-brutalism</H3>
         <P>
           Visually, I leaned into a neo-brutalist UI: bold colors, thick
@@ -166,48 +386,6 @@ const SECTIONS: CaseStudySection[] = [
           stars={5}
           quote="Love the little icons for gin or an undercut and that you can change the rules for each opponent since I know people who play different versions of the game."
           who="App Store review, July 2025"
-        />
-      </>
-    ),
-  },
-  {
-    id: "iteration",
-    title: "Iteration",
-    headline: "A 1-star review found the paywall in the wrong place.",
-    content: (
-      <>
-        <Review
-          stars={1}
-          quote="This sucks, I can’t actually finish a game, guess I have to delete it."
-          who="“Can only play up to 100 points???”, App Store review, May 2026"
-        />
-        <P>
-          Free games went up to 100 points. In version 1.0 the app checked that
-          limit when you saved a hand, and opened the paywall instead of saving
-          any hand that took a total past 100. The hand that ends a game usually
-          does, so most free games couldn’t be finished.
-        </P>
-        <P>
-          The fix moved the paywall to after the win. Scoring is never blocked
-          now: you finish the game, see who won, and then get the choice to keep
-          playing past 100 with Premium. I made editing and deleting games free
-          in the same update, which another reviewer had asked for. Version
-          1.0.5 shipped on June 17, 2026, and I replied to the review: “The free
-          game is meant to play all the way through so you can try the app
-          before buying, and it wasn’t doing that for you.”
-        </P>
-        <P>
-          Try both. Each game is 1 good hand from 100: tap Add Score, pick You,
-          choose Gin and save.
-        </P>
-        <div className="mx-auto grid max-w-64 gap-10 sm:max-w-xl sm:grid-cols-2 sm:gap-8">
-          <LiveBoard version="1.0" label="Version 1.0" />
-          <LiveBoard version="now" label="Since 1.0.5" />
-        </div>
-        <Review
-          stars={5}
-          quote="Thanks for adding the delete function!! Love this tracker. Works great on planes and trains!"
-          who="App Store review, edited June 2026, after it first asked for delete"
         />
       </>
     ),

@@ -135,6 +135,7 @@ export default function LiveBoard({
 }) {
   const [rounds, setRounds] = useState<Round[]>(START);
   const [open, setOpen] = useState(false);
+  const [editing, setEditing] = useState<number | null>(null);
   const [winner, setWinner] = useState<"you" | "james" | null>(null);
   const [score, setScore] = useState("9");
   const [bonus, setBonus] = useState<Bonus>(null);
@@ -160,9 +161,24 @@ export default function LiveBoard({
   const total = (Number(score) || 0) + bonusPoints;
 
   function startScore() {
+    setEditing(null);
     setWinner(null);
     setScore("9");
     setBonus(null);
+    setError("");
+    setOpen(true);
+  }
+
+  // Like openEditModal(): prefill the winner, the bonus, and the points
+  // without the bonus.
+  function editRound(index: number) {
+    const r = rounds[index];
+    const points = r.you || r.james;
+    const base = points - (r.bonus ? rules[r.bonus] : 0);
+    setEditing(index);
+    setWinner(r.you > 0 ? "you" : r.james > 0 ? "james" : null);
+    setScore(points > 0 ? String(Math.max(base, 0)) : "");
+    setBonus(r.bonus);
     setError("");
     setOpen(true);
   }
@@ -178,7 +194,8 @@ export default function LiveBoard({
       bonus,
     };
     // Version 1.0's canAddScore(): free users couldn't save a round that
-    // took either total past 100.
+    // took either total past 100. It ran on edits too, adding the edited
+    // round on top of totals that already counted it.
     if (
       version === "1.0" &&
       (you + round.you > FREE_TARGET || james + round.james > FREE_TARGET)
@@ -187,7 +204,11 @@ export default function LiveBoard({
       setPaywall("blocked");
       return;
     }
-    setRounds((r) => [...r, round]);
+    setRounds((rs) =>
+      editing === null
+        ? [...rs, round]
+        : rs.map((r, i) => (i === editing ? round : r)),
+    );
     setOpen(false);
   }
 
@@ -369,7 +390,7 @@ export default function LiveBoard({
               </p>
               <ol
                 ref={list}
-                className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto pb-2 text-sm"
+                className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto pb-2 text-sm [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               >
                 {rounds
                   .map((r, i) => ({ r, n: i + 1 }))
@@ -384,11 +405,18 @@ export default function LiveBoard({
                         <RoundIcon bonus={r.bonus} />
                       </span>
                       <span className="text-[#4B5563]">{r.james}</span>
-                      <span className="flex justify-center text-[#6B7280]">
-                        <LuPencil
-                          aria-hidden="true"
-                          className="h-[18px] w-[18px]"
-                        />
+                      <span className="flex justify-center">
+                        <button
+                          type="button"
+                          onClick={() => editRound(n - 1)}
+                          aria-label={`Edit round ${n}`}
+                          className={`-m-2 p-2 text-[#6B7280] ${focusRing}`}
+                        >
+                          <LuPencil
+                            aria-hidden="true"
+                            className="h-[18px] w-[18px]"
+                          />
+                        </button>
                       </span>
                     </li>
                   ))}
@@ -413,10 +441,14 @@ export default function LiveBoard({
           <Overlay>
             <div
               role="dialog"
-              aria-label="New Score"
+              aria-label={
+                editing === null ? "New Score" : `Edit Round ${editing + 1}`
+              }
               className="w-[95%] rounded-lg bg-white p-4"
             >
-              <p className="text-center text-xl font-bold">New Score</p>
+              <p className="text-center text-xl font-bold">
+                {editing === null ? "New Score" : `Edit Round ${editing + 1}`}
+              </p>
               <p className="mt-3">Winner</p>
               <div className="mt-1 flex gap-2">
                 {(
@@ -714,7 +746,7 @@ function GameOptions({
         </button>
         <p className="text-base font-bold">Game Options</p>
       </div>
-      <div className="flex-1 overflow-y-auto px-4">
+      <div className="flex-1 overflow-y-auto px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="p-4">
           <p className="mb-4 text-lg font-semibold">Game Rules</p>
           {field("target", "Target Score", "")}

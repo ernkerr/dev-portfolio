@@ -282,7 +282,7 @@ function Preview({ capture }: { capture: Annotation["desktop"] }) {
   );
 }
 
-function ArrowButton({
+export function ArrowButton({
   label: name,
   disabled,
   onClick,

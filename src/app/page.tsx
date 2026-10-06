@@ -24,7 +24,7 @@ const EXPERIENCE = [
 ];
 
 // The work in order: first here is first on phones, and from 768px it reads
-// left to right across two columns (see COLUMNS).
+// left to right in rows of two. Every tile is 4:3, so the rows line up.
 const WORK: TileItem[] = [
   {
     href: "/portfolioRedesign",
@@ -56,7 +56,7 @@ const WORK: TileItem[] = [
       alt: "OrderSync color tokens: four navy swatches with their hex values, above the site's two button styles.",
       node: <OrderSyncTokens />,
     },
-    aspect: "aspect-square",
+    aspect: "aspect-[4/3]",
     bg: "#E6EBF2",
     // Same client, other side of the work: the order agent.
     engineer: {
@@ -92,7 +92,7 @@ const WORK: TileItem[] = [
       radius: "rounded-[1.4cqw]",
       shadow: true,
     },
-    aspect: "aspect-[16/11]",
+    aspect: "aspect-[4/3]",
     bg: "#E4DDFB",
   },
   {
@@ -104,7 +104,7 @@ const WORK: TileItem[] = [
       alt: "The Carpoolio logo on a blurred aurora of blues and greens.",
       node: <CarpoolioMark />,
     },
-    aspect: "aspect-[4/5]",
+    aspect: "aspect-[4/3]",
   },
   {
     href: "/heartsScoreTracker",
@@ -123,10 +123,6 @@ const WORK: TileItem[] = [
     bg: "#F4C6B8",
   },
 ];
-
-// From 768px the work splits into two columns that stagger like a masonry
-// layout: 1st, 3rd and 5th on the left, 2nd, 4th and 6th on the right.
-const COLUMNS = [0, 1].map((c) => WORK.filter((_, i) => i % 2 === c));
 
 export default async function Home({
   searchParams,
@@ -185,26 +181,13 @@ export default async function Home({
           <h2 id="work-heading" className="sr-only">
             Selected work
           </h2>
-          {/* Phones: one column, in order. Two staggered lists can't keep
-              that order once they stack, so this is its own list. */}
-          <ul className="flex flex-col gap-10 md:hidden">
+          <ul className="grid gap-10 md:grid-cols-2 md:gap-x-6">
             {WORK.map((item, i) => (
               <li key={item.href}>
-                <Tile item={item} sizes={sizes} priority={i === 0} />
+                <Tile item={item} sizes={sizes} priority={i < 2} />
               </li>
             ))}
           </ul>
-          <div className="hidden md:grid md:grid-cols-2 md:gap-6">
-            {COLUMNS.map((column, c) => (
-              <ul key={c} className="flex flex-col gap-10">
-                {column.map((item, i) => (
-                  <li key={item.href}>
-                    <Tile item={item} sizes={sizes} priority={i === 0} />
-                  </li>
-                ))}
-              </ul>
-            ))}
-          </div>
         </section>
       </SiteShell>
     </SideProvider>

@@ -9,6 +9,7 @@ import {
   GinMark,
   OrderSyncFlow,
   OrderSyncTokens,
+  PortfolioBefore,
 } from "@/components/site/thumbs";
 import { EMAIL, focusRing, mono } from "@/components/site/links";
 import { isEngineerSide } from "@/components/site/side";
@@ -29,8 +30,22 @@ const WORK: TileItem[] = [
     href: "/portfolioRedesign",
     title: "Turning a developer portfolio into a design portfolio",
     meta: ["Portfolio Redesign", "2026"],
-    art: { kind: "custom", alt: "", node: null },
+    // The one tile that shows a page: the old site is what this study is
+    // about. Its own light mode here, its dark mode on the engineer side.
+    art: {
+      kind: "custom",
+      alt: "The 2025 homepage in light mode: an electric-blue bento grid on pale gray with Designer & Full Stack Developer, a portrait, project links, the last song played and a commit graph.",
+      node: <PortfolioBefore mode="light" />,
+    },
     aspect: "aspect-[4/3]",
+    engineer: {
+      title: "Turning a developer portfolio into a design portfolio",
+      art: {
+        kind: "custom",
+        alt: "The 2025 homepage in dark mode: an electric-blue bento grid on navy with Designer & Full Stack Developer, a portrait, project links, the last song played and a commit graph.",
+        node: <PortfolioBefore mode="dark" />,
+      },
+    },
   },
   {
     href: "/orderSync",

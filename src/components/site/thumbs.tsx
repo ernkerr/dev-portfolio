@@ -257,3 +257,35 @@ export function GinMark() {
     </div>
   );
 }
+
+// The 2025 homepage, whole, on its own background, so the old bento grid
+// keeps its margins. Light mode for the designer side, dark for the engineer
+// side; both shot from /archive/2025 at 1440 × 900 at the same moment. In
+// the light shot the theme toggle is painted white (the site's own is a
+// yellow gradient) so it doesn't pull the eye.
+const OLD_SITE = {
+  light: {
+    src: "/images/home/thumbs/old-site-light.webp",
+    bg: "bg-[#F1F5F9]",
+  },
+  dark: {
+    src: "/images/home/thumbs/old-site-dark.webp",
+    bg: "bg-[#0F172A]",
+  },
+};
+
+export function PortfolioBefore({ mode }: { mode: "light" | "dark" }) {
+  const { src, bg } = OLD_SITE[mode];
+  return (
+    <div className={`absolute inset-0 ${bg}`}>
+      <Image
+        src={src}
+        alt=""
+        fill
+        sizes="(min-width: 768px) 50vw, 100vw"
+        priority
+        className="object-contain"
+      />
+    </div>
+  );
+}

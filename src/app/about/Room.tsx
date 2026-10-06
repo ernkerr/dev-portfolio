@@ -6310,7 +6310,7 @@ const CAMERA = {
   2: { left: 118, width: 70 },
   3: { left: 124, width: 66 },
   4: { left: 124, width: 66 },
-  5: { left: 160, width: 56 },
+  5: { left: 170, width: 46 },
 };
 const cameraBox = (version: CameraVersion) => {
   const { left, width } = CAMERA[version];

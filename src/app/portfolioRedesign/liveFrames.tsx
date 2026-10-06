@@ -51,6 +51,7 @@ function LiveFrame({
   crop,
   links,
   lazy = false,
+  defer = false,
   className = "",
 }: {
   src: string;
@@ -62,10 +63,39 @@ function LiveFrame({
   /** "frame" keeps links under src inside the frame; "page" opens them here. */
   links: LinkPolicy;
   lazy?: boolean;
+  /** Wait until the case study has loaded and the browser is idle. */
+  defer?: boolean;
   className?: string;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
+  const [ready, setReady] = useState(!defer);
+  const [shown, setShown] = useState(false);
+
+  // A framed page is a whole second site, so a deferred frame starts loading
+  // only once the case study's own text and images are in.
+  useEffect(() => {
+    if (!defer) return;
+    let cancel = () => {};
+    const start = () => {
+      // Safari has no requestIdleCallback; a short timeout stands in.
+      if ("requestIdleCallback" in window) {
+        const id = window.requestIdleCallback(() => setReady(true), {
+          timeout: 2000,
+        });
+        cancel = () => window.cancelIdleCallback(id);
+      } else {
+        const id = setTimeout(() => setReady(true), 200);
+        cancel = () => clearTimeout(id);
+      }
+    };
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+    return () => {
+      window.removeEventListener("load", start);
+      cancel();
+    };
+  }, [defer]);
 
   useEffect(() => {
     const el = box.current;
@@ -90,15 +120,20 @@ function LiveFrame({
     >
       {/* Only once there's a width to scale to: a hidden frame (the other
           breakpoint's) never measures, so it never loads. */}
-      {scale > 0 && (
+      {scale > 0 && ready && (
         <iframe
           src={src}
           title={title}
           loading={lazy ? "lazy" : "eager"}
-          onLoad={(event) => setUpFrame(event, inFrame)}
+          onLoad={(event) => {
+            setUpFrame(event, inFrame);
+            setShown(true);
+          }}
           width={view.w}
           height={view.h}
-          className="absolute left-0 top-0 origin-top-left border-0"
+          className={`absolute left-0 top-0 origin-top-left border-0 transition-opacity duration-300 motion-reduce:transition-none ${
+            shown ? "opacity-100" : "opacity-0"
+          }`}
           style={{ transform: `scale(${scale})` }}
         />
       )}
@@ -119,6 +154,7 @@ export function LiveHome2026() {
         view={{ w: 1440, h: 900 }}
         crop={{ w: 1440, h: 600 }}
         links="page"
+        defer
         className="hidden bg-site-paper md:block"
       />
       <LiveFrame
@@ -127,6 +163,7 @@ export function LiveHome2026() {
         view={{ w: 390, h: 844 }}
         crop={{ w: 390, h: 520 }}
         links="page"
+        defer
         className="bg-site-paper md:hidden"
       />
     </>

@@ -42,15 +42,11 @@ export type TileItem = {
 const zoom =
   "transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none";
 
-function Art({
-  art,
-  sizes,
-  priority,
-}: {
-  art: TileArt;
-  sizes: string;
-  priority: boolean;
-}) {
+// Tile images load lazily, even in the first row. Marking one priority (or
+// even eager) makes React preload it in an HTTP Link header, and Chrome reads
+// that header's srcset wrong and downloads the 3840px fallback on top of the
+// right size. A lazy image on screen still loads at once.
+function Art({ art, sizes }: { art: TileArt; sizes: string }) {
   if (art.kind === "cover") {
     return (
       <Image
@@ -58,7 +54,6 @@ function Art({
         alt={art.alt}
         fill
         sizes={sizes}
-        priority={priority}
         className={`object-cover ${zoom}`}
         style={{ objectPosition: art.position ?? "center" }}
       />
@@ -90,7 +85,6 @@ function Art({
           alt={art.alt}
           fill
           sizes="(min-width: 768px) 30vw, 60vw"
-          priority={priority}
           className="object-cover"
         />
       </div>
@@ -101,11 +95,12 @@ function Art({
 export default function Tile({
   item,
   sizes,
-  priority = false,
   stacked = false,
 }: {
   item: TileItem;
   sizes: string;
+  /** Ignored: tiles always load lazily (see Art). Still accepted so pages
+   *  that pass it keep compiling. */
   priority?: boolean;
   /** Put the meta line under the title instead of beside it (narrow grids). */
   stacked?: boolean;
@@ -125,7 +120,7 @@ export default function Tile({
         className={`relative overflow-hidden border border-site-line [container-type:inline-size] ${aspect}`}
         style={bg ? { background: bg } : undefined}
       >
-        <Art art={art} sizes={sizes} priority={priority} />
+        <Art art={art} sizes={sizes} />
       </div>
       <div
         className={`mt-3 flex gap-x-4 gap-y-1 ${

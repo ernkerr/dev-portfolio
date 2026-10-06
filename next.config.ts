@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Dev server only: keep compiled pages in memory for an hour (the default
+  // drops them after a minute), so pages embedded in the redesign case study,
+  // like the large /archive/2025, aren't recompiled on every visit.
+  onDemandEntries: {
+    maxInactiveAge: 60 * 60 * 1000,
+    pagesBufferLength: 50,
+  },
   images: {
     domains: ["i.scdn.co", "covers.openlibrary.org"],
     remotePatterns: [

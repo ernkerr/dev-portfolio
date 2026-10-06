@@ -283,7 +283,6 @@ export function PortfolioBefore({ mode }: { mode: "light" | "dark" }) {
         alt=""
         fill
         sizes="(min-width: 768px) 50vw, 100vw"
-        priority
         className="object-contain"
       />
     </div>

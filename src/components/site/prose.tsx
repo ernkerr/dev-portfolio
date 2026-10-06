@@ -97,7 +97,6 @@ export function Figure({
   height,
   caption,
   crop,
-  priority = false,
 }: {
   src: string;
   alt: string;
@@ -106,7 +105,6 @@ export function Figure({
   caption?: ReactNode;
   /** Show only the top of the image, this many source pixels tall. */
   crop?: number;
-  priority?: boolean;
 }) {
   return (
     <figure>
@@ -120,7 +118,6 @@ export function Figure({
           width={width}
           height={height}
           sizes="(min-width: 1024px) 896px, 100vw"
-          priority={priority}
           className="h-auto w-full"
         />
       </div>

@@ -26,10 +26,6 @@ export type LandscapeEntry = {
   source: { text: string; href: string };
 };
 
-const MEDIA = "/images/portfolioRedesign/landscape";
-export const video = (slug: string) => `${MEDIA}/${slug}.mp4`;
-export const poster = (slug: string) => `${MEDIA}/${slug}.jpg`;
-
 export const LANDSCAPE: LandscapeEntry[] = [
   {
     slug: "sara-mirowitz",

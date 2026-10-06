@@ -166,9 +166,9 @@ export default async function Home({
             Selected work
           </h2>
           <ul className="grid gap-10 md:grid-cols-2 md:gap-x-6">
-            {WORK.map((item, i) => (
+            {WORK.map((item) => (
               <li key={item.href}>
-                <Tile item={item} sizes={sizes} priority={i < 2} />
+                <Tile item={item} sizes={sizes} />
               </li>
             ))}
           </ul>

@@ -47,7 +47,6 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
             alt={post.title}
             fill
             className="object-cover"
-            priority
           />
         </div>
       )}

@@ -151,7 +151,6 @@ export default function AnnotatedPage({
               sizes="(min-width: 1024px) 720px, 86vw"
               alt={`Screenshot of ${name}’s portfolio with ${count} numbered highlights.`}
               className="block h-auto w-full"
-              priority
             />
 
             {/* Their own links, laid over the screenshot. The heading below

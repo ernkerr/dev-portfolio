@@ -128,7 +128,7 @@ const TYPE: { name: string; spec: string; sample: ReactNode }[] = [
   },
   {
     name: "column-title",
-    spec: "font-serif text-column-title · 21 / 1.375",
+    spec: "font-serif text-column-title · 19 / 1.375",
     sample: (
       <p className="font-serif text-column-title text-site-ink">
         Put shipped work first

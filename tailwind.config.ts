@@ -153,7 +153,7 @@ export default {
           { lineHeight: "1.12", letterSpacing: "-0.015em" },
         ],
         subhead: ["26px", { lineHeight: "1.375" }],
-        "column-title": ["21px", { lineHeight: "1.375" }],
+        "column-title": ["19px", { lineHeight: "1.375" }],
         "tile-title": ["17px", { lineHeight: "1.375" }],
         lead: ["21px", { lineHeight: "1.6" }],
         "lead-sm": ["19px", { lineHeight: "1.6" }],

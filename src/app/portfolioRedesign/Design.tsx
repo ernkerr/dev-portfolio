@@ -196,6 +196,8 @@ const SECTIONS: CaseStudySection[] = [
             },
           ]}
         />
+        {/* Same space above the line as the H3 has below it. */}
+        <hr className="mt-10 border-site-line" />
         <H3>Landscape analysis</H3>
         <P>
           I looked at 10 portfolios from people hired into their first design or

@@ -42,7 +42,7 @@ Use `site-*` with any color utility (`bg-`, `text-`, `border-`, `outline-`, `rin
 | `text-display-sm md:text-display` | serif | 40 → 56 / 1.08, −0.02em | One per page: hero or case-study title |
 | `text-section-sm md:text-section` | serif | 30 → 40 / 1.12, −0.015em | Case-study section headline |
 | `text-subhead` | serif | 26 / 1.375 | H3, pull quote |
-| `text-column-title` | serif | 21 / 1.375 | Titles in `Columns` |
+| `text-column-title` | serif | 19 / 1.375 | Titles in `Columns` |
 | `text-tile-title` | serif | 17 / 1.375 | Tile titles |
 | `text-lead-sm md:text-lead` | sans | 19 → 21 / 1.6 | Opening paragraph |
 | `text-body` | sans | 16 / 1.7 | Running text |

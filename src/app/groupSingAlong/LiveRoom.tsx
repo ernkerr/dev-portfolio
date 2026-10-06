@@ -1,9 +1,10 @@
 "use client";
 
 import { Bricolage_Grotesque, Inter } from "next/font/google";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { LuMic, LuMinus, LuPlus, LuSearch, LuShare } from "react-icons/lu";
 import { focusRing } from "@/components/site/links";
+import LivePhone from "@/components/site/LivePhone";
 import { label } from "@/components/site/prose";
 
 // The Group Sing Along room as it looked in January 2025 (web@6a337b4),
@@ -81,41 +82,13 @@ Life is but a dream`,
   },
 ];
 
-// The phone is laid out at a real 390px width, then scaled to fit its column,
-// so every size inside matches the product.
 const VIEW = { w: 390, h: 640 };
 
 function Phone({ children }: { children: ReactNode }) {
-  const box = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0.7);
-
-  useEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    const observer = new ResizeObserver(([entry]) =>
-      setScale(entry.contentRect.width / VIEW.w),
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div
-      ref={box}
-      className="relative w-full overflow-hidden rounded-phone-screen bg-white shadow-float ring-1 ring-black/5"
-      style={{ aspectRatio: `${VIEW.w} / ${VIEW.h}` }}
-    >
-      <div
-        className={`${inter.className} absolute left-0 top-0 origin-top-left text-[#030712]`}
-        style={{
-          width: VIEW.w,
-          height: VIEW.h,
-          transform: `scale(${scale})`,
-        }}
-      >
-        {children}
-      </div>
-    </div>
+    <LivePhone view={VIEW} className={`${inter.className} text-[#030712]`}>
+      {children}
+    </LivePhone>
   );
 }
 

@@ -21,7 +21,6 @@ import LiveBoard from "./LiveBoard";
 // Research notes: scratchpad research/scoretrackers/gin.md.
 
 const IMG = "/images/ginScoreTracker/study";
-const BG = "#E3E69B";
 const phone = { width: 780, height: 1688 };
 
 const SECTIONS: CaseStudySection[] = [
@@ -105,7 +104,6 @@ const SECTIONS: CaseStudySection[] = [
           points, tap a bonus, and see the total. The next day I gave it a look.
         </P>
         <Screens
-          bg={BG}
           screens={[
             {
               src: `${IMG}/first-working.webp`,
@@ -148,7 +146,6 @@ const SECTIONS: CaseStudySection[] = [
           rounds already played.
         </P>
         <Screens
-          bg={BG}
           screens={[
             {
               src: `${IMG}/now-scoreboard.webp`,
@@ -203,11 +200,9 @@ const SECTIONS: CaseStudySection[] = [
           Try both. Each game is 1 good hand from 100: tap Add Score, pick You,
           choose Gin and save.
         </P>
-        <div className="bg-[#E3E69B] px-6 py-8 md:px-10">
-          <div className="mx-auto grid max-w-64 gap-10 sm:max-w-xl sm:grid-cols-2 sm:gap-8">
-            <LiveBoard version="1.0" label="Version 1.0" />
-            <LiveBoard version="now" label="Since 1.0.5" />
-          </div>
+        <div className="mx-auto grid max-w-64 gap-10 sm:max-w-xl sm:grid-cols-2 sm:gap-8">
+          <LiveBoard version="1.0" label="Version 1.0" />
+          <LiveBoard version="now" label="Since 1.0.5" />
         </div>
         <Review
           stars={5}
@@ -274,10 +269,8 @@ export default function Design() {
     <SiteShell>
       <CaseStudyArticle
         hero={
-          <div className="bg-[#E3E69B] px-6 py-8 md:py-10">
-            <div className="mx-auto max-w-64">
-              <LiveBoard version="now" label="Tap Add Score" />
-            </div>
+          <div className="mx-auto max-w-64">
+            <LiveBoard version="now" label="Tap Add Score" />
           </div>
         }
         label="Gin Score Tracker • 2025–2026"

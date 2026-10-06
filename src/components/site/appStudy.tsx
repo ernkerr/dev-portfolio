@@ -42,10 +42,10 @@ export type Screen = {
 };
 
 /**
- * App screens side by side on the brand field. Phones get a phone's rounded
- * screen corners (rounded-phone-screen) so they read as screens, not cards.
- * Each screen tops out at 14rem wide, and 4 screens wrap to 2 by 2 on
- * phones, so every one stays readable.
+ * App screens side by side on the brand field, or on the page without `bg`.
+ * Phones get a phone's rounded screen corners (rounded-phone-screen) so they
+ * read as screens, not cards. Each screen tops out at 14rem wide, and 4
+ * screens wrap to 2 by 2 on phones, so every one stays readable.
  */
 export function Screens({
   bg,
@@ -53,7 +53,7 @@ export function Screens({
   caption,
   dark = false,
 }: {
-  bg: string;
+  bg?: string;
   screens: Screen[];
   caption?: ReactNode;
   /** Light labels, for a dark brand color. */
@@ -68,7 +68,10 @@ export function Screens({
     }[screens.length] ?? "grid-cols-2 sm:grid-cols-3";
   return (
     <figure>
-      <div className="px-[6%] py-8 sm:py-10" style={{ background: bg }}>
+      <div
+        className={bg ? "px-[6%] py-8 sm:py-10" : undefined}
+        style={bg ? { background: bg } : undefined}
+      >
         <ul
           className={`mx-auto grid max-w-3xl justify-items-center gap-x-4 gap-y-6 sm:gap-x-6 ${cols}`}
         >

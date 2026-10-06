@@ -27,27 +27,6 @@ const EXPERIENCE = [
 // left to right in rows of two. Every tile is 4:3, so the rows line up.
 const WORK: TileItem[] = [
   {
-    href: "/portfolioRedesign",
-    title: "Turning a developer portfolio into a design portfolio",
-    meta: ["Portfolio Redesign", "2026"],
-    // The one tile that shows a page: the old site is what this study is
-    // about. Its own light mode here, its dark mode on the engineer side.
-    art: {
-      kind: "custom",
-      alt: "The 2025 homepage in light mode: an electric-blue bento grid on pale gray with Designer & Full Stack Developer, a portrait, project links, the last song played and a commit graph.",
-      node: <PortfolioBefore mode="light" />,
-    },
-    aspect: "aspect-[4/3]",
-    engineer: {
-      title: "Turning a developer portfolio into a design portfolio",
-      art: {
-        kind: "custom",
-        alt: "The 2025 homepage in dark mode: an electric-blue bento grid on navy with Designer & Full Stack Developer, a portrait, project links, the last song played and a commit graph.",
-        node: <PortfolioBefore mode="dark" />,
-      },
-    },
-  },
-  {
     href: "/orderSync",
     title: "One design system for a scattered marketing site",
     meta: ["OrderSync", "Contract 2025"],
@@ -65,6 +44,27 @@ const WORK: TileItem[] = [
         kind: "custom",
         alt: "Order flow: Email into the OrderSync agent, out to the ERP.",
         node: <OrderSyncFlow />,
+      },
+    },
+  },
+  {
+    href: "/portfolioRedesign",
+    title: "Turning a developer portfolio into a design portfolio",
+    meta: ["Portfolio Redesign", "2026"],
+    // The one tile that shows a page: the old site is what this study is
+    // about. Its own light mode here, its dark mode on the engineer side.
+    art: {
+      kind: "custom",
+      alt: "The 2025 homepage in light mode: an electric-blue bento grid on pale gray with Designer & Full Stack Developer, a portrait, project links, the last song played and a commit graph.",
+      node: <PortfolioBefore mode="light" />,
+    },
+    aspect: "aspect-[4/3]",
+    engineer: {
+      title: "Turning a developer portfolio into a design portfolio",
+      art: {
+        kind: "custom",
+        alt: "The 2025 homepage in dark mode: an electric-blue bento grid on navy with Designer & Full Stack Developer, a portrait, project links, the last song played and a commit graph.",
+        node: <PortfolioBefore mode="dark" />,
       },
     },
   },
@@ -105,22 +105,6 @@ const WORK: TileItem[] = [
       node: <CarpoolioMark />,
     },
     aspect: "aspect-[4/3]",
-  },
-  {
-    href: "/heartsScoreTracker",
-    title: "Hearts scoring for the whole table",
-    meta: ["Hearts Score Tracker", "App Store"],
-    art: {
-      kind: "float",
-      src: "/images/heartsScoreTracker/icon2.png",
-      alt: "Hearts Score Tracker app icon: a crowned jester beside the word HEARTS.",
-      ratio: 1,
-      width: "w-[30%]",
-      radius: "rounded-[22%]",
-      shadow: true,
-    },
-    aspect: "aspect-[4/3]",
-    bg: "#F4C6B8",
   },
 ];
 

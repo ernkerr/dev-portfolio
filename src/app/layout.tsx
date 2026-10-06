@@ -21,13 +21,16 @@ const newsreader = Newsreader({
   axes: ["opsz"],
 });
 
+// What people see when erinkerr.me is pasted into an application or a
+// message. Words from the header and the homepage headline.
+const siteTitle = "Erin Kerr — Product & UI/UX designer + engineer";
 const siteDescription =
-  "Erin Kerr is a self-taught software engineer building in public. Explore projects like Git Racer, Carpoolio, and Group Sing Along, read the blog, or get in touch.";
+  "I’m Erin, a designer who engineers. Case studies of my shipped work, from OrderSync’s design system to my App Store apps.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://erinkerr.me"),
   title: {
-    default: "Erin Kerr — Software Engineer & Developer Content Creator",
+    default: siteTitle,
     template: "%s | Erin Kerr",
   },
   description: siteDescription,
@@ -35,7 +38,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Erin Kerr — Software Engineer & Developer Content Creator",
+    title: siteTitle,
     description: siteDescription,
     url: "https://erinkerr.me",
     siteName: "Erin Kerr",
@@ -52,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Erin Kerr — Software Engineer & Developer Content Creator",
+    title: siteTitle,
     description: siteDescription,
     images: ["/ek.png"],
   },
@@ -70,9 +73,9 @@ const jsonLd = {
       "@id": "https://erinkerr.me/#person",
       name: "Erin Kerr",
       url: "https://erinkerr.me",
-      jobTitle: "Software Engineer",
+      jobTitle: "Product & UI/UX Designer",
       description:
-        "Self-taught software engineer and developer content creator building projects in public.",
+        "Product and UI/UX designer who engineers: she designs and builds web and mobile apps.",
       image: "https://erinkerr.me/ek.png",
       sameAs: [
         "https://erin-codes.com",

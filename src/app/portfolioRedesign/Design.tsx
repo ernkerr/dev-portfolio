@@ -619,9 +619,8 @@ const SECTIONS: CaseStudySection[] = [
           design page I threw away.
         </P>
         <P>
-          Next: finish the reviewer sessions, write the design side of every
-          case study, and fix the link preview, which still calls me a software
-          engineer.
+          Next: finish the reviewer sessions and write the design side of every
+          case study.
         </P>
       </>
     ),

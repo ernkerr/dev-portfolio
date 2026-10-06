@@ -17,9 +17,9 @@ export function GET() {
 
   const body = `# Erin Kerr
 
-Erin Kerr is a self-taught software engineer and developer content creator
-building in public. She ships web apps, mobile apps, and developer tools,
-and writes about the process on her blog at ${baseUrl}.
+Erin Kerr is a product and UI/UX designer who engineers. She designs and
+ships web apps, mobile apps, and developer tools, and writes about the
+process on her blog at ${baseUrl}.
 
 ## Projects
 

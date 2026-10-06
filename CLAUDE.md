@@ -76,6 +76,7 @@ Keep running text, captions and section headlines within `max-w-measure`.
 
 - `SiteShell`: page frame with `SiteHeader` and footer. `CaseStudyArticle`: case-study layout with the pinned section list. `CaseStudy`: design/engineering sides of a case study.
 - `prose.tsx`: `P`, `Lead`, `H3`, `List`, `Code`, `Columns`, `Figure`, `Caption`, `Table`, `Facts`, `Quote`, `InProgress`, plus the `label` and `inlineLink` class strings.
+- `LivePhone`: a live app demo laid out at real phone size and scaled to fit. Pass `device` to draw the whole phone (body, side buttons, Dynamic Island, status bar) in the fixed `device-*` colors, so a demo reads as a phone, not a screenshot.
 - `appStudy.tsx`: figures for the app case studies: `BrandField` and `Screens` (screens on the project's brand color), `Review` (a real user's words) and `BuildNote` (a pointer to the engineering side).
 - `Tile`: project tile. Thumbnails are a brand-colored field with one thing on it (app icon, logo or one UI component), never a page screenshot.
 - `SideSwitch` + `SideContext`: the designer/engineer switch and its state.

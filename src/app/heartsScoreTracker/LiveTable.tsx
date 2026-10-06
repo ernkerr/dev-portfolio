@@ -129,8 +129,9 @@ export default function LiveTable() {
       </p>
       <div className="mx-auto max-w-64">
         <LivePhone
-          view={{ w: 390, h: 800 }}
+          view={{ w: 390, h: 844 }}
           screen="#F3F4F6"
+          device
           className={`${spaceMono.className} text-black`}
         >
           <div className="flex h-full flex-col">

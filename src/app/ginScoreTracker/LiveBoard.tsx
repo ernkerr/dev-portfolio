@@ -169,8 +169,9 @@ export default function LiveBoard({
         {label}
       </p>
       <LivePhone
-        view={{ w: 390, h: 780 }}
+        view={{ w: 390, h: 844 }}
         className={`${spaceMono.className} text-black`}
+        device
       >
         <div className="flex h-full flex-col">
           <div className="flex h-14 shrink-0 items-center justify-between border-b border-gray-200 px-4">

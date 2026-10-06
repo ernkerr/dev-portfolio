@@ -33,6 +33,14 @@ export default {
           line: "rgb(var(--site-line) / <alpha-value>)",
           blue: "rgb(var(--site-blue) / <alpha-value>)",
         },
+        // The phone around live app demos in case studies (LivePhone's
+        // device frame): a black titanium body, its edge and side buttons.
+        // Fixed, so the phone stays black on the engineer side.
+        device: {
+          body: "#0B0B0D",
+          edge: "#3A3A40",
+          button: "#1C1C20",
+        },
         // The room illustration on About (src/app/about/Room.tsx), picked
         // from a photo of my old bedroom. Not part of the site palette.
         room: {

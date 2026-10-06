@@ -44,56 +44,59 @@ export type Screen = {
 /**
  * App screens side by side on the brand field. Phones get a phone's rounded
  * screen corners (rounded-phone-screen) so they read as screens, not cards.
+ * Each screen tops out at 14rem wide, and 4 screens wrap to 2 by 2 on
+ * phones, so every one stays readable.
  */
 export function Screens({
   bg,
   screens,
   caption,
-  aspect,
+  dark = false,
 }: {
   bg: string;
   screens: Screen[];
   caption?: ReactNode;
-  aspect?: string;
+  /** Light labels, for a dark brand color. */
+  dark?: boolean;
 }) {
-  // Wider fields for more screens, so each one stays a readable size.
-  const field =
-    aspect ??
-    (screens.length >= 3
-      ? "aspect-[4/5] sm:aspect-[16/10]"
-      : "aspect-[4/5] sm:aspect-[16/11]");
+  const cols =
+    {
+      1: "grid-cols-1",
+      2: "grid-cols-2",
+      3: "grid-cols-3",
+      4: "grid-cols-2 sm:grid-cols-4",
+    }[screens.length] ?? "grid-cols-2 sm:grid-cols-3";
   return (
     <figure>
-      <BrandField bg={bg} aspect={field}>
-        <div className="flex h-[84%] items-center justify-center gap-[4%] px-[6%]">
+      <div className="px-[6%] py-8 sm:py-10" style={{ background: bg }}>
+        <ul
+          className={`mx-auto grid max-w-3xl justify-items-center gap-x-4 gap-y-6 sm:gap-x-6 ${cols}`}
+        >
           {screens.map((s) => (
-            <div key={s.src} className="flex h-full flex-col items-center">
+            <li key={s.src} className="flex w-full max-w-56 flex-col">
               <Image
                 src={s.src}
                 alt={s.alt}
                 width={s.width}
                 height={s.height}
-                sizes="(min-width: 1024px) 300px, 33vw"
-                className="h-full w-auto rounded-phone-screen shadow-float ring-1 ring-black/5"
+                sizes="(min-width: 640px) 224px, 45vw"
+                className="h-auto w-full rounded-phone-screen shadow-float ring-1 ring-black/5"
               />
-            </div>
+              {s.label && (
+                <p
+                  className={`mt-3 text-center ${
+                    dark
+                      ? "font-mono text-label uppercase text-white/70"
+                      : label
+                  }`}
+                >
+                  {s.label}
+                </p>
+              )}
+            </li>
           ))}
-        </div>
-      </BrandField>
-      {screens.some((s) => s.label) && (
-        <div
-          className="mt-3 grid gap-[4%] px-[6%]"
-          style={{
-            gridTemplateColumns: `repeat(${screens.length}, minmax(0, 1fr))`,
-          }}
-        >
-          {screens.map((s) => (
-            <p key={s.src} className={`${label} text-center`}>
-              {s.label}
-            </p>
-          ))}
-        </div>
-      )}
+        </ul>
+      </div>
       {caption && <Caption>{caption}</Caption>}
     </figure>
   );

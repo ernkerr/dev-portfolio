@@ -171,6 +171,7 @@ const SECTIONS: CaseStudySection[] = [
         </P>
         <Screens
           bg={BG}
+          dark
           screens={[
             {
               src: `${IMG}/camping.webp`,
@@ -197,6 +198,7 @@ const SECTIONS: CaseStudySection[] = [
         </P>
         <Screens
           bg={BG}
+          dark
           screens={[
             {
               src: `${IMG}/profile-before.webp`,
@@ -250,6 +252,7 @@ const SECTIONS: CaseStudySection[] = [
         </P>
         <Screens
           bg={BG}
+          dark
           screens={[
             {
               src: `${IMG}/trips-list.webp`,

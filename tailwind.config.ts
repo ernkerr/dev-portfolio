@@ -207,6 +207,88 @@ export default {
             light: "#86AC57",
             streak: "#E4D27E",
           },
+          // The window: its white frame and the shade in its corners; the
+          // sky through it, top and low, at night, dawn, day and dusk, and
+          // grey on a cloudy day or night, with its sun, moon, stars and
+          // clouds; and the city under it, near and far, by the time of
+          // day, its windows lit at night
+          window: {
+            frame: "#F4F1EB",
+            shade: "#D8D2C6",
+          },
+          sky: {
+            "night-top": "#0B1430",
+            "night-low": "#22305A",
+            "dawn-top": "#4A5A92",
+            "dawn-low": "#F4A988",
+            "day-top": "#5FA8E6",
+            "day-low": "#CFE8F8",
+            "dusk-top": "#4B3F7E",
+            "dusk-low": "#F49A6C",
+            "gray-top": "#8C99A6",
+            "gray-low": "#C9D1D8",
+            "gray-night-top": "#1A2236",
+            "gray-night-low": "#33405A",
+            sun: "#FFE08A",
+            moon: "#F2EFE2",
+            "cloud-dusk": "#F3C6BE",
+            "cloud-night": "#3E4866",
+            "cloud-gray": "#AEB8C2",
+          },
+          city: {
+            day: "#8393A6",
+            "day-far": "#A9B6C5",
+            dusk: "#3D3D5C",
+            "dusk-far": "#5D5A7E",
+            night: "#141A2C",
+            "night-far": "#252E48",
+            lit: "#FFD98A",
+          },
+          // My closet: the leather jacket (black, its edges and sheen), the
+          // cheetah fur jacket (its fur, the lighter collar, the spots and
+          // rosettes), the disco dress's silver sequins (mid, bright, dim,
+          // and the dark between them), my Docs (black leather, sheen,
+          // sole, yellow welt stitching), the price tag, and the sunnies
+          // on their strap: black, tortoiseshell and my red ones, and the
+          // red they tint the page when they're on
+          leather: {
+            DEFAULT: "#1C1B1E",
+            edge: "#33323A",
+            sheen: "#4A4952",
+          },
+          cheetah: {
+            DEFAULT: "#D6A25A",
+            light: "#E9C682",
+            spot: "#2A1C12",
+            rosette: "#8A5528",
+          },
+          sequin: {
+            DEFAULT: "#B9C0C8",
+            light: "#EEF1F4",
+            dark: "#848D97",
+            deep: "#4D545C",
+          },
+          docs: {
+            DEFAULT: "#151416",
+            sheen: "#3A3A40",
+            sole: "#232325",
+            stitch: "#E8C21A",
+          },
+          tag: {
+            DEFAULT: "#EAD9B0",
+            ink: "#C8102E",
+          },
+          sunnies: {
+            strap: "#E9E2D3",
+            black: "#141416",
+            lens: "#3A3D44",
+            tortoise: "#6B3E1E",
+            "tortoise-spot": "#2E1A0C",
+            "tortoise-lens": "#8A5A2B",
+            red: "#D7263D",
+            "red-lens": "#F05A66",
+            tint: "#FF3B3B",
+          },
           // My black and gold clock: its case, face, rim and white numbers
           // (its hands and legs are room-gold)
           clock: {
@@ -328,6 +410,35 @@ export default {
           "0%, 60%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        // The window's weather: clouds drifting across, rain and snow
+        // falling, fog drifting, a storm's lightning, stars twinkling
+        "cloud-drift": {
+          from: { transform: "translateX(-70px)" },
+          to: { transform: "translateX(230px)" },
+        },
+        "rain-fall": {
+          "0%": { transform: "translate(0, -12px)", opacity: "0" },
+          "10%": { opacity: "1" },
+          "100%": { transform: "translate(-12px, 230px)", opacity: "0.8" },
+        },
+        "snow-fall": {
+          "0%": { transform: "translate(0, -8px)" },
+          "50%": { transform: "translate(5px, 110px)" },
+          "100%": { transform: "translate(-2px, 230px)" },
+        },
+        "fog-drift": {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(-24px)" },
+        },
+        lightning: {
+          "0%, 90%, 94%, 100%": { opacity: "0" },
+          "91%": { opacity: "0.7" },
+          "95%": { opacity: "0.45" },
+        },
+        twinkle: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.35" },
+        },
         // The lava lamp's wax, drifting up and back down, stretching as it
         // rises
         "lava-a": {
@@ -358,6 +469,12 @@ export default {
         "dj-blink": "dj-blink 1s step-end infinite",
         "camera-flash": "camera-flash 400ms ease-out forwards",
         "dj-note": "dj-note 2s ease-out",
+        "cloud-drift": "cloud-drift 120s linear infinite",
+        "rain-fall": "rain-fall 1.4s linear infinite",
+        "snow-fall": "snow-fall 14s linear infinite",
+        "fog-drift": "fog-drift 24s ease-in-out infinite",
+        lightning: "lightning 9s linear infinite",
+        twinkle: "twinkle 3s ease-in-out infinite",
         "lava-a": "lava-a 14s ease-in-out infinite",
         "lava-b": "lava-b 19s ease-in-out infinite",
         "lava-c": "lava-c 23s ease-in-out infinite",

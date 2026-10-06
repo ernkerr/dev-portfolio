@@ -9,6 +9,8 @@ import CameraOnShelf from "./Camera";
 import LavaLamp from "./LavaLamp";
 import Clock from "./Clock";
 import Sway from "./Sway";
+import CityWindow from "./CityWindow";
+import Closet, { type ClosetVersion } from "./Closet";
 import { LAVA } from "./lavaShape";
 import { MY_PHOTOS } from "./cameraPhotos";
 
@@ -6815,6 +6817,40 @@ function RealCuttings({ version }: { version: 2 | 3 | 4 | 5 }) {
   return sway ? <Sway degrees={4}>{drawing}</Sway> : drawing;
 }
 
+/* ---------- Window ---------- */
+
+// A window in the wall right of the bookshelf, looking out on wherever
+// whoever's looking is, as it is outside right now (see CityWindow.tsx).
+// It's drawn in the bookshelf's units, in a strip of wall WALL wide beside
+// it. Versions:
+// 1. a white two-over-two window: the city's skyline under the sky for
+//    the time of day there, the sun or moon, and the weather
+export type WindowVersion = 1;
+
+const WALL = 190;
+const WINDOW = { left: 15, top: 56, width: 160, height: 236 };
+
+function WindowWall() {
+  return (
+    <div
+      className="relative shrink-0"
+      style={{
+        width: `calc(var(--room-unit) * ${WALL})`,
+        aspectRatio: `${WALL} / ${VIEW.height}`,
+      }}
+    >
+      <CityWindow
+        box={{
+          left: `${(WINDOW.left / WALL) * 100}%`,
+          top: `${((WINDOW.top - VIEW.top) / VIEW.height) * 100}%`,
+          width: `${(WINDOW.width / WALL) * 100}%`,
+          height: `${(WINDOW.height / VIEW.height) * 100}%`,
+        }}
+      />
+    </div>
+  );
+}
+
 /* ---------- Lava lamp ---------- */
 
 // My lava lamp on the board below the DJ deck, beside the camera. It's
@@ -6861,6 +6897,8 @@ export const SHELVES: {
   lava?: { version: LavaVersion; label: string };
   cuttings?: { version: CuttingsVersion; label: string };
   clock?: { version: ClockVersion; label: string };
+  view?: { version: WindowVersion; label: string };
+  closet?: { version: ClosetVersion; label: string };
 }[] = [
   {
     version: 1,
@@ -6874,6 +6912,8 @@ export const SHELVES: {
     lava: { version: 1, label: "Lava lamp" },
     cuttings: { version: 1, label: "Pothos cuttings" },
     clock: { version: 1, label: "Clock" },
+    view: { version: 1, label: "Window" },
+    closet: { version: 1, label: "Closet" },
   },
   {
     version: 2,
@@ -6948,18 +6988,7 @@ const SWITCH_HIT = {
   height: ((STEM_LAMP.floor - STEM_SHADE_TOP) / VIEW.height) * 100,
 };
 
-export default function Room({
-  lamp,
-  plant,
-  books,
-  basket,
-  headphones,
-  dj,
-  camera,
-  lava,
-  cuttings,
-  clock,
-}: {
+type ShelfProps = {
   lamp: LampVersion;
   plant?: PlantVersion;
   books?: BooksVersion;
@@ -6970,7 +6999,40 @@ export default function Room({
   lava?: LavaVersion;
   cuttings?: CuttingsVersion;
   clock?: ClockVersion;
-}) {
+};
+
+// The bookshelf, with the closet left of it and the window on the wall
+// right of it when it has them. They're drawn to the bookshelf's scale,
+// --room-unit being one of its units (it's w-48 md:w-60, 260 wide).
+export default function Room({
+  view,
+  closet,
+  ...shelf
+}: ShelfProps & { view?: WindowVersion; closet?: ClosetVersion }) {
+  if (!view && !closet) return <Shelf {...shelf} />;
+  return (
+    <div className="flex items-start [--room-unit:calc(12rem/260)] md:[--room-unit:calc(15rem/260)]">
+      {closet && (
+        <Closet version={closet} top={VIEW.top} height={VIEW.height} />
+      )}
+      <Shelf {...shelf} />
+      {view && <WindowWall />}
+    </div>
+  );
+}
+
+function Shelf({
+  lamp,
+  plant,
+  books,
+  basket,
+  headphones,
+  dj,
+  camera,
+  lava,
+  cuttings,
+  clock,
+}: ShelfProps) {
   const id = `room-${lamp}`;
 
   // Books 2 and up are HTML laid over the drawing (see TurningBook), and

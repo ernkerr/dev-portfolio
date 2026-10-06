@@ -33,6 +33,8 @@ export default function AboutPage() {
               lava,
               cuttings,
               clock,
+              view,
+              closet,
             }) => (
               <figure key={version} className="shrink-0">
                 <Room
@@ -46,6 +48,8 @@ export default function AboutPage() {
                   lava={lava?.version}
                   cuttings={cuttings?.version}
                   clock={clock?.version}
+                  view={view?.version}
+                  closet={closet?.version}
                 />
                 <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
                   <p>
@@ -60,6 +64,8 @@ export default function AboutPage() {
                   {lava && <p className="mt-1">{lava.label}</p>}
                   {cuttings && <p className="mt-1">{cuttings.label}</p>}
                   {clock && <p className="mt-1">{clock.label}</p>}
+                  {view && <p className="mt-1">{view.label}</p>}
+                  {closet && <p className="mt-1">{closet.label}</p>}
                 </figcaption>
               </figure>
             ),

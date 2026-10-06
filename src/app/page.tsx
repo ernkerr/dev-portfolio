@@ -22,10 +22,16 @@ const EXPERIENCE = [
   { year: "2021", company: "SRI International", did: "Ran 500+ research interviews for NIH studies" },
 ];
 
-// Two hand-balanced columns so the grid staggers like a masonry layout: two
-// tall tiles on the left against three on the right. On phones the left
-// column stacks above the right one.
-const LEFT: TileItem[] = [
+// The work in order: first here is first on phones, and from 768px it reads
+// left to right across two columns (see COLUMNS).
+const WORK: TileItem[] = [
+  {
+    href: "/portfolioRedesign",
+    title: "Turning a developer portfolio into a design portfolio",
+    meta: ["Portfolio Redesign", "2026"],
+    art: { kind: "custom", alt: "", node: null },
+    aspect: "aspect-[4/3]",
+  },
   {
     href: "/orderSync",
     title: "One design system for a scattered marketing site",
@@ -47,27 +53,6 @@ const LEFT: TileItem[] = [
       },
     },
   },
-  {
-    href: "/portfolioRedesign",
-    title: "Turning a developer portfolio into a design portfolio",
-    meta: ["Portfolio Redesign", "2026"],
-    art: { kind: "custom", alt: "", node: null },
-    aspect: "aspect-[4/3]",
-  },
-  {
-    href: "/carpoolio",
-    title: "Group travel app, from first sketch to acquisition",
-    meta: ["Carpoolio", "4.9★ App Store"],
-    art: {
-      kind: "custom",
-      alt: "The Carpoolio logo on a blurred aurora of blues and greens.",
-      node: <CarpoolioMark />,
-    },
-    aspect: "aspect-[4/5]",
-  },
-];
-
-const RIGHT: TileItem[] = [
   {
     href: "/ginScoreTracker",
     title: "Gin Rummy scores, round by round",
@@ -96,6 +81,17 @@ const RIGHT: TileItem[] = [
     bg: "#E4DDFB",
   },
   {
+    href: "/carpoolio",
+    title: "Group travel app, from first sketch to acquisition",
+    meta: ["Carpoolio", "4.9★ App Store"],
+    art: {
+      kind: "custom",
+      alt: "The Carpoolio logo on a blurred aurora of blues and greens.",
+      node: <CarpoolioMark />,
+    },
+    aspect: "aspect-[4/5]",
+  },
+  {
     href: "/heartsScoreTracker",
     title: "Hearts scoring for the whole table",
     meta: ["Hearts Score Tracker", "App Store"],
@@ -112,6 +108,10 @@ const RIGHT: TileItem[] = [
     bg: "#F4C6B8",
   },
 ];
+
+// From 768px the work splits into two columns that stagger like a masonry
+// layout: 1st, 3rd and 5th on the left, 2nd, 4th and 6th on the right.
+const COLUMNS = [0, 1].map((c) => WORK.filter((_, i) => i % 2 === c));
 
 export default async function Home({
   searchParams,
@@ -170,8 +170,17 @@ export default async function Home({
           <h2 id="work-heading" className="sr-only">
             Selected work
           </h2>
-          <div className="grid gap-10 md:grid-cols-2 md:gap-6">
-            {[LEFT, RIGHT].map((column, c) => (
+          {/* Phones: one column, in order. Two staggered lists can't keep
+              that order once they stack, so this is its own list. */}
+          <ul className="flex flex-col gap-10 md:hidden">
+            {WORK.map((item, i) => (
+              <li key={item.href}>
+                <Tile item={item} sizes={sizes} priority={i === 0} />
+              </li>
+            ))}
+          </ul>
+          <div className="hidden md:grid md:grid-cols-2 md:gap-6">
+            {COLUMNS.map((column, c) => (
               <ul key={c} className="flex flex-col gap-10">
                 {column.map((item, i) => (
                   <li key={item.href}>

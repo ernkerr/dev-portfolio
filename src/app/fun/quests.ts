@@ -32,7 +32,7 @@ export const GROUPS: QuestGroup[] = [
       },
       {
         name: "Plant World",
-        what: "A Mario-style Game Boy game. Play it here or download it for a real one",
+        what: "A Mario-style Game Boy game on a little SP. Play your own games on it too",
         year: "2026",
         status: "live",
         cta: "Play",

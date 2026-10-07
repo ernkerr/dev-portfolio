@@ -204,37 +204,47 @@ function claw(t: number) {
 
 // ---- The Game Boy game: the sprout hops across a Game Boy's screen. ----
 
-const GAMEBOY = [
-  " __________________ ",
-  "|  ______________  |",
-  "| |              | |",
-  "| |              | |",
-  "| |              | |",
-  "| |              | |",
-  "| |              | |",
-  "| |______________| |",
-  "|   GAME BOY       |",
-  "|                  |",
-  "|   _       ( )    |",
-  "| _| |_  ( )  A    |",
-  "||_   _|  B        |",
-  "|  |_|             |",
-  "|                  |",
-  "|     ==  ==       |",
-  "|  select start    |",
-  "|__________________/",
+// An opened Game Boy Advance SP, like the one Plant World plays on: the
+// lid with its bumpers and screen, the hinge, and the buttons below.
+const SP = [
+  ".--------------------.",
+  "| o        o       o |",
+  "|  ________________  |",
+  "| |                | |",
+  "| |                | |",
+  "| |                | |",
+  "| |                | |",
+  "| |                | |",
+  "| |________________| |",
+  "| o                o |",
+  "'--------------------'",
+  "(====================)",
+  ".--------------------.",
+  "|           .        |",
+  "|    _               |",
+  "|  _| |_     .----.  |",
+  "| |_   _|   ( B  A ) |",
+  "|   |_|      '----'  |",
+  "|        . . .       |",
+  "|         . .        |",
+  "|   (o)  (o)         |",
+  "'--------------------'",
 ];
 const SPROUT = ["\\|/", " | ", "[_]"];
 
+// Plant World: the sprout runs back and forth on the SP's screen after a
+// blinking coin.
 function gameboy(t: number) {
   const g = blank();
-  put(g, 10, 2, GAMEBOY.join("\n"));
-  const span = 10;
+  const x = 9;
+  const y = 1;
+  put(g, x, y, SP.join("\n"));
+  const span = 12;
   const step = Math.floor(t / 160) % (span * 2);
   const sx = step < span ? step : span * 2 - step;
   const hop = Math.floor(t / 160) % 4 === 1 ? 1 : 0;
-  put(g, 14 + sx, 6 - hop, SPROUT.join("\n"));
-  if (Math.floor(t / 600) % 2 === 0) put(g, 24 - sx, 5, "o");
+  put(g, x + 4 + sx, y + 4 - hop, SPROUT.join("\n"));
+  if (Math.floor(t / 600) % 2 === 0) put(g, x + 16 - sx, y + 4, "o");
   return render(g);
 }
 

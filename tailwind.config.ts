@@ -41,6 +41,22 @@ export default {
           edge: "#3A3A40",
           button: "#1C1C20",
         },
+        // The aquarium on Fun (src/app/fun/aquarium): flat water, light,
+        // sand and weeds for everyone's fish. Not part of the site palette.
+        tank: {
+          surface: "#BFE6F0", // the light at the top of the water
+          water: "#7FC4D9",
+          deep: "#4E9CBB", // the bottom of the water
+          ray: "#E3F5F9", // light falling through it
+          sand: "#E8D3A2",
+          "sand-shade": "#D4BB84",
+          weed: "#5E9E6E",
+          "weed-light": "#86BF7E",
+          stone: "#8A8F98",
+          "stone-light": "#AEB3BB",
+          bubble: "#F2FBFD",
+          rim: "#1E1D1B", // the tank's black frame
+        },
         // The room illustration on About (src/app/about/Room.tsx), picked
         // from a photo of my old bedroom. Not part of the site palette.
         room: {
@@ -378,6 +394,9 @@ export default {
 
       aspectRatio: {
         photo: "4 / 3", // photos taken with the About page's camera
+        tank: "16 / 9", // the aquarium, on wider screens
+        "tank-tall": "4 / 5", // and on phones
+        canvas: "8 / 5", // drawing a fish for it
       },
 
       maxWidth: {
@@ -405,6 +424,16 @@ export default {
       // jog wheels turning at 33 rpm, the level meters bouncing and the
       // play buttons blinking until they're pressed. The camera's flash.
       keyframes: {
+        // The aquarium's weeds swaying and bubbles rising
+        "tank-sway": {
+          "0%, 100%": { transform: "rotate(-4deg)" },
+          "50%": { transform: "rotate(4deg)" },
+        },
+        "tank-bubble": {
+          "0%": { transform: "translateY(0)", opacity: "0" },
+          "10%": { opacity: "0.9" },
+          "100%": { transform: "translateY(-100cqh)", opacity: "0" },
+        },
         "phones-rock": {
           "0%, 100%": { transform: "rotate(0deg)" },
           "50%": { transform: "rotate(-3deg)" },
@@ -479,6 +508,8 @@ export default {
         },
       },
       animation: {
+        "tank-sway": "tank-sway 6s ease-in-out infinite",
+        "tank-bubble": "tank-bubble 7s linear infinite",
         "phones-rock": "phones-rock 5s ease-in-out infinite",
         "cord-swing": "cord-swing 5s ease-in-out infinite",
         "dj-on": "dj-on 600ms ease-out",

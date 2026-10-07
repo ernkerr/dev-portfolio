@@ -40,6 +40,15 @@ export const GROUPS: QuestGroup[] = [
         scene: "gameboy",
       },
       {
+        name: "Aquarium",
+        what: "Draw a fish, name it and drop it in. It swims with everyone else's",
+        year: "2026",
+        status: "live",
+        cta: "Play",
+        href: "/fun/aquarium",
+        scene: "aquarium",
+      },
+      {
         name: "Catch",
         what: "Catch things falling from the sky",
         status: "soon",

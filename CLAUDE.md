@@ -91,6 +91,7 @@ First person and plain ("I'm Erin, a product designer who engineers."). Short li
 
 - The OrderSync navy (`navy-1`–`navy-4`), the `accent` gradient, `.dot-grid` and `.shine-on-hover` belong to the OrderSync case study only.
 - The `room-*` colors belong to the About page's room illustration (`src/app/about/Room.tsx`) only.
+- The `tank-*` colors belong to the Fun page's aquarium (`src/app/fun/aquarium/`) only.
 - `src/app/archive/` holds frozen past editions of the site. Don't restyle them.
 
 ## Skill routing

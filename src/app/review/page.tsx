@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 const PAGES = [
   { href: "/about/review", name: "Photos left on my camera" },
   { href: "/erinllm/review", name: "What people asked erinLLM" },
+  { href: "/fun/aquarium/review", name: "Fish in my aquarium" },
 ];
 
 export default async function ReviewPage({

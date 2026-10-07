@@ -322,5 +322,48 @@ function mirror(t: number) {
   return render(g);
 }
 
-export const SCENES = { typing, catcher, dino, claw, gameboy, dog, mirror };
+// ---- Aquarium: fish swim both ways past swaying weeds, bubbles rise. ----
+
+const TANK_ART = { x: 3, y: 2, w: 34, h: 19 };
+const SWIMMERS = [
+  { row: 5, speed: 0.006, start: 3, right: "><>", left: "<><" },
+  { row: 9, speed: 0.004, start: 20, right: "><((°>", left: "<°))><" },
+  { row: 13, speed: 0.0075, start: 11, right: "><>", left: "<><" },
+  { row: 16, speed: 0.005, start: 26, right: ">=>", left: "<=<" },
+];
+
+function aquarium(t: number) {
+  const g = blank();
+  const { x, y, w, h } = TANK_ART;
+  put(g, x - 1, y - 1, `.${"~".repeat(w)}.`);
+  for (let r = 0; r < h; r++) {
+    put(g, x - 1, y + r, "|");
+    put(g, x + w, y + r, "|");
+  }
+  put(g, x - 1, y + h, `'${"_".repeat(w)}'`);
+  // Sand and weeds
+  put(g, x, y + h - 1, ".:.:..:.:.:..:.:.:.:..:.:.:..:.:.:");
+  for (const [wx, tall] of [[3, 5], [26, 6], [30, 4]] as const) {
+    for (let k = 0; k < tall; k++) {
+      const sway = Math.floor(t / 600 + k) % 2 === 0 ? ")" : "(";
+      put(g, x + wx + (k % 2), y + h - 2 - k, sway);
+    }
+  }
+  // Fish, each going back and forth at its own pace
+  for (const f of SWIMMERS) {
+    const span = w - f.right.length;
+    const pos = (f.start + t * f.speed) % (span * 2);
+    const goingRight = pos < span;
+    const fx = Math.floor(goingRight ? pos : span * 2 - pos);
+    put(g, x + fx, y + f.row, goingRight ? f.right : f.left);
+  }
+  // Bubbles
+  for (const [bx, offset] of [[5, 0], [28, 7], [17, 13]] as const) {
+    const rise = Math.floor(t / 300 + offset) % (h - 2);
+    put(g, x + bx, y + h - 3 - rise, rise % 3 === 0 ? "o" : "°");
+  }
+  return render(g);
+}
+
+export const SCENES = { typing, catcher, dino, claw, gameboy, dog, mirror, aquarium };
 export type SceneName = keyof typeof SCENES;

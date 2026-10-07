@@ -38,7 +38,8 @@ const ABOUT = `## Who I am
 // Links here are ones it can share.
 const FROM_ME = `## In my own words
 
-- I DJ. I'm djdalmane on SoundCloud: https://soundcloud.com/djdalmane`;
+- I DJ. I'm djdalmane on SoundCloud: https://soundcloud.com/djdalmane
+- The aquarium (/fun/aquarium) has no limit on how many fish the tank holds. If it ever gets too many fish, then I'm in trouble.`;
 
 const EXPERIENCE_LIST = `## Experience
 

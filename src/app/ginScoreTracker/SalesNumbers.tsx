@@ -208,7 +208,7 @@ export async function NewUsersChart({
         <p className={`relative ${label}`}>
           <TipLabel
             id="new-users-chart"
-            tip="First-time downloads each month, from App Store Connect, updated daily. Apple only keeps monthly numbers for a year, so the chart starts in October 2025."
+            tip="First-time downloads each month since launch, from App Store Connect, updated daily."
           >
             New users each month
           </TipLabel>

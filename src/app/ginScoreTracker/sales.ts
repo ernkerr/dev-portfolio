@@ -303,7 +303,7 @@ async function count(): Promise<GinSales | null> {
 }
 
 // Bump the key if a bad result was ever cached.
-const countDaily = unstable_cache(count, ["gin-sales-v5"], {
+const countDaily = unstable_cache(count, ["gin-sales-v6"], {
   revalidate: 60 * 60 * 24,
 });
 

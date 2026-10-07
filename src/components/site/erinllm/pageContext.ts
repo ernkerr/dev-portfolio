@@ -29,10 +29,22 @@ export function readPage(): PageContext {
         )
         .map((el) => el.innerText)
         .join("\n");
+  // A case study's sections: <section id> with its title in #<id>-heading
+  const sections = Array.from(
+    (main ?? document.body).querySelectorAll<HTMLElement>("section[id]"),
+  )
+    .map((section) => ({
+      id: section.id,
+      title:
+        document.getElementById(`${section.id}-heading`)?.textContent?.trim() ??
+        section.id,
+    }))
+    .slice(0, 30);
   return {
     path: location.pathname,
     title: document.title,
     side: currentSide(),
+    sections,
     text: text
       .replace(/[ \t]+\n/g, "\n")
       .replace(/\n{3,}/g, "\n\n")

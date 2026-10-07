@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import ErinLLM from "./erinllm/ErinLLM";
-import { EMAIL, focusRing } from "./links";
+import { focusRing } from "./links";
 
 // About carries the room illustration (about 200 KB), so instead of
 // preloading it on every page, it preloads when someone points at the link.
@@ -18,7 +18,10 @@ export default function SiteHeader() {
   const router = useRouter();
 
   return (
-    <header className="sticky top-0 z-20 border-b border-site-line bg-site-paper/90 backdrop-blur">
+    <header
+      data-site-header
+      className="sticky top-0 z-20 border-b border-site-line bg-site-paper/90 backdrop-blur"
+    >
       <div
         className={`mx-auto flex h-header max-w-page items-center justify-between px-gutter font-mono text-nav uppercase md:grid md:grid-cols-[1fr_auto_1fr]`}
       >
@@ -59,14 +62,8 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-6 justify-self-end">
+        <div className="justify-self-end">
           <ErinLLM />
-          <a
-            href={`mailto:${EMAIL}`}
-            className={`hidden text-site-blue underline-offset-4 hover:underline md:block ${focusRing}`}
-          >
-            <span aria-hidden="true">✦ </span>Get in touch
-          </a>
         </div>
       </div>
     </header>

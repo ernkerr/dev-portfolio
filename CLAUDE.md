@@ -24,7 +24,7 @@ Use `site-*` with any color utility (`bg-`, `text-`, `border-`, `outline-`, `rin
 | `site-blue` | `#001AFF` | `#A5B1FF` | The brand blue |
 
 - `site-ink` is the cool navy from the 2025 site; on the engineer side it becomes the page background.
-- `site-blue` is the brand blue (shared with Cyber Goose) and only ever an accent. Use it for the active nav item, Get in touch, link and title hover, and focus. One or two blue things per screen, never a large fill, never `blue-*`.
+- `site-blue` is the brand blue (shared with Cyber Goose) and only ever an accent. Use it for the active nav item, erinLLM in the header, Get in touch, link and title hover, focus and highlighted text (`::selection` in globals.css). One or two blue things per screen, never a large fill, never `blue-*`.
 - Body copy is `text-site-ink/80`, short column text `text-site-ink/75`, bold lead-ins `font-medium text-site-ink`.
 - The engineer side swaps every `site-*` value automatically (`:root:has([data-side="engineer"])` in globals.css) on pages that render the switch. Don't write `dark:` variants for these colors.
 - Project tiles may use the project's own brand color as their background (`bg` on a `TileItem`).
@@ -49,7 +49,7 @@ Use `site-*` with any color utility (`bg-`, `text-`, `border-`, `outline-`, `rin
 | `text-body-sm` | sans | 15 / 1.65 | Columns text, tables, Facts |
 | `text-caption` | sans | 13 / 1.625 | Captions, small notes |
 | `text-label` | mono, `uppercase` | 12, 0.06em | Eyebrows, tile meta, table heads, footer |
-| `text-nav` | mono, `uppercase` | 13, 0.04em | Header, Get in touch |
+| `text-nav` | mono, `uppercase` | 13, 0.04em | Header, erinLLM, Get in touch |
 | `text-date` | mono | 13 | Years in the experience list |
 
 Keep running text, captions and section headlines within `max-w-measure`.
@@ -80,12 +80,12 @@ Keep running text, captions and section headlines within `max-w-measure`.
 - `appStudy.tsx`: figures for the app case studies: `BrandField` and `Screens` (screens on the project's brand color), `Review` (a real user's words) and `BuildNote` (a pointer to the engineering side).
 - `Tile`: project tile. Thumbnails are a brand-colored field with one thing on it (app icon, logo or one UI component), never a page screenshot.
 - `SideSwitch` + `SideContext`: the designer/engineer switch and its state.
-- `erinllm/`: ErinLLM, the chat bot in the header that answers questions about me. Its panel is `w-chat` (26rem) from 768px. What it knows is `src/lib/erinllm/knowledge.ts`; add facts that aren't on the site to its "In my own words" list. Its API is `src/app/api/erinllm`, and the questions people ask are at `/erinllm/review`.
+- `erinllm/`: erinLLM, the chat bot in the header (the only thing in its top right) that answers questions about me. Its panel is `w-chat` (26rem) from 768px. What it knows is `src/lib/erinllm/knowledge.ts`; add facts that aren't on the site to its "In my own words" list. Its API is `src/app/api/erinllm`, and the questions people ask are at `/erinllm/review`.
 - Review pages (`/about/review`, `/erinllm/review`) are only for me: each calls `requireSignIn` (`src/app/review/guard.ts`), and their APIs check `reviewing()` (`src/lib/serverStore.ts`). I sign in at `/review` with `REVIEW_KEY`. `src/middleware.ts` doesn't run in this project (the top-level `pages/` folder means Next never picks it up), so don't put protection there.
 
 ### Voice
 
-First person and plain ("I'm Erin, a product designer who engineers."). Short literal labels: Work, Fun, About. Tile meta is the project, then one true fact: `Carpoolio • 4.9★ App Store`. Every number must be true. No emoji; `✦` is the only ornament, before Get in touch, ErinLLM and Ask ErinLLM.
+First person and plain ("I'm Erin, a product designer who engineers."). Short literal labels: Work, Fun, About. Tile meta is the project, then one true fact: `Carpoolio • 5★ App Store`. Every number must be true. No emoji; `✦` is the only ornament, before erinLLM, Ask erinLLM and Get in touch. The bot is always written erinLLM.
 
 ### Not part of this system
 

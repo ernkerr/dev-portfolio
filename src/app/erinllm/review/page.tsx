@@ -7,7 +7,7 @@ import Questions from "./Questions";
 // linked anywhere, search engines skip it, and it's only for me once I've
 // signed in at /review (src/app/review/guard.ts).
 export const metadata: Metadata = {
-  title: "ErinLLM questions",
+  title: "erinLLM questions",
   robots: { index: false, follow: false },
 };
 
@@ -17,10 +17,10 @@ export default async function ErinLLMReviewPage() {
     <SiteShell>
       <section className="max-w-measure pb-12 pt-16 md:pt-20">
         <h1 className="font-serif text-display-sm md:text-display">
-          What people asked ErinLLM
+          What people asked erinLLM
         </h1>
         <p className="mt-6 text-body text-site-ink/80">
-          Every question someone asks ErinLLM and the answer it gave, newest
+          Every question someone asks erinLLM and the answer it gave, newest
           first, with nothing about who asked. When an answer is wrong, fix what
           it knows in src/lib/erinllm/knowledge.ts.
         </p>

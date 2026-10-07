@@ -9,7 +9,7 @@ import Panel from "./Panel";
 import { closeErinLLM, openErinLLM, useErinLLM } from "./store";
 import { track } from "./track";
 
-// "✦ ErinLLM" in the top right of the header: a chat bot that answers
+// "✦ erinLLM" in the top right of the header: a chat bot that answers
 // questions about me from this site (src/app/api/erinllm). It opens a panel
 // down the right side. Anything dragged onto this button or the panel, or
 // highlighted and asked about, comes along as context.
@@ -77,13 +77,13 @@ export default function ErinLLM() {
         }}
         onDragLeave={() => setOver(false)}
         onDrop={onDrop}
-        // Open, it's underlined rather than blue, which stays for the active
-        // page and Get in touch
-        className={`whitespace-nowrap uppercase decoration-site-line underline-offset-4 transition-colors ${focusRing} ${
-          dragging ? "text-site-blue" : "text-site-ink hover:text-site-blue"
-        } ${open || over ? "underline" : ""}`}
+        // Blue, in its own casing (the header is otherwise uppercase);
+        // underlined while open or while something's dragged over it
+        className={`whitespace-nowrap normal-case text-site-blue underline-offset-4 hover:underline ${focusRing} ${
+          open || over || dragging ? "underline" : ""
+        }`}
       >
-        <span aria-hidden="true">✦ </span>ErinLLM
+        <span aria-hidden="true">✦ </span>erinLLM
       </button>
       {mounted &&
         createPortal(

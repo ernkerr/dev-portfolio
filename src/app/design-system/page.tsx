@@ -74,7 +74,7 @@ const COLORS = [
     designer: "#001AFF",
     engineer: "#A5B1FF",
     usage:
-      "The signature blue, shared with Cyber Goose. Active nav, Get in touch, hover and focus. One or two per screen.",
+      "The signature blue, shared with Cyber Goose. Active nav, erinLLM, hover and focus. One or two per screen.",
   },
 ];
 
@@ -186,7 +186,7 @@ const TYPE: { name: string; spec: string; sample: ReactNode }[] = [
   {
     name: "label",
     spec: "font-mono text-label uppercase · label",
-    sample: <p className={label}>Carpoolio • 4.9★ App Store</p>,
+    sample: <p className={label}>Carpoolio • 5★ App Store</p>,
   },
   {
     name: "nav",
@@ -486,7 +486,7 @@ const SECTIONS: CaseStudySection[] = [
             { label: "Reading measure", value: "40rem, about 75 characters" },
             { label: "Header", value: "64px tall, sticky" },
             {
-              label: "ErinLLM panel",
+              label: "erinLLM panel",
               value: "26rem wide from 768px (w-chat), full width below",
             },
           ]}
@@ -604,10 +604,13 @@ const SECTIONS: CaseStudySection[] = [
         </li>
         <li>
           Tile meta is the project, then one real fact, joined with a bullet:
-          Carpoolio • 4.9★ App Store.
+          Carpoolio • 5★ App Store.
         </li>
         <li>Every number has to be true. No filler stats.</li>
-        <li>No emoji. The one ornament is ✦, before Get in touch.</li>
+        <li>
+          No emoji. The one ornament is ✦, before erinLLM, Ask erinLLM and Get
+          in touch.
+        </li>
       </List>
     ),
   },

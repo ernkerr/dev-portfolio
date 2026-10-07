@@ -5,7 +5,12 @@
 
 type Gtag = (command: "event", name: string, params?: object) => void;
 
-export type AskSource = "typed" | "suggestion" | "selection" | "drop";
+export type AskSource =
+  | "typed"
+  | "suggestion"
+  | "followup"
+  | "selection"
+  | "drop";
 
 export function track(
   event: "erinllm_open" | "erinllm_ask",

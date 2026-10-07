@@ -1,6 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   useEffect,
@@ -11,7 +12,9 @@ import {
   type KeyboardEvent,
 } from "react";
 import { EMAIL, focusRing } from "@/components/site/links";
-import { label } from "@/components/site/prose";
+import { inlineLink, label } from "@/components/site/prose";
+import { splitAnswer } from "@/lib/erinllm/answer";
+import { pageAt } from "@/lib/erinllm/pages";
 import {
   MAX,
   type Attached,
@@ -34,11 +37,18 @@ const SUGGESTIONS = [
   "What do you do for fun?",
 ];
 
+// On a case study, first: what reviewers ask about a project
+const projectQuestions = (name: string) => [
+  `What was your role on ${name}?`,
+  "What shipped, and what’s still a concept?",
+  `What would you change about ${name} now?`,
+];
+
 const ERRORS: Record<ErrorCode, string> = {
   rate_limited: `That’s a lot of questions at once. Try again in a few minutes, or email me at ${EMAIL}.`,
-  busy: "I’m busy, try again in a minute.",
-  not_set_up: "ErinLLM isn’t set up yet.",
-  error: "Something went wrong.",
+  busy: `I’m busy, try again in a minute, or email me at ${EMAIL}.`,
+  not_set_up: `erinLLM isn’t set up yet. Email me at ${EMAIL}.`,
+  error: `Something went wrong. Try again, or email me at ${EMAIL}.`,
 };
 
 const codeOf = (error: Error): ErrorCode =>
@@ -54,6 +64,33 @@ const textOf = (message: ErinMessage) =>
 const quiet = `font-mono text-label uppercase text-site-muted transition-colors hover:text-site-blue ${focusRing}`;
 const submit = `shrink-0 border border-site-line px-4 py-2 font-mono text-label uppercase text-site-ink transition-colors hover:text-site-blue disabled:text-site-muted disabled:hover:text-site-muted ${focusRing}`;
 
+// Questions to tap: the suggestions, a case study's questions, and the
+// follow-ups after an answer
+function Questions({
+  items,
+  onAsk,
+}: {
+  items: string[];
+  onAsk: (question: string) => void;
+}) {
+  return (
+    <ul className="border-t border-site-line">
+      {items.map((q) => (
+        <li key={q} className="border-b border-site-line">
+          <button
+            type="button"
+            onClick={() => onAsk(q)}
+            className={`flex w-full gap-3 py-3 text-left text-body-sm text-site-ink/80 transition-colors hover:text-site-blue ${focusRing}`}
+          >
+            <span aria-hidden="true">→</span>
+            {q}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function AttachedQuote({ attached }: { attached: Attached }) {
   return (
     <div className="mt-2 border-l border-site-line pl-3">
@@ -64,6 +101,55 @@ function AttachedQuote({ attached }: { attached: Attached }) {
         </p>
       )}
     </div>
+  );
+}
+
+// One of ErinLLM's answers: the text, where it came from, and (for the
+// newest one) what to ask next
+function AnswerTurn({
+  text,
+  latest,
+  onFollow,
+  onAsk,
+}: {
+  text: string;
+  latest: boolean;
+  onFollow: () => void;
+  onAsk: (question: string) => void;
+}) {
+  const { body, sources, followUps } = splitAnswer(text);
+  return (
+    <>
+      <div className="mt-2 text-body-sm text-site-ink/80 [&_strong]:font-medium [&_strong]:text-site-ink">
+        {body ? (
+          <Answer text={body} onFollow={onFollow} />
+        ) : (
+          <p className="text-site-muted">Thinking…</p>
+        )}
+      </div>
+      {sources.length > 0 && (
+        <p className="mt-3 text-caption text-site-muted">
+          {sources.length > 1 ? "Sources: " : "Source: "}
+          {sources.map((source, i) => (
+            <span key={source.href}>
+              {i > 0 && " · "}
+              <Link
+                href={source.href}
+                onClick={onFollow}
+                className={inlineLink}
+              >
+                {source.label}
+              </Link>
+            </span>
+          ))}
+        </p>
+      )}
+      {latest && followUps.length > 0 && (
+        <div className="mt-4">
+          <Questions items={followUps} onAsk={onAsk} />
+        </div>
+      )}
+    </>
   );
 }
 
@@ -90,7 +176,11 @@ export default function Panel({
 
   const [input, setInput] = useState("");
   const [drags, setDrags] = useState(0); // dragenters minus dragleaves
-  const [where, setWhere] = useState({ name: "", engineer: false });
+  const [where, setWhere] = useState({
+    name: "",
+    engineer: false,
+    project: false,
+  });
   const [announce, setAnnounce] = useState("");
 
   const box = useRef<HTMLTextAreaElement>(null);
@@ -102,7 +192,11 @@ export default function Panel({
   // "Looking at": the page, and the side when it's the engineer's
   useEffect(() => {
     if (open)
-      setWhere({ name: pageName(), engineer: currentSide() === "engineer" });
+      setWhere({
+        name: pageName(),
+        engineer: currentSide() === "engineer",
+        project: Boolean(pageAt(location.pathname)?.project),
+      });
   }, [open, pathname, status]);
 
   // Into the question box whenever ErinLLM is opened or something's attached
@@ -129,7 +223,7 @@ export default function Panel({
 
   // Tell screen readers when an answer is done
   useEffect(() => {
-    if (wasBusy.current && status === "ready") setAnnounce("ErinLLM answered.");
+    if (wasBusy.current && status === "ready") setAnnounce("erinLLM answered.");
     if (busy) setAnnounce("");
     wasBusy.current = busy;
   }, [busy, status]);
@@ -201,7 +295,7 @@ export default function Panel({
     <aside
       id={id}
       data-erinllm
-      aria-label="ErinLLM"
+      aria-label="erinLLM"
       inert={!open}
       onKeyDown={onKeyDown}
       onDragEnter={onDragEnter}
@@ -217,7 +311,7 @@ export default function Panel({
       }`}
     >
       <div className="flex h-12 shrink-0 items-center justify-between gap-4 border-b border-site-line px-gutter">
-        <h2 className={label}>ErinLLM</h2>
+        <h2 className={`${label} normal-case`}>erinLLM</h2>
         <div className="flex items-center gap-5">
           {messages.length > 0 && (
             <button type="button" onClick={startOver} className={quiet}>
@@ -248,25 +342,31 @@ export default function Panel({
         {messages.length === 0 ? (
           <div>
             <p className="font-serif text-subhead text-site-ink">
-              Hey there, I’m ErinLLM.
+              Hey there, I’m erinLLM.
             </p>
             <p className="mt-3 text-body-sm text-site-ink/75">
               Talk to an AI chat bot that answers questions about me.
             </p>
-            <ul className="mt-6 border-t border-site-line">
-              {SUGGESTIONS.map((s) => (
-                <li key={s} className="border-b border-site-line">
-                  <button
-                    type="button"
-                    onClick={() => ask(s, "suggestion")}
-                    className={`flex w-full gap-3 py-3 text-left text-body-sm text-site-ink/80 transition-colors hover:text-site-blue ${focusRing}`}
-                  >
-                    <span aria-hidden="true">→</span>
-                    {s}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <p className="mt-3 text-caption text-site-muted">
+              I can answer questions about my experience, how I work, my
+              projects and what I do for fun, from what’s on this site.
+            </p>
+            {where.project && (
+              <>
+                <p className={`${label} mb-3 mt-6`}>About {where.name}</p>
+                <Questions
+                  items={projectQuestions(where.name)}
+                  onAsk={(q) => ask(q, "suggestion")}
+                />
+              </>
+            )}
+            {where.project && <p className={`${label} mb-3 mt-6`}>About me</p>}
+            <div className={where.project ? "" : "mt-6"}>
+              <Questions
+                items={SUGGESTIONS}
+                onAsk={(q) => ask(q, "suggestion")}
+              />
+            </div>
             <p className="mt-6 text-caption text-site-muted">
               Highlight text or drag something here to ask about it.
             </p>
@@ -278,7 +378,11 @@ export default function Panel({
               return (
                 <li key={m.id} className="py-5 first:pt-0">
                   <p className={label}>
-                    {m.role === "user" ? "You" : "ErinLLM"}
+                    {m.role === "user" ? (
+                      "You"
+                    ) : (
+                      <span className="normal-case">erinLLM</span>
+                    )}
                   </p>
                   {m.role === "user" ? (
                     <>
@@ -290,20 +394,19 @@ export default function Panel({
                       </p>
                     </>
                   ) : (
-                    <div className="mt-2 text-body-sm text-site-ink/80 [&_strong]:font-medium [&_strong]:text-site-ink">
-                      {text ? (
-                        <Answer text={text} onFollow={followed} />
-                      ) : (
-                        <p className="text-site-muted">Thinking…</p>
-                      )}
-                    </div>
+                    <AnswerTurn
+                      text={text}
+                      latest={m.id === last?.id && !busy}
+                      onFollow={followed}
+                      onAsk={(q) => ask(q, "followup")}
+                    />
                   )}
                 </li>
               );
             })}
             {waiting && (
               <li className="py-5">
-                <p className={label}>ErinLLM</p>
+                <p className={`${label} normal-case`}>erinLLM</p>
                 <p className="mt-2 text-body-sm text-site-muted">Thinking…</p>
               </li>
             )}

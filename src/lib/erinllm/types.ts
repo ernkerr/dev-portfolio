@@ -12,6 +12,8 @@ export type PageContext = {
   side: Side;
   /** The page's visible text, cut to MAX.pageText */
   text: string;
+  /** Case-study sections, so answers can link to one (#research) */
+  sections: { id: string; title: string }[];
 };
 
 // Something the visitor highlighted or dragged in to ask about

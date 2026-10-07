@@ -26,6 +26,14 @@
 /* The homepage switch carries data-side. On the engineer side the page
    inverts: paper and ink trade places, and muted, line and blue are re-picked
    to hold their contrast on the dark ground. */
+/* Highlighted text is the brand blue on every 2026 page (the ones with the
+   site header; the archive keeps its own). On the engineer side both colors
+   swap with the rest of the palette. */
+:root:has([data-site-header]) ::selection {
+  background-color: rgb(var(--site-blue));
+  color: rgb(var(--site-paper));
+}
+
 :root:has([data-side="engineer"]) {
   --background: #0f172a; /* overscroll matches the page */
   --site-paper: 15 23 42; /* #0F172A */

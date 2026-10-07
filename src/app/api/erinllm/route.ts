@@ -9,6 +9,7 @@ import { after } from "next/server";
 import { randomBytes } from "node:crypto";
 import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { splitAnswer } from "@/lib/erinllm/answer";
 import { mayKeep, tooManyQuestions } from "@/lib/erinllm/limits";
 import { MODEL, instructions } from "@/lib/erinllm/prompt";
 import {
@@ -72,6 +73,11 @@ function readPage(value: unknown): PageContext | null {
     title: str(v.title, 200),
     side: v.side === "engineer" ? "engineer" : "designer",
     text: str(v.text, MAX.pageText),
+    sections: (Array.isArray(v.sections) ? v.sections : [])
+      .slice(0, 30)
+      .map((x) => record(x))
+      .filter((x) => x && /^[\w-]{1,60}$/.test(String(x.id)))
+      .map((x) => ({ id: String(x!.id), title: str(x!.title, 80) })),
   };
 }
 
@@ -253,7 +259,7 @@ export async function POST(request: Request) {
           question: asked.parts
             .map((p) => (p.type === "text" ? p.text : ""))
             .join(""),
-          answer: text,
+          answer: splitAnswer(text).body,
         }).catch((error) =>
           console.error("ErinLLM couldn't keep a question", error),
         ),

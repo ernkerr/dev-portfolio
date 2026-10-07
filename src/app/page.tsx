@@ -90,7 +90,7 @@ const WORK: TileItem[] = [
   {
     href: "/carpoolio",
     title: "Group travel app, from first sketch to acquisition",
-    meta: ["Carpoolio", "4.9★ App Store"],
+    meta: ["Carpoolio", "5★ App Store"],
     art: {
       kind: "custom",
       alt: "The Carpoolio logo on a blurred aurora of blues and greens.",

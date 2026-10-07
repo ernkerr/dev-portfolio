@@ -31,18 +31,21 @@ function selected(): Spot | null {
   // Only the page's own content, where there's a main
   if (document.querySelector("main") && !el.closest("main")) return null;
 
+  // Clear of the whole highlight: above its first line (below its last on
+  // phones, or near the top of the screen), lined up with where it ends
   const range = selection.getRangeAt(selection.rangeCount - 1);
+  const all = range.getBoundingClientRect();
   const rects = range.getClientRects();
-  const rect = rects[rects.length - 1] ?? range.getBoundingClientRect();
-  if (!rect.width && !rect.height) return null;
+  const end = rects[rects.length - 1] ?? all;
+  if (!all.width && !all.height) return null;
 
-  const below = matchMedia("(pointer: coarse)").matches || rect.top < 120;
+  const below = matchMedia("(pointer: coarse)").matches || all.top < 120;
   return {
     x: Math.min(
-      Math.max(8, rect.right - BUTTON_WIDTH / 2),
+      Math.max(8, end.right - BUTTON_WIDTH / 2),
       innerWidth - BUTTON_WIDTH - 8,
     ),
-    y: below ? rect.bottom + 8 : rect.top - 44,
+    y: below ? all.bottom + 8 : all.top - 44,
     text,
   };
 }
@@ -126,7 +129,8 @@ export default function AskSelection() {
       }}
       className={`fixed z-50 border border-site-line bg-site-paper px-3 py-2 font-mono text-label uppercase text-site-ink shadow-float ring-1 ring-black/5 transition-colors hover:text-site-blue ${focusRing}`}
     >
-      <span aria-hidden="true">✦ </span>Ask ErinLLM
+      <span aria-hidden="true">✦ </span>Ask{" "}
+      <span className="normal-case">erinLLM</span>
     </button>
   );
 }

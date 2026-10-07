@@ -25,6 +25,8 @@ export type Status =
 
 export type Quest = {
   name: string;
+  /** Kept in the list, but not shown on the page or told to erinLLM. */
+  hidden?: boolean;
   /** One plain line on what it is. */
   what: string;
   year?: string;

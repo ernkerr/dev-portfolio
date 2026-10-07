@@ -7,7 +7,7 @@ import type { QuestGroup } from "./SideQuests";
 //
 // Plain data, so ErinLLM (src/lib/erinllm/knowledge.ts) can read it on the
 // server too; hand-built thumbnails are added on the page (page.tsx).
-export const GROUPS: QuestGroup[] = [
+const ALL: QuestGroup[] = [
   {
     title: "Minigames",
     note: "More coming soon.",
@@ -128,6 +128,7 @@ export const GROUPS: QuestGroup[] = [
       },
       {
         name: "Price Radar",
+        hidden: true,
         what: "Price and stock alerts you write in plain English",
         year: "2026",
         status: "private",
@@ -135,6 +136,7 @@ export const GROUPS: QuestGroup[] = [
       },
       {
         name: "Revline",
+        hidden: true,
         what: "Self-hosted analytics that ties traffic to revenue",
         year: "2026",
         status: "private",
@@ -142,6 +144,7 @@ export const GROUPS: QuestGroup[] = [
       },
       {
         name: "Brand Manager",
+        hidden: true,
         what: "Drafts replies to brand-deal emails and never sends them",
         year: "2026",
         status: "private",
@@ -231,6 +234,7 @@ export const GROUPS: QuestGroup[] = [
       },
       {
         name: "GLP-1 Anchor",
+        hidden: true,
         what: "A private GLP-1 medication tracker with no login",
         year: "2026",
         status: "in-progress",
@@ -238,6 +242,7 @@ export const GROUPS: QuestGroup[] = [
       },
       {
         name: "Yatzy Score Tracker",
+        hidden: true,
         what: "The Scandinavian Yatzy scorecard",
         year: "2026",
         status: "in-progress",
@@ -252,6 +257,7 @@ export const GROUPS: QuestGroup[] = [
       },
       {
         name: "Cribbage Score Tracker",
+        hidden: true,
         what: "Scores for cribbage",
         year: "2026",
         status: "in-progress",
@@ -259,6 +265,7 @@ export const GROUPS: QuestGroup[] = [
       },
       {
         name: "Cornhole Score Tracker",
+        hidden: true,
         what: "Cornhole scores, round by round",
         year: "2026",
         status: "in-progress",
@@ -412,3 +419,9 @@ export const GROUPS: QuestGroup[] = [
     })),
   },
 ];
+
+// What the page (and erinLLM) shows: everything not marked hidden.
+export const GROUPS: QuestGroup[] = ALL.map((group) => ({
+  ...group,
+  quests: group.quests.filter((quest) => !quest.hidden),
+})).filter((group) => group.quests.length);

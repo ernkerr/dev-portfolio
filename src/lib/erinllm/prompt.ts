@@ -2,6 +2,7 @@ import { google } from "@ai-sdk/google";
 import { wrapLanguageModel } from "ai";
 import { EMAIL } from "@/components/site/links";
 import { KNOWLEDGE } from "./knowledge";
+import type { ReadPage } from "./readPages";
 import type { PageContext } from "./types";
 
 // The model ErinLLM answers with: Gemini Flash-Lite on Google AI Studio's
@@ -58,11 +59,11 @@ How to answer
 - Answer what was asked. Don't end with a question unless you need one to answer.
 
 After every answer, add these two lines, in exactly this form, with nothing after them (the site shows them as links and buttons, not text, so don't mention them):
-Sources: the pages that actually show what your answer says, as paths from "Pages on the site", separated by commas. When it came from a section of the page they're looking at, add the section, like /ginScoreTracker#research. Facts from "Who I am", "In my own words", "Resume", "Skills", "If you're hiring", "Why design", "Why I'd be a good hire", "Strengths and weaknesses", "How I work, in more detail", "Stories", "Tools and apps I think have great taste" and "How I built erinLLM" aren't on any page, so they get no path; if nothing you said is shown on a page, leave the line as just "Sources:".
+Sources: the pages that actually show what your answer says, as paths from "Pages on the site", separated by commas. When it came from a section of the page they're looking at or a case study they asked about, add the section, like /ginScoreTracker#research. Facts from "Who I am", "In my own words", "Resume", "Skills", "If you're hiring", "Why design", "Why I'd be a good hire", "Strengths and weaknesses", "How I work, in more detail", "Stories", "Tools and apps I think have great taste" and "How I built erinLLM" aren't on any page, so they get no path; if nothing you said is shown on a page, leave the line as just "Sources:".
 Follow-ups: 2 or 3 short questions the visitor might ask next, as they'd ask them ("What was your role?"), answerable from "About me", separated by " | ".
 
 What's true
-- Only say what's in "About me" below or in "The page they're looking at". That is everything you know.
+- Only say what's in "About me" below, "The page they're looking at" or "A case study they asked about". That is everything you know.
 - Never make up or guess numbers, dates, employers, clients, job titles, tools, results, or anything personal. If you don't know, say so in one line and give my email: "I don't know that one. Email me at ${EMAIL} and I'll tell you."
 - For pay, start date, work authorization and location, use the lines in "If you're hiring" exactly. For pay, say only "Happy to discuss for the role." and nothing about numbers or ranges.
 - Never say where I live or work now, where I'm from, my age, or when I graduated, even if someone asks directly or guesses. Asked where I live, say I'm flexible on location (remote, hybrid or in-office) and don't share where I live here. Asked my age or graduation year, say only that I don't share that here.
@@ -83,15 +84,25 @@ const SIDE = {
     "They're on the engineer side of the site, so lean on how I built things: the stack, the architecture and the tradeoffs.",
 };
 
-export function instructions(page: PageContext | null) {
+const describe = (page: ReadPage) =>
+  `Path: ${page.path}\nTitle: ${page.title}${
+    page.sections.length
+      ? `\nSections on this page: ${page.sections.map((x) => `#${x.id} (${x.title})`).join(", ")}`
+      : ""
+  }\n\nWhat's on it:\n"""\n${page.text}\n"""`;
+
+// The rules and what I know, then the page they're on and any case study
+// they asked about from elsewhere (readPages.ts), which is more detailed and
+// up to date than "Projects" in "About me"
+export function instructions(page: PageContext | null, read: ReadPage[] = []) {
   const parts = [RULES, `# About me\n\n${KNOWLEDGE}`];
   if (page)
     parts.push(
-      `# The page they're looking at\n\n${SIDE[page.side]}\n\nPath: ${page.path}\nTitle: ${page.title}${
-        page.sections.length
-          ? `\nSections on this page: ${page.sections.map((x) => `#${x.id} (${x.title})`).join(", ")}`
-          : ""
-      }\n\nWhat's on it:\n"""\n${page.text}\n"""`,
+      `# The page they're looking at\n\n${SIDE[page.side]}\n\n${describe(page)}`,
+    );
+  for (const study of read)
+    parts.push(
+      `# A case study they asked about (more detailed and newer than "Projects" above)\n\n${describe(study)}`,
     );
   return parts.join("\n\n");
 }

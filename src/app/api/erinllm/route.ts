@@ -10,6 +10,7 @@ import { randomBytes } from "node:crypto";
 import { mkdir, readdir, readFile, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { splitAnswer } from "@/lib/erinllm/answer";
+import { asksAbout, readCaseStudies } from "@/lib/erinllm/readPages";
 import { mayKeep, tooManyQuestions } from "@/lib/erinllm/limits";
 import { MODEL, instructions } from "@/lib/erinllm/prompt";
 import {
@@ -240,9 +241,15 @@ export async function POST(request: Request) {
   if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) return fail("not_set_up", 503);
 
   const asked = messages.at(-1)!;
+  // A project they asked about from another page: read its case study
+  const read = await readCaseStudies(
+    new URL(request.url).origin,
+    asksAbout(messages, page?.path),
+    page?.side ?? "designer",
+  );
   const result = streamText({
     model: MODEL,
-    instructions: instructions(page),
+    instructions: instructions(page, read),
     messages: await convertToModelMessages(withAttached(messages)),
     // Gemini's thinking counts toward this, so it leaves room for both;
     // minimal thinking keeps answers quick

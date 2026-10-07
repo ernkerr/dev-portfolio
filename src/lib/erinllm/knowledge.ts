@@ -8,7 +8,9 @@ import { PAGES } from "./pages";
 // here or on the page someone is reading, so every line has to be true.
 // My design resume (October 2026) leads: Who I am, Resume and Skills use
 // its words. Experience, Fun and the page list come from the same data the
-// site shows; projects are drafted from the case studies. Things I tell it
+// site shows; projects are summaries of the case studies, and when someone
+// asks about one from another page, it reads the case study itself
+// (readPages.ts), so editing a case study is enough. Things I tell it
 // that aren't anywhere else go in FROM_ME.
 //
 // Never in here: where I live or work, where I'm from, my age, when I

@@ -39,7 +39,7 @@ const GROUPS: QuestGroup[] = [
       },
       {
         name: "Plant World",
-        what: "A Mario-style game for the original Game Boy. Play it here or download it for a real one",
+        what: "A Mario-style Game Boy game. Play it here or download it for a real one",
         year: "2026",
         status: "live",
         cta: "Play",

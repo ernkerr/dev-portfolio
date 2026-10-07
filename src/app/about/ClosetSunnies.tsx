@@ -389,7 +389,6 @@ export default function ClosetSunnies({
             type="button"
             aria-pressed={on}
             aria-label={`Wear my ${name}`}
-            title={on ? `Take off my ${name}` : `Put on my ${name}`}
             onClick={() => setWorn(on ? null : kind)}
             className={`absolute transition-transform duration-300 ease-switch hover:-translate-y-0.5 motion-reduce:transition-none ${focusRing}`}
             style={box}

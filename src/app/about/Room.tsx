@@ -18,6 +18,10 @@ import Sway from "./Sway";
 import Swish from "./Swish";
 import CityWindow from "./CityWindow";
 import WallClock from "./WallClock";
+import WallCalendar from "./WallCalendar";
+import DeskComputer from "./DeskComputer";
+import { AREA as DESK_AREA, MUG } from "./deskArt";
+import EmberMug from "./EmberMug";
 import Closet, { CLOSET_WIDTH } from "./Closet";
 import { LAVA } from "./lavaShape";
 import { MY_PHOTOS } from "./cameraPhotos";
@@ -1496,8 +1500,8 @@ function ShelfBook({
     <g
       transform={`translate(${x} ${BOOK_BOARD - h})`}
       className="group pointer-events-auto"
+      aria-label={title}
     >
-      <title>{title}</title>
       <rect
         y={-BOOK_LIFT}
         width={w}
@@ -1720,7 +1724,6 @@ function TurningBook({
         tabIndex={0}
         role="img"
         aria-label={book.title}
-        title={book.title}
         className={`group absolute z-0 transition-[z-index] duration-700 hover:z-20 hover:duration-0 focus:z-20 focus:duration-0 ${focusRing}`}
         style={{ ...box, perspective: `${700 * scale}px` }}
       >
@@ -1751,7 +1754,6 @@ function TurningBook({
         tabIndex={0}
         role="img"
         aria-label={book.title}
-        title={book.title}
         className={`group absolute z-0 transition-[z-index] duration-700 [perspective:700px] hover:z-20 hover:duration-0 focus:z-20 focus:duration-0 ${focusRing}`}
         style={box}
       >
@@ -1767,7 +1769,7 @@ function TurningBook({
 
   return (
     <div
-      title={book.title}
+      aria-label={book.title}
       className="group absolute [perspective:700px] hover:z-10"
       style={box}
     >
@@ -6871,12 +6873,17 @@ function RealCuttings({ version }: { version: 2 | 3 | 4 | 5 }) {
 // day there, the sun or moon, and the weather. Under it, my white desk,
 // wide and running out past the window on the right, where my computer
 // will go; and above that end, my big gold clock, on my time in New York
-// (WallClock.tsx). They're drawn in the bookshelf's units, in a strip of
+// (WallClock.tsx), and my calendar, to ask me to meet (WallCalendar.tsx);
+// and on the desk my computer and the rest, to see my case studies
+// (DeskComputer.tsx), and my Ember mug, to guess what's in it
+// (EmberMug.tsx). They're drawn in the bookshelf's units, in a strip of
 // wall WALL wide.
-const WALL = 360;
+const WALL = 420;
 const WINDOW = { left: 20, top: 56, width: 160, height: 236 };
-// The clock's middle and how far across it is
+// The clock's middle and how far across it is, and the calendar's left,
+// top and width, hanging right of it
 const WALL_CLOCK = { x: 268, y: 122, size: 104 };
+const WALL_CALENDAR = { left: 342, top: 70, width: 62 };
 // The desk's top, its left and right ends and how high it is (about 75cm,
 // at the bookshelf's scale), and its legs and the rail under its top
 const DESK = { left: 50, right: 350, top: 328, board: 12, leg: 8, rail: 6 };
@@ -6892,10 +6899,9 @@ function Desk() {
     <svg
       viewBox={`0 ${VIEW.top} ${WALL} ${VIEW.height}`}
       role="img"
-      aria-labelledby="desk-title"
+      aria-label="My white desk, under the window."
       className="pointer-events-none absolute inset-0 h-full w-full"
     >
-      <title id="desk-title">My white desk, under the window.</title>
       {/* The rail under the top, between the legs */}
       <rect
         x={left + 6}
@@ -6951,7 +6957,31 @@ function WindowWall() {
           height: `${(WALL_CLOCK.size / VIEW.height) * 100}%`,
         }}
       />
+      <WallCalendar
+        box={{
+          left: `${(WALL_CALENDAR.left / WALL) * 100}%`,
+          top: `${((WALL_CALENDAR.top - VIEW.top) / VIEW.height) * 100}%`,
+          width: `${(WALL_CALENDAR.width / WALL) * 100}%`,
+          height: `${((WALL_CALENDAR.width * 420) / 300 / VIEW.height) * 100}%`,
+        }}
+      />
       <Desk />
+      <DeskComputer
+        box={{
+          left: `${(DESK_AREA.x / WALL) * 100}%`,
+          top: `${((DESK_AREA.y - VIEW.top) / VIEW.height) * 100}%`,
+          width: `${(DESK_AREA.w / WALL) * 100}%`,
+          height: `${(DESK_AREA.h / VIEW.height) * 100}%`,
+        }}
+      />
+      <EmberMug
+        box={{
+          left: `${(MUG.x / WALL) * 100}%`,
+          top: `${((MUG.y - VIEW.top) / VIEW.height) * 100}%`,
+          width: `${(MUG.w / WALL) * 100}%`,
+          height: `${(MUG.h / VIEW.height) * 100}%`,
+        }}
+      />
     </div>
   );
 }
@@ -7270,7 +7300,6 @@ export default function Room({
       <LampSwitch
         viewBox={VIEW_BOX}
         title={TITLE}
-        titleId={`${id}-title`}
         glow={{ x: STEM_LAMP.x, y: SWITCH_BULB.y + 10, r: 560 }}
         light={<SwitchLampLight />}
         hit={SWITCH_HIT}
@@ -7318,10 +7347,9 @@ export default function Room({
     <svg
       viewBox={VIEW_BOX}
       role="img"
-      aria-labelledby={`${id}-title`}
+      aria-label={TITLE}
       className={`block h-auto ${width}`}
     >
-      <title id={`${id}-title`}>{TITLE}</title>
       <Bookshelf />
       {lamp === 4 ? (
         <ArmLamp id={`${id}-ball`} />

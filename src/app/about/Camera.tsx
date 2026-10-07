@@ -1376,7 +1376,6 @@ export default function CameraOnShelf({
         type="button"
         aria-haspopup="dialog"
         aria-label="My camera. Open it to take a photo or see the ones people left."
-        title="My camera"
         onClick={pickUp}
         className={`absolute transition-transform duration-300 ease-switch hover:-translate-y-0.5 motion-reduce:transition-none ${focusRing} ${open ? "invisible" : ""}`}
         style={box}

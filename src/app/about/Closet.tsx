@@ -622,13 +622,9 @@ export default function Closet({
       <svg
         viewBox={`0 ${top} ${WIDTH} ${height}`}
         role="img"
-        aria-labelledby={`${ID}-title`}
+        aria-label="My closet: my long leather jacket, my cheetah fur coat, my disco dress, my sunnies and my oxblood Docs."
         className="block h-auto w-full overflow-visible"
       >
-        <title id={`${ID}-title`}>
-          My closet: my long leather jacket, my cheetah fur coat, my disco
-          dress, my sunnies and my oxblood Docs.
-        </title>
         <Defs />
 
         {/* The frame: top and bottom boards, posts, and the rod */}

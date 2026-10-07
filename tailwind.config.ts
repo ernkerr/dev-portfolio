@@ -232,6 +232,49 @@ export default {
             frame: "#F4F1EB",
             shade: "#D8D2C6",
           },
+          // My wall calendar, from a photo of it: its white page and the
+          // shade at its edge, its gray dates, day names and lines, the
+          // wire of its spiral, and the muted colors its months' names come
+          // in, one after another (sage, rose, sky, clay)
+          calendar: {
+            page: "#FFFFFF",
+            edge: "#DADCDF",
+            ink: "#8C9096",
+            line: "#E1E3E6",
+            wire: "#9EA4AB",
+            sage: "#8FA98B",
+            rose: "#D88E90",
+            sky: "#8BB6D2",
+            clay: "#B9825F",
+          },
+          // What's on my desk: my curved monitor (its bezel, its screen, the
+          // case studies on it in their tiles' colors, its silver stand),
+          // my Keychron keyboard (its keys, their tops, its orange Esc), my
+          // MX Master 3S mouse (graphite, its thumb rest's lip, its metal
+          // wheel, its green light), and my white Ember mug with its little
+          // light
+          computer: {
+            bezel: "#1B1C1F",
+            screen: "#F7F9FB",
+            "tile-a": "#E6EBF2",
+            "tile-b": "#E4DDFB",
+            "tile-c": "#D3EEFF",
+            "tile-d": "#0C1629",
+            "tile-e": "#EEF0FF",
+            "tile-f": "#061423",
+            stand: "#C9CDD2",
+            "stand-shade": "#9EA3A9",
+            keys: "#3A3C42",
+            "key-top": "#55585F",
+            esc: "#E8732C",
+            mouse: "#3A3C41",
+            "mouse-light": "#585B62",
+            "mouse-metal": "#B8BCC2",
+            "mouse-led": "#46D17A",
+            mug: "#F4F3F0",
+            "mug-shade": "#D8D5CE",
+            light: "#8FD9F5",
+          },
           // My white desk under the window, and the shade along its edges
           desk: {
             DEFAULT: "#F3F1EC",

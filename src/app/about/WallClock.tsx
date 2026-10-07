@@ -104,13 +104,7 @@ export default function WallClock({
   };
 
   return (
-    <div
-      role="img"
-      aria-label={label}
-      title={label}
-      className="absolute"
-      style={box}
-    >
+    <div role="img" aria-label={label} className="absolute" style={box}>
       <svg
         viewBox="-52 -52 104 104"
         aria-hidden="true"

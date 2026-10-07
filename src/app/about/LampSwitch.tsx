@@ -39,7 +39,6 @@ export function useLights() {
 export default function LampSwitch({
   viewBox,
   title,
-  titleId,
   glow,
   light,
   hit,
@@ -50,7 +49,6 @@ export default function LampSwitch({
   /** How wide the drawing is: a bookshelf's width, or its column's. */
   width?: string;
   title: string;
-  titleId: string;
   /** Center and outer radius of the glow, in viewBox units. */
   glow: { x: number; y: number; r: number };
   /** The lamp lit, drawn over the room when it's on. */
@@ -72,10 +70,9 @@ export default function LampSwitch({
       <svg
         viewBox={viewBox}
         role="img"
-        aria-labelledby={titleId}
+        aria-label={title}
         className={`pointer-events-none block h-auto overflow-visible ${width}`}
       >
-        <title id={titleId}>{title}</title>
         <defs>
           {/* Stops take the glow colors through currentColor */}
           <radialGradient id={`${id}-glow`} className="text-room-light">

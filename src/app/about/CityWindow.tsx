@@ -260,13 +260,7 @@ export default function CityWindow({
   const move = "motion-reduce:animate-none";
 
   return (
-    <div
-      role="img"
-      aria-label={label}
-      title={label}
-      className="absolute"
-      style={box}
-    >
+    <div role="img" aria-label={label} className="absolute" style={box}>
       <svg
         viewBox={`0 0 ${W} ${H}`}
         aria-hidden="true"

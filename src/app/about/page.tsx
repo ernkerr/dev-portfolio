@@ -11,13 +11,24 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-// The room as it is, as big as fits, and under it the way to every
-// version of it I made along the way (/about/ideation).
+// A note on what the room's for, then the room as it is, as big as fits,
+// and under it the way to every version of it I made along the way
+// (/about/ideation).
 export default function AboutPage() {
   return (
     <SiteShell>
-      <h1 className="sr-only">About</h1>
-      <div className="pt-16 md:pt-28">
+      <div className="pt-10 md:pt-16">
+        <h1 className="font-serif text-subhead text-site-ink">
+          Explore and get to know me
+        </h1>
+        <p className="mt-2 max-w-measure text-body text-site-ink/80">
+          Inspired from subletting across NY.
+          <br />
+          I&apos;m learning how much you can learn from a person by spending
+          time in their space.
+        </p>
+      </div>
+      <div className="pt-12 md:pt-16">
         <FinalRoom />
       </div>
       <div className="mt-16">

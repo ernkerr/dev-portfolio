@@ -14,7 +14,7 @@ import {
   P,
 } from "@/components/site/prose";
 import { BuildNote, Review, Screens } from "@/components/site/appStudy";
-import { Detail, ReviewShots } from "./findings";
+import { BeforeAfter, Detail, ReviewShots } from "./findings";
 import LiveBoard from "./LiveBoard";
 import Sketches from "./Sketches";
 
@@ -54,7 +54,7 @@ const SECTIONS: CaseStudySection[] = [
         </P>
         <Facts
           items={[
-            { label: "Role", value: "Design and build, solo" },
+            { label: "Role", value: "Solo designer and developer" },
             { label: "Timeline", value: "May 2025 to June 2026" },
             { label: "Platform", value: "iPhone and iPad" },
           ]}
@@ -66,13 +66,14 @@ const SECTIONS: CaseStudySection[] = [
     id: "problem",
     title: "Problem",
     headline:
-      "How might paper-and-pen Gin scoring work on a phone for every age?",
+      "How might we make keeping score in Gin as easy as pen and paper, for players of every age?",
     content: (
       <>
         <P>
-          We kept score with paper and pen, which makes it hard to look back at
-          past games. An app had to work for non-technical players too,
-          including older family members and friends who play Gin.
+          Traditionally, players keep score with pen and paper, which makes it
+          hard to look back at past games. An app has to be as easy to use as a
+          pen, and it has to work for non-technical players too, including older
+          users who play Gin.
         </P>
         <Columns
           items={[
@@ -112,6 +113,19 @@ const SECTIONS: CaseStudySection[] = [
     title: "Research",
     content: (
       <>
+        <P>
+          In a{" "}
+          <a
+            href="https://yougov.com/en-us/articles/45795-how-americans-feel-about-30-card-games"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={inlineLink}
+          >
+            2023 YouGov poll
+          </a>
+          , 67% of Americans 65 and older had played Gin Rummy, compared with
+          24% of adults under 30.
+        </P>
         <P>
           I started with existing behavior, how players already kept score on
           paper.
@@ -162,8 +176,19 @@ const SECTIONS: CaseStudySection[] = [
           Customization came up again and again in reviews, like a different
           target score or different bonus values. Gin Rummy Score Tracker’s
           developer promised both in January 2023, and they never shipped, so I
-          designed for flexibility across play styles.
+          designed for flexibility across play styles and rules.
         </P>
+        <Screens
+          screens={[
+            {
+              src: `${IMG}/game-options-real.webp`,
+              alt: "Game Options in today’s app: Game Rules with a Target Score of 100 and a note that free games go up to 100 points, then Gin Bonus 25, Big Gin Bonus 31 and Undercut Bonus 25, above Delete Game and Save.",
+              width: 780,
+              height: 1696,
+              label: "Game options",
+            },
+          ]}
+        />
         <ReviewShots
           shots={[
             {
@@ -206,15 +231,13 @@ const SECTIONS: CaseStudySection[] = [
           ]}
         />
 
-        <H3>The closest one already asked who won first</H3>
+        <H3>The most successful app asked who won first</H3>
         <P>
           Gin Rummy Score Tracker had the best usability, for me and for the
           other users I asked. Its flow matched their mental model. With pen and
           paper, 5 of the 5 people I asked counted the cards first and added the
-          bonus after, and the app asks for the winner, then the points, then
-          the bonus. Its pain points were $2.99 up front, fixed rules, and no
-          updates since May 2023. I kept that flow and designed around its pain
-          points.
+          bonus after, so I designed the app to ask for the winner first, then
+          the points, then the bonus.
         </P>
         <Screens
           screens={[
@@ -226,13 +249,18 @@ const SECTIONS: CaseStudySection[] = [
               label: "Gin Rummy Score Tracker",
             },
             {
-              src: `${IMG}/v1-modal.webp`,
-              alt: "Gin Score Tracker’s New Score screen in 1.0: blue and black buttons with hard black shadows, Gin selected, Bonus: +25 and a total of 34.",
-              ...phone,
+              src: `${IMG}/v1-modal-real.webp`,
+              alt: "Gin Score Tracker’s New Score screen in 1.0, on an iPhone: You as the winner, a score of 3, Gin selected, Bonus: +25 in blue and a total of 28.",
+              width: 780,
+              height: 1695,
               label: "Mine, 1.0",
             },
           ]}
         />
+        <P>
+          Its pain points were $2.99 up front, fixed rules, and no updates since
+          May 2023. I kept that flow and designed around its pain points.
+        </P>
       </>
     ),
   },
@@ -253,7 +281,7 @@ const SECTIONS: CaseStudySection[] = [
           player. That matched paper but not the game, since only 1 player
           scores a hand. In my next iteration, entering a hand became a New
           Score screen that goes in the game’s order. You pick the winner, type
-          the points, tap a bonus, and see the total. Then I gave it a look.
+          the points, tap a bonus, and see the total.
         </P>
         <Screens
           screens={[
@@ -270,9 +298,10 @@ const SECTIONS: CaseStudySection[] = [
               label: "Next iteration",
             },
             {
-              src: `${IMG}/v1-modal.webp`,
-              alt: "The styled New Score screen: blue and black buttons with hard black shadows, Gin selected, Bonus: +25 and a total of 34.",
-              ...phone,
+              src: `${IMG}/v1-modal-real.webp`,
+              alt: "Gin Score Tracker’s New Score screen in 1.0, on an iPhone: You as the winner, a score of 3, Gin selected, Bonus: +25 in blue and a total of 28.",
+              width: 780,
+              height: 1695,
               label: "1.0",
             },
           ]}
@@ -294,10 +323,10 @@ const SECTIONS: CaseStudySection[] = [
           sure people knew the points were already being added.
         </P>
         <Detail
-          src={`${IMG}/bonus-line.webp`}
+          src={`${IMG}/bonus-line-real.webp`}
           alt="The New Score screen with You as the winner, a score of 9 and Gin picked. Under the bonus buttons, Bonus: +25 shows in blue, and the Total Score field shows 34."
-          width={780}
-          height={1018}
+          width={1183}
+          height={1132}
           caption="Pick a bonus and it shows in blue, with the total under it."
         />
 
@@ -308,22 +337,20 @@ const SECTIONS: CaseStudySection[] = [
           knock dialog got bigger too. Bigger buttons are easier to hit,
           especially for older players.
         </P>
-        <Screens
-          screens={[
-            {
-              src: `${IMG}/knock-before.webp`,
-              alt: "The Set Knock Value dialog before: a knock value of 7 with small X, Cancel and Save buttons.",
-              ...phone,
-              label: "Before",
-            },
-            {
-              src: `${IMG}/knock-after.webp`,
-              alt: "The Set Knock Value dialog after: the same dialog with bigger X, Cancel and Save buttons.",
-              ...phone,
-              label: "After",
-            },
-          ]}
-          caption="The knock dialog before and after. Rebuilt from the code with sample scores."
+        <BeforeAfter
+          before={{
+            src: `${IMG}/knock-before-real.webp`,
+            alt: "The Set Knock Value dialog before: a knock value of 6 with small X, Cancel and Save buttons.",
+            width: 1078,
+            height: 623,
+          }}
+          after={{
+            src: `${IMG}/knock-after-real.webp`,
+            alt: "The Set Knock Value dialog after: the same dialog with bigger X, Cancel and Save buttons.",
+            width: 1135,
+            height: 700,
+          }}
+          caption="The knock dialog before and after, at the same scale. Before is from the original App Store screenshots."
         />
 
         <H3>A 1-star review found the paywall in the wrong place</H3>
@@ -402,10 +429,13 @@ const SECTIONS: CaseStudySection[] = [
         <P>
           Visually, I leaned into a neo-brutalist UI with bold colors, thick
           borders, raw geometry, and a deliberately “unpolished” aesthetic that
-          feels both nostalgic and modern. Every button and field has a 2px
-          black border and a hard black shadow, the main buttons are 1 bright
-          blue, and titles are set in Space Mono. The icon, a jester and the
-          word GIN on black, set the look for every score tracker after it.
+          feels both nostalgic and modern. Gin is played in person, so I wanted
+          the app to feel analog, with buttons that look like real buttons you
+          press. Every button and field has a 2px black border and a hard black
+          shadow, the main buttons are 1 bright blue, and titles are set in
+          Space Mono. Opponents’ initials are set in Card Characters, a font
+          based on the letters on Bicycle playing cards. The icon, a jester and
+          the word GIN on black, set the look for every score tracker after it.
         </P>
 
         <H3>Rules per opponent, frozen per game</H3>
@@ -413,26 +443,28 @@ const SECTIONS: CaseStudySection[] = [
           Reviews of the other apps kept asking for their own rules, so bonus
           values and the target score are settings, and each game keeps the
           rules it started with, so changing a default later doesn’t rewrite old
-          games. In February 2026 I added game options to change the rules
-          mid-game. If you change a bonus, the app asks whether to update the
-          rounds already played.
+          games. In February 2026, after receiving feedback from a user in real
+          life, I added game options to change the rules mid-game. If you change
+          a bonus, the app asks whether to update the rounds already played.
         </P>
         <Screens
           screens={[
             {
-              src: `${IMG}/now-scoreboard.webp`,
+              src: `${IMG}/game-now-real.webp`,
               alt: "The game screen today: You 87 and James 49 under a crown, a Knock: 7 button, and 6 rounds with blue icons for Gin, an undercut and Big Gin.",
-              ...phone,
+              width: 780,
+              height: 1696,
               label: "Game",
             },
             {
-              src: `${IMG}/now-options.webp`,
-              alt: "The Game Options screen: target score and the Gin, Big Gin and Undercut values, with a Delete Game button.",
-              ...phone,
+              src: `${IMG}/game-options-real.webp`,
+              width: 780,
+              height: 1696,
+              alt: "Game Options in today’s app: a Target Score of 100 and a note that free games go up to 100 points, then the Gin, Big Gin and Undercut values, with Delete Game and Save.",
               label: "Game options",
             },
           ]}
-          caption="The game screen and its options today. Rebuilt from the code with sample scores."
+          caption="The game screen and its options today, with sample scores."
         />
         <Review
           stars={5}

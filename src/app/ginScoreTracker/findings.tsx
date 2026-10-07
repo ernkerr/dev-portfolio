@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { Caption } from "@/components/site/prose";
+import { Caption, label } from "@/components/site/prose";
 
 // Evidence for the Research findings: real App Store reviews, screenshotted
 // from the App Store's review cards with the username hidden. Sources are in
@@ -67,6 +67,51 @@ export function Detail({
         sizes="24rem"
         className="h-auto w-full max-w-sm border border-site-line"
       />
+      {caption && <Caption>{caption}</Caption>}
+    </figure>
+  );
+}
+
+type Shot = { src: string; alt: string; width: number; height: number };
+
+/**
+ * Two crops of the same screen, side by side. Both are 3x iPhone
+ * screenshots, so each is drawn at its own share of the widest one to keep
+ * them at the same scale.
+ */
+export function BeforeAfter({
+  before,
+  after,
+  caption,
+}: {
+  before: Shot;
+  after: Shot;
+  caption?: ReactNode;
+}) {
+  const widest = Math.max(before.width, after.width);
+  return (
+    <figure>
+      <div className="grid items-end gap-6 sm:grid-cols-2">
+        {(
+          [
+            ["Before", before],
+            ["After", after],
+          ] as const
+        ).map(([name, shot]) => (
+          <div key={name}>
+            <Image
+              src={shot.src}
+              alt={shot.alt}
+              width={shot.width}
+              height={shot.height}
+              sizes="(min-width: 640px) 22rem, 100vw"
+              className="h-auto"
+              style={{ width: `${(shot.width / widest) * 100}%` }}
+            />
+            <p className={`mt-3 ${label}`}>{name}</p>
+          </div>
+        ))}
+      </div>
       {caption && <Caption>{caption}</Caption>}
     </figure>
   );

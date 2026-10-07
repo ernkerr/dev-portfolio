@@ -2,8 +2,9 @@ import Image from "next/image";
 import { Caption, label } from "@/components/site/prose";
 
 // Erin's sharpie sketches from before she started building, each next to
-// the screen it became. The game screen is today's; the score screen is the
-// New Score screen as it shipped in 1.0 (rebuilt from the code).
+// the screen it became. The game screen is today's app in the iPhone
+// Simulator; the score screen is New Score as it shipped in 1.0, from the App
+// Store screenshots.
 
 const IMG = "/images/ginScoreTracker/study";
 
@@ -15,7 +16,8 @@ const PAIRS = [
       height: 1254,
     },
     screen: {
-      src: `${IMG}/now-scoreboard.webp`,
+      src: `${IMG}/game-now-real.webp`,
+      height: 1696,
       alt: "The game screen today: You 87 and James 49 under a crown, a Knock: 7 button, and 6 rounds with blue icons for Gin, an undercut and Big Gin.",
       label: "Today",
     },
@@ -27,8 +29,9 @@ const PAIRS = [
       height: 1146,
     },
     screen: {
-      src: `${IMG}/v1-modal.webp`,
-      alt: "The styled New Score screen: blue and black buttons with hard black shadows, Gin selected, Bonus: +25 and a total of 34.",
+      src: `${IMG}/v1-modal-real.webp`,
+      alt: "Gin Score Tracker’s New Score screen in 1.0, on an iPhone: You as the winner, a score of 3, Gin selected, Bonus: +25 in blue and a total of 28.",
+      height: 1695,
       label: "1.0, June 2025",
     },
   },
@@ -56,7 +59,7 @@ export default function Sketches() {
                 src={screen.src}
                 alt={screen.alt}
                 width={780}
-                height={1688}
+                height={screen.height}
                 sizes="(min-width: 640px) 14rem, 45vw"
                 className="h-auto w-full rounded-phone-screen shadow-float ring-1 ring-black/5"
               />

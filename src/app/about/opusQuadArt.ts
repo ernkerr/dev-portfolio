@@ -10,6 +10,12 @@ export const BEATS = 96;
  * there so they don't crowd the mixer. */
 export const DECK_BUTTONS = [92, 578];
 
+/** Where each deck's jog wheel's middle is across, and its tempo slider,
+ * the right deck's set a little right of the mixer so it sits in the
+ * middle of its side. */
+export const DECK_JOGS = [211, 695];
+export const DECK_TEMPOS = [322, 809];
+
 // One deck's waveform on the touchscreen, as bars a few pixels apart in
 // three bands, lows (tallest), mids and highs, centered on cy. The beats
 // repeat every BEATS pixels, the stretch the dj-scroll animation slides it

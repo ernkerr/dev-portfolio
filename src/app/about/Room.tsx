@@ -3,7 +3,13 @@ import DraggableCord from "./DraggableCord";
 import LampSwitch from "./LampSwitch";
 import PlugInDeck from "./PlugInDeck";
 import OpusQuadLive from "./OpusQuadLive";
-import { DECK_BUTTONS, overviewBars, waveBands } from "./opusQuadArt";
+import {
+  DECK_BUTTONS,
+  DECK_JOGS,
+  DECK_TEMPOS,
+  overviewBars,
+  waveBands,
+} from "./opusQuadArt";
 import TiltingDeck from "./TiltingDeck";
 import CameraOnShelf from "./Camera";
 import LavaLamp from "./LavaLamp";
@@ -11,7 +17,8 @@ import Clock from "./Clock";
 import Sway from "./Sway";
 import Swish from "./Swish";
 import CityWindow from "./CityWindow";
-import Closet from "./Closet";
+import WallClock from "./WallClock";
+import Closet, { CLOSET_WIDTH } from "./Closet";
 import { LAVA } from "./lavaShape";
 import { MY_PHOTOS } from "./cameraPhotos";
 
@@ -5865,11 +5872,10 @@ function OpusQuadAngled({
           />
         )),
       )}
-      {jog(211)}
-      {jog(683)}
+      {DECK_JOGS.map((x) => jog(x))}
       {DECK_BUTTONS.flatMap((x) => [button(x, 383), button(x, 413)])}
-      {fader(316, 345, 420, 358, 24)}
-      {fader(789, 360, 432, 380, 24)}
+      {fader(DECK_TEMPOS[0], 345, 420, 358, 24)}
+      {fader(DECK_TEMPOS[1], 360, 432, 380, 24)}
       {copper(122, 288)}
       {copper(568, 288)}
       {[230, 252].map((y) => knob(178, y, 7))}
@@ -6217,7 +6223,7 @@ function OpusQuadLights({
         )}
 
       {/* The jog wheels: their rings glowing, their center displays turning */}
-      {[211, 683].map((cx) => (
+      {DECK_JOGS.map((cx) => (
         <g key={cx}>
           {!live && (
             <>
@@ -6864,10 +6870,13 @@ function RealCuttings({ version }: { version: 2 | 3 | 4 | 5 }) {
 // (see CityWindow.tsx): the city's skyline under the sky for the time of
 // day there, the sun or moon, and the weather. Under it, my white desk,
 // wide and running out past the window on the right, where my computer
-// will go. They're drawn in the bookshelf's units, in a strip of wall WALL
-// wide.
+// will go; and above that end, my big gold clock, on my time in New York
+// (WallClock.tsx). They're drawn in the bookshelf's units, in a strip of
+// wall WALL wide.
 const WALL = 360;
 const WINDOW = { left: 20, top: 56, width: 160, height: 236 };
+// The clock's middle and how far across it is
+const WALL_CLOCK = { x: 268, y: 122, size: 104 };
 // The desk's top, its left and right ends and how high it is (about 75cm,
 // at the bookshelf's scale), and its legs and the rail under its top
 const DESK = { left: 50, right: 350, top: 328, board: 12, leg: 8, rail: 6 };
@@ -6884,7 +6893,7 @@ function Desk() {
       viewBox={`0 ${VIEW.top} ${WALL} ${VIEW.height}`}
       role="img"
       aria-labelledby="desk-title"
-      className="absolute inset-0 h-full w-full"
+      className="pointer-events-none absolute inset-0 h-full w-full"
     >
       <title id="desk-title">My white desk, under the window.</title>
       {/* The rail under the top, between the legs */}
@@ -6926,7 +6935,6 @@ function WindowWall() {
         aspectRatio: `${WALL} / ${VIEW.height}`,
       }}
     >
-      <Desk />
       <CityWindow
         box={{
           left: `${(WINDOW.left / WALL) * 100}%`,
@@ -6935,6 +6943,15 @@ function WindowWall() {
           height: `${(WINDOW.height / VIEW.height) * 100}%`,
         }}
       />
+      <WallClock
+        box={{
+          left: `${((WALL_CLOCK.x - WALL_CLOCK.size / 2) / WALL) * 100}%`,
+          top: `${((WALL_CLOCK.y - WALL_CLOCK.size / 2 - VIEW.top) / VIEW.height) * 100}%`,
+          width: `${(WALL_CLOCK.size / WALL) * 100}%`,
+          height: `${(WALL_CLOCK.size / VIEW.height) * 100}%`,
+        }}
+      />
+      <Desk />
     </div>
   );
 }
@@ -6948,6 +6965,53 @@ export function WindowAndCloset() {
     <div className="flex items-start [--room-unit:calc(12rem/260)] md:[--room-unit:calc(15rem/260)]">
       <WindowWall />
       <Closet top={VIEW.top} height={VIEW.height} />
+    </div>
+  );
+}
+
+// The room as it is, for the About page: the last bookshelf, the window
+// with my desk under it, and my closet, side by side, with room to spare
+// around them: four fifths of the page's width, or the window's height
+// less the header and room above for the deck and books to come out into,
+// whichever's less. --room-unit is one of the bookshelf's units, worked
+// out from the space (100cqw is the page's width), so all three keep its
+// scale and line up. On a phone they keep a readable size and scroll
+// sideways.
+export function FinalRoom() {
+  const last = SHELVES[SHELVES.length - 1];
+  const across = VIEW.width + WALL + CLOSET_WIDTH;
+  return (
+    <div className="overflow-x-auto [container-type:inline-size] md:overflow-visible">
+      <div
+        className="mx-auto flex w-max items-start [--room-unit:var(--phone)] md:[--room-unit:var(--fit)]"
+        style={
+          {
+            "--fit": `min(calc(80cqw / ${across}), calc((100svh - 18rem) / ${VIEW.height.toFixed(2)}))`,
+            "--phone": `max(calc(12rem / ${VIEW.width}), var(--fit))`,
+          } as React.CSSProperties
+        }
+      >
+        <div
+          className="shrink-0"
+          style={{ width: `calc(var(--room-unit) * ${VIEW.width})` }}
+        >
+          <Room
+            lamp={last.version}
+            plant={last.plant?.version}
+            books={last.books?.version}
+            basket={last.basket?.version}
+            headphones={last.headphones?.version}
+            dj={last.dj?.version}
+            camera={last.camera?.version}
+            lava={last.lava?.version}
+            cuttings={last.cuttings?.version}
+            clock={last.clock?.version}
+            fill
+          />
+        </div>
+        <WindowWall />
+        <Closet top={VIEW.top} height={VIEW.height} />
+      </div>
     </div>
   );
 }
@@ -7096,6 +7160,9 @@ type RoomProps = {
   lava?: LavaVersion;
   cuttings?: CuttingsVersion;
   clock?: ClockVersion;
+  /** Fill its column, as wide as that is, rather than a bookshelf's set
+   * width (w-48 md:w-60). */
+  fill?: boolean;
 };
 
 export default function Room({
@@ -7109,8 +7176,10 @@ export default function Room({
   lava,
   cuttings,
   clock,
+  fill = false,
 }: RoomProps) {
   const id = `room-${lamp}`;
+  const width = fill ? "w-full" : "w-48 md:w-60";
 
   // Books 2 and up are HTML laid over the drawing (see TurningBook), and
   // headphones 5's cord, which can be dragged in front of anything, is
@@ -7205,6 +7274,7 @@ export default function Room({
         glow={{ x: STEM_LAMP.x, y: SWITCH_BULB.y + 10, r: 560 }}
         light={<SwitchLampLight />}
         hit={SWITCH_HIT}
+        width={width}
       >
         <Bookshelf />
         <SwitchLamp id={`${id}-ball`} />
@@ -7249,7 +7319,7 @@ export default function Room({
       viewBox={VIEW_BOX}
       role="img"
       aria-labelledby={`${id}-title`}
-      className="block h-auto w-48 md:w-60"
+      className={`block h-auto ${width}`}
     >
       <title id={`${id}-title`}>{TITLE}</title>
       <Bookshelf />

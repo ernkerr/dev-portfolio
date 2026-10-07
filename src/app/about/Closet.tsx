@@ -15,6 +15,7 @@ import { ellipse, f, jitter } from "./closetArt";
 // boards, from x 0 to WIDTH, so `top` and `height` are the bookshelf
 // drawing's.
 const WIDTH = 400;
+export const CLOSET_WIDTH = WIDTH;
 const ID = "closet";
 const L = 8; // the left post's outside
 const R = 392; // the right post's outside

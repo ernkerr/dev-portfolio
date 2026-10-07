@@ -1,7 +1,13 @@
 "use client";
 
 import { useContext, useEffect, useRef, useState } from "react";
-import { BEATS, DECK_BUTTONS, waveBands } from "./opusQuadArt";
+import {
+  BEATS,
+  DECK_BUTTONS,
+  DECK_JOGS,
+  DECK_TEMPOS,
+  waveBands,
+} from "./opusQuadArt";
 import { DeckOn } from "./TiltingDeck";
 
 type Pt = [number, number];
@@ -85,25 +91,25 @@ const SWATCHES = Object.keys(LIGHTS) as Light[];
 
 const DECKS = [
   {
-    jog: 211,
+    jog: DECK_JOGS[0],
     button: DECK_BUTTONS[0],
     wave: 199,
     phase: 0,
     screen: 158,
     overview: 244,
     at: 0.4, // where its cue point is in the track
-    tempo: { x: 316, top: 345, bottom: 420 },
+    tempo: { x: DECK_TEMPOS[0], top: 345, bottom: 420 },
     pads: 145, // the first of its 8 pads, 21 apart
   },
   {
-    jog: 683,
+    jog: DECK_JOGS[1],
     button: DECK_BUTTONS[1],
     wave: 225,
     phase: 9,
     screen: 598,
     overview: 252,
     at: 0.65,
-    tempo: { x: 789, top: 360, bottom: 432 },
+    tempo: { x: DECK_TEMPOS[1], top: 360, bottom: 432 },
     pads: 588,
   },
 ];

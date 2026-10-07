@@ -43,9 +43,12 @@ export default function LampSwitch({
   glow,
   light,
   hit,
+  width = "w-48 md:w-60",
   children,
 }: {
   viewBox: string;
+  /** How wide the drawing is: a bookshelf's width, or its column's. */
+  width?: string;
   title: string;
   titleId: string;
   /** Center and outer radius of the glow, in viewBox units. */
@@ -70,7 +73,7 @@ export default function LampSwitch({
         viewBox={viewBox}
         role="img"
         aria-labelledby={titleId}
-        className="pointer-events-none block h-auto w-48 overflow-visible md:w-60"
+        className={`pointer-events-none block h-auto overflow-visible ${width}`}
       >
         <title id={titleId}>{title}</title>
         <defs>

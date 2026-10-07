@@ -335,6 +335,10 @@ export default {
             face: "#242427",
             rim: "#3C3C41",
             numeral: "#EDE7D8",
+            // My big gold wall clock: its white face and the black of its
+            // numbers, lines and hands (its rim is room-gold)
+            "wall-face": "#FBFAF7",
+            "wall-ink": "#232326",
           },
           // The disco ball's colored glass shards
           disco: {

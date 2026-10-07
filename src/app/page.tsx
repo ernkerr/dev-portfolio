@@ -13,15 +13,7 @@ import {
 } from "@/components/site/thumbs";
 import { EMAIL, focusRing, mono } from "@/components/site/links";
 import { isEngineerSide } from "@/components/site/side";
-
-// Experience beside the headline. The last column says what Erin did there,
-// not her title; every line has to trace back to her resume.
-const EXPERIENCE = [
-  { year: "2025", company: "OrderSync", did: "Shipped a design system and an AI order agent" },
-  { year: "2024", company: "Cyber Goose", did: "Founded a studio shipping apps and client sites" },
-  { year: "2024", company: "Wispr AI", did: "Built tools for brain-computer interface R&D" },
-  { year: "2021", company: "SRI International", did: "Ran 500+ research interviews for NIH studies" },
-];
+import { EXPERIENCE } from "@/data/experience";
 
 // The work in order: first here is first on phones, and from 768px it reads
 // left to right in rows of two. Every tile is 4:3, so the rows line up.

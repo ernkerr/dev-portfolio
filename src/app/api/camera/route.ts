@@ -1,5 +1,5 @@
 import { del, list, put, rename } from "@vercel/blob";
-import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
+import { randomBytes } from "node:crypto";
 import {
   mkdir,
   readdir,
@@ -9,6 +9,14 @@ import {
   writeFile,
 } from "node:fs/promises";
 import path from "node:path";
+import {
+  hash,
+  inBlob,
+  inFolder,
+  json,
+  refused,
+  reviewing,
+} from "@/lib/serverStore";
 
 // The photos visitors leave on the About page's camera (src/app/about/
 // Camera.tsx). A photo left waits until I approve it: only whoever left
@@ -24,9 +32,9 @@ import path from "node:path";
 // Each photo's name says when it was left and, hashed, who left it:
 // "<ms>-<owner>-<random>.jpg". Whoever leaves a photo sends a secret token
 // their browser keeps (x-camera-owner), and only that token's hash can see
-// it waiting or delete it, so no database is needed. Reviewing takes the
-// key in CAMERA_REVIEW_KEY (x-camera-review); locally it needs none. The
-// review page is /about/review.
+// it waiting or delete it, so no database is needed. Reviewing takes being
+// signed in at /review (src/lib/reviewSession.ts); locally, without a
+// password set, it needs nothing. The review page is /about/review.
 //
 // Photos go to Vercel Blob once a Blob store is connected to the project
 // (BLOB_READ_WRITE_TOKEN or BLOB_STORE_ID), under camera/waiting/ and
@@ -41,27 +49,14 @@ const MAX_BYTES = 600_000; // the camera sends about 100 KB
 const NAME = /^(\d{13})-([0-9a-f]{16})-[0-9a-f]{8}\.jpg$/;
 const TOKEN = /^[\w-]{16,100}$/;
 
-const inBlob = () =>
-  Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
-const inFolder = () => !inBlob() && process.env.NODE_ENV !== "production";
 const prefix = (status: Status) => `camera/${status}/`;
 const folder = (status: Status) =>
   path.join(process.cwd(), ".data", "camera", status);
 
-const hash = (text: string) => createHash("sha256").update(text).digest();
 const ownerOf = (token: string) => hash(token).toString("hex").slice(0, 16);
 const asker = (request: Request) => {
   const token = request.headers.get("x-camera-owner") ?? "";
   return TOKEN.test(token) ? ownerOf(token) : null;
-};
-
-// Whether this is me, reviewing: with ?review and the right key
-const reviewing = (request: Request): "yes" | "no" | "unset" | "wrong" => {
-  if (!new URL(request.url).searchParams.has("review")) return "no";
-  const key = process.env.CAMERA_REVIEW_KEY;
-  if (!key) return process.env.NODE_ENV === "production" ? "unset" : "yes";
-  const given = request.headers.get("x-camera-review") ?? "";
-  return timingSafeEqual(hash(given), hash(key)) ? "yes" : "wrong";
 };
 
 type Photo = {
@@ -109,23 +104,6 @@ async function photosIn(status: Status) {
   return photos;
 }
 
-const json = (body: unknown, status = 200) =>
-  Response.json(body, {
-    status,
-    headers: { "Cache-Control": "no-store" },
-  });
-
-const refused = (review: "unset" | "wrong") =>
-  json(
-    {
-      error:
-        review === "unset"
-          ? "Reviewing isn't set up yet: add CAMERA_REVIEW_KEY."
-          : "That key didn't work.",
-    },
-    401,
-  );
-
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
 
@@ -145,8 +123,8 @@ export async function GET(request: Request) {
     }
   }
 
-  const review = reviewing(request);
-  if (review === "unset" || review === "wrong") return refused(review);
+  const review = await reviewing(request);
+  if (review !== "yes" && review !== "no") return refused(review);
   const owner = asker(request);
   const [shown, waiting] = await Promise.all([
     photosIn("shown"),
@@ -190,8 +168,8 @@ export async function DELETE(request: Request) {
   const id = new URL(request.url).searchParams.get("id") ?? "";
   const match = NAME.exec(id);
   if (!match) return json({ error: "Not found." }, 404);
-  const review = reviewing(request);
-  if (review === "unset" || review === "wrong") return refused(review);
+  const review = await reviewing(request);
+  if (review !== "yes" && review !== "no") return refused(review);
   if (review !== "yes" && match[2] !== asker(request))
     return json({ error: "Only whoever left a photo can delete it." }, 403);
   if (inBlob()) await del([prefix("waiting") + id, prefix("shown") + id]);
@@ -207,7 +185,7 @@ export async function DELETE(request: Request) {
 export async function PATCH(request: Request) {
   const id = new URL(request.url).searchParams.get("id") ?? "";
   if (!NAME.test(id)) return json({ error: "Not found." }, 404);
-  const review = reviewing(request);
+  const review = await reviewing(request);
   if (review !== "yes")
     return review === "no"
       ? json({ error: "Only I can approve photos." }, 403)

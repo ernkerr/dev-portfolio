@@ -368,6 +368,7 @@ export default {
         header: "4rem", // sticky header height
         "section-sm": "14rem", // between case-study sections below 768px
         section: "24rem", // between sections from 768px up, above the footer
+        chat: "26rem", // ErinLLM's panel from 768px (w-chat)
       },
 
       aspectRatio: {

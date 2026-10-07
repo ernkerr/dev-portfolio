@@ -80,10 +80,12 @@ Keep running text, captions and section headlines within `max-w-measure`.
 - `appStudy.tsx`: figures for the app case studies: `BrandField` and `Screens` (screens on the project's brand color), `Review` (a real user's words) and `BuildNote` (a pointer to the engineering side).
 - `Tile`: project tile. Thumbnails are a brand-colored field with one thing on it (app icon, logo or one UI component), never a page screenshot.
 - `SideSwitch` + `SideContext`: the designer/engineer switch and its state.
+- `erinllm/`: ErinLLM, the chat bot in the header that answers questions about me. Its panel is `w-chat` (26rem) from 768px. What it knows is `src/lib/erinllm/knowledge.ts`; add facts that aren't on the site to its "In my own words" list. Its API is `src/app/api/erinllm`, and the questions people ask are at `/erinllm/review`.
+- Review pages (`/about/review`, `/erinllm/review`) are only for me: each calls `requireSignIn` (`src/app/review/guard.ts`), and their APIs check `reviewing()` (`src/lib/serverStore.ts`). I sign in at `/review` with `REVIEW_KEY`. `src/middleware.ts` doesn't run in this project (the top-level `pages/` folder means Next never picks it up), so don't put protection there.
 
 ### Voice
 
-First person and plain ("I'm Erin, a product designer who engineers."). Short literal labels: Work, Fun, About. Tile meta is the project, then one true fact: `Carpoolio • 4.9★ App Store`. Every number must be true. No emoji; `✦` before Get in touch is the only ornament.
+First person and plain ("I'm Erin, a product designer who engineers."). Short literal labels: Work, Fun, About. Tile meta is the project, then one true fact: `Carpoolio • 4.9★ App Store`. Every number must be true. No emoji; `✦` is the only ornament, before Get in touch, ErinLLM and Ask ErinLLM.
 
 ### Not part of this system
 

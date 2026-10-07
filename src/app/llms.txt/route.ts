@@ -1,19 +1,13 @@
-import { allProjects } from "@/data/projects";
+import { CASE_STUDIES } from "@/data/caseStudies";
 
 export const dynamic = "force-static";
 
 const baseUrl = "https://erinkerr.me";
 
 export function GET() {
-  const projectLines = allProjects
-    .filter((project) => project.link && project.link !== "#")
-    .map((project) => {
-      const link = project.link.startsWith("/")
-        ? `${baseUrl}${project.link}`
-        : project.link;
-      return `- [${project.title}](${link}): ${project.shortDescription}`;
-    })
-    .join("\n");
+  const caseStudies = CASE_STUDIES.map(
+    ({ name, slug, title }) => `- [${name}](${baseUrl}/${slug}): ${title}`,
+  ).join("\n");
 
   const body = `# Erin Kerr
 
@@ -21,18 +15,17 @@ Erin Kerr is a product and UI/UX designer who engineers. She designs and
 ships web apps, mobile apps, and developer tools, and writes about the
 process on her blog at ${baseUrl}.
 
-## Projects
+## Case studies
 
-${projectLines}
+${caseStudies}
 
 ## Pages
 
-- [Home](${baseUrl})
+- [Work](${baseUrl}): the case studies
+- [Fun](${baseUrl}/fun): side projects, small tools and apps
 - [About](${baseUrl}/about)
-- [Projects](${baseUrl}/projects)
-- [Agents](${baseUrl}/agents)
 - [Blog](${baseUrl}/blog)
-- [Contact](${baseUrl}/contact)
+- [Agents](${baseUrl}/agents)
 - [Archive](${baseUrl}/archive): every past version of the site, kept as it was
 
 Also see Erin's creator portfolio at https://erin-codes.com.

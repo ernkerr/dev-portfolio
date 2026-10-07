@@ -1,17 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import ErinLLM from "./erinllm/ErinLLM";
 import { EMAIL, focusRing } from "./links";
 
+// About carries the room illustration (about 200 KB), so instead of
+// preloading it on every page, it preloads when someone points at the link.
 const NAV = [
   { href: "/", label: "Work" },
   { href: "/fun", label: "Fun" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "About", onIntent: true },
 ];
 
 export default function SiteHeader() {
   const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <header className="sticky top-0 z-20 border-b border-site-line bg-site-paper/90 backdrop-blur">
@@ -27,13 +31,20 @@ export default function SiteHeader() {
 
         <nav aria-label="Main">
           <ul className="flex gap-5 md:gap-8">
-            {NAV.map(({ href, label }) => {
+            {NAV.map(({ href, label, onIntent }) => {
               const active = pathname === href;
+              const preload = onIntent
+                ? () => router.prefetch(href)
+                : undefined;
               return (
                 <li key={href}>
                   <Link
                     href={href}
                     aria-current={active ? "page" : undefined}
+                    prefetch={onIntent ? false : undefined}
+                    onMouseEnter={preload}
+                    onFocus={preload}
+                    onTouchStart={preload}
                     className={`${focusRing} transition-colors ${
                       active
                         ? "text-site-blue"
@@ -48,12 +59,15 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <a
-          href={`mailto:${EMAIL}`}
-          className={`hidden justify-self-end text-site-blue underline-offset-4 hover:underline md:block ${focusRing}`}
-        >
-          <span aria-hidden="true">✦ </span>Get in touch
-        </a>
+        <div className="flex items-center gap-6 justify-self-end">
+          <ErinLLM />
+          <a
+            href={`mailto:${EMAIL}`}
+            className={`hidden text-site-blue underline-offset-4 hover:underline md:block ${focusRing}`}
+          >
+            <span aria-hidden="true">✦ </span>Get in touch
+          </a>
+        </div>
       </div>
     </header>
   );

@@ -485,6 +485,10 @@ const SECTIONS: CaseStudySection[] = [
             { label: "Gutter", value: "24px each side, at every width" },
             { label: "Reading measure", value: "40rem, about 75 characters" },
             { label: "Header", value: "64px tall, sticky" },
+            {
+              label: "ErinLLM panel",
+              value: "26rem wide from 768px (w-chat), full width below",
+            },
           ]}
         />
         <P>

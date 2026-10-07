@@ -3,7 +3,7 @@ import DraggableCord from "./DraggableCord";
 import LampSwitch from "./LampSwitch";
 import PlugInDeck from "./PlugInDeck";
 import OpusQuadLive from "./OpusQuadLive";
-import { overviewBars, waveBands } from "./opusQuadArt";
+import { DECK_BUTTONS, overviewBars, waveBands } from "./opusQuadArt";
 import TiltingDeck from "./TiltingDeck";
 import CameraOnShelf from "./Camera";
 import LavaLamp from "./LavaLamp";
@@ -5867,7 +5867,7 @@ function OpusQuadAngled({
       )}
       {jog(211)}
       {jog(683)}
-      {[92, 568].flatMap((x) => [button(x, 383), button(x, 413)])}
+      {DECK_BUTTONS.flatMap((x) => [button(x, 383), button(x, 413)])}
       {fader(316, 345, 420, 358, 24)}
       {fader(789, 360, 432, 380, 24)}
       {copper(122, 288)}
@@ -6271,7 +6271,7 @@ function OpusQuadLights({
 
       {/* Cue lit amber and play green */}
       {!live &&
-        [92, 568].map((x) => (
+        DECK_BUTTONS.map((x) => (
           <g key={x}>
             <ellipse
               cx={x}
@@ -6862,10 +6862,60 @@ function RealCuttings({ version }: { version: 2 | 3 | 4 | 5 }) {
 // A white two-over-two window in the wall right of the bookshelves,
 // looking out on wherever whoever's looking is, as it is outside right now
 // (see CityWindow.tsx): the city's skyline under the sky for the time of
-// day there, the sun or moon, and the weather. It's drawn in the
-// bookshelf's units, in a strip of wall WALL wide.
-const WALL = 190;
-const WINDOW = { left: 15, top: 56, width: 160, height: 236 };
+// day there, the sun or moon, and the weather. Under it, my white desk,
+// wide and running out past the window on the right, where my computer
+// will go. They're drawn in the bookshelf's units, in a strip of wall WALL
+// wide.
+const WALL = 360;
+const WINDOW = { left: 20, top: 56, width: 160, height: 236 };
+// The desk's top, its left and right ends and how high it is (about 75cm,
+// at the bookshelf's scale), and its legs and the rail under its top
+const DESK = { left: 50, right: 350, top: 328, board: 12, leg: 8, rail: 6 };
+
+function Desk() {
+  const { left, right, top, board, leg, rail } = DESK;
+  const under = top + board;
+  const edge = {
+    strokeWidth: 0.8,
+    className: "fill-room-desk stroke-room-desk-shade",
+  };
+  return (
+    <svg
+      viewBox={`0 ${VIEW.top} ${WALL} ${VIEW.height}`}
+      role="img"
+      aria-labelledby="desk-title"
+      className="absolute inset-0 h-full w-full"
+    >
+      <title id="desk-title">My white desk, under the window.</title>
+      {/* The rail under the top, between the legs */}
+      <rect
+        x={left + 6}
+        y={under}
+        width={right - left - 12}
+        height={rail}
+        {...edge}
+      />
+      {/* The legs, down to the floor */}
+      {[left + 6, right - 6 - leg].map((x) => (
+        <rect
+          key={x}
+          x={x}
+          y={under}
+          width={leg}
+          height={SHELF.feet - under}
+          {...edge}
+        />
+      ))}
+      {/* The top, and its shadow on the rail */}
+      <rect x={left} y={top} width={right - left} height={board} {...edge} />
+      <path
+        d={`M${left + 6} ${under + 1.2}H${right - 6}`}
+        strokeWidth={1.4}
+        className="stroke-room-desk-shade/60"
+      />
+    </svg>
+  );
+}
 
 function WindowWall() {
   return (
@@ -6876,6 +6926,7 @@ function WindowWall() {
         aspectRatio: `${WALL} / ${VIEW.height}`,
       }}
     >
+      <Desk />
       <CityWindow
         box={{
           left: `${(WINDOW.left / WALL) * 100}%`,
@@ -6888,10 +6939,10 @@ function WindowWall() {
   );
 }
 
-// The window and my closet, on the wall right of the bookshelves, drawn to
-// the bookshelves' scale: --room-unit is one of their units (each is
-// w-48 md:w-60, 260 wide), and they share the bookshelves' top and height,
-// so they line up.
+// The window, the desk under it and my closet, on the wall right of the
+// bookshelves, drawn to the bookshelves' scale: --room-unit is one of their
+// units (each is w-48 md:w-60, 260 wide), and they share the bookshelves'
+// top and height, so they line up.
 export function WindowAndCloset() {
   return (
     <div className="flex items-start [--room-unit:calc(12rem/260)] md:[--room-unit:calc(15rem/260)]">
@@ -7113,7 +7164,6 @@ export default function Room({
                 out={OPUS_TILT.play}
                 fit
                 magnet
-                note="Unplug the headphones to turn it off"
                 anchor={restingCord(PLUG_IN.phones).edge}
                 length={OPUS_TILT.playCord}
               />

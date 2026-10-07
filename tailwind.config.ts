@@ -216,6 +216,11 @@ export default {
             frame: "#F4F1EB",
             shade: "#D8D2C6",
           },
+          // My white desk under the window, and the shade along its edges
+          desk: {
+            DEFAULT: "#F3F1EC",
+            shade: "#D6D1C7",
+          },
           sky: {
             "night-top": "#0B1430",
             "night-low": "#22305A",
@@ -398,8 +403,7 @@ export default {
       // The Opus Quad once they're plugged in: its lights coming on, the
       // waveforms scrolling (one 96px stretch of beats, at 120 BPM), the
       // jog wheels turning at 33 rpm, the level meters bouncing and the
-      // play buttons blinking until they're pressed, and the note on how to
-      // turn it off fading in after it's out. The camera's flash.
+      // play buttons blinking until they're pressed. The camera's flash.
       keyframes: {
         "phones-rock": {
           "0%, 100%": { transform: "rotate(0deg)" },
@@ -424,10 +428,6 @@ export default {
         "camera-flash": {
           from: { opacity: "1" },
           to: { opacity: "0" },
-        },
-        "dj-note": {
-          "0%, 60%": { opacity: "0" },
-          "100%": { opacity: "1" },
         },
         // The window's weather: clouds drifting across, rain and snow
         // falling, fog drifting, a storm's lightning, stars twinkling
@@ -487,7 +487,6 @@ export default {
         "dj-level": "dj-level 500ms ease-out infinite",
         "dj-blink": "dj-blink 1s step-end infinite",
         "camera-flash": "camera-flash 400ms ease-out forwards",
-        "dj-note": "dj-note 2s ease-out",
         "cloud-drift": "cloud-drift 120s linear infinite",
         "rain-fall": "rain-fall 1.4s linear infinite",
         "snow-fall": "snow-fall 14s linear infinite",

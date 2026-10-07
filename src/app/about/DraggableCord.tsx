@@ -18,7 +18,8 @@ type Pt = [number, number];
 // Given a jack, its plug plugs in when it comes close: the end stays there,
 // following the jack if it moves, and the cord hangs between, until the
 // plug is grabbed and pulled out, or the cord is pulled hard enough away
-// from the jack to yank it out. With `magnet`, plugging in and out is
+// from the jack to yank it out, or whatever it's plugged into pulls it out
+// (`unplug`). With `magnet`, plugging in and out is
 // easier: held within a quarter of its length of the jack, the plug is
 // pulled in, and grabbing anywhere on its last quarter, or pulling the
 // cord nearly taut, pulls it out.
@@ -95,6 +96,7 @@ export default function DraggableCord({
   magnet = false,
   onPlugChange,
   onHoldChange,
+  unplug,
 }: {
   /** Where it hangs from: the front edge of the board. */
   anchor: Pt;
@@ -105,6 +107,8 @@ export default function DraggableCord({
   /** Plug in and out more easily (see above). */
   magnet?: boolean;
   onPlugChange?: (plugged: boolean) => void;
+  /** Filled in with a way to pull the plug out, so it falls free. */
+  unplug?: React.MutableRefObject<(() => void) | null>;
   onHoldChange?: (held: boolean) => void;
 }) {
   const rest = restShape(anchor, length);
@@ -424,6 +428,18 @@ export default function DraggableCord({
       passive: true,
     });
 
+    // Pulled out from elsewhere: it falls free and swings, as when the plug
+    // is pulled out by hand
+    if (unplug)
+      unplug.current = () => {
+        if (!plugged) return;
+        setPlugged(false);
+        clear = false;
+        seat = null;
+        mode = "falling";
+        releasedAt = performance.now() / 1000;
+      };
+
     // Run only while it's on screen; a fixed step keeps it steady.
     let frame = 0;
     let last = 0;
@@ -452,8 +468,9 @@ export default function DraggableCord({
       document.removeEventListener("scroll", onScroll, { capture: true });
       cancelAnimationFrame(frame);
       controls.current = null;
+      if (unplug) unplug.current = null;
     };
-  }, [ax, ay, length, magnet]);
+  }, [ax, ay, length, magnet, unplug]);
 
   // From the pointer to the room's viewBox units.
   const toRoom = (e: React.PointerEvent): Pt | null => {

@@ -64,11 +64,13 @@ export default function AboutPage() {
               </figure>
             ),
           )}
-          {/* Past the shelves: the window and my closet, as they are */}
+          {/* Past the shelves: the window, the desk under it and my
+              closet, as they are */}
           <figure className="shrink-0">
             <WindowAndCloset />
             <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
               <p>Window</p>
+              <p className="mt-1">Desk</p>
               <p className="mt-1">Closet</p>
             </figcaption>
           </figure>

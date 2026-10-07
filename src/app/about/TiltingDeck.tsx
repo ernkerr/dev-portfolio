@@ -18,7 +18,8 @@ export type DeckSpot = { center: number; width: number; floor: number };
 // and it plugs in: the deck comes out to the middle of the bookcase, twice
 // as big, tilting up as it comes so its top turns into view, and turns
 // on, like a pulled book turning to show its cover. The plug goes with
-// the jack. Pull the plug out and it switches off and goes back flat.
+// the jack. Pull the plug out, click anywhere outside it, or press Escape,
+// and it switches off and goes back flat.
 // Room draws the deck straight on, tilted, and tilted and lit, in each
 // photo's own pixels, and passes them in. Anything drawn on the tilted
 // deck can tell it's on (plugged in) from DeckOn.
@@ -57,7 +58,6 @@ export default function TiltingDeck({
   out,
   fit = false,
   magnet = false,
-  note,
   anchor,
   length,
 }: {
@@ -74,19 +74,15 @@ export default function TiltingDeck({
   fit?: boolean;
   /** The cord plugs in and out more easily (see DraggableCord). */
   magnet?: boolean;
-  /** A line under it while it's on, like how to turn it off. */
-  note?: string;
   /** Where the cord hangs from, and how long it is. */
   anchor: Pt;
   length: number;
 }) {
   const [plugged, setPlugged] = useState(false);
   const [holding, setHolding] = useState(false);
-  // Where the note goes, tucked under the right end of where it came out
-  // to, and how many of the room's units make a pixel there, so it reads at
-  // the caption's size
-  const [noteAt, setNoteAt] = useState<{ x: number; y: number; px: number }>();
   const rootRef = useRef<SVGGElement>(null);
+  // Pulls the cord's plug out (DraggableCord fills it in)
+  const unplug = useRef<(() => void) | null>(null);
   const flatRef = useRef<SVGGElement>(null);
   const tiltedRef = useRef<SVGGElement>(null);
   // Where it comes out to this time
@@ -146,6 +142,26 @@ export default function TiltingDeck({
   };
   useEffect(() => () => cancelAnimationFrame(frame.current), []);
 
+  // On, a click anywhere outside it, or Escape, turns it off, the same as
+  // pulling the plug out
+  useEffect(() => {
+    if (!plugged) return;
+    const outside = (e: PointerEvent) => {
+      const root = rootRef.current;
+      if (root && e.target instanceof Node && !root.contains(e.target))
+        unplug.current?.();
+    };
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") unplug.current?.();
+    };
+    document.addEventListener("pointerdown", outside);
+    window.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", outside);
+      window.removeEventListener("keydown", escape);
+    };
+  }, [plugged]);
+
   // As big as `out` asks, or as big as fits, all of it in the window and
   // its jack where the cord reaches, as near `out` as it can be.
   const fitOut = (): DeckSpot => {
@@ -188,12 +204,6 @@ export default function TiltingDeck({
     const t = performance.now() / 1000;
     const { z, q } = progress(t);
     if (on && z === 0) goal.current = fitOut();
-    if (on) {
-      const m = rootRef.current?.ownerSVGElement?.getScreenCTM();
-      const px = m ? 1 / m.a : 1;
-      const { center, width, floor } = goal.current;
-      setNoteAt({ x: center + width / 2 - 56 * px, y: floor + 18 * px, px });
-    }
     tween.current = { from: { z, q }, to: on ? 1 : 0, start: t };
     setPlugged(on);
     animate();
@@ -230,21 +240,8 @@ export default function TiltingDeck({
         magnet={magnet}
         onPlugChange={onPlugChange}
         onHoldChange={setHolding}
+        unplug={unplug}
       />
-      {plugged && note && noteAt && (
-        <text
-          x={noteAt.x}
-          y={noteAt.y}
-          textAnchor="end"
-          fontSize={13 * noteAt.px}
-          strokeWidth={4 * noteAt.px}
-          strokeLinejoin="round"
-          paintOrder="stroke"
-          className="pointer-events-none animate-dj-note fill-site-muted/80 stroke-site-paper font-sans motion-reduce:animate-none"
-        >
-          {note}
-        </text>
-      )}
     </g>
   );
 }

@@ -4,6 +4,12 @@
 /** How far a waveform's beats run before they repeat, in pixels. */
 export const BEATS = 96;
 
+/** Where each deck's cue and play buttons are across (cue above play):
+ * the left deck's between the deck's edge and its jog wheel, the right
+ * deck's between the mixer and its jog wheel, in the middle of the room
+ * there so they don't crowd the mixer. */
+export const DECK_BUTTONS = [92, 578];
+
 // One deck's waveform on the touchscreen, as bars a few pixels apart in
 // three bands, lows (tallest), mids and highs, centered on cy. The beats
 // repeat every BEATS pixels, the stretch the dj-scroll animation slides it

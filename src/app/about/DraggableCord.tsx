@@ -6,7 +6,10 @@ type Pt = [number, number];
 
 // The hanging part of a headphone cord as a little rope simulation, for
 // headphones 5. At rest it hangs in a soft, lazy bow and sways gently from
-// the board's edge. Hovering gives it a small jiggle. It can be grabbed
+// the board's edge. Brushed by the pointer, even flicked past fast or
+// scrolled past, it swings the way the pointer was going, harder the
+// faster it went, like the clothes in my closet, and eases back into its
+// bow as it does after it's let go. It can be grabbed
 // anywhere and pulled any way the cord reaches, even past the shelf: it
 // stays fixed at the edge and the rest trails behind. Let go, it falls,
 // sweeps down in a slow swing from the edge and settles back into its
@@ -42,8 +45,8 @@ const MAX_SPEED = 4; // a safety cap on how far any point moves in a step
 const BEND = 0.2; // how much it resists bending, like a real cable
 const BEND_PASSES = 4; // more passes spread a bend over more of the cord
 const LEAVE = 3; // points below the edge that follow it leaving downward
-const NUDGE = 0.4; // how hard a hover jiggles it
-const REACH = 14; // how far a hover jiggles along the cord
+const BRUSH = 0.00125; // its speed a step for each unit a second it's brushed
+const BRUSH_MAX = 0.9; // the most a brush moves it a step
 const SNAP = 8; // how close the plug has to come to a jack to plug in
 const PLUG_GRIP = 8; // points from the end that count as grabbing the plug
 const PLUG_SPOT = 12; // the reach of the spot round the plug to grab it by
@@ -118,7 +121,6 @@ export default function DraggableCord({
     grab: (p: Pt, plug?: boolean) => void;
     move: (p: Pt) => void;
     release: () => void;
-    jiggle: (p: Pt) => void;
   } | null>(null);
   const [ax, ay] = anchor;
 
@@ -350,14 +352,77 @@ export default function DraggableCord({
         releasedAt = performance.now() / 1000;
         report.current.onHoldChange?.(false);
       },
-      jiggle: (p) => {
-        if (mode !== "rest" || reduce.matches) return;
-        for (let i = 2; i < n; i++) {
-          const d = Math.hypot(pos[i][0] - p[0], pos[i][1] - p[1]);
-          if (d < REACH) prev[i][0] = pos[i][0] - NUDGE * (1 - d / REACH);
-        }
-      },
     };
+
+    // Brushed past, however fast: each move of the pointer, and each
+    // scroll of the page under it, is a line through the room, and one
+    // that crosses the cord pushes it, the way and as fast as it went. So
+    // a pointer flicked past, too fast to land on the cord, still moves
+    // it, and so does the cord scrolling past a still pointer.
+    const brush = (p: Pt, speed: number) => {
+      if (mode === "held" || reduce.matches) return;
+      // Pushed where it was brushed, the cord below swinging with it and
+      // above it less and less up to the edge, where it's fixed
+      let hit = 2;
+      for (let i = 2; i < n; i++) {
+        const d = Math.hypot(pos[i][0] - p[0], pos[i][1] - p[1]);
+        if (d < Math.hypot(pos[hit][0] - p[0], pos[hit][1] - p[1])) hit = i;
+      }
+      const push = Math.max(-BRUSH_MAX, Math.min(BRUSH_MAX, speed * BRUSH));
+      for (let i = 2; i < n; i++) {
+        if (fixed(i)) continue;
+        const v = pos[i][0] - prev[i][0] + push * Math.min(1, i / hit);
+        prev[i][0] = pos[i][0] - Math.max(-BRUSH_MAX, Math.min(BRUSH_MAX, v));
+      }
+      // Then it swings loose and settles, as when it's let go
+      mode = "falling";
+      releasedAt = performance.now() / 1000;
+    };
+    let pointer: { x: number; y: number; at: Pt; t: number } | null = null;
+    let visible = false;
+    const roomAt = (x: number, y: number): Pt | null => {
+      const m = groupRef.current?.ownerSVGElement?.getScreenCTM();
+      if (!m) return null;
+      const q = new DOMPoint(x, y).matrixTransform(m.inverse());
+      return [q.x, q.y];
+    };
+    // Where the line from a to b crosses the cord, if it does
+    const crossing = (a: Pt, b: Pt): Pt | null => {
+      const rx = b[0] - a[0];
+      const ry = b[1] - a[1];
+      for (let i = 1; i < n - 1; i++) {
+        const [cx, cy] = pos[i];
+        const sx = pos[i + 1][0] - cx;
+        const sy = pos[i + 1][1] - cy;
+        const den = rx * sy - ry * sx;
+        if (Math.abs(den) < 1e-9) continue;
+        const u = ((cx - a[0]) * sy - (cy - a[1]) * sx) / den;
+        const v = ((cx - a[0]) * ry - (cy - a[1]) * rx) / den;
+        if (u >= 0 && u <= 1 && v >= 0 && v <= 1)
+          return [a[0] + rx * u, a[1] + ry * u];
+      }
+      return null;
+    };
+    const sweep = (x: number, y: number, t: number) => {
+      const at = roomAt(x, y);
+      const was = pointer;
+      pointer = at && { x, y, at, t };
+      if (!at || !was || !visible || t - was.t > 150) return;
+      const hit = crossing(was.at, at);
+      if (hit)
+        brush(hit, (at[0] - was.at[0]) / Math.max((t - was.t) / 1000, 0.008));
+    };
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType !== "touch") sweep(e.clientX, e.clientY, e.timeStamp);
+    };
+    const onScroll = (e: Event) => {
+      if (pointer) sweep(pointer.x, pointer.y, e.timeStamp);
+    };
+    window.addEventListener("pointermove", onMove, { passive: true });
+    document.addEventListener("scroll", onScroll, {
+      capture: true,
+      passive: true,
+    });
 
     // Run only while it's on screen; a fixed step keeps it steady.
     let frame = 0;
@@ -377,11 +442,14 @@ export default function DraggableCord({
     const observer = new IntersectionObserver(([entry]) => {
       cancelAnimationFrame(frame);
       last = 0;
+      visible = entry.isIntersecting;
       if (entry.isIntersecting) frame = requestAnimationFrame(tick);
     });
     if (groupRef.current) observer.observe(groupRef.current);
     return () => {
       observer.disconnect();
+      window.removeEventListener("pointermove", onMove);
+      document.removeEventListener("scroll", onScroll, { capture: true });
       cancelAnimationFrame(frame);
       controls.current = null;
     };
@@ -399,10 +467,6 @@ export default function DraggableCord({
   // Grabbing the cord, or the plug by the spot round it
   const grip = (plug: boolean) => ({
     className: "cursor-grab touch-none active:cursor-grabbing",
-    onPointerEnter: (e: React.PointerEvent) => {
-      const p = toRoom(e);
-      if (p) controls.current?.jiggle(p);
-    },
     onPointerDown: (e: React.PointerEvent<SVGElement>) => {
       const p = toRoom(e);
       if (!p) return;

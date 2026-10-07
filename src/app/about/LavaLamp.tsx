@@ -10,7 +10,8 @@ import { LAVA } from "./lavaShape";
 // parts are straight cones meeting at sharp edges, as on the real one. It's
 // one of the room's lights, so it shares their switch (useLights): click it
 // and every light comes on and the page goes dark, and whenever they're on
-// it glows.
+// it glows. Pointed at, it lifts, like the camera, to say it can be
+// clicked.
 //
 // 1: slim, the liquid pale in clear glass, its wax lying flat and, lit,
 //    drifting up and down in blobs.
@@ -230,7 +231,7 @@ export default function LavaLamp({
       aria-label="Lava lamp (dark mode)"
       data-side={on ? "engineer" : "designer"}
       onClick={() => setOn(!on)}
-      className={`absolute ${focusRing}`}
+      className={`group absolute transition-transform duration-300 ease-switch hover:-translate-y-0.5 motion-reduce:transition-none ${focusRing}`}
       style={box}
     >
       <svg

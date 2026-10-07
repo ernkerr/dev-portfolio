@@ -9,6 +9,7 @@ import CameraOnShelf from "./Camera";
 import LavaLamp from "./LavaLamp";
 import Clock from "./Clock";
 import Sway from "./Sway";
+import Swish from "./Swish";
 import CityWindow from "./CityWindow";
 import Closet from "./Closet";
 import { LAVA } from "./lavaShape";
@@ -346,15 +347,6 @@ function StemLamp({ version, id }: { version: 1 | 2 | 3; id: string }) {
         height={baseTop - collar - top - socket}
         className="fill-room-brass"
       />
-      <line
-        x1={ball.x}
-        y1={bottom - 6}
-        x2={ball.x}
-        y2={ball.y - r}
-        strokeWidth={1}
-        className="stroke-room-metal"
-      />
-
       {version === 1 && <path d={shade} className="fill-room-glass-amber/80" />}
       {version === 2 && (
         <>
@@ -367,14 +359,6 @@ function StemLamp({ version, id }: { version: 1 | 2 | 3; id: string }) {
               width={3}
               height={h - socket + rim}
               className="fill-room-brass"
-            />
-            <line
-              x1={ball.x}
-              y1={bottom - 6}
-              x2={ball.x}
-              y2={bottom + rim}
-              strokeWidth={1}
-              className="stroke-room-metal"
             />
           </g>
         </>
@@ -466,11 +450,34 @@ function StemLamp({ version, id }: { version: 1 | 2 | 3; id: string }) {
         className="fill-room-brass"
       />
 
-      {version === 3 ? (
-        <MosaicBall cx={ball.x} cy={ball.y} id={id} />
-      ) : (
-        <GridBall cx={ball.x} cy={ball.y} r={r} id={id} />
-      )}
+      {/* The disco ball on its string, swinging from where it hangs when
+          it's brushed; the string inside the shade shows faintly through
+          it */}
+      <Swish x={ball.x} y={bottom - 6} feel="ball">
+        <line
+          x1={ball.x}
+          y1={bottom - 6}
+          x2={ball.x}
+          y2={bottom + rim}
+          strokeWidth={1}
+          className={
+            version === 3 ? "stroke-room-metal/70" : "stroke-room-metal/40"
+          }
+        />
+        <line
+          x1={ball.x}
+          y1={bottom + rim}
+          x2={ball.x}
+          y2={ball.y - r}
+          strokeWidth={1}
+          className="stroke-room-metal"
+        />
+        {version === 3 ? (
+          <MosaicBall cx={ball.x} cy={ball.y} id={id} />
+        ) : (
+          <GridBall cx={ball.x} cy={ball.y} r={r} id={id} />
+        )}
+      </Swish>
     </g>
   );
 }
@@ -546,14 +553,6 @@ function ArmLamp({ id }: { id: string }) {
         height={bulb.y - bulb.ry - top + 2}
         className="fill-room-brass"
       />
-      <line
-        x1={ball.x}
-        y1={top}
-        x2={ball.x}
-        y2={ball.y - MOSAIC_R}
-        strokeWidth={1}
-        className="stroke-room-metal"
-      />
       <circle cx={cx} cy={bulb.y} r={16} className="fill-room-glow/50" />
       <ellipse
         cx={cx}
@@ -618,7 +617,28 @@ function ArmLamp({ id }: { id: string }) {
         className="fill-room-brass"
       />
 
-      <MosaicBall cx={ball.x} cy={ball.y} id={id} />
+      {/* The disco ball on its string, swinging from where it hangs when
+          it's brushed; the string inside the shade shows faintly through
+          it */}
+      <Swish x={ball.x} y={top} feel="ball">
+        <line
+          x1={ball.x}
+          y1={top}
+          x2={ball.x}
+          y2={bottom + ARM_SHADE.rim}
+          strokeWidth={1}
+          className="stroke-room-metal/70"
+        />
+        <line
+          x1={ball.x}
+          y1={bottom + ARM_SHADE.rim}
+          x2={ball.x}
+          y2={ball.y - MOSAIC_R}
+          strokeWidth={1}
+          className="stroke-room-metal"
+        />
+        <MosaicBall cx={ball.x} cy={ball.y} id={id} />
+      </Swish>
     </g>
   );
 }
@@ -717,16 +737,8 @@ function SwitchLamp({ id }: { id: string }) {
 
   return (
     <g>
-      {/* Inside the shade: the stem, the disco ball's string, the bulb */}
+      {/* Inside the shade: the stem and the bulb */}
       <GoldBar x={x - 1.5} y={top} w={3} h={baseTop - collar - top} />
-      <line
-        x1={ball.x}
-        y1={top}
-        x2={ball.x}
-        y2={ball.y - MOSAIC_R}
-        strokeWidth={1}
-        className="stroke-room-metal"
-      />
       <Bulb on={false} />
 
       {/* Frosted shade, flat like lamp 1's, with light bubbles */}
@@ -770,7 +782,28 @@ function SwitchLamp({ id }: { id: string }) {
       <GoldBar x={x - 3.5} y={baseTop - collar} w={7} h={collar} />
       <GoldBar x={x - 14} y={baseTop - 5} w={6} h={5} />
 
-      <MosaicBall cx={ball.x} cy={ball.y} id={id} />
+      {/* The disco ball on its string, swinging from where it hangs when
+          it's brushed; the string inside the shade shows faintly through
+          it */}
+      <Swish x={ball.x} y={top} feel="ball">
+        <line
+          x1={ball.x}
+          y1={top}
+          x2={ball.x}
+          y2={bottom + rim}
+          strokeWidth={1}
+          className="stroke-room-metal/30"
+        />
+        <line
+          x1={ball.x}
+          y1={bottom + rim}
+          x2={ball.x}
+          y2={ball.y - MOSAIC_R}
+          strokeWidth={1}
+          className="stroke-room-metal"
+        />
+        <MosaicBall cx={ball.x} cy={ball.y} id={id} />
+      </Swish>
     </g>
   );
 }
@@ -1228,7 +1261,9 @@ function SnakePlant({ id, version }: { id: string; version: PlantVersion }) {
     // A plain white pot, a little narrower at the foot, with a rim.
     return (
       <g>
-        <Leaves id={id} intoSoil={false} />
+        <Swish x={x} y={top} feel="plant">
+          <Leaves id={id} intoSoil={false} />
+        </Swish>
         <path
           d={`M${x - w / 2} ${top}H${x + w / 2}L${x + w * 0.44} ${floor}H${x - w * 0.44}Z`}
           className="fill-room-pot-white"
@@ -1279,7 +1314,9 @@ function SnakePlant({ id, version }: { id: string; version: PlantVersion }) {
         className="fill-room-pot-soil"
       />
 
-      <Leaves id={id} intoSoil />
+      <Swish x={x} y={top + lip} feel="plant">
+        <Leaves id={id} intoSoil />
+      </Swish>
 
       {/* The pot: body, then the blush stripe and blue-grey foot near the
           bottom, kept inside the body */}
@@ -6447,23 +6484,24 @@ function Cuttings() {
             />
             {/* The leaves out of the neck */}
             {leaves.map(({ at: [lx, ly], size, turn }, k) => (
-              <g
-                key={k}
-                transform={`translate(${mid + lx} ${neckTop + ly}) rotate(${turn})`}
-              >
-                <path
-                  d={`M0 0L${-lx * 0.4} ${-ly - 3}`}
-                  strokeWidth={0.6}
-                  className="stroke-room-plant"
-                  transform={`rotate(${-turn})`}
-                />
-                <path d={leaf(size)} className="fill-room-plant" />
-                <path
-                  d={`M0 -0.4L0 ${-size * 0.85}`}
-                  strokeWidth={0.4}
-                  className="stroke-room-plant-light/60"
-                />
-              </g>
+              <Swish key={k} x={mid + lx} y={neckTop + ly} feel="plant">
+                <g
+                  transform={`translate(${mid + lx} ${neckTop + ly}) rotate(${turn})`}
+                >
+                  <path
+                    d={`M0 0L${-lx * 0.4} ${-ly - 3}`}
+                    strokeWidth={0.6}
+                    className="stroke-room-plant"
+                    transform={`rotate(${-turn})`}
+                  />
+                  <path d={leaf(size)} className="fill-room-plant" />
+                  <path
+                    d={`M0 -0.4L0 ${-size * 0.85}`}
+                    strokeWidth={0.4}
+                    className="stroke-room-plant-light/60"
+                  />
+                </g>
+              </Swish>
             ))}
           </g>
         );
@@ -6734,58 +6772,60 @@ function RealCuttings({ version }: { version: 2 | 3 | 4 | 5 }) {
                       pothos ? "stroke-room-pothos" : "stroke-room-plant"
                     }
                   />
-                  <g transform={`translate(${f(base[0])} ${f(base[1])})`}>
-                    <g data-sway={sway || undefined}>
-                      <g transform={`rotate(${turn})`}>
-                        {pothos ? (
-                          <PothosLeaf L={L * 1.08} />
-                        ) : (
-                          <>
-                            <path
-                              d={`M0 0C${q(-0.3, 0.1)} ${q(-0.66, -0.1)} ${q(-0.56, -0.46)}C${q(-0.46, -0.76)} ${q(-0.14, -0.92)} ${q(0.02, -1)}C${q(0.17, -0.9)} ${q(0.5, -0.7)} ${q(0.54, -0.4)}C${q(0.6, -0.08)} ${q(0.27, 0.11)} 0 0Z`}
-                              className="fill-room-plant"
-                            />
-                            <path
-                              d={`M0 0L${q(0.02, -1)}C${q(0.17, -0.9)} ${q(0.5, -0.7)} ${q(0.54, -0.4)}C${q(0.6, -0.08)} ${q(0.27, 0.11)} 0 0Z`}
-                              className="fill-room-plant-light/20"
-                            />
-                            <ellipse
-                              cx={-0.1 * L}
-                              cy={-0.12 * L}
-                              rx={0.34 * L}
-                              ry={0.14 * L}
-                              className="fill-room-plant-dark/40"
-                            />
-                            <path
-                              d={`M0 ${f(-0.02 * L)}Q${q(0.06, -0.5)} ${q(0.02, -0.97)}`}
-                              fill="none"
-                              strokeWidth={0.45}
-                              className="stroke-room-plant-light/55"
-                            />
-                            {[0.3, 0.5, 0.7].map((t) => (
+                  <Swish x={base[0]} y={base[1]} feel="plant">
+                    <g transform={`translate(${f(base[0])} ${f(base[1])})`}>
+                      <g data-sway={sway || undefined}>
+                        <g transform={`rotate(${turn})`}>
+                          {pothos ? (
+                            <PothosLeaf L={L * 1.08} />
+                          ) : (
+                            <>
                               <path
-                                key={t}
-                                d={`M${q(0.04, -t)}Q${q(-0.2, -t - 0.02)} ${q(-0.36, -t - 0.14)}M${q(0.04, -t)}Q${q(0.24, -t - 0.02)} ${q(0.38, -t - 0.14)}`}
-                                fill="none"
-                                strokeWidth={0.25}
-                                className="stroke-room-plant-light/30"
+                                d={`M0 0C${q(-0.3, 0.1)} ${q(-0.66, -0.1)} ${q(-0.56, -0.46)}C${q(-0.46, -0.76)} ${q(-0.14, -0.92)} ${q(0.02, -1)}C${q(0.17, -0.9)} ${q(0.5, -0.7)} ${q(0.54, -0.4)}C${q(0.6, -0.08)} ${q(0.27, 0.11)} 0 0Z`}
+                                className="fill-room-plant"
                               />
-                            ))}
-                            {version === 2 && (
+                              <path
+                                d={`M0 0L${q(0.02, -1)}C${q(0.17, -0.9)} ${q(0.5, -0.7)} ${q(0.54, -0.4)}C${q(0.6, -0.08)} ${q(0.27, 0.11)} 0 0Z`}
+                                className="fill-room-plant-light/20"
+                              />
                               <ellipse
-                                cx={-0.24 * L}
-                                cy={-0.56 * L}
-                                rx={0.07 * L}
-                                ry={0.2 * L}
-                                transform={`rotate(-18 ${f(-0.24 * L)} ${f(-0.56 * L)})`}
-                                className="fill-room-frost/20"
+                                cx={-0.1 * L}
+                                cy={-0.12 * L}
+                                rx={0.34 * L}
+                                ry={0.14 * L}
+                                className="fill-room-plant-dark/40"
                               />
-                            )}
-                          </>
-                        )}
+                              <path
+                                d={`M0 ${f(-0.02 * L)}Q${q(0.06, -0.5)} ${q(0.02, -0.97)}`}
+                                fill="none"
+                                strokeWidth={0.45}
+                                className="stroke-room-plant-light/55"
+                              />
+                              {[0.3, 0.5, 0.7].map((t) => (
+                                <path
+                                  key={t}
+                                  d={`M${q(0.04, -t)}Q${q(-0.2, -t - 0.02)} ${q(-0.36, -t - 0.14)}M${q(0.04, -t)}Q${q(0.24, -t - 0.02)} ${q(0.38, -t - 0.14)}`}
+                                  fill="none"
+                                  strokeWidth={0.25}
+                                  className="stroke-room-plant-light/30"
+                                />
+                              ))}
+                              {version === 2 && (
+                                <ellipse
+                                  cx={-0.24 * L}
+                                  cy={-0.56 * L}
+                                  rx={0.07 * L}
+                                  ry={0.2 * L}
+                                  transform={`rotate(-18 ${f(-0.24 * L)} ${f(-0.56 * L)})`}
+                                  className="fill-room-frost/20"
+                                />
+                              )}
+                            </>
+                          )}
+                        </g>
                       </g>
                     </g>
-                  </g>
+                  </Swish>
                 </g>
               );
             })}

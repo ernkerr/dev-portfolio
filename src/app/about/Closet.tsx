@@ -1,4 +1,6 @@
 import ClosetSunnies from "./ClosetSunnies";
+import Perry from "./Perry";
+import { PERRY_VIEW } from "./perryShape";
 import Swish from "./Swish";
 import { ellipse, f, jitter } from "./closetArt";
 
@@ -6,7 +8,8 @@ import { ellipse, f, jitter } from "./closetArt";
 // built like the bookshelf: black posts and walnut boards, with a brass
 // rod across the top. On the rod, on wooden hangers: my long leather
 // jacket, my cheetah fur coat and my disco dress, then a strap of my
-// sunnies. My oxblood Docs stand on the bottom board, facing out. The red
+// sunnies. My oxblood Docs stand on the bottom board, facing out, and
+// Perry, my 3D printer, beside them (Perry.tsx). The red
 // sunnies are buttons (ClosetSunnies.tsx): put a pair on and the whole
 // page takes on the color of its lenses. The clothes swish on their
 // hangers when the pointer brushes them (Swish.tsx).
@@ -30,6 +33,7 @@ const FEET = 560; // the posts' feet, as the bookshelf's
 const LEATHER = 78;
 const CHEETAH = 174;
 const DRESS = 258;
+const PERRY = 200; // the left of my 3D printer's base, right of my Docs
 const STRAP = 340;
 const PAIRS = [
   { kind: "red", y: 100 },
@@ -681,6 +685,14 @@ export default function Closet({
         <Doc x={90} flip />
       </svg>
       <ClosetSunnies pairs={pairs} />
+      <Perry
+        box={{
+          left: `${((PERRY + PERRY_VIEW.x) / WIDTH) * 100}%`,
+          top: `${((FLOOR + PERRY_VIEW.y - top) / height) * 100}%`,
+          width: `${(PERRY_VIEW.w / WIDTH) * 100}%`,
+          height: `${(PERRY_VIEW.h / height) * 100}%`,
+        }}
+      />
     </div>
   );
 }

@@ -275,6 +275,32 @@ export default {
             "mug-shade": "#D8D5CE",
             light: "#8FD9F5",
           },
+          // Perry, my Bambu A1 3D printer, from Bambu's photos: its light
+          // gray aluminum frame and its shade, the rail, the base, the black
+          // bed, the toolhead and its nozzle, the tube, the touchscreen and
+          // what's on it; and the filament colors you can print in
+          printer: {
+            frame: "#C3C7CC",
+            "frame-shade": "#9095A0",
+            rail: "#D9DCDF",
+            base: "#E6E8EA",
+            "base-shade": "#C9CCD0",
+            bed: "#2A2B2E",
+            head: "#ECEDEF",
+            nozzle: "#4A4C52",
+            tube: "#2F3135",
+            screen: "#16171A",
+            ui: "#7CD992",
+            white: "#F4F2EC",
+            black: "#26272B",
+            red: "#D9393A",
+            orange: "#F08A2E",
+            yellow: "#F2C83A",
+            green: "#3FA86B",
+            blue: "#2F6FD6",
+            purple: "#8A5AD6",
+            pink: "#F07AA8",
+          },
           // My white desk under the window, and the shade along its edges
           desk: {
             DEFAULT: "#F3F1EC",

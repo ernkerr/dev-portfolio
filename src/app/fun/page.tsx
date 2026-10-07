@@ -38,6 +38,15 @@ const GROUPS: QuestGroup[] = [
         scene: "mirror",
       },
       {
+        name: "Plant World",
+        what: "A Mario-style game for the original Game Boy. Play it here or download it for a real one",
+        year: "2026",
+        status: "live",
+        cta: "Play",
+        href: "https://ernkerr.github.io/plant-world/",
+        scene: "gameboy",
+      },
+      {
         name: "Catch",
         what: "Catch things falling from the sky",
         status: "soon",
@@ -54,13 +63,6 @@ const GROUPS: QuestGroup[] = [
         what: "Steer the claw and grab a prize",
         status: "soon",
         scene: "claw",
-      },
-      {
-        name: "Plant Platformer",
-        what: "A Mario-style Game Boy game to download and play on a real Game Boy Color",
-        year: "2026",
-        status: "soon",
-        scene: "gameboy",
       },
       {
         name: "Snow Tycoon",

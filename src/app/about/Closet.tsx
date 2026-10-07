@@ -668,13 +668,14 @@ export default function Closet({
           className="fill-room-brass"
         />
 
-        <Swish>
+        {/* Each swings from where its hook sits on the rod */}
+        <Swish x={LEATHER + 2.75} y={ROD - 2}>
           <LeatherJacket />
         </Swish>
-        <Swish>
+        <Swish x={CHEETAH + 2.75} y={ROD - 2}>
           <CheetahJacket />
         </Swish>
-        <Swish>
+        <Swish x={DRESS + 2.75} y={ROD - 2}>
           <DiscoDress />
         </Swish>
         <Strap x={STRAP} end={PAIRS[PAIRS.length - 1].y + 22} />

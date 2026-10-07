@@ -16,6 +16,7 @@ import {
 import { BuildNote, Review, Screens } from "@/components/site/appStudy";
 import { BeforeAfter, Detail, ReviewShots } from "./findings";
 import LiveBoard from "./LiveBoard";
+import SalesNumbers from "./SalesNumbers";
 import Sketches from "./Sketches";
 
 // Every claim traces back to the gin-score-tracker repo (commits named in
@@ -489,11 +490,7 @@ const SECTIONS: CaseStudySection[] = [
           quote="Got a love a simple, clean app with no ads popping up in your face every 5 seconds. Love how easy this app is to use."
           who="App Store review, June 2026"
         />
-        <InProgress title="Numbers">
-          Add downloads or Premium conversions from App Store Connect if you
-          want them public. The repo has no analytics, so they can only come
-          from there.
-        </InProgress>
+        <SalesNumbers />
       </>
     ),
   },
@@ -508,14 +505,19 @@ const SECTIONS: CaseStudySection[] = [
           that solved a real need, in this case for friends and family, made
           development faster and more focused.
         </P>
+        <P>
+          The review taught me that where a paywall sits is a design decision.
+          The limit was fine. The moment it showed up was wrong.
+        </P>
+        <P>
+          Reviews, of other apps and of my own, turned out to be some of my best
+          research. They told me what to build, what to fix, and what people
+          couldn’t find.
+        </P>
         <InProgress title="Before a reviewer asks">
-          A suggested line, if it’s true for you, “The review taught me that
-          where a paywall sits is a design decision. The limit was fine. The
-          moment it showed up was wrong.” Also, text scaling (Dynamic Type) has
-          been off since July 2025 and dark mode since May 2025. Add why, or
-          turn them back on. Also decide how to credit AI help. Commits since
-          June 2026, including the paywall fix, were co-written with Claude
-          Code.
+          Dark mode has been off since May 2025. Add why, or turn it back on.
+          Also decide how to credit AI help. Commits since June 2026, including
+          the paywall fix, were co-written with Claude Code.
         </InProgress>
         <BuildNote href="/ginScoreTracker">
           React Native and Expo with NativeWind. Games live on the phone, with

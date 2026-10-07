@@ -1,4 +1,5 @@
 import ClosetSunnies from "./ClosetSunnies";
+import Swish from "./Swish";
 import { ellipse, f, jitter } from "./closetArt";
 
 // My closet, open, on the wall right of the bookshelves past the window,
@@ -7,7 +8,8 @@ import { ellipse, f, jitter } from "./closetArt";
 // jacket, my cheetah fur coat and my disco dress, then a strap of my
 // sunnies. My oxblood Docs stand on the bottom board, facing out. The red
 // sunnies are buttons (ClosetSunnies.tsx): put a pair on and the whole
-// page takes on the color of its lenses.
+// page takes on the color of its lenses. The clothes swish on their
+// hangers when the pointer brushes them (Swish.tsx).
 //
 // Drawn in the bookshelf's units, to its scale: the same height and
 // boards, from x 0 to WIDTH, so `top` and `height` are the bookshelf
@@ -666,9 +668,15 @@ export default function Closet({
           className="fill-room-brass"
         />
 
-        <LeatherJacket />
-        <CheetahJacket />
-        <DiscoDress />
+        <Swish>
+          <LeatherJacket />
+        </Swish>
+        <Swish>
+          <CheetahJacket />
+        </Swish>
+        <Swish>
+          <DiscoDress />
+        </Swish>
         <Strap x={STRAP} end={PAIRS[PAIRS.length - 1].y + 22} />
 
         <Doc x={54} />

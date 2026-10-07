@@ -457,6 +457,16 @@ export default {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.35" },
         },
+        // The clothes in my closet swishing on their hangers: swung away
+        // from the pointer (--swish is 1 pushed right, -1 pushed left),
+        // back and forth a little less each time, then still
+        swish: {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "16%": { transform: "rotate(calc(var(--swish) * -4deg))" },
+          "36%": { transform: "rotate(calc(var(--swish) * 3deg))" },
+          "56%": { transform: "rotate(calc(var(--swish) * -1.8deg))" },
+          "76%": { transform: "rotate(calc(var(--swish) * 0.8deg))" },
+        },
         // The lava lamp's wax, drifting up and back down, stretching as it
         // rises
         "lava-a": {
@@ -493,6 +503,7 @@ export default {
         "fog-drift": "fog-drift 24s ease-in-out infinite",
         lightning: "lightning 9s linear infinite",
         twinkle: "twinkle 3s ease-in-out infinite",
+        swish: "swish 1.6s ease-in-out",
         "lava-a": "lava-a 14s ease-in-out infinite",
         "lava-b": "lava-b 19s ease-in-out infinite",
         "lava-c": "lava-c 23s ease-in-out infinite",

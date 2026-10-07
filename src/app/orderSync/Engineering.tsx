@@ -162,289 +162,291 @@ const STACK_CHIPS = [
 
 export default function OrderSyncAgent() {
   return (
-    <div className={`${geistSans.className} min-h-screen bg-navy-1 text-white`}>
+    <>
       <SiteHeader />
+      <main className={`${geistSans.className} min-h-screen bg-navy-1 text-white`}>
 
-      {/* HERO */}
-      <section className="relative overflow-hidden bg-navy-1 px-8 pb-20 pt-10 md:px-16 md:pt-16 lg:px-24">
-        <PolkaDots />
-        <Reveal className="relative z-10">
-          <Eyebrow>Case Study · AI Agent</Eyebrow>
-          <h1 className="mt-6 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-            OrderSync Order Agent
-            <br />
-            <Shine>Email to order, on its own</Shine>
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
-            A production AI agent that reads inbound B2B purchase orders — in
-            any format a customer sends — and turns them into validated,
-            structured orders. It matches products, prices the order, and writes
-            it to the system, escalating to a human the moment it isn&apos;t
-            sure.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {META.map((m) => (
-              <span
-                key={m}
-                className={`${geistMono.className} rounded-lg border border-white/10 bg-navy-2 px-3 py-1.5 text-sm text-white/80`}
-              >
-                {m}
-              </span>
-            ))}
-          </div>
-        </Reveal>
-      </section>
-
-      {/* AT A GLANCE */}
-      <section className="bg-navy-2 px-8 py-16 md:px-16 lg:px-24">
-        <Reveal>
-          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-            {GLANCE.map((g) => (
-              <div key={g.k} className="bg-navy-2 p-6">
-                <div
-                  className={`${geistMono.className} text-xs uppercase tracking-wider text-white/40`}
+        {/* HERO */}
+        <section className="relative overflow-hidden bg-navy-1 px-8 pb-20 pt-10 md:px-16 md:pt-16 lg:px-24">
+          <PolkaDots />
+          <Reveal className="relative z-10">
+            <Eyebrow>Case Study · AI Agent</Eyebrow>
+            <h1 className="mt-6 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+              OrderSync Order Agent
+              <br />
+              <Shine>Email to order, on its own</Shine>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
+              A production AI agent that reads inbound B2B purchase orders — in
+              any format a customer sends — and turns them into validated,
+              structured orders. It matches products, prices the order, and writes
+              it to the system, escalating to a human the moment it isn&apos;t
+              sure.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {META.map((m) => (
+                <span
+                  key={m}
+                  className={`${geistMono.className} rounded-lg border border-white/10 bg-navy-2 px-3 py-1.5 text-sm text-white/80`}
                 >
-                  {g.k}
-                </div>
-                <div className="mt-2 text-sm text-white/90">{g.v}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-      </section>
+                  {m}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </section>
 
-      {/* PROBLEM */}
-      <section className="bg-navy-1 px-8 py-20 md:px-16 lg:px-24">
-        <Reveal>
-          <Eyebrow>The problem</Eyebrow>
-          <h2 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
-            B2B orders arrive as a mess, and humans key them in.
-          </h2>
-          <p className="mt-4 max-w-2xl text-white/70">
-            Distributors take orders the way their customers want to send them.
-            That means an inbox full of forwarded emails, scanned POs,
-            spreadsheets, and EDI files — each one read and retyped into the ERP
-            by hand. It&apos;s slow, and the mistakes are expensive.
-          </p>
-        </Reveal>
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {PROBLEMS.map((p, i) => (
-            <Reveal key={p.t} delay={i * 0.05}>
-              <div className="h-full rounded-2xl border border-white/10 bg-navy-2 p-6">
-                <h3 className="text-lg font-semibold text-white">{p.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">
-                  {p.d}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section className="bg-navy-3/40 px-8 py-20 md:px-16 lg:px-24">
-        <Reveal>
-          <Eyebrow>How it works</Eyebrow>
-          <h2 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
-            Inbox in, structured order out.
-          </h2>
-          <p className="mt-4 max-w-2xl text-white/70">
-            Four stages, fully autonomous on the happy path — with a human
-            pulled in exactly when the agent decides it needs one.
-          </p>
-        </Reveal>
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {PIPELINE.map((s, i) => (
-            <Reveal key={s.n} delay={i * 0.06}>
-              <div className="h-full rounded-2xl border border-white/10 bg-navy-1 p-6">
-                <div
-                  className={`${geistMono.className} text-2xl font-bold text-white`}
-                >
-                  {s.n}
-                </div>
-                <h3 className="mt-3 font-semibold text-white">{s.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">
-                  {s.d}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ARCHITECTURE */}
-      <section className="bg-navy-1 px-8 py-20 md:px-16 lg:px-24">
-        <Reveal>
-          <Eyebrow>How it&apos;s built</Eyebrow>
-          <h2 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">
-            A tool-using agent, not a prompt.
-          </h2>
-        </Reveal>
-
-        <Reveal className="mt-12">
-          <div className={`${geistMono.className} text-sm text-white/70`}>
-            01 · The loop
-          </div>
-          <h3 className="mt-3 text-xl font-semibold">
-            Reason, call a tool, read the result, repeat.
-          </h3>
-          <p className="mt-3 max-w-2xl text-white/70">
-            Built on <code>Mastra</code> with Claude as the model. Each order
-            gets its own agent that works in a loop — up to forty steps — calling
-            real tools and reacting to what they return, instead of trying to
-            one-shot the answer. A Sonnet&nbsp;→&nbsp;Haiku fallback and ephemeral
-            prompt caching keep it resilient and cheap.
-          </p>
-        </Reveal>
-
-        <Reveal className="mt-14">
-          <div className={`${geistMono.className} text-sm text-white/70`}>
-            02 · The hands
-          </div>
-          <h3 className="mt-3 text-xl font-semibold">
-            Thirty-five tools across the whole order lifecycle.
-          </h3>
-          <p className="mt-3 max-w-2xl text-white/70">
-            Every real action — extract, match, price, validate, write,
-            escalate — is a typed tool with a <code>Zod</code> schema. The model
-            never touches the database directly; it composes these tools, and
-            each one is bound to the tenant making the request.
-          </p>
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {TOOL_GROUPS.map((t) => (
-              <div
-                key={t.g}
-                className="rounded-2xl border border-white/10 bg-navy-2 p-5"
-              >
-                <div className="flex items-baseline justify-between">
-                  <h4 className="font-semibold text-white">{t.g}</h4>
-                  <span
-                    className={`${geistMono.className} text-sm text-blue-300`}
+        {/* AT A GLANCE */}
+        <section className="bg-navy-2 px-8 py-16 md:px-16 lg:px-24">
+          <Reveal>
+            <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+              {GLANCE.map((g) => (
+                <div key={g.k} className="bg-navy-2 p-6">
+                  <div
+                    className={`${geistMono.className} text-xs uppercase tracking-wider text-white/60`}
                   >
-                    {t.n}
-                  </span>
+                    {g.k}
+                  </div>
+                  <div className="mt-2 text-sm text-white/90">{g.v}</div>
                 </div>
-                <p className="mt-2 text-xs leading-relaxed text-white/55">
-                  {t.items}
-                </p>
-              </div>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
+        {/* PROBLEM */}
+        <section className="bg-navy-1 px-8 py-20 md:px-16 lg:px-24">
+          <Reveal>
+            <Eyebrow>The problem</Eyebrow>
+            <h2 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
+              B2B orders arrive as a mess, and humans key them in.
+            </h2>
+            <p className="mt-4 max-w-2xl text-white/70">
+              Distributors take orders the way their customers want to send them.
+              That means an inbox full of forwarded emails, scanned POs,
+              spreadsheets, and EDI files — each one read and retyped into the ERP
+              by hand. It&apos;s slow, and the mistakes are expensive.
+            </p>
+          </Reveal>
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {PROBLEMS.map((p, i) => (
+              <Reveal key={p.t} delay={i * 0.05}>
+                <div className="h-full rounded-2xl border border-white/10 bg-navy-2 p-6">
+                  <h3 className="text-lg font-semibold text-white">{p.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60">
+                    {p.d}
+                  </p>
+                </div>
+              </Reveal>
             ))}
           </div>
-        </Reveal>
+        </section>
 
-        <Reveal className="mt-14">
-          <div className={`${geistMono.className} text-sm text-white/70`}>
-            03 · The wiring
-          </div>
-          <h3 className="mt-3 text-xl font-semibold">
-            A microservice behind the product.
-          </h3>
-          <p className="mt-3 max-w-2xl text-white/70">
-            The agent runs as a <code>Hono</code> service that the Laravel app
-            calls over an authenticated endpoint when an order arrives. It reads
-            and writes catalog, customer, and order data through a typed API
-            client, and talks to a dedicated EDI service for X12 parsing and 810
-            invoice generation. I rewrote the whole thing from an earlier Python
-            version into this typed, tool-first TypeScript design.
-          </p>
-        </Reveal>
-      </section>
-
-      {/* THE PART I'M PROUDEST OF */}
-      <section className="bg-navy-2 px-8 py-20 md:px-16 lg:px-24">
-        <Reveal>
-          <Eyebrow>The part I&apos;m proudest of</Eyebrow>
-          <h2 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
-            It knows when not to trust itself.
-          </h2>
-          <p className="mt-4 max-w-2xl text-white/70">
-            Automating order entry is easy until it&apos;s wrong. The work that
-            made this safe to run on real orders is all about transparency and
-            knowing where the line is.
-          </p>
-        </Reveal>
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {PROUD.map((p, i) => (
-            <Reveal key={p.t} delay={i * 0.05}>
-              <div className="h-full rounded-2xl border border-white/10 bg-navy-1 p-6">
-                <h3 className="text-lg font-semibold text-white">{p.t}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">
-                  {p.d}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* BY THE NUMBERS */}
-      <section className="bg-navy-3/40 px-8 py-20 md:px-16 lg:px-24">
-        <Reveal>
-          <Eyebrow>By the numbers</Eyebrow>
-        </Reveal>
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          {NUMBERS.map((n, i) => (
-            <Reveal key={n.k} delay={i * 0.05}>
-              <div className="h-full rounded-2xl border border-white/10 bg-navy-1 p-6 text-center">
-                <div className="text-3xl font-bold tracking-tight text-white">
-                  {n.v}
+        {/* HOW IT WORKS */}
+        <section className="bg-navy-3/40 px-8 py-20 md:px-16 lg:px-24">
+          <Reveal>
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
+              Inbox in, structured order out.
+            </h2>
+            <p className="mt-4 max-w-2xl text-white/70">
+              Four stages, fully autonomous on the happy path — with a human
+              pulled in exactly when the agent decides it needs one.
+            </p>
+          </Reveal>
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {PIPELINE.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.06}>
+                <div className="h-full rounded-2xl border border-white/10 bg-navy-1 p-6">
+                  <div
+                    className={`${geistMono.className} text-2xl font-bold text-white`}
+                  >
+                    {s.n}
+                  </div>
+                  <h3 className="mt-3 font-semibold text-white">{s.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60">
+                    {s.d}
+                  </p>
                 </div>
-                <div className="mt-2 text-xs leading-snug text-white/55">
-                  {n.k}
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal>
-          <p className="mt-6 max-w-3xl text-sm italic text-white/45">
-            Built and validated against real customer documents from live B2B
-            suppliers. I&apos;ve kept the numbers here to what the system
-            actually does rather than quoting an accuracy figure I can&apos;t
-            stand behind out of context.
-          </p>
-        </Reveal>
-      </section>
-
-      {/* WHAT'S NEXT */}
-      <section className="bg-navy-1 px-8 py-20 md:px-16 lg:px-24">
-        <Reveal>
-          <Eyebrow>What I&apos;d do next</Eyebrow>
-          <ul className="mt-8 max-w-2xl space-y-3 text-white/70">
-            {NEXT.map((n) => (
-              <li key={n} className="flex gap-3">
-                <span className="text-white/30">→</span>
-                <span>{n}</span>
-              </li>
+              </Reveal>
             ))}
-          </ul>
-        </Reveal>
-      </section>
+          </div>
+        </section>
 
-      {/* CTA FOOTER */}
-      <section className="relative overflow-hidden bg-navy-4 px-8 py-20 md:px-16 lg:px-24">
-        <PolkaDots />
-        <Reveal className="relative z-10">
-          <div className="flex flex-wrap gap-2">
-            {STACK_CHIPS.map((c) => (
-              <span
-                key={c}
-                className={`${geistMono.className} rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70`}
+        {/* ARCHITECTURE */}
+        <section className="bg-navy-1 px-8 py-20 md:px-16 lg:px-24">
+          <Reveal>
+            <Eyebrow>How it&apos;s built</Eyebrow>
+            <h2 className="mt-5 text-3xl font-bold tracking-tight md:text-4xl">
+              A tool-using agent, not a prompt.
+            </h2>
+          </Reveal>
+
+          <Reveal className="mt-12">
+            <div className={`${geistMono.className} text-sm text-white/70`}>
+              01 · The loop
+            </div>
+            <h3 className="mt-3 text-xl font-semibold">
+              Reason, call a tool, read the result, repeat.
+            </h3>
+            <p className="mt-3 max-w-2xl text-white/70">
+              Built on <code>Mastra</code> with Claude as the model. Each order
+              gets its own agent that works in a loop — up to forty steps — calling
+              real tools and reacting to what they return, instead of trying to
+              one-shot the answer. A Sonnet&nbsp;→&nbsp;Haiku fallback and ephemeral
+              prompt caching keep it resilient and cheap.
+            </p>
+          </Reveal>
+
+          <Reveal className="mt-14">
+            <div className={`${geistMono.className} text-sm text-white/70`}>
+              02 · The hands
+            </div>
+            <h3 className="mt-3 text-xl font-semibold">
+              Thirty-five tools across the whole order lifecycle.
+            </h3>
+            <p className="mt-3 max-w-2xl text-white/70">
+              Every real action — extract, match, price, validate, write,
+              escalate — is a typed tool with a <code>Zod</code> schema. The model
+              never touches the database directly; it composes these tools, and
+              each one is bound to the tenant making the request.
+            </p>
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {TOOL_GROUPS.map((t) => (
+                <div
+                  key={t.g}
+                  className="rounded-2xl border border-white/10 bg-navy-2 p-5"
+                >
+                  <div className="flex items-baseline justify-between">
+                    <h4 className="font-semibold text-white">{t.g}</h4>
+                    <span
+                      className={`${geistMono.className} text-sm text-blue-300`}
+                    >
+                      {t.n}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-white/55">
+                    {t.items}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal className="mt-14">
+            <div className={`${geistMono.className} text-sm text-white/70`}>
+              03 · The wiring
+            </div>
+            <h3 className="mt-3 text-xl font-semibold">
+              A microservice behind the product.
+            </h3>
+            <p className="mt-3 max-w-2xl text-white/70">
+              The agent runs as a <code>Hono</code> service that the Laravel app
+              calls over an authenticated endpoint when an order arrives. It reads
+              and writes catalog, customer, and order data through a typed API
+              client, and talks to a dedicated EDI service for X12 parsing and 810
+              invoice generation. I rewrote the whole thing from an earlier Python
+              version into this typed, tool-first TypeScript design.
+            </p>
+          </Reveal>
+        </section>
+
+        {/* THE PART I'M PROUDEST OF */}
+        <section className="bg-navy-2 px-8 py-20 md:px-16 lg:px-24">
+          <Reveal>
+            <Eyebrow>The part I&apos;m proudest of</Eyebrow>
+            <h2 className="mt-5 max-w-3xl text-3xl font-bold tracking-tight md:text-4xl">
+              It knows when not to trust itself.
+            </h2>
+            <p className="mt-4 max-w-2xl text-white/70">
+              Automating order entry is easy until it&apos;s wrong. The work that
+              made this safe to run on real orders is all about transparency and
+              knowing where the line is.
+            </p>
+          </Reveal>
+          <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {PROUD.map((p, i) => (
+              <Reveal key={p.t} delay={i * 0.05}>
+                <div className="h-full rounded-2xl border border-white/10 bg-navy-1 p-6">
+                  <h3 className="text-lg font-semibold text-white">{p.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/60">
+                    {p.d}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* BY THE NUMBERS */}
+        <section className="bg-navy-3/40 px-8 py-20 md:px-16 lg:px-24">
+          <Reveal>
+            <Eyebrow>By the numbers</Eyebrow>
+          </Reveal>
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+            {NUMBERS.map((n, i) => (
+              <Reveal key={n.k} delay={i * 0.05}>
+                <div className="h-full rounded-2xl border border-white/10 bg-navy-1 p-6 text-center">
+                  <div className="text-3xl font-bold tracking-tight text-white">
+                    {n.v}
+                  </div>
+                  <div className="mt-2 text-xs leading-snug text-white/55">
+                    {n.k}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal>
+            <p className="mt-6 max-w-3xl text-sm italic text-white/45">
+              Built and validated against real customer documents from live B2B
+              suppliers. I&apos;ve kept the numbers here to what the system
+              actually does rather than quoting an accuracy figure I can&apos;t
+              stand behind out of context.
+            </p>
+          </Reveal>
+        </section>
+
+        {/* WHAT'S NEXT */}
+        <section className="bg-navy-1 px-8 py-20 md:px-16 lg:px-24">
+          <Reveal>
+            <Eyebrow>What I&apos;d do next</Eyebrow>
+            <ul className="mt-8 max-w-2xl space-y-3 text-white/70">
+              {NEXT.map((n) => (
+                <li key={n} className="flex gap-3">
+                  <span className="text-white/30">→</span>
+                  <span>{n}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </section>
+
+        {/* CTA FOOTER */}
+        <section className="relative overflow-hidden bg-navy-4 px-8 py-20 md:px-16 lg:px-24">
+          <PolkaDots />
+          <Reveal className="relative z-10">
+            <div className="flex flex-wrap gap-2">
+              {STACK_CHIPS.map((c) => (
+                <span
+                  key={c}
+                  className={`${geistMono.className} rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70`}
+                >
+                  {c}
+                </span>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link
+                href="/agents"
+                className="rounded-full border border-white/20 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-navy-1"
               >
-                {c}
-              </span>
-            ))}
-          </div>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link
-              href="/agents"
-              className="rounded-full border border-white/20 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-navy-1"
-            >
-              ← Back to agents
-            </Link>
-          </div>
-        </Reveal>
-      </section>
-    </div>
+                ← Back to agents
+              </Link>
+            </div>
+          </Reveal>
+        </section>
+      </main>
+    </>
   );
 }

@@ -19,9 +19,7 @@ import { PAGES } from "./pages";
 // database, Hearts as my "third" app, anything inside an OrderSync
 // [bracket], numbers only in OrderSync's A and B drafts, and the resume's
 // "MVP in one week" for Group Sing Along (its case study says about 2
-// weeks) until the two agree, and the interview story about cutting
-// Carpoolio's step-by-step onboarding to one screen (the case study says
-// it went the other way, to one question per screen).
+// weeks) until the two agree.
 
 const ABOUT = `## Who I am
 
@@ -110,7 +108,7 @@ const THINKING = `## How I think about design
 - Gin Score Tracker: the free game stopped people before they could finish it. A 1-star review said "This sucks, I can't actually finish a game, guess I have to delete it." In June 2026 I moved the paywall to after the win, so scoring is never blocked, made editing and deleting games free, and replied to the review. The reviewer updated it.
 - Gin Score Tracker: in testing, people were adding the bonus twice, so the bonus now shows in blue with the total under it. After launch, 4 of the 5 people I asked said the buttons were too small, so every main button became full width and 64px tall.
 - Group Sing Along: people who joined mid-song had to wait for the next one. Now a new phone asks the host's phone for the current song. Group codes started at 5 letters; on January 12, 2025 I cut them to 4 and made them work in any case. I also renamed the "conductor" to the "host."
-- Carpoolio: my first editor in October 2024 was 1 glowing card. I split it into 2 columns, then on November 11 took creating a trip out of the editor entirely, into one question per screen. Looking back, I'd have built a simpler web app first; Carpoolio was a lot for a first full-stack app.
+- Carpoolio: my first editor in October 2024 was 1 glowing card. I split it into 2 columns, then on November 11 took creating a trip out of the editor entirely, into one question per screen. That step-by-step flow felt guided, but people were dropping off at step 2, and I held on to it longer than I should have because I'd put work into it. Then I cut it down to one screen with smart defaults and inline validation, and many more people finished making a trip. The lesson: friction you add "for clarity" is still friction, so now I throw out my own work faster when the data says to. Looking back, I'd have built a simpler web app first; Carpoolio was a lot for a first full-stack app.
 - Hearts Score Tracker: my first draft's win screen said "YOU WINS!" I fixed it the same day, and the version that shipped the next day had each player as a row you tap.
 - Portfolio Redesign: I threw out my first direction (a separate /design page) and started over from a blank page.
 - OrderSync case study: I checked every claim against the project and cut 3, including "zero design debt," because my own audit tool found 22 off-palette colors.`;
@@ -136,7 +134,7 @@ const HIRING = `## If you're hiring
 
 - I design and build, so what I design is what ships. I've taken products from wireframes to the App Store on my own, including Carpoolio, which was acquired.
 - I start with people. Before design I ran 500+ research interviews for NIH-funded studies, on things people don't easily talk about, and I bring that to every user interview.
-- I can explain technical things to people who aren't technical. I run @erin.codes, a coding community on Instagram with about 15K followers, where posts start from questions people already have, like why Netflix goes black when you share your screen.
+- I can explain technical things to people who aren't technical. I run @erin.codes, a coding community on Instagram with nearly 18K followers, where posts start from questions people already have, like why Netflix goes black when you share your screen.
 - I use AI tools every day as a partner, not a replacement for thinking. I'd rather be the architect than the bricklayer.
 - Low ego, high ownership: I'd rather throw out my own work than ship something I don't believe in.
 - If someone points out I have fewer years than a role asks for: I've spent over 2 years designing and shipping my own products at Cyber Goose, including one that was acquired. A lot of what these roles describe is what I've already been doing on my own.

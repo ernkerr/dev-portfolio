@@ -112,7 +112,7 @@ const SECTIONS: CaseStudySection[] = [
           down to “Full.” The demo at the top is that screen, rebuilt.
         </P>
 
-        <H3>One big form became one question per screen</H3>
+        <H3>One big form, then one question per screen, then one screen</H3>
         <P>
           In October 2024 my editor was 1 glowing card holding every field.
           About a week later I split it into 2 columns, trip details on the left
@@ -161,6 +161,14 @@ const SECTIONS: CaseStudySection[] = [
             The web app’s trip editor over 3 weeks, from my own screenshots.
           </Caption>
         </figure>
+        <P>
+          The step-by-step flow felt guided, but people were dropping off at
+          step 2. I’d put work into it, so I held on to it longer than I should
+          have. Then I cut it down to one screen, with smart defaults and inline
+          validation, and many more people finished making a trip. Friction you
+          add “for clarity” is still friction, and now I try to throw out my own
+          work faster when the data says to.
+        </P>
 
         <H3>Set the vibe</H3>
         <P>
@@ -225,10 +233,10 @@ const SECTIONS: CaseStudySection[] = [
           pickup spot and number of seats.
         </P>
         <InProgress title="The why behind the changes">
-          Add what prompted each change, if you remember: the wizard, the move
-          from a seat slider to 13 tap buttons on the web (March 2025), and
-          opening seats to everyone. Any feedback from friends who used it goes
-          here too.
+          Add a screenshot of the one-screen create flow and when it shipped,
+          and what prompted the other changes: the move from a seat slider to 13
+          tap buttons on the web (March 2025), and opening seats to everyone.
+          Any feedback from friends who used it goes here too.
         </InProgress>
       </>
     ),

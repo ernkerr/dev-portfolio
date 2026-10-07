@@ -12,13 +12,6 @@ export const metadata: Metadata = {
 export default function AquariumPage() {
   return (
     <SiteShell>
-      <section className="pb-8 pt-12 md:pt-16">
-        <h1 className="font-serif text-display-sm md:text-display">Aquarium</h1>
-        <p className="mt-6 max-w-measure text-lead-sm text-site-ink/80 md:text-lead">
-          Draw a fish, give it a name and drop it in. It swims here with
-          everyone else&apos;s.
-        </p>
-      </section>
       <Aquarium />
     </SiteShell>
   );

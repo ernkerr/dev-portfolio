@@ -174,12 +174,12 @@ export default function DrawFish({
       role="dialog"
       aria-modal="true"
       aria-labelledby="draw-title"
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-site-ink/40 px-gutter py-10"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-site-ink/40 px-gutter py-3"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <form
         onSubmit={drop}
-        className="w-full max-w-measure border border-site-line bg-site-paper p-6 shadow-float ring-1 ring-black/5"
+        className="w-full max-w-measure border border-site-line bg-site-paper p-4 shadow-float sm:p-5 ring-1 ring-black/5"
       >
         <div className="flex items-baseline justify-between gap-6">
           <h2 id="draw-title" className="font-serif text-subhead">
@@ -189,7 +189,7 @@ export default function DrawFish({
             Close
           </button>
         </div>
-        <p className="mt-2 text-body-sm text-site-ink/75">
+        <p className="mt-1 text-body-sm text-site-ink/75">
           Draw it facing right; it turns around on its own.
         </p>
 
@@ -200,11 +200,12 @@ export default function DrawFish({
           onPointerUp={up}
           onPointerCancel={up}
           aria-label="Drawing area"
-          className="mt-6 block aspect-canvas w-full touch-none border border-site-line bg-tank-surface/40"
-          style={{ cursor: "crosshair" }}
+          className="mx-auto mt-4 block aspect-canvas touch-none border border-site-line bg-tank-surface/40"
+          // As wide as the panel, unless the window is too short for that
+          style={{ cursor: "crosshair", width: "min(100%, calc((100dvh - 370px) * 1.6))" }}
         />
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
           <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Paint">
             {PAINTS.map((p) => (
               <button
@@ -252,7 +253,7 @@ export default function DrawFish({
           </button>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-end gap-4">
+        <div className="mt-5 flex flex-wrap items-end gap-4">
           <label className="flex min-w-0 flex-1 flex-col gap-2">
             <span className={label}>Name</span>
             <input
@@ -278,7 +279,7 @@ export default function DrawFish({
             {error}
           </p>
         )}
-        <p className="mt-4 text-caption text-site-muted">
+        <p className="mt-2 text-caption text-site-muted">
           It swims for you right away and for everyone once it&apos;s checked.
           Keep it kind: anything rude gets taken out.
         </p>

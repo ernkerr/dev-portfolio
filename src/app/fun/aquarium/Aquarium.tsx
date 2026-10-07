@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { focusRing } from "@/components/site/links";
 import { label } from "@/components/site/prose";
 import type { Fish } from "@/lib/aquarium";
@@ -116,31 +116,41 @@ export default function Aquarium() {
 
   return (
     <div>
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <button
-          type="button"
-          onClick={() => {
-            setError(null);
-            setDrawing(true);
-          }}
-          disabled={!canDrop}
-          className={button}
-        >
-          Draw a fish
-        </button>
-        <label className="flex w-full flex-col gap-2 sm:w-64">
-          <span className={label}>Find a fish</span>
-          <input
-            type="search"
-            value={find}
-            onChange={(e) => setFind(e.target.value)}
-            placeholder="By its name"
-            className={`border border-site-line bg-site-paper px-3 py-2 text-body-sm text-site-ink placeholder:text-site-muted ${focusRing}`}
-          />
-        </label>
+      {/* One compact row, so the tank below can fill the rest of the window */}
+      <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6 pt-10 md:pt-12">
+        <div className="max-w-measure">
+          <h1 className="font-serif text-display-sm md:text-display">Aquarium</h1>
+          <p className="mt-3 text-body text-site-ink/80">
+            Draw a fish, give it a name and drop it in. It swims here with
+            everyone else&apos;s.
+          </p>
+        </div>
+        <div className="flex w-full flex-wrap items-end gap-4 sm:w-auto">
+          <button
+            type="button"
+            onClick={() => {
+              setError(null);
+              setDrawing(true);
+            }}
+            disabled={!canDrop}
+            className={button}
+          >
+            Draw a fish
+          </button>
+          <label className="flex min-w-0 flex-1 flex-col gap-2 sm:w-56 sm:flex-none">
+            <span className={label}>Find a fish</span>
+            <input
+              type="search"
+              value={find}
+              onChange={(e) => setFind(e.target.value)}
+              placeholder="By its name"
+              className={`border border-site-line bg-site-paper px-3 py-2 text-body-sm text-site-ink placeholder:text-site-muted ${focusRing}`}
+            />
+          </label>
+        </div>
       </div>
 
-      <p aria-live="polite" className="mt-4 min-h-6 text-body-sm text-site-ink/80">
+      <p aria-live="polite" className="mt-3 min-h-6 text-body-sm text-site-ink/80">
         {said ||
           (!canDrop
             ? "Dropping fish in isn't set up yet."
@@ -204,15 +214,23 @@ function Tank({
   const swimmers = useRef(new Map<string, Swimmer>());
   const size = useRef({ w: 800, h: 450 });
   const [ripple, setRipple] = useState<{ x: number; key: number } | null>(null);
-  const [wide, setWide] = useState(false);
-  useEffect(() => {
-    const query = window.matchMedia("(min-width: 768px)");
-    const update = () => setWide(query.matches);
-    update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
+  // As tall as fits under the controls, so the whole tank is in view:
+  // about 16 by 9 on wide screens, taller than wide on phones.
+  const [height, setHeight] = useState<number | null>(null);
+  useLayoutEffect(() => {
+    const fit = () => {
+      const el = tank.current;
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      const w = el.clientWidth;
+      const ideal = w * (w < 640 ? 1.25 : 0.5625);
+      const room = window.innerHeight - top - 40; // the count under it
+      setHeight(Math.round(Math.max(280, Math.min(ideal, room))));
+    };
+    fit();
+    window.addEventListener("resize", fit);
+    return () => window.removeEventListener("resize", fit);
   }, []);
-
   useEffect(() => {
     const el = tank.current!;
     const measure = () => {
@@ -301,9 +319,8 @@ function Tank({
   return (
     <div
       ref={tank}
-      className="relative mt-4 aspect-tank-tall w-full overflow-hidden border-4 border-tank-rim bg-gradient-to-b from-tank-surface via-tank-water to-tank-deep md:aspect-auto"
-      // Wide screens: 16 by 9, but never taller than fits under the controls
-      style={{ containerType: "size", height: wide ? "min(56.25vw, max(360px, calc(100dvh - 190px)))" : undefined }}
+      className={`relative mt-2 w-full overflow-hidden border-4 border-tank-rim bg-gradient-to-b from-tank-surface via-tank-water to-tank-deep ${height ? "" : "aspect-tank-tall md:aspect-tank"}`}
+      style={{ containerType: "size", height: height ?? undefined }}
     >
       <Scenery />
 

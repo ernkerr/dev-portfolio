@@ -1,44 +1,41 @@
-import RedSunnies from "./RedSunnies";
+import ClosetSunnies from "./ClosetSunnies";
+import { ellipse, f, jitter } from "./closetArt";
 
-// My closet, open, to the left of the bookshelf and built like it: black
-// posts and walnut boards, with a brass rod across the top. On the rod, on
-// wooden hangers: my leather jacket, the tag still on, my cheetah fur
-// jacket and my disco dress, then a strap of my sunnies. My Docs stand on
-// the bottom board. The red sunnies are a button (RedSunnies.tsx): put
-// them on and the whole page goes red.
+// My closet, open, on the wall right of the bookshelves past the window,
+// built like the bookshelf: black posts and walnut boards, with a brass
+// rod across the top. On the rod, on wooden hangers: my long leather
+// jacket, my cheetah fur coat and my disco dress, then a strap of my
+// sunnies. My oxblood Docs stand on the bottom board, facing out. The red
+// sunnies are buttons (ClosetSunnies.tsx): put a pair on and the whole
+// page takes on the color of its lenses.
 //
-// Drawn in the bookshelf's units, beside it: the same height and boards,
-// from x 0 to WIDTH, so `top` and `height` are the bookshelf drawing's.
-// Versions:
-// 1. the jackets, the dress, my Docs and the sunnies
-export type ClosetVersion = 1;
-
-export const CLOSET_WIDTH = 372;
+// Drawn in the bookshelf's units, to its scale: the same height and
+// boards, from x 0 to WIDTH, so `top` and `height` are the bookshelf
+// drawing's.
+const WIDTH = 400;
+const ID = "closet";
 const L = 8; // the left post's outside
-const R = 350; // the right post's outside, a gap short of the bookshelf
+const R = 392; // the right post's outside
 const POST = 7;
 const BOARD = 16;
 const ROD = 46; // the rod's middle
 const FLOOR = 464; // the bottom board, level with the bookshelf's
 const FEET = 560; // the posts' feet, as the bookshelf's
 
-// Where everything hangs: each hanger's middle
+// Where everything hangs: each hanger's middle; the strap's middle, and
+// how far down it each pair of sunnies hangs; and how big they're drawn
 const LEATHER = 78;
 const CHEETAH = 174;
 const DRESS = 258;
-const STRAP = 320;
-const SUNNIES = [
-  { y: 112, kind: "black" },
-  { y: 170, kind: "tortoise" },
-  { y: 228, kind: "red" },
+const STRAP = 340;
+const PAIRS = [
+  { kind: "red", y: 100 },
+  { kind: "gold-oval", y: 155 },
+  { kind: "rect-tortoise", y: 210 },
+  { kind: "orange", y: 265 },
+  { kind: "slim-brown", y: 320 },
 ] as const;
-
-// The same every time, like a seeded random
-const jitter = (i: number) => {
-  const x = Math.sin(i * 12.9898 + 78.233) * 43758.5453;
-  return Math.round((x - Math.floor(x)) * 1000) / 1000;
-};
-const f = (n: number) => n.toFixed(1);
+const SIZE = 1.1;
 
 // A wooden hanger on the rod: its hook over the rod, and its arms out to
 // `reach` each side
@@ -64,230 +61,260 @@ function Hanger({ cx, reach }: { cx: number; reach: number }) {
   );
 }
 
-// My black leather moto jacket: lapels open, its zip off to one side, a
-// belt at the hem, and on its cuff the tag I never took off
+// My long black leather jacket, plain: down past the hips, an even collar
+// and lapels, buttoned down the front, two flap pockets
+const LEATHER_HEM = 336;
 function LeatherJacket() {
   const x = LEATHER;
-  const sleeve = (s: 1 | -1) =>
-    `M${x + s * 44} 70C${x + s * 52} 72 ${x + s * 56} 80 ${x + s * 57} 96L${x + s * 61} 238L${x + s * 45} 241L${x + s * 44} 112Z`;
+  const sleeve = (s: number) =>
+    `M${x + s * 44} 70C${x + s * 52} 72 ${x + s * 56} 80 ${x + s * 57} 96L${x + s * 61} 250L${x + s * 45} 253L${x + s * 44} 112Z`;
+  const lapel = (s: number) =>
+    `M${x + s * 15} 63L${x + s * 34} 78L${x + s * 27} 95L${x + s * 21} 92L${x} 134L${x + s * 6} 74Z`;
   return (
     <g>
       <Hanger cx={x} reach={40} />
       <path
-        d={`M${x - 12} 60L${x - 44} 70L${x - 44} 112L${x - 42} 252H${x + 42}L${x + 44} 112L${x + 44} 70L${x + 12} 60Q${x} 65 ${x - 12} 60Z`}
+        d={`M${x - 12} 60L${x - 44} 70L${x - 44} 112L${x - 49} ${LEATHER_HEM}Q${x} ${LEATHER_HEM + 4} ${x + 49} ${LEATHER_HEM}L${x + 44} 112L${x + 44} 70L${x + 12} 60Q${x} 65 ${x - 12} 60Z`}
         className="fill-room-leather"
       />
       {[-1, 1].map((s) => (
-        <path
-          key={s}
-          d={sleeve(s as 1 | -1)}
-          strokeWidth={0.8}
-          className="fill-room-leather stroke-room-leather-edge"
-        />
+        <g key={s}>
+          <path
+            d={sleeve(s)}
+            strokeWidth={0.8}
+            className="fill-room-leather stroke-room-leather-edge"
+          />
+          {/* The cuff */}
+          <path
+            d={`M${x + s * 59.4} 240L${x + s * 44.6} 242`}
+            strokeWidth={0.8}
+            className="stroke-room-leather-edge"
+          />
+        </g>
       ))}
 
       {/* The light along it */}
       <path
-        d={`M${x - 36} 86Q${x - 39} 160 ${x - 35} 232M${x - 54} 104L${x - 56} 228M${x + 28} 118Q${x + 31} 170 ${x + 29} 230`}
+        d={`M${x - 36} 90Q${x - 38} 200 ${x - 41} 322M${x - 54} 104L${x - 57} 238M${x + 30} 140Q${x + 32} 230 ${x + 35} 322`}
         fill="none"
         strokeWidth={2}
         strokeLinecap="round"
-        className="stroke-room-leather-sheen/60"
+        className="stroke-room-leather-sheen/50"
       />
 
-      {/* The collar and lapels, the zip and its pull, and the zip pockets */}
+      {/* Inside, behind the collar, then the collar and the lapels, the
+          same both sides */}
+      <path
+        d={`M${x - 12} 61L${x} 134L${x + 12} 61Z`}
+        className="fill-room-leather-edge"
+      />
       <path
         d={`M${x - 14} 59Q${x} 54 ${x + 14} 59L${x + 18} 66Q${x} 61 ${x - 18} 66Z`}
         className="fill-room-leather-edge"
       />
-      <path
-        d={`M${x - 16} 64L${x - 37} 79L${x - 29} 97L${x - 21} 93L${x - 5} 130L${x + 10} 101Z`}
-        strokeWidth={0.8}
-        strokeLinejoin="round"
-        className="fill-room-leather stroke-room-leather-edge"
-      />
-      <path
-        d={`M${x + 16} 64L${x + 35} 77L${x + 25} 96L${x + 13} 101Z`}
-        strokeWidth={0.8}
-        strokeLinejoin="round"
-        className="fill-room-leather stroke-room-leather-edge"
-      />
-      <path
-        d={`M${x + 11} 101C${x + 15} 140 ${x + 15} 200 ${x + 13} 239`}
-        fill="none"
-        strokeWidth={1.4}
-        strokeDasharray="0.8 0.8"
-        className="stroke-room-mirror"
-      />
-      <rect
-        x={x + 9.5}
-        y={104}
-        width={3}
-        height={7}
-        rx={1}
-        className="fill-room-mirror"
-      />
-      <path
-        d={`M${x - 34} 172L${x - 16} 160M${x + 22} 160L${x + 36} 170M${x - 32} 112L${x - 20} 108`}
-        strokeWidth={1.1}
-        strokeLinecap="round"
-        className="stroke-room-mirror/80"
-      />
-
-      {/* The belt and its buckle */}
-      <rect
-        x={x - 42}
-        y={238}
-        width={84}
-        height={14}
-        className="fill-room-leather-edge"
-      />
-      <rect
-        x={x - 30}
-        y={237}
-        width={10}
-        height={16}
-        rx={1.5}
-        fill="none"
-        strokeWidth={1.6}
-        className="stroke-room-mirror"
-      />
-
-      {/* The tag, hanging off the cuff on its string */}
-      <g>
-        <title>The tag&apos;s still on. I love deal hunting.</title>
+      {[-1, 1].map((s) => (
         <path
-          d={`M${x - 53} 240q-3 7 -1 15`}
-          fill="none"
-          strokeWidth={0.6}
-          className="stroke-room-tag"
+          key={s}
+          d={lapel(s)}
+          strokeWidth={0.8}
+          strokeLinejoin="round"
+          className="fill-room-leather stroke-room-leather-edge"
         />
-        <g transform={`rotate(-6 ${x - 54} 255)`}>
-          <path
-            d={`M${x - 59} 258l5 -4l5 4v20h-10Z`}
-            className="fill-room-tag"
+      ))}
+
+      {/* Where it closes, its buttons, the flap pockets and the hem */}
+      <path
+        d={`M${x - 2} 134V${LEATHER_HEM + 2}`}
+        strokeWidth={0.9}
+        className="stroke-room-leather-edge"
+      />
+      {[148, 186, 224, 262, 300].map((y) => (
+        <g key={y}>
+          <circle
+            cx={x + 2}
+            cy={y}
+            r={3}
+            strokeWidth={0.6}
+            className="fill-room-leather-edge stroke-room-leather-sheen"
           />
-          <circle cx={x - 54} cy={258} r={1} className="fill-room-leather" />
-          {/* The old price struck out in red, the new one under it */}
-          <path
-            d={`M${x - 57} 264h6M${x - 58} 266.5l8 -5M${x - 57} 271h6M${x - 57} 274h4`}
-            strokeWidth={1}
-            strokeLinecap="round"
-            className="stroke-room-tag-ink"
+          <circle
+            cx={x + 1.2}
+            cy={y - 0.9}
+            r={0.8}
+            className="fill-room-leather-sheen"
           />
         </g>
-      </g>
+      ))}
+      {[-1, 1].map((s) => (
+        <rect
+          key={s}
+          x={s < 0 ? x - 38 : x + 14}
+          y={252}
+          width={24}
+          height={7}
+          strokeWidth={0.8}
+          className="fill-room-leather stroke-room-leather-edge"
+        />
+      ))}
+      <path
+        d={`M${x - 49} ${LEATHER_HEM - 3}Q${x} ${LEATHER_HEM + 1} ${x + 49} ${LEATHER_HEM - 3}`}
+        fill="none"
+        strokeWidth={0.8}
+        className="stroke-room-leather-edge"
+      />
     </g>
   );
 }
 
-// My cheetah fur jacket: boxy and fluffy-edged, a big shawl collar, black
-// spots all over
+// My cheetah fur coat: oversized, zipped up the front to a pointed
+// collar, in a darker cheetah print: a warm tan-brown ground covered in
+// small, solid, near-black spots, round or a little oval, spaced evenly as
+// a cheetah's are. The spots are one tile that repeats, wrapping round its
+// edges so no spot is cut; a filter roughens the edges so it's fuzzy.
+const COAT_HEM = 282;
+const SPOT_TILE = { w: 90, h: 78 };
+const CHEETAH_SPOTS = (() => {
+  const { w, h } = SPOT_TILE;
+  const d: string[] = [];
+  for (let row = 0, i = 0; row < 10; row++) {
+    for (let col = 0; col < 10; col++, i++) {
+      const x = col * 9 + (row % 2) * 4.5 + 2.2 + (jitter(i + 9600) - 0.5) * 4;
+      const y = row * 7.8 + 3.9 + (jitter(i + 9800) - 0.5) * 3.6;
+      const rx = 1.5 + jitter(i + 10000) * 0.9;
+      const ry = rx * (0.78 + jitter(i + 10200) * 0.22);
+      // Drawn again across any edge it crosses, so the tile wraps
+      for (const dx of [0, -w, w])
+        for (const dy of [0, -h, h]) {
+          const cx = x + dx;
+          const cy = y + dy;
+          if (cx + rx < 0 || cx - rx > w || cy + ry < 0 || cy - ry > h)
+            continue;
+          d.push(ellipse(cx, cy, rx, ry));
+        }
+    }
+  }
+  return d.join("");
+})();
+
 function CheetahJacket() {
   const x = CHEETAH;
-  const body = `M${x - 16} 60L${x - 48} 72L${x - 52} 250Q${x} 257 ${x + 52} 250L${x + 48} 72L${x + 16} 60Q${x} 66 ${x - 16} 60Z`;
+  const body = `M${x - 16} 60L${x - 50} 74L${x - 54} ${COAT_HEM}Q${x} ${COAT_HEM + 6} ${x + 54} ${COAT_HEM}L${x + 50} 74L${x + 16} 60Q${x} 66 ${x - 16} 60Z`;
   const sleeve = (s: number) =>
-    `M${x + s * 48} 72C${x + s * 58} 76 ${x + s * 62} 88 ${x + s * 63} 104L${x + s * 68} 234L${x + s * 50} 238L${x + s * 48} 116Z`;
-  const collar = (s: number) =>
-    `M${x + s * 18} 58C${x + s * 38} 66 ${x + s * 36} 104 ${x + s * 3} 152L${x} 152C${x + s * 12} 112 ${x + s * 13} 80 ${x + s * 4} 64Z`;
-  // Spots in a loose grid over it, kept to the fur by the clip
-  const spots = Array.from({ length: 140 }, (_, i) => {
-    const col = i % 10;
-    const row = Math.floor(i / 10);
-    return {
-      x: x - 72 + col * 15.5 + (row % 2) * 7 + jitter(i) * 6,
-      y: 66 + row * 14 + jitter(i + 300) * 6,
-      rx: 2.1 + jitter(i + 600) * 1.4,
-      ry: 1.8 + jitter(i + 900) * 1.1,
-      turn: Math.round(jitter(i + 1200) * 180),
-      halo: jitter(i + 1500) > 0.55,
-    };
-  });
-  const fluff = {
-    strokeWidth: 5,
-    strokeDasharray: "0 4.2",
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-  };
+    `M${x + s * 50} 74C${x + s * 60} 78 ${x + s * 64} 92 ${x + s * 65} 108L${x + s * 70} 252L${x + s * 50} 256L${x + s * 50} 118Z`;
+  const shapes = [body, sleeve(-1), sleeve(1)];
+  const box = { x: x - 74, y: 54, width: 148, height: COAT_HEM - 46 };
   return (
     <g>
-      <Hanger cx={x} reach={42} />
+      <Hanger cx={x} reach={44} />
       <defs>
-        <clipPath id="closet-fur">
-          <path d={body} />
-          <path d={sleeve(-1)} />
-          <path d={sleeve(1)} />
+        <clipPath id={`${ID}-fur`}>
+          {shapes.map((d, i) => (
+            <path key={i} d={d} />
+          ))}
         </clipPath>
+        <filter id={`${ID}-fuzz`} x="-10%" y="-5%" width="120%" height="110%">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.8"
+            numOctaves={2}
+            seed={7}
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            scale={2.6}
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+        <pattern
+          id={`${ID}-spots`}
+          width={SPOT_TILE.w}
+          height={SPOT_TILE.h}
+          patternUnits="userSpaceOnUse"
+          x={x - 74}
+          y={54}
+        >
+          <path d={CHEETAH_SPOTS} className="fill-room-cheetah-spot" />
+        </pattern>
+        {/* Darker toward its sides, so it looks round */}
+        <linearGradient
+          id={`${ID}-fur-round`}
+          x1="0"
+          y1="0"
+          x2="1"
+          y2="0"
+          className="text-room-cheetah-dark"
+        >
+          <stop offset="0" stopColor="currentColor" stopOpacity={0.45} />
+          <stop offset="0.22" stopColor="currentColor" stopOpacity={0} />
+          <stop offset="0.78" stopColor="currentColor" stopOpacity={0} />
+          <stop offset="1" stopColor="currentColor" stopOpacity={0.45} />
+        </linearGradient>
       </defs>
 
-      {/* The fur, fluffed out past its outline */}
-      {[body, sleeve(-1), sleeve(1)].map((d, i) => (
-        <path
-          key={i}
-          d={d}
-          {...fluff}
-          className="fill-room-cheetah stroke-room-cheetah"
-        />
-      ))}
-      <g clipPath="url(#closet-fur)">
-        {spots.map((s, i) => (
-          <g
-            key={i}
-            transform={`translate(${f(s.x)} ${f(s.y)}) rotate(${s.turn})`}
-          >
-            {s.halo && (
-              <ellipse
-                rx={s.rx + 1.3}
-                ry={s.ry + 1.1}
-                className="fill-room-cheetah-rosette/70"
-              />
-            )}
-            <ellipse rx={s.rx} ry={s.ry} className="fill-room-cheetah-spot" />
-          </g>
-        ))}
-        {/* Where the sleeves meet the body */}
-        {[-1, 1].map((s) => (
+      <g filter={`url(#${ID}-fuzz)`}>
+        {shapes.map((d, i) => (
           <path
-            key={s}
-            d={`M${x + s * 48} 116L${x + s * 50} 238`}
-            strokeWidth={1}
-            className="stroke-room-cheetah-rosette/60"
+            key={i}
+            d={d}
+            strokeWidth={2}
+            strokeLinejoin="round"
+            className="fill-room-cheetah stroke-room-cheetah"
           />
         ))}
-      </g>
+        <g clipPath={`url(#${ID}-fur)`}>
+          {/* Shadow where the sleeves hang against it */}
+          {[-1, 1].map((s) => (
+            <path
+              key={s}
+              d={`M${x + s * 49} 118L${x + s * 51} 256`}
+              strokeWidth={3}
+              className="stroke-room-cheetah-dark/60"
+            />
+          ))}
 
-      {/* The collar, paler, with a few spots of its own */}
-      {[-1, 1].map((s) => (
-        <path
-          key={s}
-          d={collar(s)}
-          {...fluff}
-          strokeWidth={4}
-          className="fill-room-cheetah-light stroke-room-cheetah-light"
-        />
-      ))}
-      {[
-        [-20, 76],
-        [-17, 98],
-        [-9, 122],
-        [21, 82],
-        [16, 104],
-        [8, 128],
-      ].map(([dx, y], i) => (
-        <ellipse
-          key={i}
-          cx={x + dx}
-          cy={y}
-          rx={2}
-          ry={1.6}
-          className="fill-room-cheetah-spot"
-        />
-      ))}
-      <path
-        d={`M${x} 152V253`}
-        strokeWidth={0.8}
-        className="stroke-room-cheetah-rosette"
-      />
+          {/* The pointed collar, folded over: lighter, catching the
+              light on its fold, its shadow on the coat */}
+          {[-1, 1].map((s) => (
+            <g key={s}>
+              <path
+                d={`M${x + s * 2} 70C${x + s * 10} 62 ${x + s * 20} 60 ${x + s * 27} 64L${x + s * 30} 72L${x + s * 18} 100L${x + s * 3} 77Z`}
+                className="fill-room-cheetah-light/30"
+              />
+              <path
+                d={`M${x + s * 30} 72L${x + s * 18} 100L${x + s * 3} 77`}
+                fill="none"
+                strokeWidth={2.4}
+                strokeLinejoin="round"
+                className="stroke-room-cheetah-dark/80"
+              />
+            </g>
+          ))}
+
+          {/* The spots, then the shading over them */}
+          <rect {...box} fill={`url(#${ID}-spots)`} />
+          <rect {...box} fill={`url(#${ID}-fur-round)`} />
+
+          {/* The zip down the front, and its silver pull at the top */}
+          <path
+            d={`M${x} 76V${COAT_HEM + 4}`}
+            strokeWidth={1.2}
+            className="stroke-room-cheetah-dark"
+          />
+          <path
+            d={`M${x - 3} 70L${x} 79L${x + 3} 70Z`}
+            className="fill-room-cheetah-spot"
+          />
+          <rect
+            x={x - 1.3}
+            y={78}
+            width={2.6}
+            height={7}
+            rx={1}
+            className="fill-room-mirror"
+          />
+        </g>
+      </g>
     </g>
   );
 }
@@ -361,12 +388,12 @@ function DiscoDress() {
         className="stroke-room-sequin-dark"
       />
       <defs>
-        <clipPath id="closet-dress">
+        <clipPath id={`${ID}-dress`}>
           <path d={outline} />
         </clipPath>
       </defs>
       <path d={outline} className="fill-room-sequin-deep" />
-      <g clipPath="url(#closet-dress)">
+      <g clipPath={`url(#${ID}-dress)`}>
         {SEQUINS.paths.map((d, k) => (
           <path key={k} d={d} className={TONES[k]} />
         ))}
@@ -384,93 +411,23 @@ function DiscoDress() {
   );
 }
 
-// A pair of sunnies clipped to the strap by the bridge, drawn about (0, 0):
-// the black ones square, the tortoiseshell ones round. The red ones are
-// RedSunnies.tsx's, so they can come off.
-function Sunnies({ y, kind }: { y: number; kind: "black" | "tortoise" }) {
-  const lens = "M4 -6L19 -7Q20.5 -1 17.5 4Q11 7.5 5 4.5Q2.6 -0.5 4 -6Z";
-  return (
-    <g transform={`translate(${STRAP} ${y})`}>
-      {/* The arms, folded behind */}
-      <path
-        d="M-18 -4.5H18"
-        strokeWidth={1.4}
-        className={
-          kind === "black"
-            ? "stroke-room-sunnies-black"
-            : "stroke-room-sunnies-tortoise"
-        }
-      />
-      {kind === "black" ? (
-        [-1, 1].map((s) => (
-          <g key={s} transform={`scale(${s} 1)`}>
-            <path d={lens} className="fill-room-sunnies-black" />
-            <path
-              d={lens}
-              transform="translate(11 -0.6) scale(0.72) translate(-11 0.6)"
-              className="fill-room-sunnies-lens"
-            />
-          </g>
-        ))
-      ) : (
-        <>
-          {[-1, 1].map((s) => (
-            <circle
-              key={s}
-              cx={s * 11.5}
-              cy={-0.5}
-              r={7.2}
-              strokeWidth={2.2}
-              className="fill-room-sunnies-tortoise-lens stroke-room-sunnies-tortoise"
-            />
-          ))}
-          {/* Tortoiseshell flecks on the rims */}
-          {Array.from({ length: 14 }, (_, i) => {
-            const a = (i / 7) * Math.PI * 2 + jitter(i + 7000);
-            const s = i < 7 ? -1 : 1;
-            return (
-              <circle
-                key={i}
-                cx={f(s * 11.5 + Math.cos(a) * 7.2)}
-                cy={f(-0.5 + Math.sin(a) * 7.2)}
-                r={0.9}
-                className="fill-room-sunnies-tortoise-spot"
-              />
-            );
-          })}
-        </>
-      )}
-      {/* The bridge, over the strap */}
-      <path
-        d="M-5 -2.5Q0 -5.5 5 -2.5"
-        fill="none"
-        strokeWidth={1.8}
-        className={
-          kind === "black"
-            ? "stroke-room-sunnies-black"
-            : "stroke-room-sunnies-tortoise"
-        }
-      />
-    </g>
-  );
-}
-
-// The strap the sunnies clip to, looped over the rod
-function Strap() {
+// A strap the sunnies clip to, looped over the rod, down past its last pair
+function Strap({ x, end }: { x: number; end: number }) {
+  const w = 4 * SIZE;
   return (
     <g>
       <path
-        d={`M${STRAP - 4} ${ROD + 6}V${ROD - 4}a4 4 0 0 1 8 0V${ROD + 6}`}
+        d={`M${x - w} ${ROD + 6}V${ROD - 4}a${w} ${w} 0 0 1 ${2 * w} 0V${ROD + 6}`}
         fill="none"
         strokeWidth={2}
         className="stroke-room-sunnies-strap"
       />
       <path
-        d={`M${STRAP - 4} ${ROD + 4}H${STRAP + 4}V256L${STRAP} 261L${STRAP - 4} 256Z`}
+        d={`M${x - w} ${ROD + 4}H${x + w}V${end}L${x} ${end + w + 1}L${x - w} ${end}Z`}
         className="fill-room-sunnies-strap"
       />
       <path
-        d={`M${STRAP - 2.6} ${ROD + 6}V255M${STRAP + 2.6} ${ROD + 6}V255`}
+        d={`M${x - w + 1.4} ${ROD + 6}V${end - 1}M${x + w - 1.4} ${ROD + 6}V${end - 1}`}
         strokeWidth={0.4}
         strokeDasharray="1.4 1"
         className="stroke-room-sunnies-tortoise/30"
@@ -479,78 +436,159 @@ function Strap() {
   );
 }
 
-// My Docs, an 8-eye pair, side on and facing left: the black leather
-// upper, its laces, the heel loop, and the yellow stitching round the welt.
-// Drawn with its toe's bottom at (0, 0); the one `back` is a shade lighter.
-function Doc({ x, back = false }: { x: number; back?: boolean }) {
+// My Docs, oxblood Jadons, an 8-eye pair standing facing out: the toe
+// rounded under the shaft, darker round the sides, the laces crossing up
+// the tongue to a bow, the heel loop just showing over the top, and the
+// sole, its welt stitched in yellow. Matte, not shiny. Drawn about the
+// middle of its sole's bottom, (0, 0).
+const DOC =
+  "M-14.5 -9C-16 -14 -15.5 -19.5 -12 -23C-11 -24 -10.5 -25 -10.5 -27V-55Q-10.5 -58 -9 -58.5H9Q10.5 -58 10.5 -55V-27C10.5 -25 11 -24 12 -23C15.5 -19.5 16 -14 14.5 -9Z";
+const EYELETS = Array.from({ length: 8 }, (_, i) => -29 - i * 3.85);
+
+function Doc({ x, flip = false }: { x: number; flip?: boolean }) {
   return (
-    <g transform={`translate(${x} ${FLOOR})`}>
+    <g transform={`translate(${x} ${FLOOR})${flip ? " scale(-1 1)" : ""}`}>
+      {/* The heel loop, behind, over the top */}
       <path
-        d="M2 -9C2 -20 8 -26 20 -29L40 -34C46 -36 48 -42 50 -50L52 -64H78L80 -40C81 -26 84 -18 84 -9Z"
-        className={back ? "fill-room-docs-sole" : "fill-room-docs"}
-      />
-      <rect
-        x={51}
-        y={-66}
-        width={28}
-        height={3.5}
-        rx={1.5}
-        className="fill-room-docs-sheen"
-      />
-      {/* The heel loop */}
-      <path
-        d="M75.5 -63Q75.8 -71 79 -71.5Q82 -71 81 -62"
-        fill="none"
-        strokeWidth={2.2}
-        className="stroke-room-docs-stitch"
-      />
-      {/* Seams, the light on the toe and up the shaft */}
-      <path
-        d="M14 -9C14 -18 18 -24 25 -27.5M41 -33.5C47 -26 54 -16 56 -9M78 -60L81 -12"
-        fill="none"
-        strokeWidth={0.7}
-        className="stroke-room-docs-sheen"
-      />
-      <path
-        d="M9 -18Q16 -25 30 -29M58 -58L57 -38"
+        d="M-2.4 -59Q-2.6 -66 0 -66.3Q2.6 -66 2.4 -59"
         fill="none"
         strokeWidth={1.8}
-        strokeLinecap="round"
-        className="stroke-room-docs-sheen/70"
-      />
-      {/* Eight eyelets and the laces across */}
-      {Array.from({ length: 8 }, (_, i) => {
-        const ex = 43 + i * 1.25;
-        const ey = -36 - i * 3.6;
-        return (
-          <g key={i}>
-            <path
-              d={`M${f(ex)} ${f(ey)}h5`}
-              strokeWidth={1.1}
-              strokeLinecap="round"
-              className="stroke-room-docs-sole"
-            />
-            <circle
-              cx={f(ex + 5.5)}
-              cy={f(ey)}
-              r={0.9}
-              className="fill-room-docs-sheen"
-            />
-          </g>
-        );
-      })}
-      {/* The sole and its yellow stitching */}
-      <path
-        d="M0 -2Q0 -9 6 -9H84L86 -2Q86 0 84 0H3Q0 0 0 -2Z"
-        className="fill-room-docs-sole"
+        className="stroke-room-docs"
       />
       <path
-        d="M5 -6.5H82"
-        strokeWidth={0.9}
-        strokeDasharray="1.6 1.2"
+        d="M-2.4 -59Q-2.6 -66 0 -66.3Q2.6 -66 2.4 -59"
+        fill="none"
+        strokeWidth={0.5}
+        strokeDasharray="0.7 0.6"
         className="stroke-room-docs-stitch"
       />
+
+      {/* The leather, darker round the sides, and the light on the toe */}
+      <path d={DOC} className="fill-room-docs-oxblood" />
+      <path d={DOC} fill={`url(#${ID}-doc-round)`} />
+      <ellipse
+        cx={-3}
+        cy={-16.5}
+        rx={7}
+        ry={3.4}
+        className="fill-room-docs-oxblood-light/40"
+      />
+      {/* The seam across the top of the toe, and its stitching */}
+      <path
+        d="M-12 -23Q0 -27.5 12 -23"
+        fill="none"
+        strokeWidth={0.6}
+        className="stroke-room-docs-oxblood-dark"
+      />
+      <path
+        d="M-11.6 -21.6Q0 -26 11.6 -21.6"
+        fill="none"
+        strokeWidth={0.45}
+        strokeDasharray="0.9 0.7"
+        className="stroke-room-docs-oxblood-dark"
+      />
+
+      {/* The tongue, the quarters' edges either side of it, the collar */}
+      <path
+        d="M-3.6 -27V-60Q0 -63.5 3.6 -60V-27Z"
+        strokeWidth={0.5}
+        className="fill-room-docs-oxblood stroke-room-docs-oxblood-dark"
+      />
+      <path
+        d="M-3.9 -27V-57.6M3.9 -27V-57.6"
+        strokeWidth={0.8}
+        className="stroke-room-docs-oxblood-dark"
+      />
+      <path
+        d="M-10.2 -57.4H-4.2M4.2 -57.4H10.2"
+        strokeWidth={2}
+        strokeLinecap="round"
+        className="stroke-room-docs-oxblood-dark"
+      />
+
+      {/* Eight eyelets a side, the laces crossing between them, the bow */}
+      <path
+        d={EYELETS.slice(0, -1)
+          .map(
+            (y, i) =>
+              `M-5.6 ${f(y)}L5.6 ${f(EYELETS[i + 1])}M5.6 ${f(y)}L-5.6 ${f(EYELETS[i + 1])}`,
+          )
+          .join("")}
+        strokeWidth={0.9}
+        strokeLinecap="round"
+        className="stroke-room-docs"
+      />
+      {EYELETS.map((y) =>
+        [-1, 1].map((s) => (
+          <circle
+            key={`${y}${s}`}
+            cx={s * 5.6}
+            cy={f(y)}
+            r={0.9}
+            strokeWidth={0.35}
+            className="fill-room-docs stroke-room-docs-sheen"
+          />
+        )),
+      )}
+      <path
+        d="M0 -57.5C-4 -61 -7 -59 -5.5 -57C-4 -55.5 -1.5 -56.5 0 -57.5ZM0 -57.5C3 -60.5 5.4 -59.4 4.6 -57.6C3.8 -56.2 1.6 -56.6 0 -57.5ZM-0.5 -57C-2 -53 -2.5 -50 -2 -47M0.5 -57C1.5 -54 2 -51 2.6 -49"
+        fill="none"
+        strokeWidth={0.8}
+        strokeLinecap="round"
+        className="stroke-room-docs"
+      />
+
+      {/* The sole: the welt and its yellow stitching, a groove, the tread */}
+      <rect
+        x={-15.5}
+        y={-8}
+        width={31}
+        height={8}
+        rx={2.5}
+        className="fill-room-docs-sole"
+      />
+      <rect
+        x={-16}
+        y={-9.5}
+        width={32}
+        height={3}
+        rx={1.5}
+        className="fill-room-docs"
+      />
+      <path
+        d="M-14.5 -8H14.5"
+        strokeWidth={0.6}
+        strokeDasharray="1 0.8"
+        className="stroke-room-docs-stitch"
+      />
+      <path
+        d="M-15.3 -3.6H15.3"
+        strokeWidth={0.8}
+        className="stroke-room-docs"
+      />
     </g>
+  );
+}
+
+// The gradient the Docs are shaded with
+function Defs() {
+  return (
+    <defs>
+      {/* Darker toward each side, so the boot looks round */}
+      <linearGradient
+        id={`${ID}-doc-round`}
+        x1="0"
+        y1="0"
+        x2="1"
+        y2="0"
+        className="text-room-docs-oxblood-dark"
+      >
+        <stop offset="0" stopColor="currentColor" stopOpacity={0.6} />
+        <stop offset="0.3" stopColor="currentColor" stopOpacity={0} />
+        <stop offset="0.7" stopColor="currentColor" stopOpacity={0} />
+        <stop offset="1" stopColor="currentColor" stopOpacity={0.6} />
+      </linearGradient>
+    </defs>
   );
 }
 
@@ -558,33 +596,37 @@ export default function Closet({
   top,
   height,
 }: {
-  version: ClosetVersion;
   /** The bookshelf drawing's top and height, to line up with it. */
   top: number;
   height: number;
 }) {
-  const red = SUNNIES[2];
-  const box = {
-    left: `${((STRAP - 22) / CLOSET_WIDTH) * 100}%`,
-    top: `${((red.y - 13 - top) / height) * 100}%`,
-    width: `${(44 / CLOSET_WIDTH) * 100}%`,
-    height: `${(26 / height) * 100}%`,
-  };
+  // Each pair of sunnies' button, 44 by 22 about where it hangs, as
+  // percentages of the drawing
+  const pairs = PAIRS.map(({ kind, y }) => ({
+    kind,
+    box: {
+      left: `${((STRAP - 22 * SIZE) / WIDTH) * 100}%`,
+      top: `${((y - 11 * SIZE - top) / height) * 100}%`,
+      width: `${((44 * SIZE) / WIDTH) * 100}%`,
+      height: `${((22 * SIZE) / height) * 100}%`,
+    },
+  }));
   return (
     <div
       className="relative shrink-0"
-      style={{ width: `calc(var(--room-unit) * ${CLOSET_WIDTH})` }}
+      style={{ width: `calc(var(--room-unit) * ${WIDTH})` }}
     >
       <svg
-        viewBox={`0 ${top} ${CLOSET_WIDTH} ${height}`}
+        viewBox={`0 ${top} ${WIDTH} ${height}`}
         role="img"
-        aria-labelledby="closet-title"
+        aria-labelledby={`${ID}-title`}
         className="block h-auto w-full overflow-visible"
       >
-        <title id="closet-title">
-          My closet: my leather jacket with the tag still on, my cheetah fur
-          jacket, my disco dress, my sunnies and my Docs.
+        <title id={`${ID}-title`}>
+          My closet: my long leather jacket, my cheetah fur coat, my disco
+          dress, my sunnies and my oxblood Docs.
         </title>
+        <Defs />
 
         {/* The frame: top and bottom boards, posts, and the rod */}
         <rect
@@ -627,16 +669,12 @@ export default function Closet({
         <LeatherJacket />
         <CheetahJacket />
         <DiscoDress />
-        <Strap />
-        {SUNNIES.map(
-          (s) =>
-            s.kind !== "red" && <Sunnies key={s.kind} y={s.y} kind={s.kind} />,
-        )}
+        <Strap x={STRAP} end={PAIRS[PAIRS.length - 1].y + 22} />
 
-        <Doc x={100} back />
-        <Doc x={26} />
+        <Doc x={54} />
+        <Doc x={90} flip />
       </svg>
-      <RedSunnies box={box} />
+      <ClosetSunnies pairs={pairs} />
     </div>
   );
 }

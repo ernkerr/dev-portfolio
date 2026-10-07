@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/site/SiteShell";
-import Room, { SHELVES } from "./Room";
+import Room, { SHELVES, WindowAndCloset } from "./Room";
 
 export const metadata: Metadata = {
   title: "About",
@@ -33,8 +33,6 @@ export default function AboutPage() {
               lava,
               cuttings,
               clock,
-              view,
-              closet,
             }) => (
               <figure key={version} className="shrink-0">
                 <Room
@@ -48,8 +46,6 @@ export default function AboutPage() {
                   lava={lava?.version}
                   cuttings={cuttings?.version}
                   clock={clock?.version}
-                  view={view?.version}
-                  closet={closet?.version}
                 />
                 <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
                   <p>
@@ -64,12 +60,18 @@ export default function AboutPage() {
                   {lava && <p className="mt-1">{lava.label}</p>}
                   {cuttings && <p className="mt-1">{cuttings.label}</p>}
                   {clock && <p className="mt-1">{clock.label}</p>}
-                  {view && <p className="mt-1">{view.label}</p>}
-                  {closet && <p className="mt-1">{closet.label}</p>}
                 </figcaption>
               </figure>
             ),
           )}
+          {/* Past the shelves: the window and my closet, as they are */}
+          <figure className="shrink-0">
+            <WindowAndCloset />
+            <figcaption className="mt-3 font-mono text-label uppercase text-site-muted">
+              <p>Window</p>
+              <p className="mt-1">Closet</p>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </SiteShell>

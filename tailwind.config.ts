@@ -244,23 +244,29 @@ export default {
             "night-far": "#252E48",
             lit: "#FFD98A",
           },
-          // My closet: the leather jacket (black, its edges and sheen), the
-          // cheetah fur jacket (its fur, the lighter collar, the spots and
-          // rosettes), the disco dress's silver sequins (mid, bright, dim,
-          // and the dark between them), my Docs (black leather, sheen,
-          // sole, yellow welt stitching), the price tag, and the sunnies
-          // on their strap: black, tortoiseshell and my red ones, and the
-          // red they tint the page when they're on
+          // My closet: the long leather jacket (black, its edges and
+          // buttons, its sheen), the cheetah fur coat in a darker cheetah
+          // print (its tan-brown ground, its collar's light and its
+          // shadows, the spots), the disco dress's silver sequins (mid,
+          // bright, dim, and the dark between them), my oxblood Docs (the
+          // leather, its shadow and its light; black laces, eyelets, sole
+          // and welt, and the yellow welt stitching), and the sunnies on
+          // their strap: black, tortoiseshell, slim brown ovals (their
+          // frames and lenses), red-orange tortoiseshell (its deep red and
+          // amber, and their orange lenses) and my red ones (the frame,
+          // its light and shadow, the lenses); and the color each pair
+          // tints the page when it's on: red, a little darker, sepia,
+          // orange, warm brown
           leather: {
             DEFAULT: "#1C1B1E",
             edge: "#33323A",
             sheen: "#4A4952",
           },
           cheetah: {
-            DEFAULT: "#D6A25A",
-            light: "#E9C682",
-            spot: "#2A1C12",
-            rosette: "#8A5528",
+            DEFAULT: "#9A6A3C",
+            light: "#C29460",
+            dark: "#5E3E22",
+            spot: "#22150C",
           },
           sequin: {
             DEFAULT: "#B9C0C8",
@@ -273,10 +279,9 @@ export default {
             sheen: "#3A3A40",
             sole: "#232325",
             stitch: "#E8C21A",
-          },
-          tag: {
-            DEFAULT: "#EAD9B0",
-            ink: "#C8102E",
+            oxblood: "#5B1A22",
+            "oxblood-dark": "#35090F",
+            "oxblood-light": "#8A3039",
           },
           sunnies: {
             strap: "#E9E2D3",
@@ -285,9 +290,22 @@ export default {
             tortoise: "#6B3E1E",
             "tortoise-spot": "#2E1A0C",
             "tortoise-lens": "#8A5A2B",
+            "tortoise-light": "#A86A35",
             red: "#D7263D",
             "red-lens": "#F05A66",
+            "red-dark": "#9E1427",
+            "red-light": "#F58A94",
+            orange: "#D4421F",
+            "orange-lens": "#F49A45",
+            "orange-dark": "#9C2410",
+            "orange-light": "#F4A43A",
+            brown: "#5E3B27",
+            "brown-lens": "#2E1B12",
             tint: "#FF3B3B",
+            "tint-dark": "#5F6670",
+            "tint-sepia": "#C9A270",
+            "tint-orange": "#FF8A2A",
+            "tint-brown": "#8A5A3A",
           },
           // My black and gold clock: its case, face, rim and white numbers
           // (its hands and legs are room-gold)

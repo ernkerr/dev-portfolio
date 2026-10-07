@@ -11,19 +11,24 @@ import { PAGES } from "./pages";
 // site shows; projects are drafted from the case studies. Things I tell it
 // that aren't anywhere else go in FROM_ME.
 //
-// Left out on purpose: my phone and personal email (it gives hello@ instead),
+// Never in here: where I live or work, where I'm from, my age, when I
+// graduated, my phone or personal email (it gives hello@ instead).
+//
+// Left out on purpose:
 // Group Sing Along's "~155 active users" and its Engineering side's
 // database, Hearts as my "third" app, anything inside an OrderSync
 // [bracket], numbers only in OrderSync's A and B drafts, and the resume's
 // "MVP in one week" for Group Sing Along (its case study says about 2
-// weeks) until the two agree.
+// weeks) until the two agree, and the interview story about cutting
+// Carpoolio's step-by-step onboarding to one screen (the case study says
+// it went the other way, to one question per screen).
 
 const ABOUT = `## Who I am
 
 - I'm Erin Kerr, a product designer and design technologist who researches, designs and builds. On this site I put it as "a designer who engineers".
 - I take products from wireframes to shipped code. I prototype in Figma and in React, TypeScript and Claude Code.
 - Before design, I spent over two years at SRI International running 500+ interview sessions with teens and parents for two NIH-funded studies, earning the trust it takes for people to talk openly about substance use and trauma. I use those same interviewing skills to learn what users need before I design for them.
-- I'm based in New York, NY, and I'm applying for product and UI/UX design roles.
+- I'm looking for product design, UI/UX and design engineering roles (more under "If you're hiring").
 - I built this site myself. A designer told me my old portfolio read like an engineer's, so I redesigned it to lead with design (see Portfolio Redesign).
 - Email: ${EMAIL}. ${SOCIALS.filter((s) => !s.href.startsWith("mailto:"))
   .map((s) => `${s.label}: ${s.href}`)
@@ -45,28 +50,28 @@ For anything not here or in "Resume", people should email me.`;
 // line is from my LinkedIn profile.
 const RESUME = `## Resume
 
-Cyber Goose, Founder & Product Designer/Engineer, remote, July 2024 to now
+Cyber Goose, Founder & Product Designer/Engineer, July 2024 to now
 - Designed and built Carpoolio, a cross-platform ride coordination app, owning every user flow, onboarding screen and interaction from wireframes and prototypes through App Store launch to an early-stage acquisition.
 - Maintained a 5-star App Store rating through usability testing, user feedback loops and rapid design iteration, including a user-requested feature that converted a 4-star review to 5 stars.
 - Designed and built GroupSingAlong, a real-time synchronized-lyrics web app; observed users in person at live events and designed a song-request flow for singers and hosts.
 
-OrderSync, Design Engineer (contract), remote, 2025 to now
+OrderSync, Design Engineer (contract), 2025 to now
 - Audited and redesigned the marketing site around a token-based design system: a color palette, design tokens, reusable components and page templates, with automatic light and dark themes.
 - Carried the same tokens, palette and components into the user-facing product pages, giving marketing and product one consistent visual language.
 - Built an AI agent that extracts order data from incoming emails, plus the ingestion pipeline, data models and parser services behind it.
 
-Wispr AI, Junior Software Developer, neurotech hardware R&D, San Francisco, February to July 2024
+Wispr AI, Junior Software Developer, neurotech hardware R&D, February to July 2024
 - Ran user interviews with study participants and internal researchers to define user needs and requirements for a participant waitlist tool serving both groups.
 - Designed and built the tool, then refined it through usability testing, contributing to a 10x increase in experimental data collection throughput.
 - Built full-stack internal tools for brain-computer interface R&D alongside senior engineers, working in tight code review loops.
 - Supported software-driven experiments, turning participant feedback into hardware-software interface improvements that reduced data artifacts by over 5%.
 
-SRI International, Research Associate, promoted to Senior Project Manager, neuroscience research, Menlo Park, October 2021 to February 2024
+SRI International, Research Associate, promoted to Senior Project Manager, neuroscience research, October 2021 to February 2024
 - Conducted 500+ structured and semi-structured interview sessions with adolescents, young adults and parents for NCANDA and ABCD, two NIH-funded longitudinal studies of adolescent brain development, including structured clinical and substance-use interviews.
 - Built trust with participants and families, enabling candid, accurate responses on sensitive topics such as substance use, mental health and adverse life experiences.
 - Raised visit completion rates 20% through protocol coordination; managed multi-site study operations whose data supports 100+ publications.
 
-Education: B.S. Psychology, magna cum laude, Boise State University. In college I was also music director at University Pulse, Boise State's student radio, and hosted The Underground, a weekly show about new music and Boise bands.`;
+Education: B.S. Psychology, magna cum laude, Boise State University. In college I was also music director at University Pulse, the student radio station, and hosted The Underground, a weekly show about new music and local bands.`;
 
 const SKILLS = `## Skills
 
@@ -90,6 +95,87 @@ const PROCESS = `## How I work
 - I turn designs into small design systems so every page stays consistent: OrderSync's site, my score-tracker apps and this site all run on one.
 - I check my own claims. I checked every claim on my OrderSync case study against the project and cut 3.
 - I design in Figma and FigJam, prototype in Figma and in code, and build with Next.js, React, Tailwind CSS, TypeScript, React Native and Expo.`;
+
+// In my own words from the case studies. The stories are the real ones;
+// it should tell these, not make new ones up.
+const THINKING = `## How I think about design
+
+- The "grandpa test": if my grandpa can understand it, anyone can. (Gin Score Tracker's goal)
+- Design for the people who aren't in charge. (What Group Sing Along taught me: the people who join late and don't hold the phone)
+- Scope tightly, put the user experience first, and ship before it's "perfect." (What Gin Score Tracker taught me)
+- A portfolio is a product that's never finished. (Portfolio Redesign)
+
+## Things that went wrong, and what I changed
+
+- Gin Score Tracker: the free game stopped people before they could finish it. A 1-star review said "This sucks, I can't actually finish a game, guess I have to delete it." In June 2026 I moved the paywall to after the win, so scoring is never blocked, made editing and deleting games free, and replied to the review. The reviewer updated it.
+- Gin Score Tracker: in testing, people were adding the bonus twice, so the bonus now shows in blue with the total under it. After launch, 4 of the 5 people I asked said the buttons were too small, so every main button became full width and 64px tall.
+- Group Sing Along: people who joined mid-song had to wait for the next one. Now a new phone asks the host's phone for the current song. Group codes started at 5 letters; on January 12, 2025 I cut them to 4 and made them work in any case. I also renamed the "conductor" to the "host."
+- Carpoolio: my first editor in October 2024 was 1 glowing card. I split it into 2 columns, then on November 11 took creating a trip out of the editor entirely, into one question per screen. Looking back, I'd have built a simpler web app first; Carpoolio was a lot for a first full-stack app.
+- Hearts Score Tracker: my first draft's win screen said "YOU WINS!" I fixed it the same day, and the version that shipped the next day had each player as a row you tap.
+- Portfolio Redesign: I threw out my first direction (a separate /design page) and started over from a blank page.
+- OrderSync case study: I checked every claim against the project and cut 3, including "zero design debt," because my own audit tool found 22 off-palette colors.`;
+
+// My answers to what recruiters ask, rewritten with me (October 2026).
+// Pay, start date and work authorization are exactly what I want said.
+const HIRING = `## If you're hiring
+
+- What I'm looking for: I'm open to product design, UI/UX and design engineering roles, at a startup or a bigger team, remote, hybrid or in-office. What I want most is a team: bigger, more complex products than I can build on my own, and room to keep growing as a designer and an engineer.
+- Why I'm looking: I just wrapped up a contract, and after 2 years of designing and shipping on my own, I want to build something bigger with other people.
+- When I can start: about 2 weeks after an offer, so I can close out my current projects.
+- Work authorization: I'm authorized to work in the US and don't need sponsorship.
+- Pay: Happy to discuss for the role.
+- Location: I'm flexible: remote, hybrid or in-office. I don't share where I live here.
+
+## Why design
+
+- I went from neuro, to neurotech, to tech. My background is psychology and neuroscience, and so much of design is applied psychology: how people notice, decide and trust.
+- After 2 years of building web and mobile apps end to end, the part I kept coming back to was the design: watching people use what I made, hearing what didn't work, and changing it until it did. I see my job as giving users a voice in the product.
+- I care about the details most engineers skip: motion, type, and how a screen feels to use.
+
+## Why I'd be a good hire
+
+- I design and build, so what I design is what ships. I've taken products from wireframes to the App Store on my own, including Carpoolio, which was acquired.
+- I start with people. Before design I ran 500+ research interviews for NIH-funded studies, on things people don't easily talk about, and I bring that to every user interview.
+- I can explain technical things to people who aren't technical. I run @erin.codes, a coding community on Instagram with about 15K followers, where posts start from questions people already have, like why Netflix goes black when you share your screen.
+- I use AI tools every day as a partner, not a replacement for thinking. I'd rather be the architect than the bricklayer.
+- Low ego, high ownership: I'd rather throw out my own work than ship something I don't believe in.
+- If someone points out I have fewer years than a role asks for: I've spent over 2 years designing and shipping my own products at Cyber Goose, including one that was acquired. A lot of what these roles describe is what I've already been doing on my own.
+
+## Strengths and weaknesses
+
+- Strength: determination. When something's off, like data dropping or a review saying the app is broken, I keep digging until I find the real cause and fix it (see the Wispr headset story).
+- Weakness: delegating. I'm used to owning a product end to end, so I'm practicing handing work off earlier, and handing off the interesting parts, not just the leftovers.
+
+## How I work, in more detail
+
+- Process: I start with the people: research, interviews, watching them work. With their OK, I record interviews so I never ask the same question twice. Then I write the problem down as one statement, sketch flows on paper or a whiteboard, and only open Figma once the structure is clear. I prototype interactions before I commit to them, and I treat the build as one more round of design: what felt right in Figma often needs changing once it's interactive.
+- Design systems: tokens first (color, spacing, type, radius, motion), then primitives built from them (buttons, inputs), then patterns built from those (forms, lists, navigation). Tokens are letters, primitives are words, patterns are sentences: if the letters are wrong, every word is misspelled. On an existing product I start with an audit: screenshot every button, input and color, find where Figma and code have drifted apart, and ask about anything unclear. I'd rather live with 3 slightly different cards for a month than ship the wrong abstraction.
+- Feedback: I separate the what from the why. If someone says "make this button red," I ask what problem they're solving; it's usually hierarchy or urgency, and there's often a better fix. And if I'm wrong, I want to know fast.
+- Motion: it helps when it confirms an action, shows where something came from or went, smooths a layout shift or covers a wait. It hurts when it's decoration, gets in the way of the next step, plays every time on a screen people visit 10 times a day, or ignores reduced-motion settings.
+- Designing for AI, where the output isn't predictable: design for transparency, with honest loading states, a sense of how confident the system is, and clear diffs so people can see what changed.
+- Figma and code: Figma is the source of truth for how things look, code for how they behave. Token names match exactly in both, and component props in Figma mirror the props in code, so designers and engineers speak the same language. Before I build a design, I ask about the states that often get skipped: hover, empty, loading, error and small screens. Before I ship, I check it on a phone, with only a keyboard, with reduced motion on and at 200% zoom.
+- Pushing back: I build it as designed when it's a deliberate choice I just don't love. I push back when it breaks accessibility, breaks the system or creates upkeep the designer might not see, and I ask it as a question first: is this on purpose?
+- Working with others: I want designers and engineers together early, while ideas are still open, not at handoff. When I'm the one building, my job is for the designer's intent to show up in production exactly as they imagined it.
+- Prioritizing: user impact first, then effort. I keep a running list and re-rank it every week. Running my own studio taught me that fixing what's broken is worth more than the most-loved new feature.
+- Big, messy problems: I break them into smaller pieces, decide what has to happen first, and ask for help when I need it.
+- AI tools: I learned to code as AI tools arrived, so I use Claude Code and Cursor every day. I know where they're strong and where they miss, and I use them to learn and move faster, not to think for me.
+- In 5 years: I want to be someone a team relies on for design, owning bigger parts of the product, mentoring others, and leading when I'm ready.
+
+## Stories (tell these as written)
+
+- Why Group Sing Along exists: my family loves to sing together, but their songbooks were out of date, and the older generation had a hard time googling lyrics to keep up.
+- Group Sing Along, being wrong about users: I assumed people in the same room would just tell the host what song they wanted. I was wrong: requests became the most-asked-for feature, so I designed a request flow where singers tap Request and the host gets 1 list to accept from.
+- Wispr, finding the real cause: while we collected brain-computer interface data, recordings were dropping about 5% of the time. Others thought it was certain participants; I wasn't satisfied with that, and traced it to one headset. A literal duct tape fix stopped the drops. I presented it to the company, and the hardware team made a part that did the duct tape's job.
+- SRI, leading peers: after my manager, and then their replacement, left, I took on running a study and was asked to delegate to my peers. Some pushed back ("who made you the boss?"). I asked my manager for a title change to match the new responsibilities, and I changed how I delegated: I handed off the interesting work too, not just the small tasks. Morale got better, and I ran the study well.
+- OrderSync, learning fast: the backend was PHP/Laravel, which was new to me. I leaned on the principles I already knew from TypeScript, and within a couple of weeks I was contributing to the Laravel backend alongside the TypeScript services.
+- @erin.codes: I started it when I was learning to code, and now I'm the one teaching. My first series, Catch the Syntax, was errors from my own work. What works best is starting from a question people already have and letting the technical part sneak in.
+
+## Tools and apps I think have great taste
+
+- The best tools are the ones you forget about, because they're that easy to use.
+- 1Password: it works everywhere, so you never think about it. Present when you need it, invisible when you don't.
+- Partiful: it makes software feel like an event instead of a form. The interactions, the copy and the motion all pull toward joy without giving up usability. I pitched Carpoolio as "Partiful for road trips" because that was the bar.
+- Arc: separate spaces and profiles for work, learning, building and personal admin. It respects that those are different modes.`;
 
 const PROJECTS = `## Projects
 
@@ -188,6 +274,8 @@ export const KNOWLEDGE = [
   RESUME,
   SKILLS,
   PROCESS,
+  THINKING,
+  HIRING,
   PROJECTS,
   FUN,
   ABOUT_PAGE,

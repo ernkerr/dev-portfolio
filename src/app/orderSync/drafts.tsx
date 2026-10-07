@@ -11,9 +11,11 @@ import { Caption, Code, Figure, label } from "@/components/site/prose";
 // section carries up to four versions from
 // career-ops/output/ordersync-case-study-master.md, with tabs to switch
 // between them, so Erin can compare them in the real layout before picking.
+// Each section opens on a recommended version. E is the research-led rewrite
+// from ./new, split to match these sections.
 // ◆ marks suggested reasoning to keep or cut; [brackets] mark fill-ins.
 
-export type V = "A" | "B" | "C" | "D";
+export type V = "A" | "B" | "C" | "D" | "E";
 
 export const VERSIONS: { id: V; name: string; about: string }[] = [
   {
@@ -38,9 +40,21 @@ export const VERSIONS: { id: V; name: string; about: string }[] = [
     about:
       "Your voice, with patterns from Nicole Roberts (Walmart), Jessica Goldman (Therabody) and Bethany Heck (Tumblr).",
   },
+  {
+    id: "E",
+    name: "Research-led",
+    about:
+      "Research first, every number checked, with the landscape, mood board, process files and a live hero. In its own order at /orderSync/new.",
+  },
 ];
 
 export type Versions = Partial<Record<V, ReactNode>>;
+
+/** What the page shows: one version everywhere, or each section's pick. */
+export type Mode = V | "rec";
+
+/** The version recommended for a section, why, and what it still needs. */
+export type Rec = { v: V; why: string; fix?: string };
 
 /** The version a section shows: the one asked for, or its first if missing. */
 export function versionFor(versions: Versions, want: V): V {
@@ -54,50 +68,57 @@ export function DraftKey({
   all,
   onPickAll,
 }: {
-  all: V;
-  onPickAll: (v: V) => void;
+  all: Mode;
+  onPickAll: (m: Mode) => void;
 }) {
+  const options: { id: Mode; text: string; name: string }[] = [
+    { id: "rec", text: "Recommended", name: "The recommended version of each section" },
+    ...VERSIONS.map((v) => ({
+      id: v.id,
+      text: v.id,
+      name: `Version ${v.id}, ${v.name}`,
+    })),
+  ];
   return (
     <div className="border border-site-line p-5 md:p-6">
-      <p className={label}>Draft: all four versions</p>
-      <p className="mt-3 max-w-[40rem] text-[15px] leading-[1.65] text-site-ink/80">
-        Each section has up to four versions. Pick one per section, or mix lines
-        across them. The tabs on a section switch only that section.
+      <p className={label}>Draft: pick a version</p>
+      <p className="mt-3 max-w-measure text-body-sm text-site-ink/80">
+        Each section opens on the version I recommend, picked with your
+        research, and says why under its tabs. The tabs switch just that
+        section.
       </p>
       <dl className="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2">
         {VERSIONS.map((v) => (
           <div key={v.id}>
-            <dt className="text-[15px] text-site-ink">
+            <dt className="text-body-sm text-site-ink">
               <span className={mono}>{v.id}</span> · {v.name}
             </dt>
-            <dd className="mt-1 text-[14px] leading-snug text-site-muted">
-              {v.about}
-            </dd>
+            <dd className="mt-1 text-caption text-site-muted">{v.about}</dd>
           </div>
         ))}
       </dl>
       <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-site-line pt-5">
         <span className={label}>Show every section in</span>
-        <div className="flex gap-2">
-          {VERSIONS.map((v) => (
+        <div className="flex flex-wrap gap-2">
+          {options.map((o) => (
             <button
-              key={v.id}
+              key={o.id}
               type="button"
-              aria-pressed={all === v.id}
-              aria-label={`Version ${v.id}, ${v.name}`}
-              onClick={() => onPickAll(v.id)}
-              className={`${mono} h-9 w-9 border text-[13px] transition-colors ${
-                all === v.id
+              aria-pressed={all === o.id}
+              aria-label={o.name}
+              onClick={() => onPickAll(o.id)}
+              className={`${mono} h-9 border px-3 text-nav uppercase transition-colors ${
+                all === o.id
                   ? "border-site-ink bg-site-ink text-site-paper"
                   : "border-site-line text-site-ink hover:border-site-ink"
               } ${focusRing}`}
             >
-              {v.id}
+              {o.text}
             </button>
           ))}
         </div>
       </div>
-      <p className="mt-5 max-w-[40rem] text-[14px] leading-relaxed text-site-muted">
+      <p className="mt-5 max-w-measure text-caption text-site-muted">
         <Why /> Suggested reasoning: keep only what matches how you actually
         thought about it. <Fill>Brackets</Fill> mark something to fill in.
       </p>
@@ -112,12 +133,15 @@ export function VersionTabs({
   versions,
   want,
   onPick,
+  rec,
 }: {
   id: string;
   title: string;
   versions: Versions;
   want: V;
   onPick: (v: V) => void;
+  /** The version recommended for this section, and why. */
+  rec?: Rec;
 }) {
   const available = VERSIONS.filter((v) => versions[v.id] !== undefined);
   const missing = VERSIONS.filter((v) => versions[v.id] === undefined);
@@ -172,10 +196,18 @@ export function VersionTabs({
                 } ${focusRing}`}
               >
                 {v.id} · {v.name}
+                {rec?.v === v.id && " · Recommended"}
               </button>
             );
           })}
         </div>
+        {rec && (
+          <p className="max-w-measure text-caption text-site-muted">
+            <span className="text-site-ink">Recommended: {rec.v}.</span>{" "}
+            {rec.why}
+            {rec.fix && <> Fix: {rec.fix}</>}
+          </p>
+        )}
         {missing.length > 0 && (
           <p className="text-[13px] text-site-muted">
             {want !== current && <>No {want} version of this section. </>}

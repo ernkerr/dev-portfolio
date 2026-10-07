@@ -37,10 +37,18 @@ import {
   VersionTabs,
   Why,
   versionFor,
+  type Mode,
+  type Rec,
   type Swatch,
   type V,
   type Versions,
 } from "./drafts";
+import {
+  E,
+  HERO as E_HERO,
+  LABEL as E_LABEL,
+  TITLE as E_TITLE,
+} from "./new/Design";
 
 // Every version of the write-up from
 // career-ops/output/ordersync-case-study-master.md, section by section, so
@@ -183,7 +191,8 @@ const HEADERS: Record<V, { label: string; title: string; content: ReactNode }> =
               label: "Team",
               value: (
                 <>
-                  Me + <Fill>James Julius, title</Fill>, who reviewed and merged
+                  Me, with James, OrderSync’s founder, who reviewed and merged
+                  it
                 </>
               ),
             },
@@ -211,11 +220,8 @@ const HEADERS: Record<V, { label: string; title: string; content: ReactNode }> =
             { label: "Timeline", value: "May 18 to June 19, 2026" },
             {
               label: "Team",
-              value: (
-                <>
-                  Me + <Fill>James Julius, title</Fill>, who reviewed and merged
-                </>
-              ),
+              value:
+                "Me, with James, OrderSync’s founder, who reviewed and merged it",
             },
             {
               label: "Skills",
@@ -248,7 +254,7 @@ const HEADERS: Record<V, { label: string; title: string; content: ReactNode }> =
                 label: "Team",
                 value: (
                   <>
-                    Me and <Fill>James, title</Fill>, who reviewed and merged
+                    Me and James, OrderSync’s founder, who reviewed and merged
                     everything
                   </>
                 ),
@@ -296,7 +302,7 @@ const HEADERS: Record<V, { label: string; title: string; content: ReactNode }> =
                 label: "Team",
                 value: (
                   <>
-                    Me, plus <Fill>James, title</Fill> reviewing and merging
+                    Me, plus James, OrderSync’s founder, reviewing and merging
                   </>
                 ),
               },
@@ -313,6 +319,13 @@ const HEADERS: Record<V, { label: string; title: string; content: ReactNode }> =
         </>
       ),
     },
+    E: {
+      label: E_LABEL,
+      title: E_TITLE,
+      content: (
+        <P>E opens with OrderSync’s hero, live, at the top of the page.</P>
+      ),
+    },
   };
 
 const HEADER_VERSIONS: Versions = {
@@ -320,6 +333,7 @@ const HEADER_VERSIONS: Versions = {
   B: HEADERS.B.content,
   C: HEADERS.C.content,
   D: HEADERS.D.content,
+  E: HEADERS.E.content,
 };
 
 /* ---------- 2 to 13 ---------- */
@@ -342,7 +356,7 @@ const DRAFTS: Draft[] = [
             and syncs them straight into a company’s ERP. The marketing site is
             measured on one number: visitors who book an intro call. But it had
             grown page by page. The brand navy existed as three hex values under
-            four different names, pages leaned on 92 gradient utilities and a
+            four different names, pages leaned on 155 gradient utilities and a
             glow and glassmorphism kit, and every visual tweak meant hunting
             through hex strings.
           </P>
@@ -386,10 +400,9 @@ const DRAFTS: Draft[] = [
             fine from a retailer.
           </P>
           <P>
-            And they’ve been burned before. In the reviews I read, the biggest
-            names in this space promised 6 to 8 week setups and took 9 months.
-            So the site had one job: look calm and dependable enough that
-            someone books a call.
+            And they’ve been burned before. In one review I read, an SPS
+            Commerce setup quoted at 6 to 8 weeks took 9 months. So the site had
+            one job: look calm and dependable enough that someone books a call.
           </P>
         </>
       ),
@@ -461,8 +474,8 @@ const DRAFTS: Draft[] = [
           <List>
             <li>Shipped June 19, 2026 as 8 PRs touching 237 files</li>
             <li>450 color references now resolve to 3 hex values</li>
-            <li>Components use semantic tokens 2,487 times</li>
-            <li>Gradient utilities cut from 92 to 6</li>
+            <li>Components used semantic tokens 2,480 times at launch</li>
+            <li>Gradient utilities cut from 155 to 6</li>
             <li>One FAQ pattern replaces one-offs across 26 files</li>
             <li>
               <Fill>
@@ -480,8 +493,8 @@ const DRAFTS: Draft[] = [
           </Pattern>
           <List>
             <li>450 color references now resolve to 3 values</li>
-            <li>Semantic tokens are used 2,487 times across the codebase</li>
-            <li>Gradient utilities dropped from 92 to 6</li>
+            <li>Semantic tokens were used 2,480 times at launch</li>
+            <li>Gradient utilities dropped from 155 to 6</li>
             <li>One FAQ pattern replaced one-offs across 26 files</li>
             <li>Every public page is checked in light and dark</li>
             <li>
@@ -496,18 +509,18 @@ const DRAFTS: Draft[] = [
       C: (
         <>
           <Headline>
-            A quieter, navy site with one chrome button you can’t miss.
+            A quieter, navy site, with chrome saved for one button.
           </Headline>
           <Shots
             items={[
               { ...SHOTS.heroLight, label: "Light" },
               { ...SHOTS.heroDark, label: "Dark" },
             ]}
-            caption="Navy carries every heading, so the brand reads the same in light and dark."
+            caption="Navy carries the headings in light mode and becomes the page in dark mode."
           />
           <Shots
             items={[SHOTS.landing]}
-            caption="Book a Call is the only chrome object on the page, so your eye lands there first."
+            caption="A landing page in the same navy and white. Its main button is navy, like the homepage’s, and the chrome Book a Call pill stays in the header."
           />
           <Shots
             items={[SHOTS.tool]}
@@ -545,9 +558,9 @@ const DRAFTS: Draft[] = [
           <HeaderCompare
             caption={
               <>
-                <strong>Fig 2. The header.</strong> Book a Call is the only
-                chrome object on the page. Sign In stepped back to a text link
-                so it stops competing.
+                <strong>Fig 2. The header.</strong> Book a Call became a chrome
+                pill, the only chrome button on the site. Sign In stepped back
+                to a text link so it stops competing.
               </>
             }
           />
@@ -621,7 +634,7 @@ const DRAFTS: Draft[] = [
             </li>
             <li>450 color references depended on those names.</li>
             <li>
-              <strong>Decoration on top:</strong> 92 gradient utilities, plus a
+              <strong>Decoration on top:</strong> 155 gradient utilities, plus a
               glow, orb and glassmorphism kit.
             </li>
           </List>
@@ -713,26 +726,26 @@ const DRAFTS: Draft[] = [
             Buyers don’t come to discover. They come to confirm.
           </Headline>
           <P>
-            86% of B2B buyers shortlist a product they’ve already heard of, and
-            71% buy their first choice (TrustRadius 2024, n=2,164). So the
-            landing page isn’t a discovery tool. Its job is to confirm a
-            decision and make booking a call easy. Before designing, I sized the
-            market ($2.5 to 3.1B EDI software, 10 to 12% CAGR), mapped 7
-            competitors, and mined Capterra reviews of the three biggest (1,035
-            reviews between them).
+            78% of B2B buyers with a shortlist put products on it they’d already
+            heard of, and 71% bought their first choice (TrustRadius 2024,
+            n=2,164). So the landing page isn’t a discovery tool. Its job is to
+            confirm a decision and make booking a call easy. Before designing, I
+            sized the market, mapped 7 competitors, and mined Capterra reviews
+            of the three biggest.
           </P>
           <Subhead>Pain points</Subhead>
           <List ordered>
             <li>
               <strong>Every format needs its own workflow.</strong> EDI from big
               retailers, PDFs from small ones, spreadsheets from portals, and a
-              person re-keying all of it. Manual entry costs $21+ per order vs.
-              under $6 automated.
+              person re-keying all of it. APQC found the worst performers spend
+              $21 per order on paper, fax and email, against $6 on digital
+              channels (2016).
             </li>
             <li>
-              <strong>Incumbents broke trust.</strong> 79% of SPS Commerce
-              pricing mentions were negative, and “6 to 8 week” implementations
-              ran 9+ months.
+              <strong>Incumbents broke trust.</strong> most SPS Commerce reviews
+              that mention pricing were negative, and “6 to 8 week”
+              implementations ran 9+ months.
             </li>
           </List>
           <P>
@@ -758,7 +771,7 @@ const DRAFTS: Draft[] = [
             items={[
               {
                 title: "Trustworthy",
-                text: "Buyers had been burned. 79% of SPS Commerce pricing mentions were negative, “6 to 8 week” implementations ran 9+ months, and reviews were full of billing disputes and services never delivered.",
+                text: "Buyers had been burned. most SPS Commerce reviews that mention pricing were negative, “6 to 8 week” implementations ran 9+ months, and reviews were full of billing disputes and services never delivered.",
               },
               {
                 title: "Strong",
@@ -766,7 +779,7 @@ const DRAFTS: Draft[] = [
               },
               {
                 title: "Clear",
-                text: "86% of B2B buyers shortlist a product they already know (TrustRadius 2024). They arrive to confirm a choice, so the page has to be direct and easy to scan.",
+                text: "78% of B2B buyers with a shortlist already knew the products on it (TrustRadius 2024). They arrive to confirm a choice, so the page has to be direct and easy to scan.",
               },
             ]}
           />
@@ -798,10 +811,10 @@ const DRAFTS: Draft[] = [
           </P>
           <P>
             Almost every group came back to the same two feelings: overwhelm,
-            and a deep distrust around billing. One stat stuck with me too. 86%
-            of B2B buyers already have a product in mind before they start
-            looking (TrustRadius 2024). So the site’s real job is reassurance:
-            confirm they’re in the right place, and make the call easy to book.
+            and a deep distrust around billing. One stat stuck with me too. 78%
+            of B2B buyers with a shortlist already knew the products on it
+            (TrustRadius 2024). So the site’s real job is reassurance: confirm
+            they’re in the right place, and make the call easy to book.
           </P>
           <FigureSlot caption="4 buyer groups. Every one of them was some version of tired and wary.">
             target-audience-segments.html
@@ -826,8 +839,7 @@ const DRAFTS: Draft[] = [
               },
               {
                 label: "Motivation",
-                value:
-                  "Stop the daily race to catch up. By 10 AM, only 40% of overnight orders are in.",
+                value: "Stop the daily race to catch up on orders.",
               },
               {
                 label: "Behavior",
@@ -837,7 +849,7 @@ const DRAFTS: Draft[] = [
               {
                 label: "Pain point",
                 value:
-                  "They’ve thought about hiring another person, but adding $50K of headcount to do more typing feels wrong at 2.9% margins.",
+                  "They’ve thought about hiring another person, but adding $50K of headcount to do more typing feels wrong on thin margins.",
               },
               {
                 label: "Design consideration",
@@ -862,15 +874,15 @@ const DRAFTS: Draft[] = [
             items={[
               {
                 title: "1. Buyers arrive half-decided.",
-                text: "86% shortlist a product they already know (TrustRadius 2024), so the page has to confirm, fast.",
+                text: "78% of buyers with a shortlist already knew the products on it (TrustRadius 2024), so the page has to confirm, fast.",
               },
               {
                 title: "2. Trust is the bottleneck.",
-                text: "79% of SPS Commerce pricing mentions were negative, and “6 to 8 weeks” turned into 9 months.",
+                text: "most SPS Commerce reviews that mention pricing were negative, and “6 to 8 weeks” turned into 9 months.",
               },
               {
                 title: "3. Errors cost real money.",
-                text: "Fixing one order error costs about $53, and Walmart charges 3% of the order’s value for compliance misses.",
+                text: "Walmart charges suppliers 3% of the cost of goods on cases that miss its on-time, in-full standard.",
               },
               {
                 title: "4. Their words beat ours.",
@@ -996,7 +1008,7 @@ const DRAFTS: Draft[] = [
                   swapped the pricing section for “Catch Errors Before They Cost
                   You”
                 </li>
-                <li>added proof stats to features</li>
+                <li>changed the proof stats</li>
                 <li>
                   rewrote the closing CTA from “Ready to Simplify Order
                   Processing?” to “Still Typing Orders Into Your ERP?”, in the
@@ -1221,7 +1233,8 @@ const DRAFTS: Draft[] = [
               a 120° sweep from gray #9CA3AF to a white highlight, like light
               catching polished steel. It plays once when the headline scrolls
               into view, replays on hover, and always finishes its pass, so it
-              never stutters. It runs on the homepage and 7 landing-page heroes.
+              never stutters. It runs on the homepage and across the landing
+              pages.
             </li>
           </List>
           <P>
@@ -1263,8 +1276,9 @@ const DRAFTS: Draft[] = [
             accent. <Why /> Chrome reads as strength and precision, like the
             stainless steel that fills the warehouses and commercial kitchens
             these buyers spend their days in. It shows up exactly twice: on the
-            Book a Call button, and as a silver glint that sweeps across key
-            words in each headline, like light catching polished metal.
+            Book a Call button in the header, and as a silver glint that sweeps
+            across key words in each headline, like light catching polished
+            metal.
           </P>
           <FigureSlot caption="Three directions. All-chrome looked strong but empty, so chrome shrank down to two moments.">
             design-preview.html (all chrome), design-preview-v2.html (emerald),
@@ -1301,7 +1315,7 @@ const DRAFTS: Draft[] = [
               },
               {
                 title: "Direction 3, navy with a chrome accent (chosen)",
-                text: "Navy carries the voice. Chrome shows up only on the button that books the call, plus a silver glint across headline keywords.",
+                text: "Navy carries the voice. Chrome shows up only on the Book a Call button in the header, plus a silver glint across headline keywords.",
               },
             ]}
           />
@@ -1408,7 +1422,7 @@ const DRAFTS: Draft[] = [
             <li>
               <strong>Removed.</strong> Glow, orbs and glassmorphism. <Why />{" "}
               They’re the visual shorthand of AI hype and worked against “trust
-              over trend.” Gradient utilities dropped from 92 to 6.
+              over trend.” Gradient utilities dropped from 155 to 6.
             </li>
           </List>
           <Materials
@@ -1433,11 +1447,7 @@ const DRAFTS: Draft[] = [
               “Still Typing Orders Into Your ERP?”
             </li>
             <li>
-              <strong>Body:</strong>{" "}
-              <Fill>
-                Satoshi Regular? Inter is also loaded, so confirm which one body
-                text uses.
-              </Fill>
+              <strong>Body:</strong> Satoshi Regular
             </li>
           </List>
           <P>
@@ -1468,8 +1478,7 @@ const DRAFTS: Draft[] = [
               Before They Cost You”
             </li>
             <li>
-              <strong>Body:</strong>{" "}
-              <Fill>confirm Satoshi Regular or Inter</Fill>
+              <strong>Body:</strong> Satoshi Regular
             </li>
           </List>
           <Subhead>Materials</Subhead>
@@ -1678,8 +1687,8 @@ const DRAFTS: Draft[] = [
             <Code>pnpm design:audit</Code> crawls every public page from the
             sitemap, flags off-system colors in the DOM, captures full-page
             screenshots in light and dark, and pixel-diffs them against a
-            baseline. A sample mode checks one page per template family (about
-            44 pages).
+            baseline. A sample mode checks one page per template, plus every
+            static page.
           </P>
           <FigureSlot>
             The generated contact sheet, plus one diff example.
@@ -1698,8 +1707,8 @@ const DRAFTS: Draft[] = [
             To keep the system honest, I built <Code>pnpm design:audit</Code>.
             It crawls every public page from the sitemap, flags off-system
             colors, screenshots each page in light and dark, and pixel-diffs it
-            against a baseline. A sample mode checks one page per template
-            family (about 44 pages).
+            against a baseline. A sample mode checks one page per template, plus
+            every static page.
           </P>
           <FigureSlot>The audit contact sheet.</FigureSlot>
         </>
@@ -1717,7 +1726,7 @@ const DRAFTS: Draft[] = [
             head={["Insight", "Action"]}
             rows={[
               [
-                "17 SEO landing pages still leaned on the old gradients.",
+                "5 SEO page templates still leaned on the old gradients.",
                 "Moved them onto the system’s flat navy and white surfaces.",
               ],
               [
@@ -1789,13 +1798,13 @@ const DRAFTS: Draft[] = [
               Shows the product working before anyone reads a paragraph.
             </li>
             <li>
-              <strong>Free tools.</strong> EDI Inspector, PO PDF Extractor and
-              the Order Cost Calculator. A way to try it without talking to
-              anyone.
+              <strong>Free tools.</strong> PO PDF Extractor, Invoice Extractor,
+              Invoice vs PO Matcher, EDI Inspector and EDI Translator. A way to
+              try it without talking to anyone.
             </li>
             <li>
               <strong>Closing band.</strong> Navy with the dot grid: “Still
-              Typing Orders Into Your ERP?” plus the chrome Book a Call button.
+              Typing Orders Into Your ERP?” plus a white Book a Call button.
             </li>
             <li>
               <strong>FAQ.</strong> The objections answered, in one consistent
@@ -1903,17 +1912,105 @@ const DRAFTS: Draft[] = [
   },
 ];
 
+/* ---------- Version E ---------- */
+
+// The research-led rewrite, in the parts that match these sections.
+const E_FOR: Record<string, ReactNode> = {
+  overview: E.overview,
+  solution: E.summary,
+  problem: E.problem,
+  research: E.research,
+  goals: E.goal,
+  wireframes: E.wireframes,
+  "visual-direction": E.visual,
+  palette: E.palette,
+  system: E.system,
+  rollout: E.rollout,
+  "final-designs": E.finalDesigns,
+  reflection: E.lessons,
+};
+
+/* ---------- Recommended versions ---------- */
+
+// The version of each section to start from, judged against Erin's own
+// research (docs: the portfolio-redesign case study's job-post and landscape
+// findings) and the stat check in docs/ordersync-research/stat-check.md.
+const REC: Record<string, Rec> = {
+  title: {
+    v: "E",
+    why: "C’s title, with the shipped homepage running live above it. Your case-study notes favor live components over screenshots.",
+  },
+  overview: {
+    v: "B",
+    why: "Your pick: design-coded language that sums up the whole project, from audit to shipped, and every number in it checks out (8 PRs, 237 files).",
+    fix: "“Navy for trust, metal for strength” rests on color psychology, which the research calls weak evidence. “Four primitives” is jargon; “4 shared components” says the same thing. It has no facts block, which E’s overview has.",
+  },
+  solution: {
+    v: "C",
+    why: "Shows the shipped site, the 2nd-biggest portfolio ask in your job-post research. E puts its screens in Results instead, and A and B lean on numbers I haven’t verified.",
+  },
+  problem: {
+    v: "E",
+    why: "C’s framing, with the blanks filled and every claim checked. A and B lead with code, which is 2% of portfolio asks.",
+  },
+  research: {
+    v: "E",
+    why: "The only version with the landscape and published studies, and with your process tracker and James’s words. D has the next best structure, and its numbers are now corrected.",
+  },
+  goals: {
+    v: "E",
+    why: "The goal tied to bookings, with your May 18 measurement plan as proof. D’s hypothesis still has a blank.",
+  },
+  wireframes: {
+    v: "E",
+    why: "Your real wireframes from May 18, with the research notes in the margin. A is accurate but has empty figure slots.",
+  },
+  "visual-direction": {
+    v: "E",
+    why: "Your dated mood board and directions, with James’s words. B, C and D lean on color psychology, which the research calls weak evidence.",
+  },
+  palette: {
+    v: "D",
+    why: "Live swatches, type and materials. Visual craft is almost a quarter of portfolio asks, and E only shows the glint.",
+    fix: "The swatch names are suggestions.",
+  },
+  system: {
+    v: "D",
+    why: "Short and in plain words, since code is 2% of portfolio asks, and the story about the homepage’s navy is true. E only points to the engineering side.",
+    fix: "Drop the ◆ headline or confirm it.",
+  },
+  rollout: {
+    v: "B",
+    why: "The verified rollout chart, 8 PRs and 237 files, in fewer words than A. E is 1 sentence.",
+  },
+  "final-designs": {
+    v: "E",
+    why: "Before and after side by side, which shows what changed. A shows more pages but no before.",
+  },
+  reflection: {
+    v: "E",
+    why: "A lesson about process, which your research found junior designers are judged on. C’s “Hold back the shiny stuff” could join it.",
+  },
+};
+
 /* ---------- Page ---------- */
 
 export default function Design() {
-  // The newest version leads. Picking a version at the top shows it in every
-  // section; a section's own tabs then change just that section.
-  const [all, setAll] = useState<V>("D");
+  // Each section opens on its recommended version. Picking a version at the
+  // top shows it in every section; a section's own tabs then change just
+  // that section.
+  const [all, setAll] = useState<Mode>("rec");
   const [picked, setPicked] = useState<Record<string, V>>({});
 
-  function pickAll(v: V) {
-    setAll(v);
+  function pickAll(m: Mode) {
+    setAll(m);
     setPicked({});
+  }
+
+  function want(id: string): V {
+    if (picked[id]) return picked[id];
+    if (all === "rec") return REC[id]?.v ?? "A";
+    return all;
   }
 
   function tabs(id: string, title: string, versions: Versions) {
@@ -1922,13 +2019,15 @@ export default function Design() {
         id={id}
         title={title}
         versions={versions}
-        want={picked[id] ?? all}
+        want={want(id)}
         onPick={(v) => setPicked((p) => ({ ...p, [id]: v }))}
+        rec={REC[id]}
       />
     );
   }
 
-  const header = HEADERS[versionFor(HEADER_VERSIONS, picked.title ?? all)];
+  const headerVersion = versionFor(HEADER_VERSIONS, want("title"));
+  const header = HEADERS[headerVersion];
 
   const sections: CaseStudySection[] = [
     {
@@ -1944,13 +2043,14 @@ export default function Design() {
     ...DRAFTS.map((d) => ({
       id: d.id,
       title: d.title,
-      content: tabs(d.id, d.title, d.versions),
+      content: tabs(d.id, d.title, { ...d.versions, E: E_FOR[d.id] }),
     })),
   ];
 
   return (
     <SiteShell>
       <CaseStudyArticle
+        hero={headerVersion === "E" ? E_HERO : undefined}
         label={header.label}
         title={header.title}
         sections={sections}

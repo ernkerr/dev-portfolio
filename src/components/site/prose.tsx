@@ -176,6 +176,46 @@ export function Table({
   );
 }
 
+const tipId = (name: string) =>
+  `tip-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+
+/**
+ * A label that says what its number counts: a dotted underline, and the tip on
+ * hover or tap. Its parent must be `relative`: the tip spans the parent's
+ * width, from 10rem up to 20rem. `id` keeps the tip's id unique on the page.
+ */
+export function TipLabel({
+  children,
+  tip,
+  id,
+}: {
+  children: string;
+  tip: ReactNode;
+  id: string;
+}) {
+  return (
+    <span className="group inline-block">
+      <button
+        type="button"
+        aria-describedby={tipId(id)}
+        className={`uppercase underline decoration-dotted underline-offset-4 ${focusRing}`}
+      >
+        {children}
+      </button>
+      {/* The padding bridges the gap, so the tip stays open on its way there. */}
+      <span
+        role="tooltip"
+        id={tipId(id)}
+        className="invisible absolute left-0 top-full z-10 w-full min-w-40 max-w-xs pt-2 group-focus-within:visible group-hover:visible"
+      >
+        <span className="block border border-site-line bg-site-paper p-3 font-sans text-caption normal-case tracking-normal text-site-ink/80 shadow-float ring-1 ring-black/5">
+          {tip}
+        </span>
+      </span>
+    </span>
+  );
+}
+
 // One row of facts on wide screens, whatever the count, so a short block
 // doesn't leave an empty column.
 const FACT_COLUMNS: Record<number, string> = {
@@ -185,11 +225,15 @@ const FACT_COLUMNS: Record<number, string> = {
   6: "grid-cols-2 sm:grid-cols-3",
 };
 
-/** Label and value pairs in a row, like the credits at the top of a study. */
+/**
+ * Label and value pairs in a row, like the credits at the top of a study. A
+ * `tip` says what a value counts: its label gets a dotted underline and shows
+ * the tip on hover or tap.
+ */
 export function Facts({
   items,
 }: {
-  items: { label: string; value: ReactNode }[];
+  items: { label: string; value: ReactNode; tip?: ReactNode }[];
 }) {
   const columns = FACT_COLUMNS[items.length] ?? FACT_COLUMNS[4];
   return (
@@ -198,7 +242,15 @@ export function Facts({
     >
       {items.map((item) => (
         <div key={item.label}>
-          <dt className={label}>{item.label}</dt>
+          <dt className={`relative ${label}`}>
+            {item.tip ? (
+              <TipLabel id={`fact-${item.label}`} tip={item.tip}>
+                {item.label}
+              </TipLabel>
+            ) : (
+              item.label
+            )}
+          </dt>
           <dd className="mt-2 text-body-sm leading-[1.55] text-site-ink">
             {item.value}
           </dd>
@@ -217,13 +269,13 @@ const STAT_COLUMNS: Record<number, string> = {
 };
 
 /**
- * A project's headline numbers, set large in serif, each with a short note
- * that says what it counts.
+ * A project's headline numbers, set large in serif. A `tip` says what a number
+ * counts, on its label, like Facts.
  */
 export function Stats({
   items,
 }: {
-  items: { label: string; value: ReactNode; note?: ReactNode }[];
+  items: { label: string; value: ReactNode; tip?: ReactNode }[];
 }) {
   const columns = STAT_COLUMNS[items.length] ?? STAT_COLUMNS[4];
   return (
@@ -232,13 +284,18 @@ export function Stats({
     >
       {items.map((item) => (
         <div key={item.label}>
-          <dt className={label}>{item.label}</dt>
+          <dt className={`relative ${label}`}>
+            {item.tip ? (
+              <TipLabel id={`stat-${item.label}`} tip={item.tip}>
+                {item.label}
+              </TipLabel>
+            ) : (
+              item.label
+            )}
+          </dt>
           <dd className="mt-2 font-serif text-section-sm text-site-ink md:text-section">
             {item.value}
           </dd>
-          {item.note && (
-            <dd className="mt-1 text-caption text-site-muted">{item.note}</dd>
-          )}
         </div>
       ))}
     </dl>

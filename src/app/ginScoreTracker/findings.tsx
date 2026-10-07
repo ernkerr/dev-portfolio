@@ -23,7 +23,7 @@ function ReviewImage({ shot }: { shot: ReviewShot }) {
   );
 }
 
-/** Review cards, 2 across on wider screens. */
+/** Review cards, 2 across on wider screens, or 1 centered. */
 export function ReviewShots({
   shots,
   caption,
@@ -33,7 +33,13 @@ export function ReviewShots({
 }) {
   return (
     <figure>
-      <div className="grid items-start gap-6 md:grid-cols-2">
+      <div
+        className={
+          shots.length === 1
+            ? "mx-auto max-w-md"
+            : "grid items-start gap-6 md:grid-cols-2"
+        }
+      >
         {shots.map((shot) => (
           <ReviewImage key={shot.name} shot={shot} />
         ))}
@@ -43,7 +49,7 @@ export function ReviewShots({
   );
 }
 
-/** A close-up from one of my screens, with a caption. */
+/** A close-up from one of my screens, centered, with a caption. */
 export function Detail({
   src,
   alt,
@@ -65,7 +71,7 @@ export function Detail({
         width={width}
         height={height}
         sizes="24rem"
-        className="h-auto w-full max-w-sm border border-site-line"
+        className="mx-auto block h-auto w-full max-w-sm border border-site-line"
       />
       {caption && <Caption>{caption}</Caption>}
     </figure>

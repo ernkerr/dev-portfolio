@@ -7,6 +7,7 @@ import {
   H3,
   P,
   Stats,
+  TipLabel,
 } from "@/components/site/prose";
 import {
   getGinRating,
@@ -66,32 +67,41 @@ export async function HeadlineNumbers() {
           {
             label: "Unique users",
             value: count(sales.users),
-            note: "Each Apple Account counted once",
+            tip: "Each Apple Account that downloaded it, counted once.",
           },
           {
             label: "Conversion rate",
             value: `${conversion}%`,
-            note: "Premium purchases per unique user",
+            tip: "Premium purchases per unique user, since launch. One-time unlocks and new subscriptions count, not renewals or promo codes.",
           },
           {
             label: "Countries",
             value: count(sales.countries.length),
-            note: `Most in ${place(sales.countries[0][0])}, then ${and(
+            tip: `Countries where at least 1 person downloaded it. Most are in ${place(sales.countries[0][0])}, then ${and(
               sales.countries.slice(1, 4).map(([code]) => place(code)),
-            )}`,
+            )}.`,
           },
           ...(rating
             ? [
                 {
                   label: "App Store rating",
                   value: `${rating.stars.toFixed(1)}★`,
-                  note: `From ${count(rating.count)} US ratings`,
+                  tip: `From ${count(rating.count)} US ratings${
+                    rating.since
+                      ? ` since ${new Date(
+                          `${rating.since}T00:00:00Z`,
+                        ).toLocaleDateString("en-US", {
+                          month: "long",
+                          year: "numeric",
+                          timeZone: "UTC",
+                        })}`
+                      : ""
+                  }.`,
                 },
               ]
             : []),
         ]}
       />
-      <Caption>Live from the App Store, updated daily.</Caption>
     </figure>
   );
 }
@@ -115,26 +125,44 @@ export default async function SalesNumbers() {
     <figure>
       <Facts
         items={[
-          { label: "Unique users", value: count(sales.users) },
-          { label: "Total downloads", value: count(sales.downloads) },
-          { label: "Premium purchases", value: count(sales.purchases) },
+          {
+            label: "Unique users",
+            value: count(sales.users),
+            tip: "Each Apple Account that downloaded it, counted once.",
+          },
+          {
+            label: "Total downloads",
+            value: count(sales.downloads),
+            tip: "Every download, including reinstalls and new devices.",
+          },
+          {
+            label: "Premium purchases",
+            value: count(sales.purchases),
+            tip: "One-time unlocks and new subscriptions, not renewals or promo codes.",
+          },
           {
             label: "Conversion rate",
             value: `${((100 * sales.purchases) / sales.users).toFixed(1)}%`,
+            tip: "Premium purchases per unique user.",
           },
-          { label: "Countries", value: count(sales.countries.length) },
           {
+            label: "Countries",
+            value: count(sales.countries.length),
+            tip: `Countries where at least 1 person downloaded it. Most are in ${place(
+              sales.countries[0][0],
+            )}, then ${and(
+              sales.countries.slice(1, 4).map(([code]) => place(code)),
+            )}.`,
+          },
+          {
+            tip: "Unique users who downloaded it on an iPhone, not an iPad or Mac.",
             label: "On iPhone",
             value: `${deviceShares(sales).find((d) => d.device === "iPhone")?.share ?? 0}%`,
           },
         ]}
       />
       <Caption>
-        Since launch in June 2025, through {through}. Unique users counts each
-        Apple Account once, and total downloads adds reinstalls and new devices.
-        Premium purchases are one-time unlocks and new subscriptions, not
-        renewals or promo codes. Conversion rate is Premium purchases per unique
-        user. From App Store Connect, updated daily.
+        Since launch in June 2025, through {through}, from App Store Connect.
       </Caption>
     </figure>
   );
@@ -177,7 +205,14 @@ export async function NewUsersChart({
       <H3>{growing ? "It keeps growing" : "New users"}</H3>
       <P>On average, it got {averages}.</P>
       <figure>
-        <p className={label}>New users each month</p>
+        <p className={`relative ${label}`}>
+          <TipLabel
+            id="new-users-chart"
+            tip="First-time downloads each month, from App Store Connect, updated daily. Apple only keeps monthly numbers for a year, so the chart starts in October 2025."
+          >
+            New users each month
+          </TipLabel>
+        </p>
         <ol className="mt-4 flex h-48 items-end gap-1 border-b border-site-line pt-6 sm:gap-2">
           {months.map((m) => (
             <li key={m.month} className="relative flex h-full flex-1 items-end">
@@ -214,10 +249,6 @@ export async function NewUsersChart({
             </li>
           ))}
         </ol>
-        <Caption>
-          From App Store Connect, updated daily. Apple only keeps monthly
-          numbers for a year, so the chart starts in October 2025.
-        </Caption>
       </figure>
       {children}
     </>
@@ -232,7 +263,15 @@ export async function DeviceSplit() {
   if (!sales || !sales.users) return null;
   const shares = deviceShares(sales);
   return (
-    <figure className="max-w-measure">
+    <figure>
+      <p className={`relative mb-4 ${label}`}>
+        <TipLabel
+          id="devices"
+          tip="Unique users by the device they downloaded it on, since launch. From App Store Connect, updated daily."
+        >
+          Downloads by device
+        </TipLabel>
+      </p>
       <div
         role="img"
         aria-label={shares.map((d) => `${d.share}% ${d.device}`).join(", ")}
@@ -260,10 +299,6 @@ export async function DeviceSplit() {
           </li>
         ))}
       </ul>
-      <Caption>
-        Where people downloaded it, since launch. From App Store Connect,
-        updated daily.
-      </Caption>
     </figure>
   );
 }

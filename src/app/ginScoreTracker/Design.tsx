@@ -3,11 +3,9 @@ import CaseStudyArticle, {
   type CaseStudySection,
 } from "@/components/site/CaseStudyArticle";
 import {
-  Caption,
   Columns,
   Facts,
   H3,
-  InProgress,
   inlineLink,
   label,
   Lead,
@@ -24,11 +22,12 @@ import SalesNumbers, {
 } from "./SalesNumbers";
 import Sketches from "./Sketches";
 
-// Every claim traces back to the gin-score-tracker repo (commits named in
-// the research notes), the live App Store listing and its reviews (fetched
-// October 2026), and Erin's own words on her old project page. Screens were
-// rebuilt from the code at each commit with sample players and scores.
-// Research notes: scratchpad research/scoretrackers/gin.md.
+// Every claim traces back to the gin-score-tracker repo, the App Store
+// listings and reviews of Gin Score Tracker and the apps it was compared with
+// (fetched October 2026), App Store Connect's sales reports (sales.ts), and
+// Erin's own words. Screens of today's app and of 1.0 are real screenshots.
+// The first working version and the unstyled New Score screen were rebuilt
+// from the code at those commits, with sample players and scores.
 
 const IMG = "/images/ginScoreTracker/study";
 const phone = { width: 780, height: 1688 };
@@ -63,7 +62,7 @@ const SECTIONS: CaseStudySection[] = [
           items={[
             { label: "Role", value: "Solo designer and developer" },
             { label: "Timeline", value: "May 2025 to June 2026" },
-            { label: "Platform", value: "iPhone and iPad" },
+            { label: "Platform", value: "iPhone, iPad and Mac" },
           ]}
         />
       </>
@@ -86,7 +85,7 @@ const SECTIONS: CaseStudySection[] = [
           items={[
             {
               title: "One winner",
-              text: "Only the player who wins a hand scores it, so the app should ask who won before it asks for points.",
+              text: "Only the player who wins a hand scores it.",
             },
             {
               title: "Bonuses on top",
@@ -94,7 +93,7 @@ const SECTIONS: CaseStudySection[] = [
             },
             {
               title: "House rules",
-              text: "Tables play to different targets and bonus values, and a rule change shouldn’t rewrite old games.",
+              text: "Tables play to different targets and bonus values.",
             },
           ]}
         />
@@ -118,8 +117,17 @@ const SECTIONS: CaseStudySection[] = [
   {
     id: "research",
     title: "Research",
+    headline: "How do people keep score, and what do the apps get wrong?",
     content: (
       <>
+        <Facts
+          items={[
+            { label: "Competitive analysis", value: "5 Gin score apps" },
+            { label: "Review analysis", value: "Their App Store reviews" },
+            { label: "User interviews", value: "5 players" },
+            { label: "Market data", value: "A 2023 YouGov poll" },
+          ]}
+        />
         <P>
           In a{" "}
           <a
@@ -134,27 +142,20 @@ const SECTIONS: CaseStudySection[] = [
           24% of adults under 30.
         </P>
         <P>
-          I started with existing behavior, how players already kept score on
-          paper.
+          I started with existing behavior, how players already kept score, on
+          paper or in the Notes app.
         </P>
-        <InProgress title="Our paper sheets">
-          What our paper sheets showed, how we laid out the columns, totals and
-          bonuses, and what was hard to look back at.
-        </InProgress>
-        <figure>
-          <div className="flex aspect-[4/3] max-w-measure items-center justify-center border border-dashed border-site-muted/50 text-caption text-site-muted">
-            Photo of our paper scorecard
-          </div>
-          <Caption>
-            Paper set the mental model and the structure, with a column for each
-            player, a row for each hand, and a running total. The app keeps that
-            structure so it feels familiar.
-          </Caption>
-        </figure>
+        <Detail
+          src={`${IMG}/notes-scorecard.webp`}
+          alt="A note titled Gin in the iPhone Notes app. Under E are the scores 43 and 49, and under M the scores 45, 50 and 26. There’s no total."
+          width={1179}
+          height={1300}
+          caption="How we kept score in the Notes app. It’s two columns with scores for each player. What it lacks is a total score, which we had to recalculate manually every time someone scored. So the app keeps a column for each player and adds up the total for you."
+        />
         <P>
           I chose to design phone first because when people are playing, they
-          have their phone handy, even if they don’t have pen and paper nearby.
-          Now the data supports it.
+          have their phone handy, even if they don’t have pen and paper nearby.{" "}
+          And the data supports it.
         </P>
         <DeviceSplit />
 
@@ -186,10 +187,11 @@ const SECTIONS: CaseStudySection[] = [
 
         <H3>Players wanted their own rules</H3>
         <P>
-          Customization came up again and again in reviews, like a different
-          target score or different bonus values. Gin Rummy Score Tracker’s
-          developer promised both in January 2023, and they never shipped, so I
-          designed for flexibility across play styles and rules.
+          Customization came up in 8 of the 19 reviews of GinSC and Gin Rummy
+          Score Tracker, like a different target score or different bonus
+          values. Gin Rummy Score Tracker’s developer promised both in January
+          2023, and they never shipped, so I designed for flexibility across
+          play styles and rules.
         </P>
         <Screens
           screens={[
@@ -222,7 +224,7 @@ const SECTIONS: CaseStudySection[] = [
         <P>
           None of the free options fit the use case. Ginscorer Pro is a grid for
           2 to 4 players playing for money, and Rummy Score Sheet is built for a
-          different Rummy, with reviews dominated by complaints about ads. So I
+          different Rummy, with 6 of its 10 reviews complaining about ads. So I
           kept mine to 2 players and left out ads.
         </P>
         <Screens
@@ -318,7 +320,7 @@ const SECTIONS: CaseStudySection[] = [
               label: "1.0",
             },
           ]}
-          caption="Entering a hand, from the first working version to 1.0. Rebuilt from the code at each commit with sample scores."
+          caption="Entering a hand, from the first working version to 1.0. The first 2 are rebuilt from the code at those commits, with sample scores. 1.0 is the real app."
         />
       </>
     ),
@@ -429,7 +431,7 @@ const SECTIONS: CaseStudySection[] = [
             },
             {
               title: "No ads",
-              text: "Most of Rummy Score Sheet’s reviews were complaints about ads, so Gin Score Tracker has none.",
+              text: "6 of Rummy Score Sheet’s 10 reviews were complaints about ads, so Gin Score Tracker has none.",
             },
             {
               title: "Fix any round",
@@ -490,13 +492,24 @@ const SECTIONS: CaseStudySection[] = [
   {
     id: "results",
     title: "Results",
+    headline: "People found it, kept it, and paid for it.",
     content: (
       <>
         <P>
-          6 versions on the App Store since June 2025, rated 5.0 from 5 ratings
-          as of October 2026. It’s free to play, with 1 opponent and games to
-          100. Premium unlocks more opponents and games and higher targets.
+          6 versions on the App Store since June 2025, rated 5.0 from the 5
+          ratings since my June 2026 update. It’s free to play, with 1 opponent
+          and games to 100. Premium unlocks more opponents and games and higher
+          targets.
         </P>
+        <H3>It passes the grandpa test</H3>
+        <P>
+          Everyone I’ve talked to, ages 8 to 94, has been able to figure it out.
+        </P>
+        <Review
+          stars={5}
+          quote="Got a love a simple, clean app with no ads popping up in your face every 5 seconds. Love how easy this app is to use."
+          who="App Store review, June 2026"
+        />
         <NewUsersChart focus={["2026-01", "2026-07"]}>
           <P>
             New users jumped in January 2026 and again in July. My guess is the
@@ -510,13 +523,13 @@ const SECTIONS: CaseStudySection[] = [
             {
               label: "Installed my June 2026 update",
               value: "52%",
-              note: "Of everyone who had downloaded it by then",
+              tip: "Of everyone who had downloaded it by then.",
             },
           ]}
         />
         <Review
           stars={5}
-          quote="Got a love a simple, clean app with no ads popping up in your face every 5 seconds. Love how easy this app is to use."
+          quote="We love this app! It’s clean and simple to use. Had been great for keeping a long running score going. So far we’re at 35 games and it’s still pretty neck and neck"
           who="App Store review, June 2026"
         />
 
@@ -537,8 +550,8 @@ const SECTIONS: CaseStudySection[] = [
           development faster and more focused.
         </P>
         <P>
-          The review taught me that where a paywall sits is a design decision.
-          The limit was fine. The moment it showed up was wrong.
+          The review taught me that where a paywall sits is a design decision.{" "}
+          The limit was fine, the moment it showed up was wrong.
         </P>
         <P>
           Reviews, of other apps and of my own, turned out to be some of my best

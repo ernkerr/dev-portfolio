@@ -321,7 +321,15 @@ export const getGinSales = cache(async (): Promise<GinSales | null> => {
   return countDaily();
 });
 
-export type GinRating = { stars: number; count: number };
+export type GinRating = {
+  stars: number;
+  count: number;
+  /**
+   * When the rating started over, as YYYY-MM-DD: the release date of the
+   * current version, if every rating is for it.
+   */
+  since?: string;
+};
 
 /** The US App Store's rating, public and checked at most once a day. */
 export async function getGinRating(): Promise<GinRating | null> {
@@ -332,5 +340,9 @@ export async function getGinRating(): Promise<GinRating | null> {
   if (!res.ok) return null;
   const app = (await res.json()).results?.[0];
   if (!app?.userRatingCount) return null;
-  return { stars: app.averageUserRating, count: app.userRatingCount };
+  const since =
+    app.userRatingCountForCurrentVersion === app.userRatingCount
+      ? app.currentVersionReleaseDate?.slice(0, 10)
+      : undefined;
+  return { stars: app.averageUserRating, count: app.userRatingCount, since };
 }

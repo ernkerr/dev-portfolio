@@ -182,6 +182,7 @@ const FACT_COLUMNS: Record<number, string> = {
   2: "sm:grid-cols-2",
   3: "sm:grid-cols-3",
   4: "sm:grid-cols-2 lg:grid-cols-4",
+  6: "grid-cols-2 sm:grid-cols-3",
 };
 
 /** Label and value pairs in a row, like the credits at the top of a study. */
@@ -201,6 +202,43 @@ export function Facts({
           <dd className="mt-2 text-body-sm leading-[1.55] text-site-ink">
             {item.value}
           </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+// Big numbers are short, so they pair up even on phones.
+const STAT_COLUMNS: Record<number, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-2",
+  3: "grid-cols-2 sm:grid-cols-3",
+  4: "grid-cols-2 lg:grid-cols-4",
+};
+
+/**
+ * A project's headline numbers, set large in serif, each with a short note
+ * that says what it counts.
+ */
+export function Stats({
+  items,
+}: {
+  items: { label: string; value: ReactNode; note?: ReactNode }[];
+}) {
+  const columns = STAT_COLUMNS[items.length] ?? STAT_COLUMNS[4];
+  return (
+    <dl
+      className={`grid gap-x-8 gap-y-6 border-t border-site-line pt-5 ${columns}`}
+    >
+      {items.map((item) => (
+        <div key={item.label}>
+          <dt className={label}>{item.label}</dt>
+          <dd className="mt-2 font-serif text-section-sm text-site-ink md:text-section">
+            {item.value}
+          </dd>
+          {item.note && (
+            <dd className="mt-1 text-caption text-site-muted">{item.note}</dd>
+          )}
         </div>
       ))}
     </dl>

@@ -12,11 +12,16 @@ import {
   label,
   Lead,
   P,
+  Stats,
 } from "@/components/site/prose";
 import { BuildNote, Review, Screens } from "@/components/site/appStudy";
 import { BeforeAfter, Detail, ReviewShots } from "./findings";
 import LiveBoard from "./LiveBoard";
-import SalesNumbers from "./SalesNumbers";
+import SalesNumbers, {
+  DeviceSplit,
+  HeadlineNumbers,
+  NewUsersChart,
+} from "./SalesNumbers";
 import Sketches from "./Sketches";
 
 // Every claim traces back to the gin-score-tracker repo (commits named in
@@ -40,6 +45,7 @@ const SECTIONS: CaseStudySection[] = [
           out of my love for playing Gin with family and the need for a better
           way to keep track of our scoring.
         </Lead>
+        <HeadlineNumbers />
         <P>
           It was my first fully shipped mobile app. It’s been on the{" "}
           <a
@@ -145,6 +151,12 @@ const SECTIONS: CaseStudySection[] = [
             structure so it feels familiar.
           </Caption>
         </figure>
+        <P>
+          I chose to design phone first because when people are playing, they
+          have their phone handy, even if they don’t have pen and paper nearby.
+          Now the data supports it.
+        </P>
+        <DeviceSplit />
 
         <P>
           Then I did a competitive analysis where users were already looking for
@@ -485,11 +497,30 @@ const SECTIONS: CaseStudySection[] = [
           as of October 2026. It’s free to play, with 1 opponent and games to
           100. Premium unlocks more opponents and games and higher targets.
         </P>
+        <NewUsersChart focus={["2026-01", "2026-07"]}>
+          <P>
+            New users jumped in January 2026 and again in July. My guess is the
+            holidays and summer vacations, when families play cards together.
+          </P>
+        </NewUsersChart>
+
+        <H3>People keep it</H3>
+        <Stats
+          items={[
+            {
+              label: "Installed my June 2026 update",
+              value: "52%",
+              note: "Of everyone who had downloaded it by then",
+            },
+          ]}
+        />
         <Review
           stars={5}
           quote="Got a love a simple, clean app with no ads popping up in your face every 5 seconds. Love how easy this app is to use."
           who="App Store review, June 2026"
         />
+
+        <H3>By the numbers</H3>
         <SalesNumbers />
       </>
     ),
@@ -514,11 +545,6 @@ const SECTIONS: CaseStudySection[] = [
           research. They told me what to build, what to fix, and what people
           couldn’t find.
         </P>
-        <InProgress title="Before a reviewer asks">
-          Dark mode has been off since May 2025. Add why, or turn it back on.
-          Also decide how to credit AI help. Commits since June 2026, including
-          the paywall fix, were co-written with Claude Code.
-        </InProgress>
         <BuildNote href="/ginScoreTracker">
           React Native and Expo with NativeWind. Games live on the phone, with
           no account and no internet needed.

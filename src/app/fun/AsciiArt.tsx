@@ -378,10 +378,22 @@ export default function AsciiArt({
   );
 }
 
-// A looping ASCII scene (scenes.ts), played while it's on screen.
-export function AsciiScene({ scene }: { scene: SceneName }) {
+// A looping ASCII scene (scenes.ts), played while it's on screen. Leaving
+// its square scrambles it back in, the way the pictures do (AsciiArt), then
+// the scene carries on.
+export function AsciiScene({
+  scene,
+  active = false,
+}: {
+  scene: SceneName;
+  /** The square is hovered or focused. */
+  active?: boolean;
+}) {
   const box = useRef<HTMLDivElement>(null);
   const pre = useRef<HTMLPreElement>(null);
+  // When the scene started, and whether a scramble is holding it
+  const clock = useRef({ start: 0, hold: false, stop: () => {} });
+  const wasActive = useRef(false);
 
   useEffect(() => {
     const el = box.current;
@@ -393,14 +405,14 @@ export function AsciiScene({ scene }: { scene: SceneName }) {
       return;
     }
 
+    const c = clock.current;
     let frame = 0;
     let last = 0;
-    let start = 0;
     const tick = (now: number) => {
-      if (!start) start = now;
+      if (!c.start) c.start = now;
       // About 16 frames a second, which reads as ASCII animation.
-      if (now - last > 60) {
-        out.textContent = draw(now - start);
+      if (!c.hold && now - last > 60) {
+        out.textContent = draw(now - c.start);
         last = now;
       }
       frame = requestAnimationFrame(tick);
@@ -414,8 +426,27 @@ export function AsciiScene({ scene }: { scene: SceneName }) {
     return () => {
       seen.disconnect();
       cancelAnimationFrame(frame);
+      c.stop();
+      c.hold = false;
     };
   }, [scene]);
+
+  useEffect(() => {
+    if (active) {
+      wasActive.current = true;
+      return;
+    }
+    if (!wasActive.current || !pre.current) return;
+    wasActive.current = false;
+    if (prefersReducedMotion()) return;
+    const c = clock.current;
+    const now = SCENES[scene](c.start ? performance.now() - c.start : 0);
+    c.stop();
+    c.hold = true;
+    c.stop = scramble(now.replaceAll("\n", ""), pre.current, () => {
+      c.hold = false;
+    }, 380);
+  }, [active, scene]);
 
   return (
     <div

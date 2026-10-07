@@ -158,8 +158,8 @@ function Caption({
 // What a square shows: a minigame's scene, or a picture in ASCII.
 function Art({ quest, active }: { quest: Quest; active: boolean }) {
   const { href, art = {}, node, scene } = quest;
-  if (scene) return <AsciiScene scene={scene} />;
-  if (quest.play === "dog") return <AsciiScene scene="dog" />;
+  if (scene) return <AsciiScene scene={scene} active={active} />;
+  if (quest.play === "dog") return <AsciiScene scene="dog" active={active} />;
   return (
     <AsciiArt
       source={art}

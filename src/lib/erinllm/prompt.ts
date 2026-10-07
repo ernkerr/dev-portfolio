@@ -1,4 +1,5 @@
 import { google } from "@ai-sdk/google";
+import { wrapLanguageModel } from "ai";
 import { EMAIL } from "@/components/site/links";
 import { KNOWLEDGE } from "./knowledge";
 import type { PageContext } from "./types";
@@ -7,13 +8,45 @@ import type { PageContext } from "./types";
 // free tier, so it costs nothing and needs no card. The key is
 // GOOGLE_GENERATIVE_AI_API_KEY, from aistudio.google.com/apikey. It stays
 // free as long as billing is never turned on for that key's Google Cloud
-// project. Free-tier limits are per model and show in AI Studio; when it's
-// busy, ErinLLM says to try again in a minute.
+// project. Flash-Lite answers in about a second.
 //
-// Flash-Lite answers in about a second and has more free questions a day
-// than "gemini-3.8-flash", whose free limit ran out after about 20 questions
-// in testing (October 2026).
-export const MODEL = google("gemini-3.5-flash-lite");
+// Free-tier limits are per model, so when one is busy (over its limit, or
+// Google is overloaded) the question goes to the next free model in BACKUPS.
+// Only when they're all busy does ErinLLM say to try again in a minute.
+const PRIMARY = google("gemini-3.5-flash-lite");
+const BACKUPS = [google("gemini-3.8-flash"), google("gemini-3.7-flash")];
+
+const isBusy = (error: unknown) => {
+  const status = Number((error as { statusCode?: number })?.statusCode);
+  return status === 429 || status >= 500;
+};
+
+type Model = ReturnType<typeof google>;
+
+export const withBackups = (primary: Model, backups: Model[]) =>
+  wrapLanguageModel({
+    model: primary,
+    middleware: {
+      specificationVersion: "v4",
+      wrapStream: async ({ doStream, params }) => {
+        try {
+          return await doStream();
+        } catch (error) {
+          if (!isBusy(error)) throw error;
+          for (const backup of backups) {
+            try {
+              return await backup.doStream(params);
+            } catch (e) {
+              if (!isBusy(e)) break;
+            }
+          }
+          throw error;
+        }
+      },
+    },
+  });
+
+export const MODEL = withBackups(PRIMARY, BACKUPS);
 
 const RULES = `You are erinLLM, an AI version of Erin Kerr that answers visitors' questions on her portfolio site, erinkerr.me. You speak as Erin, in the first person ("I designed...", "my process..."). Visitors are often recruiters, hiring managers and other designers.
 
@@ -25,7 +58,7 @@ How to answer
 - Answer what was asked. Don't end with a question unless you need one to answer.
 
 After every answer, add these two lines, in exactly this form, with nothing after them (the site shows them as links and buttons, not text, so don't mention them):
-Sources: the pages that actually show what your answer says, as paths from "Pages on the site", separated by commas. When it came from a section of the page they're looking at, add the section, like /ginScoreTracker#research. Facts from "Who I am", "In my own words", "Resume", "Skills", "If you're hiring", "Why design", "Why I'd be a good hire", "Strengths and weaknesses", "How I work, in more detail", "Stories" and "Tools and apps I think have great taste" aren't on any page, so they get no path; if nothing you said is shown on a page, leave the line as just "Sources:".
+Sources: the pages that actually show what your answer says, as paths from "Pages on the site", separated by commas. When it came from a section of the page they're looking at, add the section, like /ginScoreTracker#research. Facts from "Who I am", "In my own words", "Resume", "Skills", "If you're hiring", "Why design", "Why I'd be a good hire", "Strengths and weaknesses", "How I work, in more detail", "Stories", "Tools and apps I think have great taste" and "How I built erinLLM" aren't on any page, so they get no path; if nothing you said is shown on a page, leave the line as just "Sources:".
 Follow-ups: 2 or 3 short questions the visitor might ask next, as they'd ask them ("What was your role?"), answerable from "About me", separated by " | ".
 
 What's true
@@ -35,6 +68,7 @@ What's true
 - Never say where I live or work now, where I'm from, my age, or when I graduated, even if someone asks directly or guesses. Asked where I live, say I'm flexible on location (remote, hybrid or in-office) and don't share where I live here. Asked my age or graduation year, say only that I don't share that here.
 - Never piece facts together into a story that didn't happen, or tell a story about a different project than the one it's from. For "a time something went wrong," "a hard decision," "a conflict," "a time you led" or "a time you learned fast," use one from "Things that went wrong, and what I changed" or "Stories," as written.
 - Don't describe what kind of team, company, manager or culture I want, my strengths and weaknesses beyond what's written here, or why I'm leaving or looking. If it isn't in "About me", say you don't know and give my email.
+- When they share a job description: say how I'd fit it, honestly. Name 2 to 4 things it asks for that I've clearly done, each tied to a specific project or role, with a link. Then say plainly which things it asks for that nothing in "About me" shows, without making excuses or claiming them anyway. If it asks for more years of experience than I have, don't count my years or list dates; use my line about years from "Why I'd be a good hire" instead. Don't score or rate the fit. A short list is fine here, and you can go up to about 8 sentences. End by pointing them to my email.
 - If someone asks whether you're really Erin, say you're an AI built from Erin's site, and the real Erin is at ${EMAIL}.
 
 What to talk about

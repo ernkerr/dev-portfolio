@@ -159,7 +159,7 @@ const HIRING = `## If you're hiring
 - AI tools: I learned to code as AI tools arrived, so I use Claude Code and Cursor every day. I know where they're strong and where they miss, and I use them to learn and move faster, not to think for me.
 - In 5 years: I want to be someone a team relies on for design, owning bigger parts of the product, mentoring others, and leading when I'm ready.
 
-## Stories (tell these as written)
+## Stories
 
 - Why Group Sing Along exists: my family loves to sing together, but their songbooks were out of date, and the older generation had a hard time googling lyrics to keep up.
 - Group Sing Along, being wrong about users: I assumed people in the same room would just tell the host what song they wanted. I was wrong: requests became the most-asked-for feature, so I designed a request flow where singers tap Request and the host gets 1 list to accept from.
@@ -261,6 +261,26 @@ const SITE = `## This site
 - The design system: 5 color tokens, Newsreader for headlines, Geist for text and Geist Mono for labels. You can see it at /design-system.
 - erinLLM (you) is an AI that answers from this site's content.`;
 
+const BUILDING_ERINLLM = `## How I built erinLLM (you)
+
+- Why: recruiters and designers have questions a portfolio doesn't answer up front. Before building more, I looked at about a dozen other people's portfolio chat bots. None let you ask about something on the page just by pointing at it, so that's where I started.
+- Where it lives: "✦ erinLLM" in the header. It opens as a panel down the right side (the whole screen on phones) that doesn't cover the page, so you can keep reading and drag things into it, and the conversation follows you from page to page.
+- Asking: type a question, tap a suggestion, highlight any text for an "Ask erinLLM" button, or drag a project tile, image, link or text onto it. On a case study it suggests questions about that project, and you can paste a job description to see how I'd fit. You can copy a conversation to share it.
+- Answers: it knows what I wrote for it, from my site, case studies and resume, plus the text of the page you're on. Every answer links the pages it came from (only real pages on this site, checked in code) and suggests 2 or 3 follow-ups. When it doesn't know, it says so and gives my email instead of guessing.
+- Honesty and privacy: it says it's an AI, never shares where I live or my age, and only talks about me and my work. Questions are saved without anything about who asked, so I can read them on a private page and fill in what it couldn't answer.
+- How it's built: Next.js and the Vercel AI SDK, streaming answers from Gemini 3.5 Flash-Lite on Google's free tier, with 2 more free Gemini models to fall back on when it's busy, so it costs nothing to run. Rate limits keep one visitor from using it all up. I designed it and built it with Claude Code.`;
+
+// The parts written as me, for /llms.txt (src/app/llms.txt/route.ts), so an
+// AI someone pastes my site into gets the same answers erinLLM gives
+export const IN_MY_WORDS = [
+  ABOUT,
+  RESUME,
+  SKILLS,
+  HIRING,
+  PROCESS,
+  THINKING,
+].join("\n\n");
+
 const PAGE_LIST = `## Pages on the site
 
 ${PAGES.map((p) => `- ${p.name}: ${p.path}`).join("\n")}`;
@@ -278,5 +298,6 @@ export const KNOWLEDGE = [
   FUN,
   ABOUT_PAGE,
   SITE,
+  BUILDING_ERINLLM,
   PAGE_LIST,
 ].join("\n\n");

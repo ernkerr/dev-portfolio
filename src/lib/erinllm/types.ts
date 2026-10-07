@@ -16,9 +16,10 @@ export type PageContext = {
   sections: { id: string; title: string }[];
 };
 
-// Something the visitor highlighted or dragged in to ask about
+// Something the visitor highlighted, dragged in or pasted to ask about. A
+// "job" is a job description, for "how would I fit this role?"
 export type Attached = {
-  kind: "quote" | "page" | "image" | "link";
+  kind: "quote" | "page" | "image" | "link" | "job";
   /** A short name for it, e.g. "Carpoolio" or "Image: Gin's score sheet" */
   label: string;
   /** The highlighted or dropped text */
@@ -32,6 +33,8 @@ export type ErinMessage = UIMessage<AskMetadata>;
 export const MAX = {
   question: 500,
   quote: 1_500,
+  /** A pasted job description */
+  job: 6_000,
   pageText: 15_000,
   /** Messages of history sent with each question */
   history: 12,

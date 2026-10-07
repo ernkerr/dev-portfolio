@@ -12,7 +12,7 @@ import { readPage } from "./pageContext";
 // and an answer keeps streaming. The conversation is also saved to this
 // tab's sessionStorage, so a reload keeps it.
 
-export type AttachedFrom = "selection" | "drop";
+export type AttachedFrom = "selection" | "drop" | "paste";
 
 type State = {
   open: boolean;

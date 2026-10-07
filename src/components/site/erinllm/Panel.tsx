@@ -7,13 +7,14 @@ import {
   useEffect,
   useRef,
   useState,
+  type ClipboardEvent,
   type DragEvent,
   type FormEvent,
   type KeyboardEvent,
 } from "react";
 import { EMAIL, focusRing } from "@/components/site/links";
 import { inlineLink, label } from "@/components/site/prose";
-import { splitAnswer } from "@/lib/erinllm/answer";
+import { splitAnswer, type Source } from "@/lib/erinllm/answer";
 import { pageAt } from "@/lib/erinllm/pages";
 import {
   MAX,
@@ -44,6 +45,12 @@ const projectQuestions = (name: string) => [
   `What would you change about ${name} now?`,
 ];
 
+const JOB_QUESTION = "How would I fit this role?";
+// Longer than this, pasted text is attached instead of typed
+const LONG_PASTE = 400;
+const LOOKS_LIKE_A_JOB =
+  /responsibilit|requirements|qualifications|about the role|what you.ll do|we.re looking for|years of experience/i;
+
 const ERRORS: Record<ErrorCode, string> = {
   rate_limited: `That’s a lot of questions at once. Try again in a few minutes, or email me at ${EMAIL}.`,
   busy: `I’m busy, try again in a minute, or email me at ${EMAIL}.`,
@@ -60,6 +67,37 @@ const codeOf = (error: Error): ErrorCode =>
 
 const textOf = (message: ErinMessage) =>
   message.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
+
+// The conversation as plain text, to paste into an email or a doc
+function transcript(messages: ErinMessage[]) {
+  const site = location.origin;
+  const link = (s: Source) => `${s.label} (${site}${s.href})`;
+  // Markdown to plain text: [Carpoolio](/carpoolio) -> Carpoolio (https://…)
+  const plain = (text: string) =>
+    text
+      .replace(/\[([^\]]+)\]\((\/[^)]*)\)/g, `$1 (${site}$2)`)
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1 ($2)")
+      .replace(/\*\*([^*]+)\*\*/g, "$1");
+  const turns = messages.map((m) => {
+    if (m.role === "user") {
+      const about = m.metadata?.attached;
+      return [about ? `You, about ${about.label}:` : "You:", textOf(m)].join(
+        " ",
+      );
+    }
+    const { body, sources } = splitAnswer(textOf(m));
+    return [
+      `erinLLM: ${plain(body)}`,
+      sources.length ? `Sources: ${sources.map(link).join(", ")}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+  });
+  return [
+    `A conversation with erinLLM, the AI on Erin Kerr's portfolio (${site}). It can get things wrong; Erin is at ${EMAIL}.`,
+    ...turns,
+  ].join("\n\n");
+}
 
 const quiet = `font-mono text-label uppercase text-site-muted transition-colors hover:text-site-blue ${focusRing}`;
 const submit = `shrink-0 border border-site-line px-4 py-2 font-mono text-label uppercase text-site-ink transition-colors hover:text-site-blue disabled:text-site-muted disabled:hover:text-site-muted ${focusRing}`;
@@ -182,6 +220,8 @@ export default function Panel({
     project: false,
   });
   const [announce, setAnnounce] = useState("");
+  const [jobMode, setJobMode] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const box = useRef<HTMLTextAreaElement>(null);
   const scroller = useRef<HTMLDivElement>(null);
@@ -237,15 +277,52 @@ export default function Panel({
       metadata: attached ? { attached } : undefined,
     });
     track("erinllm_ask", {
-      source: attached
-        ? attachedFrom === "drop"
-          ? "drop"
-          : "selection"
-        : source,
+      source:
+        attached?.kind === "job"
+          ? "job"
+          : attached
+            ? attachedFrom === "drop"
+              ? "drop"
+              : "selection"
+            : source,
     });
     clearAttached();
     setInput("");
+    setJobMode(false);
   }
+
+  // A job description, or anything long, goes in as an attachment so it
+  // isn't cut off at the question's length
+  const onPaste = (e: ClipboardEvent<HTMLTextAreaElement>) => {
+    const text = e.clipboardData.getData("text").trim();
+    if (!text || (!jobMode && text.length < LONG_PASTE)) return;
+    e.preventDefault();
+    const job = jobMode || LOOKS_LIKE_A_JOB.test(text);
+    openErinLLM(
+      job
+        ? {
+            kind: "job",
+            label: "Job description",
+            text: text.slice(0, MAX.job),
+          }
+        : {
+            kind: "quote",
+            label: "Pasted text",
+            text: text.slice(0, MAX.quote),
+          },
+      "paste",
+    );
+    if (job && !input.trim()) setInput(JOB_QUESTION);
+    setJobMode(false);
+  };
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(transcript(messages));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {}
+  };
 
   function startOver() {
     void stop();
@@ -253,6 +330,7 @@ export default function Panel({
     setMessages([]);
     save([]);
     clearAttached();
+    setJobMode(false);
     box.current?.focus();
   }
 
@@ -313,6 +391,11 @@ export default function Panel({
       <div className="flex h-12 shrink-0 items-center justify-between gap-4 border-b border-site-line px-gutter">
         <h2 className={`${label} normal-case`}>erinLLM</h2>
         <div className="flex items-center gap-5">
+          {messages.length > 0 && !busy && (
+            <button type="button" onClick={copy} className={quiet}>
+              {copied ? "Copied" : "Copy"}
+            </button>
+          )}
           {messages.length > 0 && (
             <button type="button" onClick={startOver} className={quiet}>
               Start over
@@ -367,6 +450,14 @@ export default function Panel({
                 onAsk={(q) => ask(q, "suggestion")}
               />
             </div>
+            <p className={`${label} mb-3 mt-6`}>Hiring?</p>
+            <Questions
+              items={["Paste a job description to see how I’d fit"]}
+              onAsk={() => {
+                setJobMode(true);
+                box.current?.focus();
+              }}
+            />
             <p className="mt-6 text-caption text-site-muted">
               Highlight text or drag something here to ask about it.
             </p>
@@ -442,7 +533,9 @@ export default function Panel({
         {attached && (
           <div className="mb-3 flex items-start gap-3 border border-site-line px-3 py-2">
             <div className="min-w-0 flex-1">
-              <p className={label}>Asking about</p>
+              <p className={label}>
+                {attached.kind === "job" ? "Job description" : "Asking about"}
+              </p>
               <p className="mt-1 line-clamp-2 text-caption text-site-ink/80">
                 {attached.text ? `“${attached.text}”` : attached.label}
               </p>
@@ -462,7 +555,10 @@ export default function Panel({
             rows={1}
             value={input}
             maxLength={MAX.question}
-            placeholder="Ask about Erin"
+            placeholder={
+              jobMode ? "Paste the job description here" : "Ask about Erin"
+            }
+            onPaste={onPaste}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
               if (

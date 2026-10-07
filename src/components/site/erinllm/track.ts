@@ -10,7 +10,8 @@ export type AskSource =
   | "suggestion"
   | "followup"
   | "selection"
-  | "drop";
+  | "drop"
+  | "job";
 
 export function track(
   event: "erinllm_open" | "erinllm_ask",

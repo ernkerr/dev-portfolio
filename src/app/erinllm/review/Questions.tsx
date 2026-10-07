@@ -14,6 +14,9 @@ import type { Kept } from "@/lib/erinllm/types";
 const label = "font-mono text-label uppercase";
 const action = `${label} text-site-ink transition-colors hover:text-site-blue disabled:text-site-muted ${focusRing}`;
 
+// Answers where it said it didn't know: what to add to knowledge.ts next
+const couldntAnswer = (q: Kept) => /I don.t know that one/i.test(q.answer);
+
 const date = (ms: number) =>
   new Date(ms).toLocaleString(undefined, {
     month: "short",
@@ -28,6 +31,7 @@ export default function Questions() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
   const [confirm, setConfirm] = useState<string | null>(null);
+  const [gapsOnly, setGapsOnly] = useState(false);
 
   const call = (method: string, query = "") =>
     fetch(`/api/erinllm?review${query}`, { method, cache: "no-store" });
@@ -69,6 +73,8 @@ export default function Questions() {
       </p>
     ) : null;
 
+  const shown = gapsOnly ? questions.filter(couldntAnswer) : questions;
+
   return (
     <div className="max-w-measure">
       {error && (
@@ -81,12 +87,23 @@ export default function Questions() {
           Questions aren’t being kept yet: connect a Blob store to the project.
         </p>
       )}
-      <h2 className={`${label} text-site-muted`}>
-        Questions ({questions.length})
-      </h2>
-      {questions.length ? (
+      <div className="flex flex-wrap items-baseline justify-between gap-4">
+        <h2 className={`${label} text-site-muted`}>
+          {gapsOnly ? "Couldn’t answer" : "Questions"} ({shown.length})
+        </h2>
+        <button
+          type="button"
+          onClick={() => setGapsOnly((on) => !on)}
+          className={action}
+        >
+          {gapsOnly
+            ? "Show all"
+            : `Only ones it couldn’t answer (${questions.filter(couldntAnswer).length})`}
+        </button>
+      </div>
+      {shown.length ? (
         <ol className="mt-6 divide-y divide-site-line border-y border-site-line">
-          {questions.map((q) => (
+          {shown.map((q) => (
             <li key={q.id} className="py-6">
               <p className="font-mono text-date text-site-muted">
                 {date(q.at)} · {q.path || "unknown page"}
@@ -123,7 +140,9 @@ export default function Questions() {
         </ol>
       ) : (
         <p className="mt-3 text-body-sm text-site-muted">
-          No one’s asked anything yet.
+          {gapsOnly
+            ? "It’s answered everything so far."
+            : "No one’s asked anything yet."}
         </p>
       )}
       <div className="mt-12">

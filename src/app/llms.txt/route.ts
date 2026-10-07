@@ -1,4 +1,5 @@
 import { CASE_STUDIES } from "@/data/caseStudies";
+import { IN_MY_WORDS } from "@/lib/erinllm/knowledge";
 
 export const dynamic = "force-static";
 
@@ -29,6 +30,13 @@ ${caseStudies}
 - [Archive](${baseUrl}/archive): every past version of the site, kept as it was
 
 Also see Erin's creator portfolio at https://erin-codes.com.
+
+## In Erin's words
+
+What erinLLM, the AI on her site, knows about her: her resume, what she's
+looking for, how she works and stories she tells. Written as Erin.
+
+${IN_MY_WORDS.replace(/^## /gm, "### ")}
 `;
 
   return new Response(body, {

@@ -81,7 +81,7 @@ function readPage(value: unknown): PageContext | null {
   };
 }
 
-const KINDS: Attached["kind"][] = ["quote", "page", "image", "link"];
+const KINDS: Attached["kind"][] = ["quote", "page", "image", "link", "job"];
 
 function readAttached(value: unknown): Attached | undefined {
   const v = record(value);
@@ -91,7 +91,7 @@ function readAttached(value: unknown): Attached | undefined {
   return {
     kind,
     label,
-    text: str(v.text, MAX.quote) || undefined,
+    text: str(v.text, kind === "job" ? MAX.job : MAX.quote) || undefined,
     href: str(v.href, 500) || undefined,
   };
 }
@@ -129,7 +129,9 @@ const withAttached = (messages: ErinMessage[]) =>
     const attached = m.metadata?.attached;
     if (!attached) return m;
     const about = [
-      `(I'm asking about this: ${attached.label}${attached.href ? `, ${attached.href}` : ""})`,
+      attached.kind === "job"
+        ? "(Here's a job description. How would Erin fit this role?)"
+        : `(I'm asking about this: ${attached.label}${attached.href ? `, ${attached.href}` : ""})`,
       attached.text ? `"""\n${attached.text}\n"""` : "",
       m.parts.map((p) => (p.type === "text" ? p.text : "")).join(""),
     ];

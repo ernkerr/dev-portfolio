@@ -2,9 +2,9 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { Caption } from "@/components/site/prose";
 
-// Evidence for the Research findings: other apps' screens as they were in May
-// 2025 and real App Store reviews, screenshotted from the App Store's review
-// cards with the username hidden. Sources are in landscape.ts.
+// Evidence for the Research findings: real App Store reviews, screenshotted
+// from the App Store's review cards with the username hidden. Sources are in
+// landscape.ts.
 
 const LANDSCAPE = "/images/ginScoreTracker/study/landscape";
 
@@ -43,29 +43,30 @@ export function ReviewShots({
   );
 }
 
-/** One app's screen next to a review of it. */
-export function PhoneAndReview({
-  phone,
-  review,
+/** A close-up from one of my screens, with a caption. */
+export function Detail({
+  src,
+  alt,
+  width,
+  height,
   caption,
 }: {
-  phone: { name: string; alt: string; height: number };
-  review: ReviewShot;
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
   caption?: ReactNode;
 }) {
   return (
     <figure>
-      <div className="grid items-center gap-8 sm:grid-cols-[14rem_1fr]">
-        <Image
-          src={`${LANDSCAPE}/${phone.name}.webp`}
-          alt={phone.alt}
-          width={600}
-          height={phone.height}
-          sizes="14rem"
-          className="mx-auto h-auto w-full max-w-56 rounded-phone-screen shadow-float ring-1 ring-black/5"
-        />
-        <ReviewImage shot={review} />
-      </div>
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        sizes="24rem"
+        className="h-auto w-full max-w-sm border border-site-line"
+      />
       {caption && <Caption>{caption}</Caption>}
     </figure>
   );

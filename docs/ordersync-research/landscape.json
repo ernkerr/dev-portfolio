@@ -1,0 +1,572 @@
+[
+  {
+    "id": "ordersync-before",
+    "name": "OrderSync (before redesign)",
+    "group": "OrderSync",
+    "url": "https://ordersync.io/",
+    "snapshot_url": "none on Wayback for the homepage (only /blog/ai-vs-edi-vs-api, 20260328174801)",
+    "timestamp": "n/a",
+    "source": "Erin's own capture in the portfolio repo (public/images/orderSync/before-hero.png, before-home.png); colors and fonts read from the OrderSync repo (ordersync-static) at commit a56a6bd, May 18 2026",
+    "capture_quality": "full (from repo, not Wayback)",
+    "files": {
+      "first": "ordersync-first.png",
+      "full": "ordersync-full.png"
+    },
+    "theme": "light",
+    "theme_note": "off-white hero; a dark navy section starts at the bottom edge of the first screen",
+    "colors": [
+      [
+        "ink",
+        "#0E172B"
+      ],
+      [
+        "body text",
+        "#64748B"
+      ],
+      [
+        "accent purple",
+        "#9333EA"
+      ],
+      [
+        "accent cyan",
+        "#06B6D4"
+      ],
+      [
+        "Sign In button",
+        "black"
+      ]
+    ],
+    "decoration": true,
+    "decoration_note": "purple and cyan glowing orbs (radial gradients), purple-to-cyan gradient headline text with gradient underline, gradient pill CTA with glow, frosted-glass secondary button",
+    "headline": "One System for All Your Orders",
+    "headline_type": "literal",
+    "headline_type_note": "names orders, but not what the product does",
+    "headline_ai": false,
+    "subhead": "Our AI agent reads, validates, and syncs orders from any source to your ERP.",
+    "hero_shows": "nothing",
+    "hero_shows_note": "text and decorative orbs only",
+    "cta_primary": "Book a free intro call",
+    "cta_secondary": "Try Free EDI Inspector → (screenshot); the May 2 and May 18 commits say \"Try Free Tools\"",
+    "logos_first_screen": true,
+    "logos_note": "retailer logos under \"Processing orders from\" (Lazy Acres, Mother's, Whole Foods, Bristol Farms, Erewhon, Jimbo's)",
+    "numbers_first_screen": null,
+    "numbers_note": "none",
+    "pricing_link": false,
+    "public_pricing": false,
+    "pricing_note": "no Pricing in nav; the homepage Pricing section was commented out in code",
+    "free_tools": true,
+    "free_tools_note": "EDI Inspector in nav, hero and a full section",
+    "typeface": "Satoshi (geometric sans), bold headline",
+    "feel": "glossy, gradient-heavy, generic AI-startup, light"
+  },
+  {
+    "id": "truecommerce",
+    "name": "TrueCommerce",
+    "group": "EDI network / integration",
+    "url": "https://www.truecommerce.com/",
+    "snapshot_url": "https://web.archive.org/web/20260512124033if_/https://www.truecommerce.com/",
+    "timestamp": "20260512124033",
+    "capture_quality": "good first screen; the main nav row did not render (white band under the top bar)",
+    "files": {
+      "first": "truecommerce-first.png",
+      "full": "truecommerce-full.png"
+    },
+    "theme": "dark",
+    "theme_note": "white top bar over a dark navy-to-blue hero band",
+    "colors": [
+      [
+        "navy",
+        "#00112A"
+      ],
+      [
+        "navy 2",
+        "#002855"
+      ],
+      [
+        "bright blue",
+        "#1FB4FF"
+      ],
+      [
+        "CTA amber",
+        "#FFAA00"
+      ],
+      [
+        "link blue",
+        "#016DA8"
+      ],
+      [
+        "white",
+        "#FFFFFF"
+      ]
+    ],
+    "decoration": true,
+    "decoration_note": "navy-to-cyan linear gradients and large abstract swoosh shapes (brand element SVG); no orbs, glass or 3D",
+    "headline": "Your Supply Chain: Integrated. Automated. Built to Scale.",
+    "headline_type": "abstract",
+    "headline_ai": false,
+    "subhead": "A global supply chain integration platform powered by EDI, AI, and modern API capabilities, bringing ERP systems and trading partners together on a secure, reliable network built for growth.",
+    "hero_shows": "abstract art",
+    "hero_shows_note": "brand swoosh shapes",
+    "cta_primary": "Book a Demo",
+    "cta_secondary": null,
+    "cta_note": "a 'See What's Next' link sits in a 'New AI Features' banner under the hero",
+    "logos_first_screen": false,
+    "logos_note": "customer logos start below the fold",
+    "numbers_first_screen": null,
+    "numbers_note": "none (30+ / 600M / 3M+ stats sit just below the fold)",
+    "pricing_link": true,
+    "public_pricing": false,
+    "pricing_note": "'Pricing' nav link goes to /contact/request-pricing/ (a request form)",
+    "free_tools": false,
+    "free_tools_note": "only a gated free guide (EDI transaction codes)",
+    "typeface": "Syne (display sans, geometric/quirky) for headlines, Manrope (geometric sans) for text",
+    "feel": "corporate, polished, blue, enterprise"
+  },
+  {
+    "id": "conexiom",
+    "name": "Conexiom",
+    "group": "AI order entry",
+    "url": "https://conexiom.com/",
+    "snapshot_url": "https://web.archive.org/web/20260514190724if_/https://conexiom.com/",
+    "timestamp": "20260514190724",
+    "capture_quality": "good",
+    "files": {
+      "first": "conexiom-first.png",
+      "full": "conexiom-full.png"
+    },
+    "theme": "light",
+    "theme_note": "warm light-grey rounded panel on white",
+    "colors": [
+      [
+        "warm grey",
+        "#F0EEEC"
+      ],
+      [
+        "charcoal headline",
+        "#303440"
+      ],
+      [
+        "CTA orange-red",
+        "#DC3A10"
+      ],
+      [
+        "secondary button",
+        "#303440"
+      ],
+      [
+        "green check marks",
+        "no hex read"
+      ]
+    ],
+    "decoration": false,
+    "decoration_note": "flat; faint dot grid inside the product card only",
+    "headline": "Process every order accurately, in seconds.",
+    "headline_type": "literal",
+    "headline_ai": false,
+    "subhead": "Free your teams from manual data entry and deliver faster, more accurate orders automatically to your ERP.",
+    "hero_shows": "product UI",
+    "hero_shows_note": "animated GIF of line-item fixes (widget a → WIDGET-A, qty-150 → 150 EA, $2450 → 2,450.00 USD) and Capture / Correct / Convert steps",
+    "cta_primary": "Request demo",
+    "cta_secondary": "Watch how it works",
+    "logos_first_screen": false,
+    "logos_note": "logos just below the fold (ExxonMobil, Arrow, Johnstone Supply, ADI, NEC, Graybar, Fastenal)",
+    "numbers_first_screen": "Learning from 1B+ line items annually",
+    "numbers_note": "",
+    "pricing_link": false,
+    "public_pricing": false,
+    "pricing_note": "nav: Platform, Solutions, Ask Cora, Blog, Partners",
+    "free_tools": false,
+    "free_tools_note": "none seen ('Ask Cora' in nav, purpose not visible)",
+    "typeface": "Inclusive Sans (humanist/grotesk sans), weight 550 headline",
+    "feel": "calm, warm, plain, product-led"
+  },
+  {
+    "id": "workist",
+    "name": "Workist",
+    "group": "AI order entry",
+    "url": "https://www.workist.com/en",
+    "snapshot_url": "https://web.archive.org/web/20260510051224if_/https://www.workist.com/en",
+    "timestamp": "20260510051224",
+    "capture_quality": "good first screen; some images further down failed to load",
+    "files": {
+      "first": "workist-first.png",
+      "full": "workist-full.png"
+    },
+    "theme": "dark",
+    "theme_note": "",
+    "colors": [
+      [
+        "navy",
+        "#0B2B4F"
+      ],
+      [
+        "mint CTA",
+        "#5EEAD4"
+      ],
+      [
+        "CTA text",
+        "#042F2E"
+      ],
+      [
+        "headline",
+        "#FAFBFB"
+      ],
+      [
+        "grey text",
+        "#CED5DC"
+      ]
+    ],
+    "decoration": true,
+    "decoration_note": "concentric hexagon line art with a teal radial glow on the left; a purple 3D-style mascot appears further down the page",
+    "headline": "Automate order entry - from inbox to ERP within seconds",
+    "headline_type": "literal",
+    "headline_ai": false,
+    "subhead": "Use the Workist Agent for touchless processing of orders and requests for quotation. ...",
+    "hero_shows": "abstract art",
+    "hero_shows_note": "hexagon line graphic",
+    "cta_primary": "Book a meeting",
+    "cta_secondary": null,
+    "logos_first_screen": true,
+    "logos_note": "logo strip under '150+ industry leaders trust Workist' (Glen Dimplex, Minebea intec, pewag, Underberg, Ledlenser, Masterflex, PUPCO, Liebherr)",
+    "numbers_first_screen": "150+ industry leaders trust Workist",
+    "numbers_note": "",
+    "pricing_link": true,
+    "public_pricing": "unknown",
+    "pricing_note": "'Pricing' in nav (/en/pricing); not checked whether prices are listed there",
+    "free_tools": false,
+    "free_tools_note": "",
+    "typeface": "PP Pier Sans (grotesk) headline, Inter text",
+    "feel": "dark, techy, tidy, friendly"
+  },
+  {
+    "id": "endeavor",
+    "name": "Endeavor AI",
+    "group": "AI order entry (broader supply-chain AI platform)",
+    "url": "https://www.endeavor.ai/",
+    "snapshot_url": "https://web.archive.org/web/20260517085620if_/https://www.endeavor.ai/",
+    "timestamp": "20260517085620",
+    "capture_quality": "good first screen; everything below the hero rendered blank in the archive",
+    "files": {
+      "first": "endeavor-first.png",
+      "full": "endeavor-full.png"
+    },
+    "theme": "mixed",
+    "theme_note": "full-bleed bright sky photo with white type",
+    "colors": [
+      [
+        "sky blue (photo)",
+        "no hex, photo"
+      ],
+      [
+        "CTA red",
+        "#ED353D"
+      ],
+      [
+        "white",
+        "#FFFFFF"
+      ]
+    ],
+    "decoration": false,
+    "decoration_note": "a photograph, no gradients/glows/orbs",
+    "headline": "The #1 AI Platform for Supply Chain",
+    "headline_type": "abstract",
+    "headline_ai": true,
+    "subhead": null,
+    "hero_shows": "photo",
+    "hero_shows_note": "red construction crane, building and clouds; no people",
+    "cta_primary": "Book a demo (with a work-email field)",
+    "cta_secondary": null,
+    "cta_note": "nav has 'Get started'",
+    "logos_first_screen": false,
+    "logos_note": "",
+    "numbers_first_screen": "#1; Trusted by customers doing $100B+ in annual sales",
+    "numbers_note": "",
+    "pricing_link": false,
+    "public_pricing": false,
+    "pricing_note": "nav: Solutions, AI Platform, Customers, About, Company",
+    "free_tools": false,
+    "free_tools_note": "none in nav or first screen; rest of page not visible",
+    "typeface": "Kalice (serif) headline, Inter/Geist text",
+    "feel": "bright, confident, editorial, industrial"
+  },
+  {
+    "id": "comena",
+    "name": "Comena",
+    "group": "AI order entry",
+    "url": "https://comena.ai/",
+    "snapshot_url": "https://web.archive.org/web/20260514063646if_/https://comena.ai/",
+    "timestamp": "20260514063646",
+    "capture_quality": "good first screen, but in German (the archived default) and the Host Grotesk webfont did not load (fallback sans shown); images below the hero failed",
+    "files": {
+      "first": "comena-first.png",
+      "full": "comena-full.png"
+    },
+    "theme": "dark",
+    "theme_note": "",
+    "colors": [
+      [
+        "deep blue/indigo (blurred photo)",
+        "no hex, image"
+      ],
+      [
+        "white text and primary button",
+        "#FFFFFF"
+      ],
+      [
+        "secondary button",
+        "rgba(255,255,255,0.05)"
+      ]
+    ],
+    "decoration": true,
+    "decoration_note": "blurred dark-blue 'soft light' tech background image (its alt text says so), frosted-glass nav (backdrop blur), translucent buttons",
+    "headline": "Weniger Tippen, mehr Verkaufen. Automatisierte Auftragserfassung",
+    "headline_en": "Less typing, more selling. Automated order entry",
+    "headline_type": "literal",
+    "headline_ai": false,
+    "subhead": "Comena automatisiert die Angebots- und Auftragserfassung von der Inbox ins ERP. Unsere KI Agenten lesen Bestellungen aus ...",
+    "hero_shows": "abstract art",
+    "hero_shows_note": "blurred light background",
+    "cta_primary": "Demo buchen (Book a demo)",
+    "cta_secondary": "So funktioniert's (How it works)",
+    "logos_first_screen": "unknown",
+    "logos_note": "label 'Bewährt bei führenden Unternehmen der Industrie' is visible; the logos did not render",
+    "numbers_first_screen": null,
+    "numbers_note": "none",
+    "pricing_link": false,
+    "public_pricing": false,
+    "pricing_note": "nav: Produkt, Über uns, Karriere, Kontakt",
+    "free_tools": false,
+    "free_tools_note": "",
+    "typeface": "Host Grotesk per CSS (grotesk sans); fallback rendered",
+    "feel": "dark, moody, minimal, startup"
+  },
+  {
+    "id": "cleo",
+    "name": "Cleo",
+    "group": "EDI network / integration",
+    "url": "https://www.cleo.com/",
+    "snapshot_url": "https://web.archive.org/web/20260513030911if_/https://www.cleo.com/",
+    "timestamp": "20260513030911",
+    "capture_quality": "UNSTYLED: Wayback rate-limited the CSS; text only (HTML fetched from the same snapshot)",
+    "files": {
+      "first": "cleo-first.png (unstyled)",
+      "full": "cleo-full.png (unstyled)"
+    },
+    "theme": "unknown",
+    "colors": "unknown",
+    "decoration": "unknown",
+    "decoration_note": "",
+    "headline": "From Modern EDI to AI-native Orchestration. Cleo Has You Covered.",
+    "headline_type": "mixed",
+    "headline_type_note": "names EDI, then 'AI-native Orchestration'",
+    "headline_ai": true,
+    "hero_shows": "unknown",
+    "cta_primary": "unknown",
+    "cta_secondary": "unknown",
+    "cta_note": "top banners: 'LIVE: Join the Food & Beverage Integration Demo Q&A Webinar...'",
+    "logos_first_screen": "unknown",
+    "numbers_first_screen": "unknown",
+    "numbers_note": "nav copy says 'See why 5,000+ customers choose Cleo'",
+    "pricing_link": true,
+    "public_pricing": "unknown",
+    "pricing_note": "'Pricing — Flexible models for SMBs to large enterprises' in nav (/edi-pricing)",
+    "free_tools": false,
+    "free_tools_note": "no free-tool links in the archived HTML",
+    "typeface": "Nunito Sans (Google Fonts link in HTML; rounded sans)",
+    "feel": "unknown"
+  },
+  {
+    "id": "canals",
+    "name": "Canals",
+    "group": "AI order entry",
+    "url": "https://www.canals.ai/",
+    "snapshot_url": "https://web.archive.org/web/20260513195144if_/https://www.canals.ai/",
+    "timestamp": "20260513195144",
+    "capture_quality": "UNSTYLED: CSS failed to load (rate limit); headline from the snapshot's DOM",
+    "files": {
+      "first": "canals-first.png (unstyled)",
+      "full": "canals-full.png (unstyled)"
+    },
+    "theme": "unknown",
+    "colors": "unknown",
+    "decoration": "unknown",
+    "decoration_note": "",
+    "headline": "AI That Keeps Material Moving",
+    "headline_type": "abstract",
+    "headline_ai": true,
+    "page_title": "Canals | AI for Manufacturers, Distributors, and Contractors",
+    "hero_shows": "unknown",
+    "cta_primary": "unknown",
+    "cta_secondary": "unknown",
+    "logos_first_screen": "unknown",
+    "numbers_first_screen": "unknown",
+    "pricing_link": false,
+    "public_pricing": false,
+    "pricing_note": "no pricing links in the DOM",
+    "free_tools": false,
+    "free_tools_note": "no free-tool links in the DOM",
+    "typeface": "unknown",
+    "feel": "unknown"
+  },
+  {
+    "id": "ymeadows",
+    "name": "Y Meadows",
+    "group": "AI order entry",
+    "url": "https://ymeadows.com/",
+    "snapshot_url": "https://web.archive.org/web/20260417033108if_/https://ymeadows.com/",
+    "timestamp": "20260417033108",
+    "capture_quality": "UNSTYLED: CSS failed and an embed returned 429; text from the snapshot's DOM. Latest snapshot before May 18 (next one is May 18 13:03)",
+    "files": {
+      "first": "ymeadows-first.png (unstyled)",
+      "full": "ymeadows-full.png (unstyled)"
+    },
+    "theme": "unknown",
+    "colors": "unknown",
+    "decoration": "unknown",
+    "decoration_note": "",
+    "headline": "Process 1000+ Orders / Without Typing a Single Line",
+    "headline_type": "literal",
+    "headline_ai": false,
+    "subhead": "AI software that automatically reads customer orders and enters them into your ERP system.",
+    "hero_shows": "unknown",
+    "cta_primary": "Schedule Live Demo",
+    "cta_secondary": "Download Your \"Success Roadmap\"",
+    "logos_first_screen": "unknown",
+    "numbers_first_screen": "Cut processing time by 90+%; 1000+ Orders (in hero copy; layout unknown)",
+    "pricing_link": false,
+    "public_pricing": false,
+    "pricing_note": "no pricing links in the DOM",
+    "free_tools": true,
+    "free_tools_note": "'ROI Calculator' link (/en/roi-calc/)",
+    "typeface": "Montserrat (from CSS font-family; geometric sans)",
+    "feel": "unknown"
+  },
+  {
+    "id": "order1",
+    "name": "Order1",
+    "group": "AI order entry",
+    "url": "https://www.order1.ai/",
+    "snapshot_url": "https://web.archive.org/web/20260515042118if_/https://www.order1.ai/",
+    "timestamp": "20260515042118",
+    "capture_quality": "UNSTYLED: Webflow CSS failed (rate limit); French site; text from the snapshot's DOM",
+    "files": {
+      "first": "order1-first.png (unstyled)",
+      "full": "order1-full.png (unstyled)"
+    },
+    "theme": "unknown",
+    "colors": "unknown",
+    "decoration": "unknown",
+    "decoration_note": "",
+    "headline": "Automatisez la saisie de vos commandes / devis grâce à l'IA",
+    "headline_en": "Automate entry of your orders / quotes with AI",
+    "headline_type": "literal",
+    "headline_ai": true,
+    "subhead": "Order1 est une suite de solutions qui permet de libérer les ADV de la saisie manuelle, éliminer les erreurs et diviser par 10 le temps de traitement des commandes.",
+    "hero_shows": "unknown",
+    "cta_primary": "Démo personnalisée / Réserver une démo (book a demo)",
+    "cta_secondary": "unknown",
+    "cta_note": "bullets: 'Démo personnalisée gratuite', '0€ de frais de setup'; nav has 'Tester'",
+    "logos_first_screen": "unknown",
+    "numbers_first_screen": "'diviser par 10' (10x faster processing) and '0€ setup' in hero copy; layout unknown",
+    "pricing_link": false,
+    "public_pricing": false,
+    "pricing_note": "no pricing links; '0€ de frais de setup' is the only price-like claim",
+    "free_tools": false,
+    "free_tools_note": "no free-tool links",
+    "typeface": "unknown",
+    "feel": "unknown"
+  },
+  {
+    "id": "choco",
+    "name": "Choco",
+    "group": "AI order entry (food distribution platform)",
+    "url": "https://choco.com/us",
+    "snapshot_url": "https://web.archive.org/web/20260516143816if_/https://choco.com/us",
+    "timestamp": "20260516143816",
+    "capture_quality": "NOT CAPTURED: page load returned 429; only the raw HTML was fetched",
+    "files": {
+      "first": "choco-first.png (429 error page)",
+      "full": "choco-full.png (429 error page)"
+    },
+    "theme": "unknown",
+    "colors": "unknown",
+    "decoration": "unknown",
+    "decoration_note": "",
+    "headline": "BE THE DISTRIBUTOR THAT ... (rest is filled in by script; unknown)",
+    "headline_type": "unknown",
+    "headline_ai": "unknown",
+    "page_title": "Choco | The Complete Growth Platform for Food Distributors",
+    "hero_shows": "unknown",
+    "cta_primary": "unknown",
+    "cta_secondary": "unknown",
+    "logos_first_screen": "unknown",
+    "numbers_first_screen": "unknown",
+    "pricing_link": true,
+    "public_pricing": "unknown",
+    "pricing_note": "link to /us/pricing in the HTML",
+    "free_tools": false,
+    "free_tools_note": "no free-tool links in the HTML",
+    "typeface": "unknown",
+    "feel": "unknown"
+  },
+  {
+    "id": "sps-commerce",
+    "name": "SPS Commerce",
+    "group": "EDI network / integration",
+    "url": "https://www.spscommerce.com/",
+    "snapshot_url": "https://web.archive.org/web/20260510114443if_/https://www.spscommerce.com/ (tried); https://web.archive.org/web/20260502001337if_/https://www.spscommerce.com/ (tried)",
+    "timestamp": "20260510114443 / 20260502001337",
+    "capture_quality": "NOT CAPTURED (Wayback too slow). The May 10 snapshot's CSS was never archived (404); the May 2 snapshot has CSS but timed out under rate limiting. Unstyled render shows only the mega-menu",
+    "files": {
+      "first": "sps-commerce-first.png (unstyled, May 10)",
+      "full": "sps-commerce-full.png (unstyled, May 10)"
+    },
+    "theme": "unknown",
+    "colors": "unknown",
+    "decoration": "unknown",
+    "decoration_note": "",
+    "headline": "unknown",
+    "headline_type": "unknown",
+    "headline_ai": "unknown",
+    "nav_note": "menu items include 'The Intelligent Supply Chain Network' and 'SPS MAX: Supply Chain Agentic AI'; 'Contact Sales' in the top bar",
+    "hero_shows": "unknown",
+    "cta_primary": "unknown",
+    "cta_secondary": "unknown",
+    "logos_first_screen": "unknown",
+    "numbers_first_screen": "unknown",
+    "pricing_link": "unknown",
+    "public_pricing": "unknown",
+    "free_tools": "unknown",
+    "typeface": "Source Sans Pro (font files requested)",
+    "feel": "unknown"
+  },
+  {
+    "id": "orderful",
+    "name": "Orderful",
+    "group": "EDI network / integration",
+    "url": "https://www.orderful.com/",
+    "snapshot_url": "https://web.archive.org/web/20260513015139if_/https://www.orderful.com/",
+    "timestamp": "20260513015139",
+    "capture_quality": "NOT CAPTURED: the archived app showed its own 'Error — Something went wrong' page",
+    "files": {
+      "first": "orderful-first.png (error page)",
+      "full": "orderful-full.png (error page)"
+    },
+    "theme": "unknown",
+    "colors": "unknown",
+    "decoration": "unknown",
+    "headline": "unknown",
+    "headline_type": "unknown",
+    "headline_ai": "unknown",
+    "hero_shows": "unknown",
+    "cta_primary": "unknown",
+    "cta_secondary": "unknown",
+    "logos_first_screen": "unknown",
+    "numbers_first_screen": "unknown",
+    "pricing_link": "unknown",
+    "public_pricing": "unknown",
+    "free_tools": "unknown",
+    "typeface": "unknown",
+    "feel": "unknown"
+  }
+]

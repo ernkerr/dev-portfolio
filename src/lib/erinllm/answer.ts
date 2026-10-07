@@ -26,11 +26,15 @@ function readSources(rest: string): Source[] {
   for (const [path] of rest.matchAll(
     /\/[A-Za-z0-9\-/]*(?:#[A-Za-z0-9\-_]+)?/g,
   )) {
-    const [pathname, section] = path.split("#");
+    const [pathname, anchor] = path.split("#");
+    // Real section ids are lowercase words with dashes ("ideas-to-test");
+    // anything else is made up, so it links to the page only
+    const section = anchor && /^[a-z][a-z0-9-]*$/.test(anchor) ? anchor : "";
     const page = pageAt(pathname);
-    if (!page || sources.some((s) => s.href === path)) continue;
+    const href = section ? `${page?.path}#${section}` : page?.path;
+    if (!page || sources.some((s) => s.href === href)) continue;
     sources.push({
-      href: path,
+      href: href!,
       label: section ? `${page.name} · ${sectionName(section)}` : page.name,
     });
   }

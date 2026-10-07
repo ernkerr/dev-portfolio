@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 import zlib from "node:zlib";
 import { unstable_cache } from "next/cache";
 import { cache } from "react";
+import { keepMonth, keptMonths } from "./keptMonths";
 import { SAVED_MONTHS } from "./savedMonths";
 
 // Gin Score Tracker's totals since launch, from App Store Connect's sales
@@ -196,6 +197,57 @@ function nextMonth(month: string) {
   return day(new Date(Date.UTC(y, m, 1))).slice(0, 7);
 }
 
+/** Months saved in the repo, plus those the cron job has kept since. */
+async function savedMonths(): Promise<Record<string, number>> {
+  const kept = await keptMonths().catch((error) => {
+    console.error("Couldn't read Gin Score Tracker's kept months", error);
+    return {};
+  });
+  return { ...SAVED_MONTHS, ...kept };
+}
+
+/**
+ * Saves each finished month after the last saved one, once Apple's monthly
+ * report is out, so the chart keeps it after Apple deletes the report. The
+ * daily cron job runs this; most days there's nothing new. Returns what it
+ * saved.
+ */
+export async function saveFinishedMonths(): Promise<Record<string, number>> {
+  const jwt = token();
+  const vendor = process.env.ASC_VENDOR_NUMBER;
+  if (!jwt || !vendor) return {};
+  const today = new Date();
+  const saved = Object.keys(await savedMonths()).sort();
+  const thisMonth = day(today).slice(0, 7);
+  const out: Record<string, number> = {};
+  for (
+    let m = nextMonth(saved[saved.length - 1]);
+    m < thisMonth;
+    m = nextMonth(m)
+  ) {
+    let rows: Row[] | null;
+    try {
+      rows = await report(jwt, vendor, "MONTHLY", m);
+    } catch (error) {
+      // Gone for good: the job didn't run for a year. Nothing to save.
+      if (error instanceof Gone) continue;
+      throw error;
+    }
+    const ended =
+      (today.getTime() -
+        Date.parse(lastDay({ frequency: "MONTHLY", date: m }))) /
+      86_400_000;
+    // Not out yet, so try again tomorrow. Once it's out, none means 0.
+    if (!rows && ended <= LATE_DAYS) break;
+    const users = (rows ?? [])
+      .filter(isNewUser)
+      .reduce((n, r) => n + units(r), 0);
+    if (!(await keepMonth(m, users))) break;
+    out[m] = users;
+  }
+  return out;
+}
+
 async function count(): Promise<GinSales | null> {
   const jwt = token();
   const vendor = process.env.ASC_VENDOR_NUMBER;
@@ -249,9 +301,9 @@ async function count(): Promise<GinSales | null> {
   }
 
   // New users each month: saved months, then later ones from Apple.
-  const months: GinSales["months"] = Object.entries(SAVED_MONTHS).map(
-    ([month, users]) => ({ month, users }),
-  );
+  const months: GinSales["months"] = Object.entries(await savedMonths())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([month, users]) => ({ month, users }));
   const thisMonth = day(today).slice(0, 7);
   for (
     let m = nextMonth(months[months.length - 1].month);
@@ -303,8 +355,12 @@ async function count(): Promise<GinSales | null> {
 }
 
 // Bump the key if a bad result was ever cached.
+/** Saving a month refreshes the numbers right away (the cron job). */
+export const GIN_SALES_TAG = "gin-sales";
+
 const countDaily = unstable_cache(count, ["gin-sales-v6"], {
   revalidate: 60 * 60 * 24,
+  tags: [GIN_SALES_TAG],
 });
 
 /**

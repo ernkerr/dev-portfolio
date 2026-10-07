@@ -1,8 +1,8 @@
 // New users (first-time downloads) in each finished month, from App Store
 // Connect's monthly sales reports. Apple deletes monthly reports a year after
 // they come out, so finished months are saved here to keep the chart's
-// history. Months after the last one here are fetched live (sales.ts), so add
-// them here within a year or they'll show as gaps.
+// history. Later months are saved automatically by a daily cron job
+// (keptMonths.ts), so this list doesn't need adding to.
 //
 // Saved October 7, 2026. The API had already deleted June to September 2025,
 // so those 4 come from App Store Connect's Trends page. They add up to 140,

@@ -50,6 +50,7 @@ const ALL: QuestGroup[] = [
       },
       {
         name: "Catch",
+        hidden: true,
         what: "Catch things falling from the sky",
         status: "soon",
         scene: "catcher",
@@ -62,6 +63,7 @@ const ALL: QuestGroup[] = [
       },
       {
         name: "Claw Game",
+        hidden: true,
         what: "Steer the claw and grab a prize",
         status: "soon",
         scene: "claw",

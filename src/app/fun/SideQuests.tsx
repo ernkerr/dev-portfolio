@@ -62,6 +62,14 @@ const STATUS: Record<Status, string> = {
 const label = "font-mono text-label uppercase";
 const number = (n: number) => String(n).padStart(3, "0");
 const statusOf = (q: Quest) => q.cta ?? STATUS[q.status];
+
+// Unfinished ones (in progress, coming soon) go on their own line, after
+// the finished ones.
+const unfinished = (q: Quest) => q.status === "in-progress" || q.status === "soon";
+const linesOf = (quests: Quest[]) =>
+  [quests.filter((q) => !unfinished(q)), quests.filter(unfinished)].filter(
+    (line) => line.length,
+  );
 const external = (href: string) => /^https?:/.test(href);
 
 function QuestLink({
@@ -445,42 +453,48 @@ export default function SideQuests({ groups }: { groups: QuestGroup[] }) {
               </p>
             )}
 
-            {view === "grid" ? (
-              <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                {group.quests.map((quest) => {
-                  n += 1;
-                  return (
-                    <li key={quest.name}>
-                      {quest.play === "dog" ? (
-                        <HappinessGenerator quest={quest} n={n} />
-                      ) : (
-                        <Square quest={quest} n={n} />
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <ul
-                className="mt-6"
-                onPointerMove={follow}
-                onPointerLeave={() => setPeek(null)}
-              >
-                {group.quests.map((quest, i) => {
-                  n += 1;
-                  return (
-                    <Row
-                      key={quest.name}
-                      quest={quest}
-                      n={n}
-                      index={i}
-                      onPlay={play}
-                      onPeek={setPeek}
-                    />
-                  );
-                })}
-              </ul>
-            )}
+            {view === "grid"
+              ? linesOf(group.quests).map((line, l) => (
+                  <ul
+                    key={l}
+                    className={`${l ? "mt-10" : "mt-8"} grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5`}
+                  >
+                    {line.map((quest) => {
+                      n += 1;
+                      return (
+                        <li key={quest.name}>
+                          {quest.play === "dog" ? (
+                            <HappinessGenerator quest={quest} n={n} />
+                          ) : (
+                            <Square quest={quest} n={n} />
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ))
+              : linesOf(group.quests).map((line, l) => (
+                  <ul
+                    key={l}
+                    className="mt-6"
+                    onPointerMove={follow}
+                    onPointerLeave={() => setPeek(null)}
+                  >
+                    {line.map((quest, i) => {
+                      n += 1;
+                      return (
+                        <Row
+                          key={quest.name}
+                          quest={quest}
+                          n={n}
+                          index={i}
+                          onPlay={play}
+                          onPeek={setPeek}
+                        />
+                      );
+                    })}
+                  </ul>
+                ))}
           </section>
         ))}
       </div>

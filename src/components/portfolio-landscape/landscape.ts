@@ -4,7 +4,9 @@
 // sources. Each clip was recorded from the version of the site closest to the
 // hire. The "suggests" lines are hypotheses for the redesign, not decisions,
 // and are drafts for Erin to rewrite in her own words. The full analysis is in
-// career-ops/data/portfolio-landscape/analysis.md.
+// career-ops/data/portfolio-landscape/analysis.md. Copies of every page cited,
+// live or from the Wayback Machine, as they stood on 2026-10-07, are in
+// career-ops/data/portfolio-landscape/snapshots.
 
 export type LandscapeEntry = {
   slug: string;
@@ -107,6 +109,8 @@ export const LANDSCAPE: LandscapeEntry[] = [
       href: "https://web.archive.org/web/20210414073255/https://www.amylima.design/",
     },
   },
+  // Olivia said I could use her portfolio but that it might change, and the
+  // Wayback Machine has no copy of it.
   {
     slug: "olivia-gibson",
     name: "Olivia Gibson",

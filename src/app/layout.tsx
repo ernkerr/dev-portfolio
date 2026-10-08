@@ -101,7 +101,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // Browser extensions (dark mode ones especially) add attributes like
+    // style="color-scheme: light" to <html> before React loads. This ignores
+    // that on <html> only; mismatches anywhere else still warn.
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <script

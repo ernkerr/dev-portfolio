@@ -31,6 +31,16 @@ export function useLights() {
   return [on, setOn] as const;
 }
 
+// What a light looks like lit, drawn over it while the lights are on, for
+// a light whose lit look has to move with it (in a Swish, say), so can't
+// be LampSwitch's `light`
+export function WhenLit({ children }: { children: React.ReactNode }) {
+  const [on] = useLights();
+  return (
+    <g className={`${fade} ${on ? "opacity-100" : "opacity-0"}`}>{children}</g>
+  );
+}
+
 // A lamp that's a light switch. Room draws the room with the lamp off and
 // passes it in as children, plus the lamp lit as `light`. Clicking the lamp
 // turns the lights on: it shows the light with a glow around it and puts the
@@ -39,6 +49,7 @@ export function useLights() {
 export default function LampSwitch({
   viewBox,
   title,
+  label = "Lamp (dark mode)",
   glow,
   light,
   hit,
@@ -46,13 +57,16 @@ export default function LampSwitch({
   children,
 }: {
   viewBox: string;
+  /** The button's name. */
+  label?: string;
   /** How wide the drawing is: a bookshelf's width, or its column's. */
   width?: string;
   title: string;
   /** Center and outer radius of the glow, in viewBox units. */
   glow: { x: number; y: number; r: number };
-  /** The lamp lit, drawn over the room when it's on. */
-  light: React.ReactNode;
+  /** The lamp lit, drawn over the room when it's on (or nothing, if
+   * the children draw it, with WhenLit). */
+  light?: React.ReactNode;
   /** Where the lamp is, as percentages of the drawing, for the button. */
   hit: { left: number; top: number; width: number; height: number };
   children: React.ReactNode;
@@ -123,7 +137,7 @@ export default function LampSwitch({
       <button
         type="button"
         aria-pressed={on}
-        aria-label="Lamp (dark mode)"
+        aria-label={label}
         data-side={on ? "engineer" : "designer"}
         onClick={() => setOn(!on)}
         style={{

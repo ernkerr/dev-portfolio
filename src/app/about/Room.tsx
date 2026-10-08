@@ -23,6 +23,7 @@ import DeskComputer from "./DeskComputer";
 import { AREA as DESK_AREA, MUG } from "./deskArt";
 import EmberMug from "./EmberMug";
 import Closet, { CLOSET_WIDTH } from "./Closet";
+import PaperLantern, { LANTERN_WIDTH } from "./PaperLantern";
 import { LAVA } from "./lavaShape";
 import { MY_PHOTOS } from "./cameraPhotos";
 
@@ -6995,6 +6996,7 @@ export function WindowAndCloset() {
     <div className="flex items-start [--room-unit:calc(12rem/260)] md:[--room-unit:calc(15rem/260)]">
       <WindowWall />
       <Closet top={VIEW.top} height={VIEW.height} />
+      <PaperLantern top={VIEW.top} height={VIEW.height} />
     </div>
   );
 }
@@ -7009,7 +7011,7 @@ export function WindowAndCloset() {
 // sideways.
 export function FinalRoom() {
   const last = SHELVES[SHELVES.length - 1];
-  const across = VIEW.width + WALL + CLOSET_WIDTH;
+  const across = VIEW.width + WALL + CLOSET_WIDTH + LANTERN_WIDTH;
   return (
     <div className="overflow-x-auto [container-type:inline-size] md:overflow-visible">
       <div
@@ -7041,6 +7043,7 @@ export function FinalRoom() {
         </div>
         <WindowWall />
         <Closet top={VIEW.top} height={VIEW.height} />
+        <PaperLantern top={VIEW.top} height={VIEW.height} />
       </div>
     </div>
   );

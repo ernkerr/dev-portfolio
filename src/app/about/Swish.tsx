@@ -18,14 +18,16 @@ import { useEffect, useRef } from "react";
 //   the further the pointer moves across it
 // - ball: a disco ball swinging on its whole string, lighter
 // - plant: any plant's leaves, all alike, lighter and springing back
-// A ball or a plant is pushed by how fast the pointer goes past, once a
+// - lantern: a paper lantern on a long cord, swinging slowly and not far
+// A ball, a plant or a lantern is pushed by how fast the pointer goes past, once a
 // pass, so a small leaf moves as much as a big one.
 const FEEL = {
   cloth: { spring: 8, damping: 1.1, max: 18, push: 0.2, drag: true },
   ball: { spring: 10, damping: 1.6, max: 14, push: 0.03, drag: false },
   plant: { spring: 18, damping: 2.4, max: 16, push: 0.03, drag: false },
+  lantern: { spring: 4, damping: 0.9, max: 7, push: 0.02, drag: false },
 };
-const PASS = 150; // ms before a ball or plant can be pushed again
+const PASS = 150; // ms before a ball, plant or lantern can be pushed again
 const DRAG = { spring: 40, damping: 7, lag: 0.22, max: 4 }; // the hem trailing
 
 // Everything that swishes hears the pointer and scrolling through one pair

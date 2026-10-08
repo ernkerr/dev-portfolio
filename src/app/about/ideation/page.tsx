@@ -75,6 +75,7 @@ export default function IdeationPage() {
               <p>Window</p>
               <p className="mt-1">Desk</p>
               <p className="mt-1">Closet</p>
+              <p className="mt-1">Paper lantern</p>
             </figcaption>
           </figure>
         </div>

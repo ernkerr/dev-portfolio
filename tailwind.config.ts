@@ -76,6 +76,17 @@ export default {
           light: "#FFD45C", // the glow around lamp 5 when it's on
           frost: "#EEF2F4", // lamp 5's bubbles and bulb glass, off
           mirror: "#D3DADF", // silver shards on the disco ball
+          // The round paper lantern hanging right of my closet: its paper,
+          // the shade round its lower right and its ribs; and lit, its hot
+          // middle (its warmer edge is room-glow) and its ribs against the
+          // light
+          paper: {
+            DEFAULT: "#F4EFE4",
+            shade: "#E5DDCE",
+            rib: "#D3C8B4",
+            lit: "#FFF6DE",
+            "lit-rib": "#E6BE6E",
+          },
           // The snake plant: leaves, their pale bands, back leaves, yellow-green
           // leaves; its pot
           plant: {

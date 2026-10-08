@@ -24,7 +24,7 @@ export default function AboutPage() {
         <p className="mt-2 max-w-measure text-body text-site-ink/80">
           Inspired from subletting across NY.
           <br />
-          I&apos;m learning how much you can learn from a person by spending
+          I&apos;m learning how much you can learn about a person by spending
           time in their space.
         </p>
       </div>

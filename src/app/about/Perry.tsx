@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { focusRing } from "@/components/site/links";
+import { useKeepOnScreen } from "./keepOnScreen";
 import { PERRY_VIEW } from "./perryShape";
 
 // Perry, my Bambu A1 3D printer, on the floor of my closet next to my
@@ -137,6 +138,8 @@ export default function Perry({
   const [job, setJob] = useState<{ kind: Kind; color: number } | null>(null);
   const [state, setState] = useState<"idle" | "printing" | "done">("idle");
   const root = useRef<HTMLDivElement>(null);
+  const popover = useRef<HTMLDivElement>(null);
+  useKeepOnScreen(popover, open);
   const gantry = useRef<SVGGElement>(null);
   const head = useRef<SVGGElement>(null);
   const tubeRef = useRef<SVGPathElement>(null);
@@ -473,6 +476,7 @@ export default function Perry({
 
       {open && (
         <div
+          ref={popover}
           role="dialog"
           aria-label="Choose a print and a color"
           className="absolute bottom-full left-0 z-20 mb-2 w-72 border border-site-line bg-site-paper p-4 shadow-float ring-1 ring-black/5"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { onSwipe } from "./roomSwipe";
 
 // Something in the room that swishes when the pointer brushes it: the
 // clothes in my closet (Closet.tsx), the disco balls on their strings and
@@ -9,9 +10,11 @@ import { useEffect, useRef } from "react";
 // the faster it moves, then easing back and forth a little less each time
 // until it's still. Brushed however fast, or scrolled past a still
 // pointer: each move of the pointer, and each scroll of the page under
-// it, is a line, and one that crosses it pushes it. It's a spring worked
-// out each frame, only while it's moving, and it only listens while it's
-// on screen; with reduced motion it keeps still.
+// it, is a line, and one that crosses it pushes it. And on a phone, where
+// the room's swiped sideways, it's carried along and swings behind, the
+// harder the faster it's swiped (roomSwipe.ts). It's a spring worked out
+// each frame, only while it's moving, and it only listens while it's on
+// screen; with reduced motion it keeps still.
 //
 // How it moves, by `feel`:
 // - cloth: a slow swing, its hem trailing behind like fabric, pushed more
@@ -19,15 +22,45 @@ import { useEffect, useRef } from "react";
 // - ball: a disco ball swinging on its whole string, lighter
 // - plant: any plant's leaves, all alike, lighter and springing back
 // - lantern: a paper lantern on a long cord, swinging slowly and not far
-// A ball, a plant or a lantern is pushed by how fast the pointer goes past, once a
-// pass, so a small leaf moves as much as a big one.
+// A ball, a plant or a lantern is pushed by how fast the pointer goes
+// past, once a pass, so a small leaf moves as much as a big one. `swing`
+// is how much each pixel the room's swiped pushes it.
 const FEEL = {
-  cloth: { spring: 8, damping: 1.1, max: 18, push: 0.2, drag: true },
-  ball: { spring: 10, damping: 1.6, max: 14, push: 0.03, drag: false },
-  plant: { spring: 18, damping: 2.4, max: 16, push: 0.03, drag: false },
-  lantern: { spring: 4, damping: 0.9, max: 7, push: 0.02, drag: false },
+  cloth: {
+    spring: 8,
+    damping: 1.1,
+    max: 18,
+    push: 0.2,
+    drag: true,
+    swing: 0.12,
+  },
+  ball: {
+    spring: 10,
+    damping: 1.6,
+    max: 14,
+    push: 0.03,
+    drag: false,
+    swing: 0.07,
+  },
+  plant: {
+    spring: 18,
+    damping: 2.4,
+    max: 16,
+    push: 0.03,
+    drag: false,
+    swing: 0.07,
+  },
+  lantern: {
+    spring: 4,
+    damping: 0.9,
+    max: 7,
+    push: 0.02,
+    drag: false,
+    swing: 0.05,
+  },
 };
 const PASS = 150; // ms before a ball, plant or lantern can be pushed again
+const LEAN = 4; // degrees a swipe leans it at most before it swings
 const DRAG = { spring: 40, damping: 7, lag: 0.22, max: 4 }; // the hem trailing
 
 // Everything that swishes hears the pointer and scrolling through one pair
@@ -170,17 +203,48 @@ export default function Swish({
         spin -= Math.sign(moved) * speed * f.push;
       }
       spin = Math.max(-f.max, Math.min(f.max, spin));
-      if (!frame) {
-        last = performance.now();
-        frame = requestAnimationFrame(step);
+      go();
+    };
+    const go = () => {
+      if (frame) return;
+      last = performance.now();
+      frame = requestAnimationFrame(step);
+    };
+
+    // Carried along as the room's swiped sideways, it lags behind: swiped
+    // left, the room goes left, and what hangs swings right, a turn
+    // anticlockwise, and a plant's leaves lean right over their pot, a
+    // turn clockwise
+    let hangs: boolean | null = null;
+    const swipe = (scroller: Element, dx: number) => {
+      if (reduce.matches || !scroller.contains(g)) return;
+      if (hangs === null) {
+        const box = g.getBBox();
+        hangs = y < box.y + box.height / 2;
       }
+      // A long or fast swipe leans it only so far, then lets it swing
+      const push = (hangs ? -1 : 1) * dx * f.swing;
+      if (Math.sign(push) === Math.sign(angle) && Math.abs(angle) > LEAN)
+        return;
+      const cap = f.max / 2;
+      spin = Math.max(-cap, Math.min(cap, spin + push));
+      go();
     };
 
     let stop = () => {};
     const observer = new IntersectionObserver(([entry]) => {
       stop();
       was = null;
-      stop = entry.isIntersecting ? listen(sweep) : () => {};
+      if (!entry.isIntersecting) {
+        stop = () => {};
+        return;
+      }
+      const unsweep = listen(sweep);
+      const unswipe = onSwipe(swipe);
+      stop = () => {
+        unsweep();
+        unswipe();
+      };
     });
     observer.observe(g);
     return () => {

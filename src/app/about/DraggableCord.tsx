@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { onSwipe } from "./roomSwipe";
 
 type Pt = [number, number];
 
@@ -48,6 +49,7 @@ const BEND_PASSES = 4; // more passes spread a bend over more of the cord
 const LEAVE = 3; // points below the edge that follow it leaving downward
 const BRUSH = 0.00125; // its speed a step for each unit a second it's brushed
 const BRUSH_MAX = 0.9; // the most a brush moves it a step
+const SWIPE = 0.03; // its speed a step for each unit the room's swiped
 const SNAP = 8; // how close the plug has to come to a jack to plug in
 const PLUG_GRIP = 8; // points from the end that count as grabbing the plug
 const PLUG_SPOT = 12; // the reach of the spot round the plug to grab it by
@@ -428,6 +430,27 @@ export default function DraggableCord({
       passive: true,
     });
 
+    // On a phone, carried along as the room's swiped sideways, it lags
+    // behind, its loose end the most, then swings loose and settles
+    const unswipe = onSwipe((scroller, dx) => {
+      const svg = groupRef.current?.ownerSVGElement;
+      if (!visible || mode === "held" || reduce.matches) return;
+      if (!svg || !scroller.contains(svg)) return;
+      const m = svg.getScreenCTM();
+      if (!m) return;
+      const push = Math.max(
+        -BRUSH_MAX,
+        Math.min(BRUSH_MAX, (dx / Math.hypot(m.a, m.b)) * SWIPE),
+      );
+      for (let i = 2; i < n; i++) {
+        if (fixed(i)) continue;
+        const v = pos[i][0] - prev[i][0] + push * (i / (n - 1));
+        prev[i][0] = pos[i][0] - Math.max(-BRUSH_MAX, Math.min(BRUSH_MAX, v));
+      }
+      mode = "falling";
+      releasedAt = performance.now() / 1000;
+    });
+
     // Pulled out from elsewhere: it falls free and swings, as when the plug
     // is pulled out by hand
     if (unplug)
@@ -466,6 +489,7 @@ export default function DraggableCord({
       observer.disconnect();
       window.removeEventListener("pointermove", onMove);
       document.removeEventListener("scroll", onScroll, { capture: true });
+      unswipe();
       cancelAnimationFrame(frame);
       controls.current = null;
       if (unplug) unplug.current = null;

@@ -292,6 +292,7 @@ export default function WallCalendar({
   const [here, setHere] = useState<string | null>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const close = useRef<HTMLButtonElement>(null);
+  const times = useRef<HTMLDivElement>(null);
   const title = `calendar${useId().replace(/[^\w-]/g, "")}`;
 
   useEffect(() => {
@@ -315,6 +316,17 @@ export default function WallCalendar({
       window.removeEventListener("keydown", escape);
     };
   }, [open]);
+
+  // A day picked on a phone, where its times come under the month, off
+  // the bottom of the screen: scroll down to them
+  useEffect(() => {
+    if (!picked || !window.matchMedia("(max-width: 767px)").matches) return;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    times.current?.scrollIntoView({
+      block: "start",
+      behavior: still ? "auto" : "smooth",
+    });
+  }, [picked]);
 
   const shut = () => {
     setShown(false);
@@ -392,9 +404,9 @@ export default function WallCalendar({
                     <Page now={now} picked={picked} onPick={setPicked} />
                   </svg>
 
-                  {/* The times that day, beside it */}
+                  {/* The times that day, beside it (under it on a phone) */}
                   {now && picked && (
-                    <div className="md:w-64">
+                    <div ref={times} className="scroll-mt-10 md:w-64">
                       <p className="text-caption text-site-muted">
                         {new Date(now.y, now.m, picked).toLocaleDateString(
                           "en-US",

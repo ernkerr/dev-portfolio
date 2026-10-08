@@ -1,4 +1,5 @@
 import { focusRing } from "@/components/site/links";
+import { TipLabel } from "@/components/site/prose";
 import DraggableCord from "./DraggableCord";
 import LampSwitch from "./LampSwitch";
 import PlugInDeck from "./PlugInDeck";
@@ -324,7 +325,17 @@ const BUBBLES: [number, number, number][] = [
   [0.94, 0.88, 0.8],
 ];
 
-function StemLamp({ version, id }: { version: 1 | 2 | 3; id: string }) {
+function StemLamp({
+  version,
+  id,
+  lit = true,
+}: {
+  version: 1 | 2 | 3;
+  id: string;
+  /** Drawn on; off, its bulb's dark and its bubbles frosted, and
+   * StemLampLight draws it on over it (see Room). */
+  lit?: boolean;
+}) {
   const { x, floor } = STEM_LAMP;
   const { w, h, bottom, rim } = STEM_SHADE;
   const top = STEM_SHADE_TOP;
@@ -376,22 +387,16 @@ function StemLamp({ version, id }: { version: 1 | 2 | 3; id: string }) {
         </>
       )}
 
-      {version === 3 ? (
+      {lit && <StemLampGlow version={version} />}
+      {!lit && (
         <circle
           cx={x}
           cy={bulb.y}
-          r={bulb.r * 1.8}
-          className="fill-room-glow/50"
-        />
-      ) : (
-        <circle
-          cx={x}
-          cy={bulb.y}
-          r={bulb.r * 2}
-          className="fill-room-glow/40"
+          r={bulb.r}
+          strokeWidth={0.8}
+          className="fill-room-frost stroke-room-glass/60"
         />
       )}
-      <circle cx={x} cy={bulb.y} r={bulb.r} className="fill-room-glow" />
 
       {version === 3 ? (
         <>
@@ -420,15 +425,9 @@ function StemLamp({ version, id }: { version: 1 | 2 | 3; id: string }) {
           ))}
         </>
       ) : (
-        BUBBLES.map(([fx, fy, br]) => (
-          <circle
-            key={`${fx}-${fy}`}
-            cx={left + fx * w}
-            cy={top + fy * h}
-            r={br}
-            className="fill-room-glow/70"
-          />
-        ))
+        <StemBubbles
+          className={lit ? "fill-room-glow/70" : "fill-room-frost/60"}
+        />
       )}
 
       {/* Base: brass disc, the collar around the stem, and a knob */}
@@ -494,6 +493,53 @@ function StemLamp({ version, id }: { version: 1 | 2 | 3; id: string }) {
   );
 }
 
+// Lamps 1 to 3's bulb lit, and its halo
+function StemLampGlow({ version }: { version: 1 | 2 | 3 }) {
+  const bulb = { y: STEM_SHADE_TOP + 18 + 9, r: 9 };
+  return (
+    <>
+      <circle
+        cx={STEM_LAMP.x}
+        cy={bulb.y}
+        r={bulb.r * (version === 3 ? 1.8 : 2)}
+        className={version === 3 ? "fill-room-glow/50" : "fill-room-glow/40"}
+      />
+      <circle
+        cx={STEM_LAMP.x}
+        cy={bulb.y}
+        r={bulb.r}
+        className="fill-room-glow"
+      />
+    </>
+  );
+}
+
+// Lamps 1 and 2's bubbles in the glass
+function StemBubbles({ className }: { className: string }) {
+  const { w, h } = STEM_SHADE;
+  const left = STEM_LAMP.x - w / 2;
+  return BUBBLES.map(([fx, fy, br]) => (
+    <circle
+      key={`${fx}-${fy}`}
+      cx={left + fx * w}
+      cy={STEM_SHADE_TOP + fy * h}
+      r={br}
+      className={className}
+    />
+  ));
+}
+
+// Lamps 1 to 3 on, over them off: the bulb lit with its halo, and lamps 1
+// and 2's bubbles catching the light
+function StemLampLight({ version }: { version: 1 | 2 | 3 }) {
+  return (
+    <g>
+      <StemLampGlow version={version} />
+      {version !== 3 && <StemBubbles className="fill-room-glow/70" />}
+    </g>
+  );
+}
+
 /* ---------- Lamp 4: the arm lamp ---------- */
 
 // Side on, like the real lamp: a brass disc base, a pole that curves over
@@ -512,7 +558,7 @@ const ARM_Y = ARM_SHADE_TOP - CAP.h - 9; // centerline of the arm
 const ARM_END = ARM_SHADE_X + 24;
 const ARM_LAMP_TOP = ARM_Y - POLE / 2 - 3; // the cap's rod pokes above the arm
 
-function ArmLamp({ id }: { id: string }) {
+function ArmLamp({ id, lit = true }: { id: string; lit?: boolean }) {
   const { x, floor } = ARM_LAMP;
   const cx = ARM_SHADE_X;
   const top = ARM_SHADE_TOP;
@@ -565,20 +611,21 @@ function ArmLamp({ id }: { id: string }) {
         height={bulb.y - bulb.ry - top + 2}
         className="fill-room-brass"
       />
-      <circle cx={cx} cy={bulb.y} r={16} className="fill-room-glow/50" />
-      <ellipse
-        cx={cx}
-        cy={bulb.y}
-        rx={bulb.rx}
-        ry={bulb.ry}
-        className="fill-room-glow"
-      />
-      <path
-        d={`M${cx - 2} ${bulb.y - 6}V${bulb.y + 2}Q${cx} ${bulb.y + 5} ${cx + 2} ${bulb.y + 2}V${bulb.y - 6}`}
-        fill="none"
-        strokeWidth={1}
-        className="stroke-room-brass"
-      />
+      {lit ? (
+        <ArmLampLight />
+      ) : (
+        <>
+          <ellipse
+            cx={cx}
+            cy={bulb.y}
+            rx={bulb.rx}
+            ry={bulb.ry}
+            strokeWidth={0.8}
+            className="fill-room-frost stroke-room-glass/60"
+          />
+          <ArmFilament />
+        </>
+      )}
 
       {/* Front of the glass: its sides and the near side of both rims */}
       <path
@@ -651,6 +698,34 @@ function ArmLamp({ id }: { id: string }) {
         />
         <MosaicBall cx={ball.x} cy={ball.y} id={id} />
       </Swish>
+    </g>
+  );
+}
+
+// The arm lamp's bulb: where it is, and its filament
+const ARM_BULB = { y: ARM_SHADE_TOP + ARM_SHADE.h * 0.45, rx: 6, ry: 8 };
+function ArmFilament() {
+  const cx = ARM_SHADE_X;
+  const { y } = ARM_BULB;
+  return (
+    <path
+      d={`M${cx - 2} ${y - 6}V${y + 2}Q${cx} ${y + 5} ${cx + 2} ${y + 2}V${y - 6}`}
+      fill="none"
+      strokeWidth={1}
+      className="stroke-room-brass"
+    />
+  );
+}
+
+// The arm lamp on: its bulb lit, with its halo and filament
+function ArmLampLight() {
+  const cx = ARM_SHADE_X;
+  const { y, rx, ry } = ARM_BULB;
+  return (
+    <g>
+      <circle cx={cx} cy={y} r={16} className="fill-room-glow/50" />
+      <ellipse cx={cx} cy={y} rx={rx} ry={ry} className="fill-room-glow" />
+      <ArmFilament />
     </g>
   );
 }
@@ -7007,44 +7082,53 @@ export function WindowAndCloset() {
 // less the header and room above for the deck and books to come out into,
 // whichever's less. --room-unit is one of the bookshelf's units, worked
 // out from the space (100cqw is the page's width), so all three keep its
-// scale and line up. On a phone they keep a readable size and scroll
-// sideways.
+// scale and line up. On a phone it's swiped through sideways, the full
+// width of the screen, stopping on one part at a time in the middle of it
+// (and at the end, on the lantern), as big as lets the widest part, the
+// window wall, fit between the gutters (3rem, both of them) and the
+// room's whole height fit on screen; what hangs and sways swings as it's
+// swiped (roomSwipe.ts).
 export function FinalRoom() {
   const last = SHELVES[SHELVES.length - 1];
   const across = VIEW.width + WALL + CLOSET_WIDTH + LANTERN_WIDTH;
   return (
-    <div className="overflow-x-auto [container-type:inline-size] md:overflow-visible">
-      <div
-        className="mx-auto flex w-max items-start [--room-unit:var(--phone)] md:[--room-unit:var(--fit)]"
-        style={
-          {
-            "--fit": `min(calc(80cqw / ${across}), calc((100svh - 18rem) / ${VIEW.height.toFixed(2)}))`,
-            "--phone": `max(calc(12rem / ${VIEW.width}), var(--fit))`,
-          } as React.CSSProperties
-        }
-      >
+    <div>
+      <div className="-mx-gutter snap-x snap-mandatory scroll-px-gutter overflow-x-auto [container-type:inline-size] md:mx-0 md:snap-none md:scroll-px-0 md:overflow-visible">
         <div
-          className="shrink-0"
-          style={{ width: `calc(var(--room-unit) * ${VIEW.width})` }}
+          className="mx-auto flex w-max items-start px-gutter [--room-unit:var(--phone)] *:snap-center md:px-0 md:[--room-unit:var(--fit)] [&>*:last-child]:snap-end"
+          style={
+            {
+              "--fit": `min(calc(80cqw / ${across}), calc((100svh - 18rem) / ${VIEW.height.toFixed(2)}))`,
+              "--phone": `min(calc((100cqw - 3rem) / ${WALL}), calc((100svh - 7rem) / ${VIEW.height.toFixed(2)}))`,
+            } as React.CSSProperties
+          }
         >
-          <Room
-            lamp={last.version}
-            plant={last.plant?.version}
-            books={last.books?.version}
-            basket={last.basket?.version}
-            headphones={last.headphones?.version}
-            dj={last.dj?.version}
-            camera={last.camera?.version}
-            lava={last.lava?.version}
-            cuttings={last.cuttings?.version}
-            clock={last.clock?.version}
-            fill
-          />
+          <div
+            className="shrink-0"
+            style={{ width: `calc(var(--room-unit) * ${VIEW.width})` }}
+          >
+            <Room
+              lamp={last.version}
+              plant={last.plant?.version}
+              books={last.books?.version}
+              basket={last.basket?.version}
+              headphones={last.headphones?.version}
+              dj={last.dj?.version}
+              camera={last.camera?.version}
+              lava={last.lava?.version}
+              cuttings={last.cuttings?.version}
+              clock={last.clock?.version}
+              fill
+            />
+          </div>
+          <WindowWall />
+          <Closet top={VIEW.top} height={VIEW.height} />
+          <PaperLantern top={VIEW.top} height={VIEW.height} />
         </div>
-        <WindowWall />
-        <Closet top={VIEW.top} height={VIEW.height} />
-        <PaperLantern top={VIEW.top} height={VIEW.height} />
       </div>
+      <p className="mt-4 font-mono text-label uppercase text-site-muted md:hidden">
+        Swipe to look around
+      </p>
     </div>
   );
 }
@@ -7174,12 +7258,20 @@ const VIEW_BOX = `${VIEW.left} ${VIEW.top} ${VIEW.width} ${VIEW.height}`;
 const TITLE =
   "My old bookshelf, with my lamp, its disco ball and my snake plant on the top shelf.";
 
-// Lamp 5's clickable area, as percentages of the drawing.
+// The lamps' clickable areas, as percentages of the drawing: lamps 1 to 3
+// and 5, round their shade and stem, and the arm lamp, round its pole,
+// arm and shade
 const SWITCH_HIT = {
   left: ((STEM_LAMP.x - STEM_SHADE.w / 2 - VIEW.left) / VIEW.width) * 100,
   top: ((STEM_SHADE_TOP - VIEW.top) / VIEW.height) * 100,
   width: (STEM_SHADE.w / VIEW.width) * 100,
   height: ((STEM_LAMP.floor - STEM_SHADE_TOP) / VIEW.height) * 100,
+};
+const ARM_HIT = {
+  left: ((ARM_LAMP.x - ARM_BASE.w / 2 - VIEW.left) / VIEW.width) * 100,
+  top: ((ARM_LAMP_TOP - VIEW.top) / VIEW.height) * 100,
+  width: ((ARM_END + 5 - ARM_LAMP.x + ARM_BASE.w / 2) / VIEW.width) * 100,
+  height: ((ARM_LAMP.floor - ARM_LAMP_TOP) / VIEW.height) * 100,
 };
 
 type RoomProps = {
@@ -7196,6 +7288,14 @@ type RoomProps = {
   /** Fill its column, as wide as that is, rather than a bookshelf's set
    * width (w-48 md:w-60). */
   fill?: boolean;
+  /** Its drawing's ids, when the same lamp's on more than one bookshelf on
+   * the page (Versions). */
+  uid?: string;
+  /** Show only this piece of the bookshelf (Versions): the rest of it
+   * isn't drawn, though what's on it can still come out past the piece. */
+  piece?: Piece;
+  /** Without the lamp, for a piece the lamp isn't in. */
+  bare?: boolean;
 };
 
 export default function Room({
@@ -7210,8 +7310,11 @@ export default function Room({
   cuttings,
   clock,
   fill = false,
+  uid,
+  piece,
+  bare = false,
 }: RoomProps) {
-  const id = `room-${lamp}`;
+  const id = uid ?? `room-${lamp}`;
   const width = fill ? "w-full" : "w-48 md:w-60";
 
   // Books 2 and up are HTML laid over the drawing (see TurningBook), and
@@ -7298,67 +7401,49 @@ export default function Room({
       drawing
     );
 
-  if (lamp === 5) {
-    return withOverlays(
-      <LampSwitch
-        viewBox={VIEW_BOX}
-        title={TITLE}
-        glow={{ x: STEM_LAMP.x, y: SWITCH_BULB.y + 10, r: 560 }}
-        light={<SwitchLampLight />}
-        hit={SWITCH_HIT}
-        width={width}
-      >
-        <Bookshelf />
-        <SwitchLamp id={`${id}-ball`} />
-        {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
-        {headphones === 1 && <Headphones />}
-        {dj === 1 && <OpusQuadFront />}
-        {dj === 2 && <OpusQuadAngled />}
-        {headphones === 2 && <TossedHeadphones />}
-        {headphones === 3 &&
-          (plugIn ? (
-            <RestingHeadphones cx={PLUG_IN.phones} draggableCord />
-          ) : (
-            <RestingHeadphones />
-          ))}
-        {headphones === 4 &&
-          (plugIn ? (
-            <RestingHeadphones band="flat" cx={PLUG_IN.phones} draggableCord />
-          ) : (
-            <RestingHeadphones band="flat" />
-          ))}
-        {headphones === 5 && (
-          <RestingHeadphones
-            band="flat"
-            draggableCord
-            cx={plugIn ? PLUG_IN.phones : undefined}
-          />
-        )}
-        {basket === 1 && <Basket id={`${id}-basket`} />}
-        {basket === 2 && <BasketTub id={`${id}-basket`} />}
-        {basket === 3 && <BasketTub id={`${id}-basket`} light />}
-        {basket === 4 && <BasketTub id={`${id}-basket`} light size={1.06} />}
-        {books && <Books version={books} />}
-        {cuttings === 1 && <Cuttings />}
-        {cuttings && cuttings !== 1 && <RealCuttings version={cuttings} />}
-        {clock && <Clock {...CLOCK[clock]} />}
-      </LampSwitch>,
-    );
-  }
+  // Every lamp is a light switch (LampSwitch): drawn off, lit over the
+  // top when the lights are on. Lamp 5's is the one on the About page. In
+  // a piece, its glow reaches less far, so a row of lamps side by side
+  // don't light each other up.
+  const lit =
+    lamp === 5
+      ? {
+          drawing: <SwitchLamp id={`${id}-ball`} />,
+          light: <SwitchLampLight />,
+          glow: { x: STEM_LAMP.x, y: SWITCH_BULB.y + 10 },
+          hit: SWITCH_HIT,
+        }
+      : lamp === 4
+        ? {
+            drawing: <ArmLamp id={`${id}-ball`} lit={false} />,
+            light: <ArmLampLight />,
+            glow: { x: ARM_SHADE_X, y: ARM_BULB.y + 10 },
+            hit: ARM_HIT,
+          }
+        : {
+            drawing: <StemLamp version={lamp} id={`${id}-ball`} lit={false} />,
+            light: <StemLampLight version={lamp} />,
+            glow: { x: STEM_LAMP.x, y: STEM_SHADE_TOP + 37 },
+            hit: SWITCH_HIT,
+          };
 
-  const drawing = (
-    <svg
-      viewBox={VIEW_BOX}
-      role="img"
-      aria-label={TITLE}
-      className={`block h-auto ${width}`}
-    >
-      <Bookshelf />
-      {lamp === 4 ? (
-        <ArmLamp id={`${id}-ball`} />
+  // The bookshelf (only its piece, if it's a piece), then the lamp and
+  // everything else on it
+  const things = (
+    <>
+      {piece ? (
+        <g clipPath={`url(#${id}-piece)`}>
+          <defs>
+            <clipPath id={`${id}-piece`}>
+              <rect x={piece.x} y={piece.y} width={piece.w} height={piece.h} />
+            </clipPath>
+          </defs>
+          <Bookshelf />
+        </g>
       ) : (
-        <StemLamp version={lamp} id={`${id}-ball`} />
+        <Bookshelf />
       )}
+      {!bare && lit.drawing}
       {plant && <SnakePlant id={`${id}-leaf`} version={plant} />}
       {headphones === 1 && <Headphones />}
       {dj === 1 && <OpusQuadFront />}
@@ -7391,7 +7476,249 @@ export default function Room({
       {cuttings === 1 && <Cuttings />}
       {cuttings && cuttings !== 1 && <RealCuttings version={cuttings} />}
       {clock && <Clock {...CLOCK[clock]} />}
-    </svg>
+    </>
   );
-  return withOverlays(drawing);
+
+  if (bare)
+    return withOverlays(
+      <svg
+        viewBox={VIEW_BOX}
+        role="img"
+        aria-label={TITLE}
+        className={`block h-auto ${width}`}
+      >
+        {things}
+      </svg>,
+    );
+  return withOverlays(
+    <LampSwitch
+      viewBox={VIEW_BOX}
+      title={TITLE}
+      label={lamp === 5 ? undefined : `Lamp ${lamp} (dark mode)`}
+      glow={{ ...lit.glow, r: piece ? 220 : 560 }}
+      light={lit.light}
+      hit={lit.hit}
+      width={width}
+    >
+      {things}
+    </LampSwitch>,
+  );
+}
+
+/* ---------- Versions ---------- */
+
+// For the Ideation page, how each thing on the bookshelf changed: a row
+// for each, its versions side by side, each a piece of the bookshelf with
+// only it on, working as it does on the bookshelf (the lamps light up, the
+// books come out, the deck plays), and its number showing what changed
+// that time when it's pointed at or tapped (TipLabel). The
+// headphones and the DJ deck changed together, the headphones' cord
+// plugging into the deck, so they share a row, as each bookshelf had them.
+// In the bookshelf's units.
+type Piece = { x: number; y: number; w: number; h: number };
+type Shown = Omit<RoomProps, "lamp" | "fill" | "uid"> & { lamp?: LampVersion };
+// A piece of the bookshelf from x0 to x1 across: its top (k 0), where the
+// lamp and the plant stand, or the space over board k below, with the
+// boards above and under it
+const piece = (x0: number, x1: number, k: number) => {
+  const top = k === 0 ? VIEW.top : BOARDS[k - 1];
+  return { x: x0, y: top, w: x1 - x0, h: BOARDS[k] + BOARD - top };
+};
+// Each version of one thing, in order, once each
+function versionsOf(
+  key: "plant" | "books" | "basket" | "clock" | "cuttings" | "camera" | "lava",
+) {
+  const seen = new Set<number>();
+  return SHELVES.flatMap((shelf) => {
+    const version = shelf[key]?.version;
+    if (version === undefined || seen.has(version)) return [];
+    seen.add(version);
+    return [{ [key]: version } as Shown];
+  });
+}
+// Each thing's piece: round where every version of it stood
+// Each with what changed at each version, from the notes on each above
+const PIECES: {
+  name: string;
+  piece: Piece;
+  versions: Shown[];
+  notes: string[];
+}[] = [
+  {
+    name: "Lamp",
+    piece: piece(0, 140, 0),
+    versions: SHELVES.map(({ version }) => ({ lamp: version })),
+    notes: [
+      "Flat and straight on, with see-through amber glass and a small silver disco ball. The one I kept coming back to.",
+      "Solid amber glass with the inside drawn faintly, and a bigger disco ball.",
+      "Clear glass with amber edges and bubbles, and a mosaic disco ball.",
+      "Side on, like the real lamp: a pole curving over into an arm, a clear glass shade and a filament bulb.",
+      "Back to lamp 1, made the switch: click it and every light comes on and the page goes dark.",
+    ],
+  },
+  {
+    name: "Snake plant",
+    piece: piece(110, VIEW.width, 0),
+    versions: versionsOf("plant"),
+    notes: [
+      "Traced from a photo of my shelf, in a guessed plain white pot.",
+      "In my real pot, from a photo of it.",
+    ],
+  },
+  {
+    name: "Books",
+    piece: piece(0, 170, 1),
+    versions: versionsOf("books"),
+    notes: [
+      "One book to start, Thinking, Fast and Slow, lifting when you point at it.",
+      "A full shelf. Each book comes out and turns to show its cover.",
+      "Opening bigger, so you can run along the row and open each in turn.",
+      "Made to look read: grain, fading and scuffs, and open big enough to read.",
+      "Calmer spines, so the row is quieter. A cover still comes out in full color.",
+    ],
+  },
+  {
+    name: "Basket",
+    piece: piece(120, VIEW.width, 1),
+    versions: versionsOf("basket"),
+    notes: [
+      "The first drawing, from photos of it.",
+      "Its shape and handles redrawn to its real proportions.",
+      "Lighter shades.",
+      "A little bigger.",
+    ],
+  },
+  {
+    name: "Headphones and DJ deck",
+    // Down past the board, to where the headphones' cord hangs to, so its
+    // plug's there to grab and plug in
+    piece: { ...piece(0, VIEW.width, 2), h: 440 - BOARDS[1] },
+    versions: SHELVES.map(({ headphones, dj }) => ({
+      headphones: headphones?.version,
+      dj: dj?.version,
+    })),
+    notes: [
+      "Both from photos: the headphones standing up, the deck straight on and off.",
+      "The headphones set down, their cord in a loop. The deck bigger, seen from a little above.",
+      "The headphones on their side like the real ones. Drag the cord's plug into the deck and it turns on.",
+      "The headphones' band down on the board. The deck lies flat until it's plugged in, then tilts up and turns on.",
+      "A cord you can grab and drag. Plugged in, the deck plays: its faders slide and its jog wheels scratch.",
+    ],
+  },
+  {
+    name: "Clock",
+    piece: piece(45, 185, 3),
+    versions: versionsOf("clock"),
+    notes: [
+      "Straight on, from a photo of my shelf.",
+      "A little bigger.",
+      "No change. The cuttings changed this time.",
+      "Minimal: a single gold dash at each hour in a gold rim.",
+      "First on the board, with everything on it spaced out evenly.",
+    ],
+  },
+  {
+    name: "Cuttings",
+    piece: piece(20, 170, 3),
+    versions: versionsOf("cuttings"),
+    notes: [
+      "Straight on, from a photo of my shelf.",
+      "Traced to look real, with a thicker wire stand.",
+      "The leaves without their gloss.",
+      "True pothos leaves.",
+      "Spaced out, the leaves swaying in time with the headphone cord.",
+    ],
+  },
+  {
+    name: "Camera",
+    piece: piece(120, VIEW.width, 3),
+    versions: versionsOf("camera"),
+    notes: [
+      "Comes out and turns round, to take a photo and leave it or see the ones left.",
+      "Bigger, off with its lens cover closed. It slides open to turn on.",
+      "Lying on its back. It stands up as it comes out.",
+      "Traced closer to the photos, with more color and shine.",
+      "A little smaller, beside the lava lamp.",
+    ],
+  },
+  {
+    name: "Lava lamp",
+    piece: piece(110, VIEW.width, 3),
+    versions: versionsOf("lava"),
+    notes: [
+      "Traced from a photo of it off: slim, with clear glass. It glows when the lights are on.",
+      "Wider and taller, and it glows brighter.",
+      "Its glass sitting down in a bigger base, and wax that rises and sinks in blobs when it's on.",
+      "Clear glass meeting the base, cream wax that turns amber when it's on, and a softer glow.",
+      "Moved right of the camera.",
+    ],
+  },
+];
+
+function PieceOf({
+  piece,
+  show,
+  uid,
+}: {
+  piece: Piece;
+  show: Shown;
+  uid: string;
+}) {
+  const unit = (n: number) => `calc(var(--room-unit) * ${n})`;
+  // The whole bookshelf's drawn round the piece, only the piece showing,
+  // so what's on it can come out, and a lamp's glow spill, past it as on
+  // a bookshelf; the rest of it lets the pointer through to the pieces
+  // round it, all but what's on it you can use
+  return (
+    <div
+      className="relative shrink-0 border border-site-line"
+      style={{ width: unit(piece.w), height: unit(piece.h) }}
+    >
+      <div
+        className="pointer-events-none absolute [&_[tabindex]]:pointer-events-auto [&_a]:pointer-events-auto [&_button]:pointer-events-auto"
+        style={{
+          width: unit(VIEW.width),
+          left: unit(VIEW.left - piece.x),
+          top: unit(VIEW.top - piece.y),
+        }}
+      >
+        <Room
+          {...show}
+          lamp={show.lamp ?? 1}
+          bare={show.lamp === undefined}
+          piece={piece}
+          uid={uid}
+          fill
+        />
+      </div>
+    </div>
+  );
+}
+
+export function Versions() {
+  return (
+    <div className="flex flex-col gap-10 [--room-unit:calc(16rem/260)]">
+      {PIECES.map(({ name, piece, versions, notes }, row) => (
+        <section key={name}>
+          <h2 className="font-mono text-label uppercase text-site-muted">
+            {name}
+          </h2>
+          {/* They wrap rather than scroll, so a note can open below its
+              number without being cut off */}
+          <ol className="mt-3 flex flex-wrap gap-x-6 gap-y-8">
+            {versions.map((show, i) => (
+              <li key={i} className="relative shrink-0">
+                <PieceOf piece={piece} show={show} uid={`v${row}-${i}`} />
+                <p className="mt-3 font-mono text-label text-site-muted">
+                  <TipLabel id={`${name}-${i + 1}`} tip={notes[i]}>
+                    {String(i + 1).padStart(2, "0")}
+                  </TipLabel>
+                </p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </div>
+  );
 }

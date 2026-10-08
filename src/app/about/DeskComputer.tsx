@@ -156,26 +156,27 @@ export default function DeskComputer({
                     <DeskArt tiles={false} />
                   </svg>
 
-                  {/* The screen: my case studies */}
+                  {/* The screen: my case studies. On a phone, where it's
+                      small, just their names, without the header */}
                   <div
-                    className="absolute flex flex-col overflow-hidden bg-site-paper p-3 md:p-4"
+                    className="absolute flex flex-col overflow-hidden bg-site-paper p-2 md:p-4"
                     style={screen}
                   >
-                    <div className="flex items-baseline justify-between font-mono text-label uppercase text-site-muted">
+                    <div className="hidden items-baseline justify-between font-mono text-label uppercase text-site-muted md:flex">
                       <span className="text-site-ink">Erin Kerr</span>
                       <span>Work</span>
                     </div>
-                    <ul className="mt-3 grid min-h-0 flex-1 grid-cols-2 gap-2 md:grid-cols-3">
+                    <ul className="grid min-h-0 flex-1 grid-cols-2 gap-1.5 md:mt-3 md:grid-cols-3 md:gap-2">
                       {CASE_STUDIES.map(({ name, slug, title: what }) => (
                         <li key={slug} className="min-h-0">
                           <Link
                             href={`/${slug}`}
-                            className={`group flex h-full flex-col justify-between gap-2 overflow-hidden border border-site-line p-2 transition-colors hover:border-site-blue motion-reduce:transition-none md:p-3 ${focusRing}`}
+                            className={`group flex h-full flex-col justify-center gap-2 overflow-hidden border border-site-line px-2 transition-colors hover:border-site-blue motion-reduce:transition-none md:justify-between md:p-3 ${focusRing}`}
                           >
-                            <span className="font-mono text-label uppercase text-site-muted">
+                            <span className="font-mono text-label uppercase leading-tight text-site-ink md:leading-normal md:text-site-muted">
                               {name}
                             </span>
-                            <span className="font-serif text-caption text-site-ink transition-colors group-hover:text-site-blue motion-reduce:transition-none md:text-tile-title">
+                            <span className="hidden font-serif text-caption text-site-ink transition-colors group-hover:text-site-blue motion-reduce:transition-none md:block md:text-tile-title">
                               {what}
                             </span>
                           </Link>

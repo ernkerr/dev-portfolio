@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { focusRing } from "@/components/site/links";
+import { useKeepOnScreen } from "./keepOnScreen";
 
-// My Ember mug on my desk (drawn in deskArt.tsx), as a button. Pointed at,
-// it says what I think of it. Clicked, it asks you to guess what's in it,
-// and tells you: it's almost always coffee, except after 4pm until 7am, my
-// time in New York, when it's tea. Escape or a click away closes it.
+// My Ember mug on my desk (drawn in deskArt.tsx), as a button. Pointed at
+// (or, on a touch screen, opened), it says what I think of it. Clicked, it
+// asks you to guess what's in it, and tells you: it's almost always
+// coffee, except after 4pm until 7am, my time in New York, when it's tea.
+// Escape or a click away closes it.
 const ZONE = "America/New_York";
 const DRINKS = ["Black coffee", "Latte", "Matcha", "Tea"] as const;
 
@@ -32,6 +34,8 @@ export default function EmberMug({
   const [guess, setGuess] = useState<string | null>(null);
   const [answer, setAnswer] = useState<string>("Black coffee");
   const root = useRef<HTMLDivElement>(null);
+  const popover = useRef<HTMLDivElement>(null);
+  useKeepOnScreen(popover, open);
 
   // Open: Escape or a click anywhere else closes it
   useEffect(() => {
@@ -77,10 +81,17 @@ export default function EmberMug({
       {/* Guess what's in it */}
       {open && (
         <div
+          ref={popover}
           role="dialog"
           aria-label="Guess what's in my cup"
           className="absolute bottom-full right-0 z-20 mb-2 w-64 border border-site-line bg-site-paper p-4 shadow-float ring-1 ring-black/5"
         >
+          {/* On a touch screen, which can't point at it first, what I
+              think of it comes first */}
+          <p className="mb-2 hidden text-caption text-site-muted [@media(hover:none)]:block">
+            I don&apos;t know what I&apos;d do without my Ember mug (not
+            sponsored)
+          </p>
           <p className="text-caption text-site-ink">
             Guess what&apos;s in my cup.
           </p>

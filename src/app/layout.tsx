@@ -101,9 +101,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Browser extensions (dark mode ones especially) add attributes like
-    // style="color-scheme: light" to <html> before React loads. This ignores
-    // that on <html> only; mismatches anywhere else still warn.
+    // Browser extensions add attributes before React loads: dark mode ones
+    // put style="color-scheme: light" on <html>, ColorZilla puts
+    // cz-shortcut-listen on <body>. This ignores that on <html> and <body>
+    // only; mismatches anywhere else still warn.
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
@@ -115,6 +116,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
         <Script

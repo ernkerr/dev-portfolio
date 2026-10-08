@@ -46,6 +46,9 @@ export default function DrawFish({
   const [size, setSize] = useState(SIZES[1]);
   const [name, setName] = useState("");
   const [drawn, setDrawn] = useState(false);
+  // Why it can't drop yet, said when someone tries anyway
+  const [hint, setHint] = useState<string | null>(null);
+  const ready = drawn && !!tidyName(name);
   const undo = useRef<ImageData[]>([]);
   const stroke = useRef<{ x: number; y: number } | null>(null);
 
@@ -96,7 +99,10 @@ export default function DrawFish({
     const p = at(e);
     stroke.current = p;
     line(p, { x: p.x + 0.01, y: p.y });
-    if (!erasing) setDrawn(true);
+    if (!erasing) {
+      setDrawn(true);
+      setHint(null);
+    }
   };
   const move = (e: React.PointerEvent) => {
     if (!stroke.current) return;
@@ -161,10 +167,16 @@ export default function DrawFish({
 
   const drop = (e: React.FormEvent) => {
     e.preventDefault();
+    if (busy) return;
+    const image = drawn ? exportFish() : null;
+    if (!image) return setHint("Draw your fish first!");
     const fishName = tidyName(name);
-    if (!fishName) return nameField.current?.focus();
-    const image = exportFish();
-    if (image) onDrop({ name: fishName, image });
+    if (!fishName) {
+      setHint("Add a name first!");
+      return nameField.current?.focus();
+    }
+    setHint(null);
+    onDrop({ name: fishName, image });
   };
 
   const tool = `${label} border px-3 py-2 transition-colors hover:text-site-blue ${focusRing}`;
@@ -259,7 +271,10 @@ export default function DrawFish({
             <input
               ref={nameField}
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                setHint(null);
+              }}
               maxLength={NAME_MAX}
               placeholder="Bubbles"
               autoComplete="off"
@@ -268,15 +283,17 @@ export default function DrawFish({
           </label>
           <button
             type="submit"
-            disabled={!drawn || !tidyName(name) || busy}
-            className={`border border-site-ink bg-site-ink px-5 py-2.5 font-mono text-nav uppercase text-site-paper transition-colors hover:border-site-blue hover:bg-site-blue disabled:border-site-line disabled:bg-site-line disabled:text-site-muted ${focusRing}`}
+            // Not ready still takes a click, to say what's missing
+            disabled={busy}
+            aria-disabled={!ready}
+            className={`border px-5 py-2.5 font-mono text-nav uppercase transition-colors ${ready && !busy ? "border-site-ink bg-site-ink text-site-paper hover:border-site-blue hover:bg-site-blue" : "border-site-line bg-site-line text-site-muted"} ${focusRing}`}
           >
             {busy ? "Dropping it in..." : "Drop it in"}
           </button>
         </div>
-        {error && (
+        {(hint ?? error) && (
           <p role="alert" className="mt-4 text-body-sm text-site-ink">
-            {error}
+            {hint ?? error}
           </p>
         )}
         <p className="mt-2 text-caption text-site-muted">

@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "expo:scrape": "node scripts/expo-west-2026/scrape.mjs && node scripts/expo-west-2026/normalize.mjs"
+    "expo:scrape": "node scripts/expo-west-2026/scrape.mjs && node scripts/expo-west-2026/normalize.mjs",
+    "erinllm:check": "node scripts/erinllm-check.mjs"
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.90",

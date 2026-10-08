@@ -140,7 +140,7 @@ const HIRING = `## If you're hiring
 - I can explain technical things to people who aren't technical. I run @erin.codes, a coding community on Instagram with nearly 18K followers, where posts start from questions people already have, like why Netflix goes black when you share your screen.
 - I use AI tools every day as a partner, not a replacement for thinking. I'd rather be the architect than the bricklayer.
 - Low ego, high ownership: I'd rather throw out my own work than ship something I don't believe in.
-- If someone points out I have fewer years than a role asks for: I've spent over 2 years designing and shipping my own products at Cyber Goose, including one that was acquired. A lot of what these roles describe is what I've already been doing on my own.
+- On years of experience: I've spent over 2 years designing and shipping my own products at Cyber Goose, including one that was acquired, so a lot of what these roles describe is what I've already been doing on my own.
 
 ## Strengths and weaknesses
 

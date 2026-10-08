@@ -27,7 +27,11 @@ export type Attached = {
   href?: string;
 };
 
-export type AskMetadata = { attached?: Attached };
+// Answers carry the real section ids of the pages erinLLM read (path ->
+// ids), so a made-up #section link goes to the page instead
+export type Anchors = Record<string, string[]>;
+
+export type AskMetadata = { attached?: Attached; anchors?: Anchors };
 export type ErinMessage = UIMessage<AskMetadata>;
 
 export const MAX = {

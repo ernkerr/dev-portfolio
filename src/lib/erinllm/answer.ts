@@ -1,4 +1,5 @@
-import { pageAt } from "./pages";
+import { pageAt, siteHref } from "./pages";
+import type { Anchors } from "./types";
 
 // Every answer ends with two lines the panel turns into links and buttons
 // instead of showing as text (the prompt asks for them, prompt.ts):
@@ -21,20 +22,17 @@ const sectionName = (id: string) => {
   return words.charAt(0).toUpperCase() + words.slice(1);
 };
 
-function readSources(rest: string): Source[] {
+function readSources(rest: string, anchors?: Anchors): Source[] {
   const sources: Source[] = [];
   for (const [path] of rest.matchAll(
     /\/[A-Za-z0-9\-/]*(?:#[A-Za-z0-9\-_]+)?/g,
   )) {
-    const [pathname, anchor] = path.split("#");
-    // Real section ids are lowercase words with dashes ("ideas-to-test");
-    // anything else is made up, so it links to the page only
-    const section = anchor && /^[a-z][a-z0-9-]*$/.test(anchor) ? anchor : "";
-    const page = pageAt(pathname);
-    const href = section ? `${page?.path}#${section}` : page?.path;
-    if (!page || sources.some((s) => s.href === href)) continue;
+    const href = siteHref(path, anchors);
+    const page = href && pageAt(href.split("#")[0]);
+    if (!href || !page || sources.some((s) => s.href === href)) continue;
+    const section = href.split("#")[1];
     sources.push({
-      href: href!,
+      href,
       label: section ? `${page.name} · ${sectionName(section)}` : page.name,
     });
   }
@@ -48,13 +46,14 @@ const readFollowUps = (rest: string) =>
     .filter((q) => q.length > 2 && q.length <= 140)
     .slice(0, 3);
 
-export function splitAnswer(text: string) {
+export function splitAnswer(text: string, anchors?: Anchors) {
   const lines = text.split("\n");
   const body: string[] = [];
   let sources: Source[] = [];
   let followUps: string[] = [];
   lines.forEach((line, i) => {
-    if (SOURCES.test(line)) sources = readSources(line.replace(SOURCES, ""));
+    if (SOURCES.test(line))
+      sources = readSources(line.replace(SOURCES, ""), anchors);
     else if (FOLLOW_UPS.test(line))
       followUps = readFollowUps(line.replace(FOLLOW_UPS, ""));
     // The start of one of those lines, still arriving while the answer

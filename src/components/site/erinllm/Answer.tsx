@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
 import { inlineLink } from "@/components/site/prose";
+import { siteHref } from "@/lib/erinllm/pages";
+import type { Anchors } from "@/lib/erinllm/types";
 
 // An answer's text, which can have paragraphs, "- " lists, **bold** and
 // [links](/path). Only those, so no markdown library: anything else shows
-// as written. Links go to the site, https or mailto, nowhere else.
+// as written. Links go to real pages on the site (siteHref), https or
+// mailto, nowhere else; any other link shows as its words.
 
 const INLINE = /\[([^\]\n]+)\]\(([^)\s]+)\)|\*\*([^*\n]+)\*\*/g;
 const LIST_ITEM = /^\s*(?:[-*•]|\d+[.)])\s+/;
@@ -15,7 +18,11 @@ const safeHref = (href: string) =>
   (href.startsWith("/") && !href.startsWith("//")) ||
   /^(https?:|mailto:)/i.test(href);
 
-function inline(text: string, onFollow?: () => void): ReactNode[] {
+function inline(
+  text: string,
+  onFollow?: () => void,
+  anchors?: Anchors,
+): ReactNode[] {
   const out: ReactNode[] = [];
   let at = 0;
   for (const match of text.matchAll(INLINE)) {
@@ -24,13 +31,18 @@ function inline(text: string, onFollow?: () => void): ReactNode[] {
     const [, linkText, href, bold] = match;
     if (bold) out.push(<strong key={i}>{bold}</strong>);
     else if (!safeHref(href)) out.push(linkText);
-    else if (href.startsWith("/"))
+    else if (href.startsWith("/")) {
+      const site = siteHref(href, anchors);
       out.push(
-        <Link key={i} href={href} className={inlineLink} onClick={onFollow}>
-          {linkText}
-        </Link>,
+        site ? (
+          <Link key={i} href={site} className={inlineLink} onClick={onFollow}>
+            {linkText}
+          </Link>
+        ) : (
+          linkText
+        ),
       );
-    else
+    } else
       out.push(
         <a
           key={i}
@@ -52,8 +64,11 @@ function inline(text: string, onFollow?: () => void): ReactNode[] {
 export default function Answer({
   text,
   onFollow,
+  anchors,
 }: {
   text: string;
+  /** The real sections of the pages it read, sent with the answer */
+  anchors?: Anchors;
   /** Called when a link to a page on the site is followed */
   onFollow?: () => void;
 }) {
@@ -81,7 +96,7 @@ export default function Answer({
           block.list ? (
             <ul key={b} className="list-disc space-y-1 pl-5">
               {block.lines.map((line, l) => (
-                <li key={l}>{inline(line, onFollow)}</li>
+                <li key={l}>{inline(line, onFollow, anchors)}</li>
               ))}
             </ul>
           ) : (
@@ -89,7 +104,7 @@ export default function Answer({
               {block.lines.map((line, l) => (
                 <Fragment key={l}>
                   {l > 0 && <br />}
-                  {inline(line, onFollow)}
+                  {inline(line, onFollow, anchors)}
                 </Fragment>
               ))}
             </p>

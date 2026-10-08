@@ -18,6 +18,7 @@ import { splitAnswer, type Source } from "@/lib/erinllm/answer";
 import { pageAt } from "@/lib/erinllm/pages";
 import {
   MAX,
+  type Anchors,
   type Attached,
   type ErinMessage,
   type ErrorCode,
@@ -85,7 +86,7 @@ function transcript(messages: ErinMessage[]) {
         " ",
       );
     }
-    const { body, sources } = splitAnswer(textOf(m));
+    const { body, sources } = splitAnswer(textOf(m), m.metadata?.anchors);
     return [
       `erinLLM: ${plain(body)}`,
       sources.length ? `Sources: ${sources.map(link).join(", ")}` : "",
@@ -146,21 +147,23 @@ function AttachedQuote({ attached }: { attached: Attached }) {
 // newest one) what to ask next
 function AnswerTurn({
   text,
+  anchors,
   latest,
   onFollow,
   onAsk,
 }: {
   text: string;
+  anchors?: Anchors;
   latest: boolean;
   onFollow: () => void;
   onAsk: (question: string) => void;
 }) {
-  const { body, sources, followUps } = splitAnswer(text);
+  const { body, sources, followUps } = splitAnswer(text, anchors);
   return (
     <>
       <div className="mt-2 text-body-sm text-site-ink/80 [&_strong]:font-medium [&_strong]:text-site-ink">
         {body ? (
-          <Answer text={body} onFollow={onFollow} />
+          <Answer text={body} onFollow={onFollow} anchors={anchors} />
         ) : (
           <p className="text-site-muted">Thinking…</p>
         )}
@@ -487,6 +490,7 @@ export default function Panel({
                   ) : (
                     <AnswerTurn
                       text={text}
+                      anchors={m.metadata?.anchors}
                       latest={m.id === last?.id && !busy}
                       onFollow={followed}
                       onAsk={(q) => ask(q, "followup")}

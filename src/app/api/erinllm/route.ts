@@ -4,6 +4,7 @@ import {
   createUIMessageStreamResponse,
   streamText,
   toUIMessageStream,
+  type ToolSet,
 } from "ai";
 import { after } from "next/server";
 import { randomBytes } from "node:crypto";
@@ -15,6 +16,7 @@ import { mayKeep, tooManyQuestions } from "@/lib/erinllm/limits";
 import { MODEL, instructions } from "@/lib/erinllm/prompt";
 import {
   MAX,
+  type Anchors,
   type Attached,
   type ErinMessage,
   type ErrorCode,
@@ -247,6 +249,12 @@ export async function POST(request: Request) {
     asksAbout(messages, page?.path),
     page?.side ?? "designer",
   );
+  const anchors: Anchors = Object.fromEntries(
+    [...(page ? [page] : []), ...read].map((p) => [
+      p.path,
+      p.sections.map((s) => s.id),
+    ]),
+  );
   const result = streamText({
     model: MODEL,
     instructions: instructions(page, read),
@@ -277,9 +285,13 @@ export async function POST(request: Request) {
   });
 
   return createUIMessageStreamResponse({
-    stream: toUIMessageStream({
+    stream: toUIMessageStream<ToolSet, ErinMessage>({
       stream: result.stream,
       sendReasoning: false,
+      // The real sections of the pages it read, so the panel can tell a
+      // made-up #section link from a real one
+      messageMetadata: ({ part }) =>
+        part.type === "start" ? { anchors } : undefined,
       onError: (error) => {
         const code = errorCode(error);
         if (code === "error") console.error("ErinLLM", error);

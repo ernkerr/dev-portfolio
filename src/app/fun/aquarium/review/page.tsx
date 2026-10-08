@@ -20,9 +20,8 @@ export default async function ReviewPage() {
           Fish in my aquarium
         </h1>
         <p className="mt-6 text-body text-site-ink/80">
-          A fish Gemini passes as a clean sea creature goes straight in. Any
-          it doubts, or any dropped while it was busy, wait here, swimming
-          only for whoever drew them, until I let them in.
+          Every new fish waits here, swimming only for whoever drew it, until
+          I let it in.
         </p>
       </section>
       <Review />

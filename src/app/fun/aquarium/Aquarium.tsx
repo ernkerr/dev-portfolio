@@ -7,8 +7,8 @@ import type { Fish } from "@/lib/aquarium";
 import DrawFish, { type Drawing } from "./DrawFish";
 
 // The aquarium: everyone's fish swimming in one tank. Draw one, name it and
-// drop it in; it swims for you right away, and for everyone once it's
-// checked (src/app/api/aquarium). The tank shows a crowd, not every fish
+// drop it in; it swims for you right away, and for everyone once I let it
+// in (src/app/api/aquarium). The tank shows a crowd, not every fish
 // ever drawn: yours, the newest, and some older ones at random. Find any
 // fish by its name.
 

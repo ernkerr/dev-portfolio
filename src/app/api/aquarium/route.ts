@@ -48,11 +48,10 @@ import {
 //   DELETE  ?id= takes one out, for whoever drew it, or me with ?review
 //   PATCH   ?id= lets a waiting one in for everyone (?review only)
 //
-// A new fish swims right away for whoever drew it. It swims for everyone
-// once it's checked: names go through a word filter, then Gemini (the same
-// free model as ErinLLM) looks at the drawing and the name, and a clean sea
-// creature goes straight in. Anything it doubts, or anything dropped while
-// Gemini is busy or not set up, waits for me at /fun/aquarium/review.
+// A new fish swims right away for whoever drew it, and for everyone once I
+// let it in at /fun/aquarium/review: every fish waits for me. Names go
+// through a word filter, then Gemini (the same free model as ErinLLM), and
+// an unkind one is turned away before it's saved.
 //
 // Files are "<ms>-<owner>-<random>-<name>.png", the owner a hash of a token
 // the drawer's browser keeps (x-fish-owner), the name in base64url. They go
@@ -134,47 +133,28 @@ function nameProblem(name: string) {
   return null;
 }
 
-type Verdict = { seaCreature: boolean; clean: boolean; kindName: boolean };
+type Verdict = { kindName: boolean };
 const VERDICT = jsonSchema<Verdict>({
   type: "object",
   properties: {
-    seaCreature: {
-      type: "boolean",
-      description: "The drawing is a fish or another sea creature, however rough",
-    },
-    clean: {
-      type: "boolean",
-      description:
-        "Nothing rude, sexual, hateful or violent in the drawing, and no words or symbols like that",
-    },
     kindName: {
       type: "boolean",
       description: "The name is kind: not rude, hateful, sexual or mocking a real person",
     },
   },
-  required: ["seaCreature", "clean", "kindName"],
+  required: ["kindName"],
 });
 
-// Gemini's look at a new fish. Null when it can't tell (busy, not set up).
-async function check(image: Buffer, name: string) {
+// Gemini's look at a new fish's name. Null when it can't tell (busy, not
+// set up).
+async function check(name: string) {
   if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) return null;
   try {
     const { output } = await generateText({
       model: MODEL,
       output: Output.object({ schema: VERDICT }),
       abortSignal: AbortSignal.timeout(12_000),
-      messages: [
-        {
-          role: "user",
-          content: [
-            {
-              type: "text",
-              text: `Someone drew this for a public aquarium on a personal website, where anyone's fish swims with everyone else's, and named it "${name}". Kids might see it. Check the drawing and the name.`,
-            },
-            { type: "file", mediaType: "image/png", data: image },
-          ],
-        },
-      ],
+      prompt: `Someone drew a fish for a public aquarium on a personal website, where anyone's fish swims with everyone else's, and named it "${name}". Kids might see it. Check the name.`,
     });
     return output;
   } catch {
@@ -316,19 +296,9 @@ export async function POST(request: Request) {
     return json({ error: "That's a lot of fish! Try again a little later." }, 429);
 
   const file = `${Date.now()}-${owner}-${randomBytes(4).toString("hex")}-${Buffer.from(name.slice(0, NAME_MAX)).toString("base64url")}.png`;
+  const verdict = await check(name);
+  if (verdict && !verdict.kindName) return json({ error: "Pick a kinder name." }, 400);
   const src = await save(file, image, "waiting");
-  const verdict = await check(image, name);
-  if (verdict && !verdict.kindName) {
-    await remove(file);
-    return json({ error: "Pick a kinder name." }, 400);
-  }
-  if (verdict?.seaCreature && verdict.clean) {
-    try {
-      return json({ fish: fish(file, await letIn(file), "shown", owner) }, 201);
-    } catch {
-      // It stays waiting for me
-    }
-  }
   return json({ fish: fish(file, src, "waiting", owner) }, 201);
 }
 

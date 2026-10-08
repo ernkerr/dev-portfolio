@@ -28,11 +28,15 @@ export default function SideSwitch({
   // The knob answers the click straight away; the page follows a frame or
   // two later, once the view transition has captured the old side.
   const [knob, setKnob] = useState(engineer);
+  // Read by clicks caught mid-flip, which run an older render's flip().
+  const knobNow = useRef(engineer);
   const trackRef = useRef<HTMLButtonElement>(null);
   const flipping = useRef<ViewTransition | null>(null);
+  const catching = useRef<((event: MouseEvent) => void) | null>(null);
 
   function flip() {
-    const next = !knob;
+    const next = !knobNow.current;
+    knobNow.current = next;
     flushSync(() => setKnob(next));
 
     const url = new URL(window.location.href);
@@ -87,8 +91,32 @@ export default function SideSwitch({
       // A newer flip skipped this one; nothing to animate.
       () => {},
     );
+    // While the circle grows, Chrome sends every click to <html> instead of
+    // the switch, so a quick second click would be lost. Until the last flip
+    // finishes, a click on the switch's spot flips it again.
+    if (!catching.current) {
+      catching.current = (event) => {
+        const track = trackRef.current;
+        // Clicks that reach the switch itself are handled by onClick.
+        if (!track || track.contains(event.target as Node)) return;
+        const box = track.getBoundingClientRect();
+        if (
+          event.clientX >= box.left &&
+          event.clientX <= box.right &&
+          event.clientY >= box.top &&
+          event.clientY <= box.bottom
+        )
+          flip();
+      };
+      document.addEventListener("click", catching.current);
+    }
     transition.finished.finally(() => {
-      if (flipping.current === transition) delete root.dataset.flipping;
+      if (flipping.current !== transition) return;
+      delete root.dataset.flipping;
+      if (catching.current) {
+        document.removeEventListener("click", catching.current);
+        catching.current = null;
+      }
     });
   }
 

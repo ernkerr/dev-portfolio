@@ -64,15 +64,26 @@ export default function Projects() {
                     <p className="pt-2 text-xs text-blue-300">
                       {project.description}
                     </p>
-                    <a
-                      href={project.externalLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="mt-1 inline-block text-xs text-blue-400 hover:underline"
+                    {/* A link can't sit inside the card's link, so this opens
+                        cybergoose.org itself; it looks the same as in 2025 */}
+                    <span
+                      role="link"
+                      tabIndex={0}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.open(project.externalLink, "_blank", "noopener,noreferrer");
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key !== "Enter") return;
+                        e.preventDefault();
+                        e.stopPropagation();
+                        window.open(project.externalLink, "_blank", "noopener,noreferrer");
+                      }}
+                      className="mt-1 inline-block cursor-pointer text-xs text-blue-400 hover:underline"
                     >
                       See more at cybergoose.org
-                    </a>
+                    </span>
                     <div className="mt-2 w-full overflow-hidden rounded-lg">
                       <Image
                         src={project.image || "/default-image.png"}

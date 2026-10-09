@@ -265,6 +265,8 @@ export const E = {
   ),
   personas: (
     <>
+      <hr className="mt-16 border-site-line" />
+      <H3 id="personas">Proto-personas</H3>
       <KeyFinding>
         3 buyers, 3 triggers: a retailer’s EDI rules, too much typing, and a
         system they’ve outgrown.
@@ -295,7 +297,11 @@ export const E = {
   ),
   competitors: (
     <>
-      <p className={label}>Key findings</p>
+      <hr className="mt-16 border-site-line" />
+      <H3 id="competitors">Competitive analysis</H3>
+      <KeyFinding>
+        Competitors all asked for a demo, and almost none showed the product.
+      </KeyFinding>
       <Columns
         count={2}
         items={[
@@ -318,8 +324,6 @@ export const E = {
         ]}
       />
 
-      <hr className="mt-16 border-site-line" />
-      <H3>The homepages</H3>
       <P>
         In May I compared how 7 competitors positioned themselves, from SPS
         Commerce, the incumbent in EDI, to AI startups like Canals.ai. SPS
@@ -780,33 +784,21 @@ export const SECTIONS: CaseStudySection[] = [
   {
     id: "goal",
     title: "Goal",
-    headline: "Make booking a call the obvious next step, and measure every step to it.",
+    headline:
+      "Make booking a call the obvious next step, and measure every step to it.",
     content: E.goal,
   },
   {
     id: "research",
     title: "Research",
     headline: "Buyers come to confirm, not to be convinced.",
-    content: E.research,
-  },
-  {
-    id: "personas",
-    title: "Personas",
-    headline: "3 proto-personas, from what buyers had already written.",
-    content: E.personas,
-  },
-  {
-    id: "competitors",
-    title: "Competitive analysis",
-    headline:
-      "Competitors all asked for a demo, and almost none showed the product.",
-    content: E.competitors,
-  },
-  {
-    id: "principles",
-    title: "Design principles",
-    headline: "4 principles, from the research and from James.",
-    content: E.principles,
+    content: (
+      <>
+        {E.research}
+        {E.personas}
+        {E.competitors}
+      </>
+    ),
   },
   {
     id: "ideation",
@@ -820,8 +812,14 @@ export const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
+    id: "decisions",
+    title: "Design decisions",
+    headline: "4 principles, from the research and from James.",
+    content: E.principles,
+  },
+  {
     id: "system",
-    title: "The system",
+    title: "System",
     headline: "One set of colors and parts for every page.",
     content: (
       <>

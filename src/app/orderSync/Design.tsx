@@ -38,6 +38,7 @@ import {
 import BeforeHero, { BeforeFindings } from "./BeforeHero";
 import CompetitorLandscape from "./CompetitorLandscape";
 import LiveHero from "./LiveHero";
+import SystemSpec from "./SystemSpec";
 import {
   ChromePillPiece,
   ErrorsCard,
@@ -660,6 +661,9 @@ export const E = {
         system: 5 navies, 9 color roles that flip on their own in dark mode, and
         4 shared components.
       </P>
+      <Wide>
+        <SystemSpec />
+      </Wide>
       <Stats
         items={[
           {

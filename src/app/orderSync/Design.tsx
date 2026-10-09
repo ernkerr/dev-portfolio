@@ -238,13 +238,37 @@ export const E = {
   ),
   research: (
     <>
+      <P>
+        To answer this, I used 5 methods: a{" "}
+        <a href="#interview" className={inlineLink}>
+          stakeholder interview
+        </a>
+        ,{" "}
+        <a href="#secondary" className={inlineLink}>
+          secondary research
+        </a>
+        ,{" "}
+        <a href="#personas" className={inlineLink}>
+          proto-personas
+        </a>
+        , a{" "}
+        <a href="#journey-map" className={inlineLink}>
+          user journey map
+        </a>{" "}
+        and a{" "}
+        <a href="#competitors" className={inlineLink}>
+          competitive analysis
+        </a>
+        .
+      </P>
+
       <H3 id="interview">Stakeholder interview</H3>
       <KeyFinding>Clean and expected, with nothing too innovative.</KeyFinding>
       <P>
         I started with James, OrderSync’s founder, and we talked about who the
-        site was for. His buyers are business people who don’t want the wheel
-        reinvented, so he wanted the site to feel clean and expected, with
-        nothing too innovative.
+        site was for. His buyers are people who work in industry, not in tech,
+        so they want something familiar, with nothing too foreign. He wanted
+        the site to feel clean and expected, with nothing too innovative.
       </P>
       <figure>
         <Image

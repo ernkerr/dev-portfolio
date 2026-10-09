@@ -781,7 +781,7 @@ export const SECTIONS: CaseStudySection[] = [
     id: "research",
     title: "Research",
     headline:
-      "Buyers worry about 2 things: errors that cost them money, and setups that drag on for months.",
+      "Who buys OrderSync, and what do they need to see before they book a call?",
     content: (
       <>
         {E.research}

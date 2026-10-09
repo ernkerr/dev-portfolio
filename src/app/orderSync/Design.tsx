@@ -29,7 +29,6 @@ import {
   Directions,
   HeaderCompare,
   VisualDirection,
-  FlowPlanLink,
   LandscapeShots,
   MeasurementPlan,
   Personas,
@@ -193,14 +192,7 @@ export const E = {
         flagged the biggest gap: clicks on Book a Call were tracked, but not
         whether anyone finished booking.
       </P>
-      <MeasurementPlan
-        caption={
-          <>
-            4 of the 12 events in my measurement plan, May 18, 2026, in its own
-            words. Results comes back to each one. <FlowPlanLink />
-          </>
-        }
-      />
+      <MeasurementPlan />
     </>
   ),
   research: (

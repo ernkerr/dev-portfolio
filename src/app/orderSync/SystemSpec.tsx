@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
+import Shine from "@/components/Shine";
 import { Caption, label } from "@/components/site/prose";
 
 // OrderSync's design system as it shipped, laid out like a style guide:
@@ -261,6 +262,40 @@ export default function SystemSpec() {
                   {x.name}
                 </span>
               ))}
+            </div>
+          </div>
+        </div>
+      </Group>
+      <Group title="Chrome accent">
+        <p className="max-w-measure text-body-sm text-site-ink/75">
+          Chrome shows up twice: on the Book a Call pill in the header, and as a
+          silver glint that sweeps once across each headline’s key words. Hover
+          the gray words to replay it.
+        </p>
+        <div className="grid gap-6 sm:grid-cols-2">
+          <div>
+            <p className={`${label} mb-3`}>Pill</p>
+            <div
+              aria-hidden="true"
+              className="flex h-full min-h-40 items-center justify-center border border-site-line bg-white p-5"
+            >
+              <span
+                className={`${satoshi.className} inline-flex h-10 items-center rounded-full border border-gray-300 bg-gradient-to-b from-white to-gray-100 px-5 text-[14px] font-semibold text-[#0E172B] shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_1px_3px_rgba(0,0,0,0.08)]`}
+              >
+                Book a Call
+              </span>
+            </div>
+          </div>
+          <div>
+            <p className={`${label} mb-3`}>Glint</p>
+            <div className="flex min-h-40 items-center border border-site-line bg-white p-5 text-[#0E172B]">
+              <p
+                className={`${satoshi.className} text-[36px] font-bold leading-[1.08] tracking-[-1px]`}
+              >
+                One System for
+                <br />
+                <Shine className="font-bold">All Your Orders</Shine>
+              </p>
             </div>
           </div>
         </div>

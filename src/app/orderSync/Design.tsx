@@ -16,6 +16,7 @@ import {
   Lead,
   P,
   Stats,
+  Table,
   Wide,
 } from "@/components/site/prose";
 import { BuildNote } from "@/components/site/appStudy";
@@ -800,13 +801,65 @@ export const E = {
         PostHog started recording on June 26, a week after launch, so these
         numbers show how the new site performs rather than a before and after.
       </P>
+      <Stats
+        items={[
+          {
+            label: "Finished bookings",
+            value: "8",
+            tip: "Calls booked through the calendar, June 26 to October 9, 2026. 6 came from visits with no page view, so they can’t be traced back to a page.",
+          },
+          {
+            label: "Homepage click rate",
+            value: "2.4×",
+            tip: "People who started on the homepage clicked Book a Call at 2.4 times the rate of the site as a whole: 4 of 52, against 11 of 349, June 26 to October 8, 2026.",
+          },
+          {
+            label: "EDI Inspector vs homepage",
+            value: "196 vs 57",
+            tip: "Visits that started on each page, June 26 to October 9, 2026. More start on the free EDI Inspector than anywhere else.",
+          },
+        ]}
+      />
       <DropOff caption="From PostHog, June 26 to October 8, 2026, not counting OrderSync’s own team. Hover a step to see what it counts." />
       <P>
-        People who start on the homepage click Book a Call at more than twice
-        the rate of the site as a whole: 4 of 52, against 11 of 349. And 3 of
-        the 4 who click go on to open the booking window, so the step from
-        button to booking works.
+        3 of the 4 people who clicked Book a Call went on to open the booking
+        window, so the step from button to booking works.
       </P>
+      <H3>The paths people took</H3>
+      <Table
+        head={["Path from the journey map", "What PostHog shows"]}
+        rows={[
+          [
+            "The homepage to a call",
+            "57 visits started on the homepage, 45 of them never opened a second page, and 6 people went on to open the booking calendar.",
+          ],
+          [
+            "The EDI Inspector first",
+            "196 visits started there, more than on any other page.",
+          ],
+          [
+            "A free tool first",
+            "38 visits started on a tool page, and 2 of the 8 finished bookings came from those visits.",
+          ],
+          [
+            "A retailer’s EDI page",
+            "8 visits started there, and none booked in the same visit.",
+          ],
+          [
+            "A comparison to a call",
+            "No one booked in a visit that started on a comparison or the SPS Commerce post.",
+          ],
+          [
+            "Not buying yet",
+            "24 visits started on the blog. Newsletter sign-ups have no event of their own, so PostHog can’t count them.",
+          ],
+        ]}
+      />
+      <Caption>
+        From PostHog, June 26 to October 9, 2026, not counting OrderSync’s own
+        team. PostHog can’t tell personas apart, so it counts paths, not
+        people types.
+      </Caption>
       <P>
         Next: move the FAQ’s answers higher, since 12 of 45 visits reach the
         bottom of the homepage, and give the EDI Inspector a clearer path to a
@@ -905,7 +958,6 @@ export const SECTIONS: CaseStudySection[] = [
     content: (
       <>
         {E.systemFacts}
-        {E.palette}
       </>
     ),
   },

@@ -133,7 +133,7 @@ function AnnotatedHomepage({ c }: { c: Competitor }) {
             key={i}
             type="button"
             aria-expanded={open === i}
-            aria-label={c.notes[i].label}
+            aria-label={`${i + 1}. ${c.notes[i].label}`}
             onMouseEnter={() => setOpen(i)}
             onMouseLeave={() => setOpen(null)}
             onFocus={() => setOpen(i)}
@@ -150,7 +150,14 @@ function AnnotatedHomepage({ c }: { c: Competitor }) {
               width: `${b.w}%`,
               height: `${b.h}%`,
             }}
-          />
+          >
+            <span
+              aria-hidden="true"
+              className={`${mono} absolute -left-3.5 -top-3.5 flex h-7 w-7 items-center justify-center rounded-full bg-site-blue text-label font-medium text-white shadow`}
+            >
+              {i + 1}
+            </span>
+          </button>
         ))}
         {open !== null && (
           <div
@@ -159,7 +166,7 @@ function AnnotatedHomepage({ c }: { c: Competitor }) {
             style={notePlace(c.boxes[open])}
           >
             <p className={`${mono} text-label uppercase text-site-paper/70`}>
-              {c.notes[open].label}
+              {open + 1}. {c.notes[open].label}
             </p>
             <p className="mt-1 text-body-sm">{c.notes[open].note}</p>
           </div>

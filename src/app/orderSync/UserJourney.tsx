@@ -13,11 +13,6 @@ import { Caption, label } from "@/components/site/prose";
 // OrderSync's main branch: the homepage, /edi-compliance/[retailer] (with
 // its EDI Inspector and Book My Intro Call), /tools/po-extractor, /compare,
 // the SPS Commerce alternatives post, the blog and the newsletter.
-// Each path's numbers are from OrderSync's PostHog, June 26 to October 9,
-// 2026, internal users filtered out (PostHog AI, run October 9). PostHog
-// can't tell personas apart, so paths through the same pages share numbers.
-// booking_modal_opened isn't used: 143 people, against about 50 booking
-// clicks, so it likely fires without a click somewhere.
 
 type Stage = {
   name: string;
@@ -30,22 +25,13 @@ type Stage = {
   page?: string;
 };
 
-type Stat = { value: string; label: string };
-
 type Journey = {
   persona: number;
   path: number;
   name: string;
-  /** What PostHog shows for this path. */
-  data: Stat[];
   stages: Stage[];
 };
 
-const HOMEPAGE_DATA: Stat[] = [
-  { value: "57", label: "visits started on the homepage" },
-  { value: "79%", label: "of them never opened a second page" },
-  { value: "6", label: "people went on to open the booking calendar" },
-];
 
 const PERSONA_NAMES: Record<number, string> = {
   1: "Forced into EDI",
@@ -95,7 +81,6 @@ const JOURNEYS: Journey[] = [
     persona: 1,
     path: 1,
     name: "The homepage to a call",
-    data: HOMEPAGE_DATA,
     stages: [
       RETAILER_EMAIL,
       {
@@ -132,11 +117,6 @@ const JOURNEYS: Journey[] = [
     persona: 1,
     path: 2,
     name: "The EDI Inspector first",
-    data: [
-      { value: "196", label: "visits started on the EDI Inspector, the most of any page" },
-      { value: "3.4×", label: "as many as started on the homepage" },
-      { value: "28", label: "more started on a guide to the 850, 856 or 810" },
-    ],
     stages: [
       RETAILER_EMAIL,
       {
@@ -172,7 +152,6 @@ const JOURNEYS: Journey[] = [
     persona: 2,
     path: 1,
     name: "The homepage to a call",
-    data: HOMEPAGE_DATA,
     stages: [
       INBOX,
       {
@@ -208,11 +187,6 @@ const JOURNEYS: Journey[] = [
     persona: 2,
     path: 2,
     name: "A free tool first",
-    data: [
-      { value: "38", label: "visits started on a tool page" },
-      { value: "2 of 8", label: "finished bookings came from those visits" },
-      { value: "1", label: "person went from the homepage to a tool to booking" },
-    ],
     stages: [
       INBOX,
       {
@@ -252,12 +226,6 @@ const JOURNEYS: Journey[] = [
     persona: 3,
     path: 1,
     name: "A comparison to a call",
-    data: [
-      {
-        value: "0",
-        label: "people booked in a visit that started on a comparison or the SPS Commerce post",
-      },
-    ],
     stages: [
       SLOW_ONBOARDING,
       {
@@ -294,10 +262,6 @@ const JOURNEYS: Journey[] = [
     persona: 3,
     path: 2,
     name: "Not buying yet",
-    data: [
-      { value: "24", label: "visits started on the blog" },
-      { value: "Not tracked", label: "newsletter sign-ups have no event of their own" },
-    ],
     stages: [
       SLOW_ONBOARDING,
       {
@@ -386,19 +350,6 @@ export default function UserJourney({ caption }: { caption?: ReactNode }) {
       </div>
 
       <div>
-        <div className="mb-6 border-t border-site-line pt-4">
-          <p className={label}>What PostHog shows</p>
-          <ul className="mt-3 grid gap-x-8 gap-y-4 sm:grid-cols-3">
-            {journey.data.map((d) => (
-              <li key={d.label}>
-                <p className="font-serif text-subhead text-site-ink">
-                  {d.value}
-                </p>
-                <p className="text-body-sm text-site-ink/75">{d.label}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
         {/* From 768px: stages across, a lane per row, and the feeling curve. */}
         <div className="hidden border-t border-site-line md:grid md:grid-cols-[6.5rem_repeat(5,minmax(0,1fr))]">
           <span />

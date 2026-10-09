@@ -214,13 +214,13 @@ export const E = {
         reinvented, so he wanted the site to feel clean and expected, with
         nothing too innovative.
       </P>
-      <figure>
+      <figure className="max-w-measure">
         <Image
           src={`${PROCESS}/james-reference.webp`}
           alt="The reference James shared: ElevenLabs’ Sound Effects page, a white app with a plain sidebar, a row of image tiles and a simple list of sounds with play buttons."
           width={1800}
           height={1195}
-          sizes="(min-width: 1024px) 896px, 100vw"
+          sizes="(min-width: 768px) 40rem, 100vw"
           className="h-auto w-full border border-site-line"
         />
         <Caption>
@@ -231,10 +231,6 @@ export const E = {
 
       <hr className="mt-16 border-site-line" />
       <H3 id="secondary">Secondary research and reviews</H3>
-      <P>
-        Published data and competitors’ reviews showed what buyers worry about,
-        and 2 of those worries changed the homepage.
-      </P>
       <ResearchFinding
         title="Mistakes cost suppliers real money."
         text={
@@ -251,7 +247,7 @@ export const E = {
       </ResearchFinding>
       <ResearchFinding
         title="Setups that run for months are the worry."
-        text="Reviews of SPS Commerce and TrueCommerce describe setups quoted in weeks that ran for months, so the FAQ now answers how long it takes to go live. The redesign added 2 more questions with it, on IT and on SPS Commerce."
+        text="Reviews of SPS Commerce and TrueCommerce describe setups quoted in weeks that ran for months, so the FAQ now answers how long it takes to go live."
       >
         <NewFaqs />
       </ResearchFinding>
@@ -277,15 +273,15 @@ export const E = {
       <hr className="mt-16 border-site-line" />
       <H3 id="journey-map">User journey map</H3>
       <KeyFinding>
-        More visits start on the free EDI Inspector than anywhere else: 196,
-        against 57 on the homepage.
+        Every path starts with stress, so each page has to reassure them and
+        make the next step easy.
       </KeyFinding>
       <P>
         2 paths for each persona, from what sets them off to a booked call, or
         to staying in touch. Pick a persona and a path to switch the map.
       </P>
       <Wide>
-        <UserJourney caption="Made for this case study from the May research and the pages that shipped. Feelings at the start come from the research; the later ones are what each page is designed to make them feel. The numbers are from OrderSync’s PostHog, June 26 to October 9, 2026, not counting its own team. PostHog can’t tell personas apart, so paths through the same pages share numbers." />
+        <UserJourney caption="Made for this case study from the May research and the pages that shipped. Feelings at the start come from the research; the later ones are what each page is designed to make them feel." />
       </Wide>
     </>
   ),
@@ -301,32 +297,29 @@ export const E = {
         items={[
           {
             title: "Everyone asked for a demo.",
-            text: "All 7 with a readable button asked for a demo or a meeting, and 6 said “demo.” OrderSync’s says Book a Call: 30 minutes with James.",
+            text: "All 7 with a readable button asked for a demo or a meeting. OrderSync’s says Book a Call: 30 minutes with James.",
           },
           {
             title: "Most were blue or navy.",
-            text: "4 of 5 used blue or navy as the main color, and none had gradient text. The redesign moved OrderSync to navy.",
+            text: "4 of 5 used blue or navy, and none had gradient text. OrderSync moved to navy.",
           },
           {
             title: "Headlines said what they do.",
-            text: "5 of 9 said what the product does with orders, and 4 of 9 said AI. OrderSync’s already did: “One System for All Your Orders.”",
+            text: "5 of 9 said what they do with orders. OrderSync’s already did: “One System for All Your Orders.”",
           },
           {
             title: "Almost nobody showed the product.",
-            text: "Only Conexiom put its product in the hero. OrderSync’s now shows every format going into the ERP.",
+            text: "Only Conexiom did. OrderSync’s hero now shows every format going into the ERP.",
           },
         ]}
       />
 
       <P>
-        In May I compared how 7 competitors positioned themselves, from SPS
-        Commerce, the incumbent in EDI, to AI startups like Canals.ai. SPS
-        Commerce and Orderful only handled EDI, which left OrderSync something
-        to own: every format in one system. For this case study, I went back to
-        their homepages as they were that month.
+        I went back to their homepages as they were in May 2026. Here are 3 of
+        them.
       </P>
       <Wide>
-        <LandscapeShots caption="First screens from the Wayback Machine, May 2026. The other 7 sites didn’t archive cleanly, so they only count in the findings above where their text could be read." />
+        <LandscapeShots caption="First screens from the Wayback Machine, May 2026. The findings count every homepage whose text could be read." />
       </Wide>
     </>
   ),

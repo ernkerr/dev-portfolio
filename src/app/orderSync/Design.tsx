@@ -240,11 +240,10 @@ export const E = {
         text={
           <>
             <Source href="https://www.supplychaindive.com/news/walmart-on-time-in-full-87-suppliers/550083/">
-              Walmart charges suppliers 3%
+              Walmart fines suppliers 3%
             </Source>{" "}
-            of the cost of goods on cases that miss its on-time, in-full
-            standard, so the homepage got a third card about catching errors,
-            where wireframe v1 had one about price.
+            of the cost of goods on every case that arrives late or incomplete.
+            So the third card became “Catch Errors Before They Cost You.”
           </>
         }
       >

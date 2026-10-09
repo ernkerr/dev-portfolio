@@ -25,31 +25,6 @@ const IMG = "/images/portfolioRedesign";
 
 /* ---------- Overview ---------- */
 
-// Stands in for a homepage screenshot that isn't final yet, at the same
-// 1440 × 900 shape so the layout doesn't jump when the real one arrives.
-function ShotPlaceholder({
-  className = "",
-  children,
-}: {
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div
-      className={`flex aspect-[1440/900] flex-col items-center justify-center gap-2 border border-dashed border-site-muted/50 px-6 text-center ${className}`}
-    >
-      <p className={`${label} flex items-center gap-2`}>
-        <span
-          aria-hidden="true"
-          className="inline-block h-1.5 w-1.5 rounded-full bg-site-blue"
-        />
-        In progress
-      </p>
-      <p className="text-body-sm text-site-ink/75">{children}</p>
-    </div>
-  );
-}
-
 /* ---------- Problem ---------- */
 
 // The phone fallback shows the whole 2025 homepage screenshot (1440 × 900),
@@ -927,7 +902,6 @@ export function TypeSpecimens() {
 
 /* ---------- Results ---------- */
 
-// The 2026 side stays a placeholder until the redesign is tested and final.
 export function BeforeAfter() {
   return (
     <figure>
@@ -945,9 +919,14 @@ export function BeforeAfter() {
         </div>
         <div>
           <p className={label}>2026</p>
-          <ShotPlaceholder className="mt-2">
-            The final first screen goes here once testing is done.
-          </ShotPlaceholder>
+          <Image
+            src={`${IMG}/after-home-desktop.png`}
+            alt="The 2026 homepage: “I'm Erin, a product designer who engineers.” beside the experience list, the switch below, and the OrderSync and Carpoolio tiles."
+            width={1440}
+            height={900}
+            sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"
+            className="mt-2 h-auto w-full border border-site-line"
+          />
         </div>
       </div>
       <Caption>

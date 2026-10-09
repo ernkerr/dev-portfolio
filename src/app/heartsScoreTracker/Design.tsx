@@ -8,7 +8,6 @@ import {
   Columns,
   Facts,
   H3,
-  InProgress,
   inlineLink,
   Lead,
   P,
@@ -188,10 +187,6 @@ const SECTIONS: CaseStudySection[] = [
           ]}
           caption="The end of a game, the same day."
         />
-        <InProgress title="Why the redesign">
-          Add what made you change it so fast: did you play a round with the
-          first draft?
-        </InProgress>
       </>
     ),
   },
@@ -237,12 +232,6 @@ const SECTIONS: CaseStudySection[] = [
             the rest: a black field with red and cream.
           </Caption>
         </figure>
-        <InProgress title="Credit for the system">
-          Since June 2026 the family has been built with Claude Code agents
-          (every Spades commit, most of Canasta’s). Say what you designed and
-          decided, and what the agents built. The 2025 Gin and Hearts work has
-          no AI co-authors.
-        </InProgress>
       </>
     ),
   },
@@ -257,12 +246,6 @@ const SECTIONS: CaseStudySection[] = [
           2025 and is rated 5.0 from 2 ratings as of October 2026. Across the
           family, 4 score trackers are live, with 9 ratings, all 5 stars.
         </P>
-        <InProgress title="Numbers">
-          Add downloads or Premium conversions from App Store Connect if you
-          want them public; the apps have no analytics. The App Store
-          description promises streaks and stats the app doesn’t have yet:
-          rewrite it or build them.
-        </InProgress>
       </>
     ),
   },
@@ -281,12 +264,6 @@ const SECTIONS: CaseStudySection[] = [
           It also showed me how small, focused products can compound over time
           when built with maintainability and iteration in mind.
         </P>
-        <InProgress title="A next step to consider">
-          The design tokens added to the base in January 2026 (spacing, radii,
-          type and shadows) aren’t used yet; every style is written inline, so a
-          change to the look has to be made in every app. If moving onto the
-          tokens is the plan, it’s a good line to end on.
-        </InProgress>
         <BuildNote href="/heartsScoreTracker">
           React Native and Expo with NativeWind, on the same base as Gin. Games
           live on the phone, with no account needed.

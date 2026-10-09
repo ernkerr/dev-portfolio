@@ -9,7 +9,6 @@ import {
   Facts,
   Figure,
   H3,
-  InProgress,
   inlineLink,
   Lead,
   List,
@@ -42,8 +41,7 @@ import {
 import { LiveHome2026 } from "./liveFrames";
 
 // Drafted in docs/portfolio-redesign-case-study.md. Every claim traces back
-// to the site, its commit history or Erin's answers; the research still
-// under way sits in InProgress slots until it's done.
+// to the site, its commit history or Erin's answers.
 
 const IMG = "/images/portfolioRedesign";
 
@@ -279,13 +277,6 @@ const SECTIONS: CaseStudySection[] = [
           styles or images, the recording uses the closest version that still
           renders and says which one.
         </P>
-        <H3>Talking to people</H3>
-        <InProgress title="Reviewer sessions">
-          Each person reviews the old site as if hiring a junior product or
-          UI/UX designer with 2 minutes before their next meeting, thinking out
-          loud: what they remember, where they stop, and whether they find a
-          design case study.
-        </InProgress>
       </>
     ),
   },
@@ -378,11 +369,6 @@ const SECTIONS: CaseStudySection[] = [
           quickly. My new homepage puts case studies on the first screen, so 20
           seconds is realistic.
         </P>
-        <InProgress title="Testing">
-          Reviewers see the old site and then the prototype, with the same
-          scenario and the same questions. What testing shows, and what I change
-          because of it, goes here.
-        </InProgress>
       </>
     ),
   },
@@ -584,14 +570,6 @@ const SECTIONS: CaseStudySection[] = [
           height={2384}
           caption="The 2026 homepage."
         />
-        <InProgress title="Session results">
-          How many reviewers find a design case study within 20 seconds on the
-          old site and on the new one, what they remember, and the best quotes.
-          Real numbers only.
-        </InProgress>
-        <InProgress title="After launch">
-          Replies from design roles, and which case studies get opened.
-        </InProgress>
       </>
     ),
   },

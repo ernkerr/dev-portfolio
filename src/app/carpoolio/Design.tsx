@@ -8,7 +8,6 @@ import {
   Columns,
   Facts,
   H3,
-  InProgress,
   Lead,
   P,
   label,
@@ -22,7 +21,7 @@ import LiveCar from "./LiveCar";
 // tradename agreement. Research notes: scratchpad research/carpoolio.md.
 // Not used on purpose: the landing page's testimonials (no source), its
 // AI-generated hero illustration, the stock car drawings, and the buyer's
-// name and price. Open questions sit in InProgress slots.
+// name and price.
 
 const IMG = "/images/carpoolio/study";
 const BG = "#061423";
@@ -232,12 +231,6 @@ const SECTIONS: CaseStudySection[] = [
           where, and only the car’s owner can edit the car itself, its time,
           pickup spot and number of seats.
         </P>
-        <InProgress title="The why behind the changes">
-          Add a screenshot of the one-screen create flow and when it shipped,
-          and what prompted the other changes: the move from a seat slider to 13
-          tap buttons on the web (March 2025), and opening seats to everyone.
-          Any feedback from friends who used it goes here too.
-        </InProgress>
       </>
     ),
   },
@@ -298,12 +291,6 @@ const SECTIONS: CaseStudySection[] = [
           the name from me. I had used it first, with carpoolio.co live since
           January 2025, and as part of the sale I took my app down.
         </P>
-        <InProgress title="Ratings and usage">
-          The homepage says 4.9★ on the App Store, but I couldn’t find a source:
-          add an App Store Connect screenshot of the rating and its count, or
-          change the tile. Usage: the app had 23 accounts by December 2025, 2 of
-          them yours. Decide whether to say that.
-        </InProgress>
       </>
     ),
   },
@@ -317,13 +304,6 @@ const SECTIONS: CaseStudySection[] = [
           first, since Carpoolio’s functionality was quite complex for a novice
           developer.
         </P>
-        <InProgress title="Suggested lines">
-          Keep these only if they match what you saw: “The hardest parts were
-          hard to design, not hard to build: what a host owns, what a rider
-          owns, and how little someone wants to do before they can claim a
-          seat.” And: “The car carried the design. People understood a seat on a
-          drawing of a car faster than any label I wrote for it.”
-        </InProgress>
         <BuildNote href="/carpoolio">
           React and Express with Postgres on the web; Expo, React Native and
           Supabase on iOS. The car drawings were free top-down illustrations

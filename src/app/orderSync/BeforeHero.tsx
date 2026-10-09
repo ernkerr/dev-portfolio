@@ -12,21 +12,24 @@ import { useFit } from "./LiveHero";
 // menu's button printed header.pages. Colors, sizes and animations are
 // OrderSync's, not this site's tokens; the type is Geist, not Satoshi and
 // Inter. BeforeFindings then pulls each piece out at full size, under the
-// finding it shows.
+// finding it shows. The numbers are circles, as in the portfolio redesign's
+// findings.
 
 const LOGO = "/images/orderSync/metallic-logo.png";
 const STAGE_W = 1440;
 const INK = "text-[#0E172B]";
 const BODY = "text-[#64748B]";
 
+// w is each file's width at 96px tall; h is the display height the
+// redesign tuned per logo (Home/Marquee on origin/main) so they read alike.
 const LOGOS = [
-  { name: "bristol-farms", w: 142 },
-  { name: "erewhon", w: 641 },
-  { name: "jimbos", w: 505 },
-  { name: "lassens", w: 375 },
-  { name: "lazy-acres", w: 158 },
-  { name: "mothers-market", w: 352 },
-  { name: "whole-foods", w: 140 },
+  { name: "bristol-farms", w: 142, h: 42 },
+  { name: "erewhon", w: 641, h: 26 },
+  { name: "jimbos", w: 505, h: 22 },
+  { name: "lassens", w: 375, h: 28 },
+  { name: "lazy-acres", w: 158, h: 58 },
+  { name: "mothers-market", w: 352, h: 30 },
+  { name: "whole-foods", w: 140, h: 44 },
 ];
 
 // OrderSync's own keyframes and classes from its globals.css, renamed so
@@ -529,12 +532,63 @@ function AiPatternsPiece() {
   );
 }
 
-/** Finding 5: the logo strip, live. */
+/**
+ * The strip as the redesign shipped it: every logo a flat silhouette in one
+ * gray (--shiny-text, #9CA3AF, the gray of “All Your Orders”), drawn with a
+ * CSS mask, at the heights tuned per logo.
+ */
+function OneGrayMarquee() {
+  const set = (copy: number) =>
+    LOGOS.map((l) => (
+      <span
+        key={`${l.name}-${copy}`}
+        className="block shrink-0 bg-[#9CA3AF]"
+        style={{
+          height: l.h,
+          aspectRatio: `${l.w} / 96`,
+          WebkitMaskImage: `url('/images/orderSync/marquee/${l.name}.webp')`,
+          maskImage: `url('/images/orderSync/marquee/${l.name}.webp')`,
+          WebkitMaskRepeat: "no-repeat",
+          maskRepeat: "no-repeat",
+          WebkitMaskPosition: "center",
+          maskPosition: "center",
+          WebkitMaskSize: "contain",
+          maskSize: "contain",
+        }}
+      />
+    ));
+  return (
+    <section className="relative overflow-hidden border-y border-[#E8E8E8] bg-[#F9FAFB] px-8 py-10">
+      <p className="mb-5 text-[14px] font-medium uppercase tracking-wider text-[#1C274C]/70">
+        Processing orders from
+      </p>
+      <div className="overflow-hidden">
+        <div className="os-marquee flex w-max items-center gap-20">
+          {set(1)}
+          {set(2)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Finding 5: the strip before, in many grays, and after, in one. */
 function MarqueePiece() {
   return (
-    <Piece>
-      <Marquee />
-    </Piece>
+    <div className="flex flex-col gap-6">
+      <div>
+        <p className={`${label} mb-3`}>Before: each logo grayed out on its own</p>
+        <Piece>
+          <Marquee />
+        </Piece>
+      </div>
+      <div>
+        <p className={`${label} mb-3`}>After: every logo in one gray</p>
+        <Piece>
+          <OneGrayMarquee />
+        </Piece>
+      </div>
+    </div>
   );
 }
 
@@ -589,9 +643,9 @@ export const FINDINGS: Finding[] = [
     Evidence: AiPatternsPiece,
   },
   {
-    title: "Kept: the logo strip",
+    title: "A logo strip in many grays",
     kind: "Social proof",
-    text: "Buyers are trusting software with their orders, so proof that others already do goes a long way.",
+    text: "The logos used to be in color, then they were grayed out, which left the strip in many different grays. We cleaned it up with one gray, the same as the headline’s, so the social proof comes through consistently and looks stronger.",
     Evidence: MarqueePiece,
   },
 ];
@@ -605,14 +659,14 @@ export function BeforeFindings() {
     <>
       <OrderSyncCss />
       {FINDINGS.map(({ title, kind, text, Evidence }, i) => (
-        // Number and title on one line; everything under them lines up with
-        // the column's edge, like the piece of the page below.
+        // From 768px the circled number hangs in the margin, so the title,
+        // principle, text and piece of the page share the column's edge.
         <div key={title} className="mt-10 flex flex-col gap-5 md:mt-14">
-          <div className="max-w-measure">
-            <div className="flex items-center gap-4">
+          <div className="relative max-w-measure">
+            <div className="flex items-baseline gap-3 md:block">
               <span
                 aria-hidden="true"
-                className="flex h-8 w-8 shrink-0 items-center justify-center bg-site-ink font-mono text-body-sm text-site-paper"
+                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-site-ink font-mono text-body-sm text-site-paper md:absolute md:-left-12 md:top-0.5"
               >
                 {i + 1}
               </span>

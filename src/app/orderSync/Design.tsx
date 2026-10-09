@@ -164,6 +164,11 @@ export const E = {
         code.
       </P>
       <BeforeHero caption="Live, from OrderSync’s code on May 17, 2026. Set in Geist here, not OrderSync’s Satoshi." />
+      <H3>Heuristic evaluation</H3>
+      <P>
+        I ran a heuristic evaluation of the old homepage and found 5 problems,
+        each tied to a usability principle.
+      </P>
       <BeforeFindings />
     </>
   ),

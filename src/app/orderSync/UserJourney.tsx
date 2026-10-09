@@ -15,6 +15,10 @@ import { Caption, label } from "@/components/site/prose";
 //   to do, not measured feelings.
 // - Page: what shipped on OrderSync's main branch, including
 //   /edi-compliance/[retailer] and the SPS Commerce alternatives post.
+// - Lens and pain points: segment 2 in DESIGN.md (the codes, "Googling at
+//   night trying to find a simpler path", SPS's per-connection fees and
+//   2-4 month timeline) and the setup reviews in stat-check.md. Stages with
+//   no pain point in the research are left blank.
 // The other paths are the branches in sitemap-flow.html and the May site map.
 
 type Stage = {
@@ -25,6 +29,7 @@ type Stage = {
   feeling: string;
   /** 0 is the lowest point of the curve, 1 the highest. */
   level: number;
+  pain?: string;
   page?: string;
 };
 
@@ -36,6 +41,7 @@ const STAGES: Stage[] = [
     thinking: "This reads like a foreign language.",
     feeling: "Panic",
     level: 0.12,
+    pain: "The requirements are full of codes like 850, 856 and AS2.",
   },
   {
     name: "Search",
@@ -44,6 +50,7 @@ const STAGES: Stage[] = [
     thinking: "Is there a simpler path?",
     feeling: "Overwhelmed",
     level: 0.05,
+    pain: "The big vendors quote fees for every connection, and months of setup.",
     page: "A page on each big retailer’s EDI rules, and one on SPS Commerce alternatives",
   },
   {
@@ -62,6 +69,7 @@ const STAGES: Stage[] = [
     thinking: "How long does it take to go live?",
     feeling: "Reassured",
     level: 0.7,
+    pain: "Reviews of setups quoted in weeks that ran for months.",
     page: "Customer logos, and FAQs on go-live time, IT and SPS Commerce",
   },
   {
@@ -110,7 +118,23 @@ const OTHER_PATHS: Path[] = [
   },
 ];
 
-const LANES = ["Doing", "Thinking", "Feeling", "The page"] as const;
+const LANES = [
+  "Doing",
+  "Thinking",
+  "Feeling",
+  "Pain points",
+  "The page",
+] as const;
+
+// Who the map follows, in what situation, and what they're after.
+const LENS = [
+  {
+    label: "Persona",
+    text: "Forced into EDI: the CEO of a consumer goods or food brand",
+  },
+  { label: "Scenario", text: "Their first big retailer requires EDI." },
+  { label: "Goal", text: "Find a simpler path to EDI than the big vendors." },
+];
 
 /**
  * The happy path for Persona 1, stage by stage, with a feeling curve. A
@@ -121,8 +145,16 @@ export default function UserJourney({ caption }: { caption?: ReactNode }) {
 
   return (
     <figure>
+      <dl className="mb-6 grid gap-x-8 gap-y-4 border-t border-site-line pt-4 md:grid-cols-3">
+        {LENS.map((l) => (
+          <div key={l.label}>
+            <dt className={label}>{l.label}</dt>
+            <dd className="mt-1 text-body-sm text-site-ink">{l.text}</dd>
+          </div>
+        ))}
+      </dl>
       <div className="mb-3 flex items-center justify-between gap-4">
-        <p className={label}>Persona 1, the happy path</p>
+        <p className={label}>The happy path</p>
         <button
           type="button"
           aria-expanded={open}
@@ -166,6 +198,15 @@ export default function UserJourney({ caption }: { caption?: ReactNode }) {
                       “{s.thinking}”
                     </p>
                   )}
+                  {lane === "Pain points" &&
+                    (s.pain ? (
+                      <p className="text-body-sm text-site-ink/80">{s.pain}</p>
+                    ) : (
+                      <p className="text-body-sm text-site-muted">
+                        <span aria-hidden="true">—</span>
+                        <span className="sr-only">None in the research</span>
+                      </p>
+                    ))}
                   {lane === "The page" &&
                     (s.page ? (
                       <p className="text-body-sm text-site-ink/80">{s.page}</p>
@@ -195,6 +236,12 @@ export default function UserJourney({ caption }: { caption?: ReactNode }) {
             <p className="mt-2 font-serif text-body text-site-ink">
               “{s.thinking}”
             </p>
+            {s.pain && (
+              <p className="mt-2 text-body-sm text-site-ink/75">
+                <span className={label}>Pain point </span>
+                {s.pain}
+              </p>
+            )}
             {s.page && (
               <p className="mt-2 text-body-sm text-site-ink/75">
                 <span className={label}>The page </span>

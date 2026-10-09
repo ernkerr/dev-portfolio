@@ -57,7 +57,7 @@ The finished version is at `/orderSync` (`src/app/orderSync/Design.tsx`). The ta
 - [x] PostHog: 120 of the demo_click users never viewed a page (mostly Yahoo mobile ads on /edi-software), so the event likely fires on load, not on click. The page only uses the funnel numbers. Tell James: the edi_software_hero demo_click should fire in the click handler.
 - [x] Check PostHog for `intro_confirmed`: it has 8 finished bookings from June 26 to October 9 (PostHog AI, run October 9). Results now says so.
 - [ ] Tell James: 6 of the 8 `intro_confirmed` events come from sessions with no page view, so they can't be traced to a page; `booking_modal_opened` counts 143 people against about 50 booking clicks, so it likely fires without a click somewhere; and the homepage newsletter form has no event of its own.
-- [ ] Why the proof stats and testimonial from wireframe v3 didn't ship, or say to cut that note.
+- [x] Why the proof stats and testimonial from wireframe v3 didn't ship: cut the note instead (October 9).
 - [ ] Reflection is drafted for you. Rewrite it in your words or approve it.
 - [x] Trimmed to about 1,870 words with captions and tables (about 1,400 of running text). The full version is in commit 83e93d1.
 - [x] One version at `/orderSync`, with methods, design principles and repo facts. Drafts kept at `/orderSync/drafts`.

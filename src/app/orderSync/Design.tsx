@@ -10,7 +10,6 @@ import {
   Facts,
   Figure,
   H3,
-  InProgress,
   inlineLink,
   label,
   Lead,
@@ -868,11 +867,6 @@ export const E = {
         but 6 of them came from visits with no page view, so they can’t be
         traced back to a page.
       </P>
-      <InProgress title="What didn’t ship">
-        The proof stats and the testimonial from wireframe v3 aren’t on the
-        homepage, and it still shows 5 free tools, not 3. Add a line on why, or
-        leave it out.
-      </InProgress>
     </>
   ),
   lessons: (

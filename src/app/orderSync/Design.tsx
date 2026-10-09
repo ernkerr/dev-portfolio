@@ -8,6 +8,7 @@ import {
   Caption,
   Columns,
   Facts,
+  Figure,
   H3,
   InProgress,
   inlineLink,
@@ -16,6 +17,7 @@ import {
   P,
   Stats,
   Table,
+  Wide,
 } from "@/components/site/prose";
 import { BuildNote } from "@/components/site/appStudy";
 import {
@@ -172,8 +174,11 @@ export const E = {
   ),
   research: (
     <>
-      <ProcessMap caption="What each phase produced. The research and wireframes were committed at 2:03 PM on May 18, 2026, and the first visual design file is from 2:51 PM that day." />
+      <Wide>
+        <ProcessMap caption="What each phase produced. The research and wireframes were committed at 2:03 PM on May 18, 2026, and the first visual design file is from 2:51 PM that day." />
+      </Wide>
 
+      <hr className="mt-10 border-site-line" />
       <H3 id="interview">Stakeholder interview</H3>
       <P>
         I started with James, OrderSync’s founder, and we talked about who the
@@ -197,23 +202,7 @@ export const E = {
       </figure>
 
       <hr className="mt-10 border-site-line" />
-      <H3 id="personas">Proto-personas</H3>
-      <P>
-        I had no buyers to interview, so I mined what buyers had already
-        written: competitors’ reviews and customer stories. 3 personas kept
-        coming up.
-      </P>
-      <Personas caption="Proto-personas, built from reviews and customer stories rather than interviews. Every quote is word for word." />
-
-      <H3 id="journey-map">User journey map</H3>
-      <P>
-        Persona 1’s happy path, from the retailer’s email to a booked call, and
-        where the page meets them at each stage.
-      </P>
-      <UserJourney caption="Made for this case study from the May research. The first 3 feelings come from that research; Reassured and Ready are what the page is designed to do." />
-
-      <hr className="mt-10 border-site-line" />
-      <H3>Secondary research</H3>
+      <H3 id="secondary">Secondary research</H3>
       <Columns
         count={2}
         items={[
@@ -265,8 +254,31 @@ export const E = {
         ]}
       />
 
-      <hr className="mt-10 border-site-line" />
-      <H3 id="competitors">Competitive analysis</H3>
+    </>
+  ),
+  personas: (
+    <>
+      <P>
+        I had no buyers to interview, so I mined what buyers had already
+        written: competitors’ reviews and customer stories. 3 personas kept
+        coming up.
+      </P>
+      <Wide>
+        <Personas caption="Proto-personas, built from reviews and customer stories rather than interviews. Every quote is word for word." />
+      </Wide>
+
+      <H3 id="journey-map">User journey map</H3>
+      <P>
+        Persona 1’s happy path, from the retailer’s email to a booked call, and
+        where the page meets them at each stage.
+      </P>
+      <Wide>
+        <UserJourney caption="Made for this case study from the May research. The first 3 feelings come from that research; Reassured and Ready are what the page is designed to do." />
+      </Wide>
+    </>
+  ),
+  competitors: (
+    <>
       <P>
         In May I compared how 7 competitors positioned themselves, from SPS
         Commerce, the incumbent in EDI, to AI startups like Canals.ai. SPS
@@ -274,7 +286,9 @@ export const E = {
         to own: every format in one system. For this case study, I went back to
         their homepages as they were that month.
       </P>
-      <LandscapeShots caption="First screens from the Wayback Machine, May 2026. The other 7 sites didn’t archive cleanly, so they only count below where their text could be read." />
+      <Wide>
+        <LandscapeShots caption="First screens from the Wayback Machine, May 2026. The other 7 sites didn’t archive cleanly, so they only count below where their text could be read." />
+      </Wide>
       <H3>What the competitors showed</H3>
       <Columns
         count={2}
@@ -301,6 +315,22 @@ export const E = {
   ),
   wireframes: (
     <>
+      <H3 id="ia">Information architecture</H3>
+      <P>
+        Alongside the wireframes, I mapped every page on the site: the
+        homepage’s 10 sections, 11 free tools, the blog, the EDI guides, about
+        110 SEO pages and the app.
+      </P>
+      <Wide>
+        <Figure
+          src={`${PROCESS}/site-map.webp`}
+          alt="My site map from May 18: ordersync.io branching into the landing page and its 10 sections, Free Tools with 11 tools and an index, the Blog, EDI Guides, Programmatic SEO pages and the App. Below it, the conversion flow from search to the landing page, then to Book a Call or the newsletter."
+          width={1280}
+          height={1337}
+          caption="My site map, May 18, 2026. 389 indexed pages, with the landing page as the redesign’s scope."
+        />
+      </Wide>
+
       <H3 id="wireframes">Low-fidelity wireframes</H3>
       <P>
         I wireframed the homepage 3 times. Version 1 had 6 free tools, a “Stop
@@ -747,9 +777,21 @@ export const SECTIONS: CaseStudySection[] = [
   {
     id: "research",
     title: "Research",
-    headline:
-      "Proto-personas and a 7-competitor analysis: buyers come to confirm, not to be convinced.",
+    headline: "Buyers come to confirm, not to be convinced.",
     content: E.research,
+  },
+  {
+    id: "personas",
+    title: "Personas",
+    headline: "3 proto-personas, from what buyers had already written.",
+    content: E.personas,
+  },
+  {
+    id: "competitors",
+    title: "Competitive analysis",
+    headline:
+      "Competitors all asked for a demo, and almost none showed the product.",
+    content: E.competitors,
   },
   {
     id: "principles",

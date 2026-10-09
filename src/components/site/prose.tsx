@@ -33,6 +33,22 @@ export function Lead({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * A figure that runs past the case-study column into the empty space on its
+ * right, for things that need room: a board, a map, cards across. The
+ * column sits centered in a 1fr | 56rem | 1fr grid with 2rem gaps inside
+ * the page's 1.5rem gutters, so wide is half the page's inner width plus
+ * half the column, less 1rem to stay clear of a scrollbar. Below 1328px the
+ * section list squeezes the side columns, so it stays column width there.
+ */
+export function Wide({ children }: { children: ReactNode }) {
+  return (
+    <div className="min-[1328px]:w-[calc((min(100vw,1600px)+53rem)/2-1rem)]">
+      {children}
+    </div>
+  );
+}
+
 /** An H3; pass `id` to link to it (it clears the sticky header). */
 export function H3({ children, id }: { children: ReactNode; id?: string }) {
   return (

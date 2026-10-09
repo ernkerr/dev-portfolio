@@ -149,7 +149,7 @@ export default function UserJourney({ caption }: { caption?: ReactNode }) {
           <div key={lane} className="contents">
             <p className={`${label} border-t border-site-line py-3`}>{lane}</p>
             {lane === "Feeling" ? (
-              <div className="relative col-span-5 h-36 border-l border-t border-site-line">
+              <div className="relative col-span-5 h-40 border-l border-t border-site-line">
                 <FeelingCurve />
               </div>
             ) : (
@@ -159,18 +159,18 @@ export default function UserJourney({ caption }: { caption?: ReactNode }) {
                   className="border-l border-t border-site-line px-3 py-3"
                 >
                   {lane === "Doing" && (
-                    <p className="text-caption text-site-ink/80">{s.doing}</p>
+                    <p className="text-body-sm text-site-ink/80">{s.doing}</p>
                   )}
                   {lane === "Thinking" && (
-                    <p className="font-serif text-body-sm text-site-ink">
+                    <p className="font-serif text-body text-site-ink">
                       “{s.thinking}”
                     </p>
                   )}
                   {lane === "The page" &&
                     (s.page ? (
-                      <p className="text-caption text-site-ink/80">{s.page}</p>
+                      <p className="text-body-sm text-site-ink/80">{s.page}</p>
                     ) : (
-                      <p className="text-caption text-site-muted">
+                      <p className="text-body-sm text-site-muted">
                         Before the site
                       </p>
                     ))}
@@ -281,7 +281,7 @@ function FeelingCurve() {
           {/* Low points label above the dot, high ones below, so every
               label stays inside the lane. */}
           <span
-            className={`absolute whitespace-nowrap text-caption text-site-ink ${
+            className={`absolute whitespace-nowrap text-body-sm text-site-ink ${
               p.level < 0.5 ? "bottom-4" : "top-4"
             }`}
           >

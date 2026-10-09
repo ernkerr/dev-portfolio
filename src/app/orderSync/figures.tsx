@@ -165,7 +165,7 @@ export function LandscapeShots({ caption }: { caption?: ReactNode }) {
   ];
   return (
     <figure>
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-6 sm:grid-cols-2 min-[1328px]:grid-cols-3">
         {shots.map((s) => (
           <div key={s.src}>
             <p className={`${label} mb-3`}>{s.label}</p>
@@ -707,7 +707,9 @@ export function ChromeRules() {
 
 type Artifact = {
   name: string;
-  /** Where on this page the artifact is shown, or a file to open. */
+  /** One line on what it is, so the board reads without clicking. */
+  note: string;
+  /** Where on this page the artifact is shown. */
   href?: string;
   /** `left` keeps a page screenshot's headline in the crop. */
   img?: { src: string; width: number; height: number; left?: boolean };
@@ -726,18 +728,27 @@ const PHASES: { name: string; when: string; artifacts: Artifact[] }[] = [
     artifacts: [
       {
         name: "Stakeholder interview",
+        note: "With James, OrderSync’s founder",
         href: "#interview",
         img: { src: `${PROCESS}/james-reference.webp`, width: 1800, height: 1195 },
       },
       {
+        name: "Secondary research",
+        note: "How B2B buyers choose, and what errors cost",
+        href: "#secondary",
+        text: "TrustRadius, Parseur and Walmart’s chargebacks.",
+      },
+      {
         name: "Proto-personas",
+        note: "From competitors’ reviews and customer stories",
         href: "#personas",
         text: "Forced into EDI. Drowning in manual orders. Outgrown legacy EDI.",
       },
       {
         name: "Competitive analysis",
+        note: "How 7 competitors pitched themselves",
         href: "#competitors",
-        text: "7 competitors, from SPS Commerce to Canals.ai.",
+        text: "SPS Commerce, TrueCommerce, Cleo, Orderful, Conexiom, Workist and Canals.ai.",
       },
     ],
   },
@@ -747,16 +758,19 @@ const PHASES: { name: string; when: string; artifacts: Artifact[] }[] = [
     artifacts: [
       {
         name: "Requirements",
+        note: "The limits, from DESIGN.md",
         text: "Keep every URL, the SEO and the stack. Redesign the landing page only.",
       },
       {
         name: "User flow",
+        note: "Each section’s question, and what to track",
         href: "#journey",
         img: { src: `${PROCESS}/user-flow-measurement.webp`, width: 1050, height: 2490 },
       },
       {
         name: "Information architecture",
-        href: `${PROCESS}/site-map.webp`,
+        note: "Every page on the site",
+        href: "#ia",
         img: { src: `${PROCESS}/site-map.webp`, width: 1280, height: 1337 },
       },
     ],
@@ -767,11 +781,13 @@ const PHASES: { name: string; when: string; artifacts: Artifact[] }[] = [
     artifacts: [
       {
         name: "Wireframes v1 to v3",
+        note: "3 rounds in 1 day",
         href: "#wireframes",
         img: { src: `${PROCESS}/wireframe-v3.webp`, width: 1280, height: 3514 },
       },
       {
         name: "CTA strategy",
+        note: "Where Book a Call goes",
         href: "#wireframes",
         text: "3 touch points: the header, the hero and mid-page.",
       },
@@ -783,11 +799,13 @@ const PHASES: { name: string; when: string; artifacts: Artifact[] }[] = [
     artifacts: [
       {
         name: "2 directions",
+        note: "Dark or light, both built in code",
         href: "#directions",
         img: { src: `${PROCESS}/direction-light.webp`, width: 1800, height: 1125, left: true },
       },
       {
         name: "Design system",
+        note: "The chrome rule on May 18, the navy on May 29",
         href: "#system",
         img: { src: `${PROCESS}/chrome-rules.webp`, width: 1936, height: 1120 },
       },
@@ -799,6 +817,7 @@ const PHASES: { name: string; when: string; artifacts: Artifact[] }[] = [
     artifacts: [
       {
         name: "8 pull requests",
+        note: "From the homepage to billing",
         href: "#results",
         img: { src: `${IMG}/after-hero.png`, width: 2880, height: 1800, left: true },
       },
@@ -807,66 +826,62 @@ const PHASES: { name: string; when: string; artifacts: Artifact[] }[] = [
 ];
 
 function ArtifactTile({ a }: { a: Artifact }) {
-  const external = a.href && !a.href.startsWith("#");
   const body = (
     <>
-      <div className="aspect-[4/3] overflow-hidden border border-site-line bg-white">
+      <div className="aspect-[16/10] overflow-hidden border border-site-line bg-white">
         {a.img ? (
           <Image
             src={a.img.src}
             alt=""
             width={a.img.width}
             height={a.img.height}
-            sizes="(min-width: 768px) 10rem, 45vw"
+            sizes="(min-width: 1328px) 18rem, (min-width: 768px) 30vw, 45vw"
             className={`h-full w-full object-cover ${a.img.left ? "object-left-top" : "object-top"} transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100`}
           />
         ) : (
-          <p className="h-full bg-site-paper p-3 font-serif text-body-sm text-site-ink">
+          <p className="h-full bg-site-paper p-4 font-serif text-body text-site-ink">
             {a.text}
           </p>
         )}
       </div>
       <p
-        className={`mt-2 text-caption text-site-ink ${
+        className={`mt-3 text-body-sm text-site-ink ${
           a.href ? "transition-colors group-hover:text-site-blue" : ""
         }`}
       >
         {a.name}
-        {external && <span aria-hidden="true"> ↗</span>}
       </p>
+      <p className="text-caption text-site-muted">{a.note}</p>
     </>
   );
   if (!a.href) return <div>{body}</div>;
   return (
-    <a
-      href={a.href}
-      {...(external
-        ? { target: "_blank", rel: "noopener noreferrer" }
-        : undefined)}
-      className={`group block ${focusRing}`}
-    >
+    <a href={a.href} className={`group block ${focusRing}`}>
       {body}
     </a>
   );
 }
 
 /**
- * The 5 phases, each with what it produced. Each artifact links to where
- * this page shows it.
+ * The 5 phases, a row each, with what each one produced. Each artifact
+ * links to where this page shows it.
  */
 export function ProcessMap({ caption }: { caption?: ReactNode }) {
   return (
     <figure>
-      <ol className="grid gap-x-4 gap-y-8 md:grid-cols-5">
+      <ol className="border-t border-site-line">
         {PHASES.map((phase, i) => (
-          <li key={phase.name}>
-            <p className={`${label} border-b border-site-line pb-2`}>
-              <span className="text-site-ink">
+          <li
+            key={phase.name}
+            className="grid gap-x-8 gap-y-4 border-b border-site-line py-6 md:grid-cols-[9rem_minmax(0,1fr)]"
+          >
+            <div>
+              <p className="font-serif text-column-title text-site-ink">
                 {i + 1}. {phase.name}
-              </span>
-              <span className="block">{phase.when}</span>
-            </p>
-            <ul className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-1">
+              </p>
+              <p className={`${label} mt-1`}>{phase.when}</p>
+            </div>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-6 lg:grid-cols-3 min-[1328px]:grid-cols-4">
               {phase.artifacts.map((a) => (
                 <li key={a.name}>
                   <ArtifactTile a={a} />

@@ -277,15 +277,15 @@ export const E = {
       <hr className="mt-16 border-site-line" />
       <H3 id="journey-map">User journey map</H3>
       <KeyFinding>
-        Every path starts with stress, so each page has to reassure them and
-        make the next step easy.
+        More visits start on the free EDI Inspector than anywhere else: 196,
+        against 57 on the homepage.
       </KeyFinding>
       <P>
         2 paths for each persona, from what sets them off to a booked call, or
         to staying in touch. Pick one to switch the map.
       </P>
       <Wide>
-        <UserJourney caption="Made for this case study from the May research and the pages that shipped. Feelings at the start come from the research; the later ones are what each page is designed to make them feel." />
+        <UserJourney caption="Made for this case study from the May research and the pages that shipped. Feelings at the start come from the research; the later ones are what each page is designed to make them feel. The numbers are from OrderSync’s PostHog, June 26 to October 9, 2026, not counting its own team. PostHog can’t tell personas apart, so paths through the same pages share numbers." />
       </Wide>
     </>
   ),
@@ -731,8 +731,11 @@ export const E = {
       </P>
       <P>
         Next: move the FAQ’s answers higher, since 12 of 45 visits reach the
-        bottom of the homepage, and track finished bookings, as the May plan
-        called for.
+        bottom of the homepage, and give the EDI Inspector a clearer path to a
+        call, since 3.4 times as many visits start there as on the homepage. The
+        tracking needs a fix too: PostHog has 8 finished bookings since June 26,
+        but 6 of them came from visits with no page view, so they can’t be
+        traced back to a page.
       </P>
       <InProgress title="What didn’t ship">
         The proof stats and the testimonial from wireframe v3 aren’t on the

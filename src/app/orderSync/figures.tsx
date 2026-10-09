@@ -216,7 +216,7 @@ const DROP_OFF: { name: string; steps: FunnelStep[] }[] = [
         label: "Opened the booking window",
         count: 3,
         note: "3 of 4",
-        tip: "Of those 4, people who then opened the window to pick a time. Finished bookings aren’t tracked.",
+        tip: "Of those 4, people who then opened the window to pick a time.",
       },
     ],
   },

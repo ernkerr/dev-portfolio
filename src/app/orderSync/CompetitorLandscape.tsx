@@ -3,12 +3,11 @@
 import Image from "next/image";
 import { useState } from "react";
 import { focusRing, mono } from "@/components/site/links";
-import { Caption } from "@/components/site/prose";
+import { Caption, label } from "@/components/site/prose";
 
 // 3 competitors' homepages as they were in May 2026 (Wayback Machine, see
-// docs/ordersync-research/landscape.json), with highlighted parts and their
-// notes listed underneath, all visible. Hovering or focusing a note lights up
-// its box, and hovering a box lights up its note. Boxes are percentages of
+// docs/ordersync-research/landscape.json), stacked, with highlighted parts
+// whose notes show on hover, keyboard focus or a tap. Boxes are percentages of
 // each 1440 × 900 screenshot, measured by eye from the image. The counts in
 // the notes are from docs/ordersync-research/landscape.md.
 
@@ -101,113 +100,88 @@ const COMPETITORS: Competitor[] = [
 ];
 
 /**
- * Pick a competitor: its homepage with the parts called out, and every note
- * listed under it. Hovering either side lights up the pair.
+ * Where a box's note sits, inside the screenshot so it never runs off a
+ * phone: under the box, inside a tall box near its top, or above a box low
+ * on the page. It starts at the box's left edge unless that would push it
+ * past the right.
  */
-export default function CompetitorLandscape() {
-  const [index, setIndex] = useState(0);
-  const [hover, setHover] = useState<number | null>(null);
-  const active = COMPETITORS[index];
+function notePlace(b: Box) {
+  const width = "min(18rem, 100%)";
+  const left = `clamp(0%, ${b.x}%, calc(100% - ${width}))`;
+  if (b.y + b.h <= 70) return { width, left, top: `calc(${b.y + b.h}% + 8px)` };
+  if (b.h > 40) return { width, left, top: `calc(${b.y}% + 8px)` };
+  return { width, left, bottom: `calc(${100 - b.y}% + 8px)` };
+}
 
+/** One homepage with its boxes; a box's note shows on hover, focus or tap. */
+function AnnotatedHomepage({ c }: { c: Competitor }) {
+  const [open, setOpen] = useState<number | null>(null);
   return (
-    <figure>
-      <div
-        role="group"
-        aria-label="Competitor"
-        className="mb-4 flex flex-wrap gap-2"
-      >
-        {COMPETITORS.map((c, i) => (
-          <button
-            key={c.name}
-            type="button"
-            aria-pressed={i === index}
-            onClick={() => {
-              setIndex(i);
-              setHover(null);
-            }}
-            className={`${mono} border px-3 py-1 text-label uppercase transition-colors ${
-              i === index
-                ? "border-site-ink bg-site-ink text-site-paper"
-                : "border-site-line text-site-ink hover:border-site-ink"
-            } ${focusRing}`}
-          >
-            {c.name}
-          </button>
-        ))}
-      </div>
-
+    <div>
+      <p className={`${label} mb-3`}>{c.name}</p>
       <div className="relative border border-site-line">
         <Image
-          key={active.file}
-          src={`${IMG}/${active.file}.webp`}
-          alt={active.alt}
+          src={`${IMG}/${c.file}.webp`}
+          alt={c.alt}
           width={1440}
           height={900}
           sizes="(min-width: 1024px) 896px, 100vw"
           className="block h-auto w-full"
         />
-        {active.boxes.map((b, i) => (
-          <div
+        {c.boxes.map((b, i) => (
+          <button
             key={i}
-            aria-hidden="true"
-            onMouseEnter={() => setHover(i)}
-            onMouseLeave={() => setHover(null)}
+            type="button"
+            aria-expanded={open === i}
+            aria-label={c.notes[i].label}
+            onMouseEnter={() => setOpen(i)}
+            onMouseLeave={() => setOpen(null)}
+            onFocus={() => setOpen(i)}
+            onBlur={() => setOpen(null)}
+            onClick={() => setOpen(open === i ? null : i)}
             className={`absolute border-2 transition-colors ${
-              hover === i
+              open === i
                 ? "border-site-blue bg-site-blue/15"
-                : hover === null
-                  ? "border-site-blue/70 bg-site-blue/5"
-                  : "border-site-blue/30 bg-transparent"
-            }`}
+                : "border-site-blue/70 bg-site-blue/5"
+            } ${focusRing}`}
             style={{
               left: `${b.x}%`,
               top: `${b.y}%`,
               width: `${b.w}%`,
               height: `${b.h}%`,
             }}
+          />
+        ))}
+        {open !== null && (
+          <div
+            role="tooltip"
+            className="pointer-events-none absolute z-10 bg-site-ink p-4 text-site-paper shadow-float"
+            style={notePlace(c.boxes[open])}
           >
-            <span
-              className={`${mono} absolute -left-3 -top-3 flex h-6 w-6 items-center justify-center rounded-full bg-site-blue text-label text-white`}
-            >
-              {i + 1}
-            </span>
+            <p className={`${mono} text-label uppercase text-site-paper/70`}>
+              {c.notes[open].label}
+            </p>
+            <p className="mt-1 text-body-sm">{c.notes[open].note}</p>
           </div>
-        ))}
+        )}
       </div>
+    </div>
+  );
+}
 
-      <ol className="mt-4 flex flex-col">
-        {active.notes.map((n, i) => (
-          <li
-            key={n.label}
-            tabIndex={0}
-            onMouseEnter={() => setHover(i)}
-            onMouseLeave={() => setHover(null)}
-            onFocus={() => setHover(i)}
-            onBlur={() => setHover(null)}
-            className={`flex gap-4 border-b border-site-line py-3 transition-colors ${
-              hover === i ? "bg-site-blue/5" : ""
-            } ${focusRing}`}
-          >
-            <span
-              aria-hidden="true"
-              className={`${mono} mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-site-blue text-label text-white`}
-            >
-              {i + 1}
-            </span>
-            <div>
-              <p className="font-serif text-column-title text-site-ink">
-                {n.label}
-              </p>
-              <p className="mt-1 text-body-sm text-site-ink/75">{n.note}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-
+/**
+ * The 3 homepages one after another, each with its parts called out. Hover a
+ * box to read its note.
+ */
+export default function CompetitorLandscape() {
+  return (
+    <figure className="flex flex-col gap-10">
+      {COMPETITORS.map((c) => (
+        <AnnotatedHomepage key={c.name} c={c} />
+      ))}
       <Caption>
-        Homepages from the Wayback Machine: Workist on May 10, TrueCommerce on
-        May 12 and Conexiom on May 14, 2026. Hover a note or a box to match them
-        up.
+        Homepages from the Wayback Machine: TrueCommerce on May 12, Workist on
+        May 10 and Conexiom on May 14, 2026. Hover a box to read its note.
       </Caption>
     </figure>
   );

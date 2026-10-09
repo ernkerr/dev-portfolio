@@ -146,8 +146,8 @@ const LANDSCAPE = [
 ];
 
 /**
- * A competitor's finding with its homepage beside it, so each screenshot
- * backs the claim next to it.
+ * A competitor's finding with its homepage under it, so each screenshot
+ * backs the claim it sits with.
  */
 export function CompetitorFinding({
   name,
@@ -161,8 +161,8 @@ export function CompetitorFinding({
   const shot = LANDSCAPE.find((s) => s.name === name);
   if (!shot) return null;
   return (
-    <figure className="grid items-start gap-x-8 gap-y-4 border-t border-site-line pt-6 md:grid-cols-2">
-      <div>
+    <figure className="flex flex-col gap-4 border-t border-site-line pt-6">
+      <div className="max-w-measure">
         <p className="font-serif text-column-title text-site-ink">{title}</p>
         <p className="mt-2 text-body-sm text-site-ink/75">{text}</p>
       </div>
@@ -173,7 +173,7 @@ export function CompetitorFinding({
           alt={shot.alt}
           width={1440}
           height={900}
-          sizes="(min-width: 1328px) 34rem, (min-width: 768px) 45vw, 100vw"
+          sizes="(min-width: 1024px) 896px, 100vw"
           className="h-auto w-full border border-site-line"
         />
       </div>

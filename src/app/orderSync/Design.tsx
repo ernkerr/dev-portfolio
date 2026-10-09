@@ -373,6 +373,16 @@ export const E = {
         </a>{" "}
         3 times, and most of the layout carried through to the final design.
       </P>
+      <Shots
+        items={[
+          {
+            src: `${PROCESS}/wireframe-top.webp`,
+            label: "Wireframe",
+            alt: "The top of my homepage wireframe in grays: the header with Sign In and a black Book a Call pill, “One System for All Your Orders” with Book a free intro call and Try Free Tools, and a row of customer names under “Processing orders from,” with a yellow note on the logo strip.",
+          },
+          { ...SHOTS.heroLight, label: "Final design" },
+        ]}
+      />
     </>
   ),
   visual: (

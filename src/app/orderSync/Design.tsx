@@ -16,7 +16,6 @@ import {
   Lead,
   P,
   Stats,
-  Table,
   Wide,
 } from "@/components/site/prose";
 import { BuildNote } from "@/components/site/appStudy";
@@ -684,6 +683,7 @@ export const E = {
   ),
   cards: (
     <>
+      <hr className="mt-16 border-site-line" />
       <H3>Beyond the site: business cards</H3>
       <P>
         The same system went onto James’s business cards: navy and white, with
@@ -693,72 +693,80 @@ export const E = {
       </P>
       <BusinessCard caption="The card we went with, both sides. His surname, number and the QR code are blurred for privacy." />
       <CardIterations />
-      <Table
-        head={["Decision", "Research behind it"]}
-        rows={[
-          [
-            "The site’s navy and chrome rule on the card",
-            <>
-              NN/g on{" "}
-              <Source href="https://www.nngroup.com/articles/omnichannel-consistency/">
-                consistency across channels
-              </Source>
-              : a consistent look makes a company seem organized and earns
-              trust.
-            </>,
-          ],
-          [
-            "A labeled QR code to book a call, with the web address beside it",
-            <>
-              NN/g’s{" "}
-              <Source href="https://www.nngroup.com/articles/qr-code-guidelines/">
-                QR code guidelines
-              </Source>
-              : say what scanning does, since unlabeled codes aren’t trusted. In
-              a{" "}
-              <Source href="https://surveyinsights.org/?p=20208">
-                2025 national survey
-              </Source>
-              , 38% typed the web address instead of scanning.
-            </>,
-          ],
-          [
-            "Chrome on one small arrow",
-            <>
-              The{" "}
-              <Source href="https://lawsofux.com/von-restorff-effect/">
-                Von Restorff effect
-              </Source>
-              : one item stands out only when nothing near it looks the same.
-            </>,
-          ],
-          [
-            "On the navy side, name largest, then title, then contact, with room around them",
-            <>
-              NN/g on{" "}
-              <Source href="https://www.nngroup.com/articles/visual-hierarchy-ux-definition/">
-                visual hierarchy
-              </Source>
-              : make the most important thing biggest, use no more than 3 sizes,
-              and leave space around it.
-            </>,
-          ],
-          [
-            "No “Zero Errors” tagline",
-            <>
-              The FTC requires{" "}
-              <Source href="https://www.ftc.gov/legal-library/browse/ftc-policy-statement-regarding-advertising-substantiation">
-                evidence for factual claims
-              </Source>
-              , and in{" "}
-              <Source href="https://www.nngroup.com/articles/concise-scannable-and-objective-how-to-write-for-the-web/">
-                Nielsen’s tests
-              </Source>
-              , cutting promotional language made a site easier to use, because
-              readers stopped questioning the claims.
-            </>,
-          ],
-        ]}
+      <Decision
+        n={9}
+        title="The site’s navy and chrome rule on the card"
+        research={
+          <>
+            NN/g on{" "}
+            <Source href="https://www.nngroup.com/articles/omnichannel-consistency/">
+              consistency across channels
+            </Source>
+            : a consistent look makes a company seem organized and earns trust.
+          </>
+        }
+      />
+      <Decision
+        n={10}
+        title="A labeled QR code to book a call, with the web address beside it"
+        research={
+          <>
+            NN/g’s{" "}
+            <Source href="https://www.nngroup.com/articles/qr-code-guidelines/">
+              QR code guidelines
+            </Source>
+            : say what scanning does, since unlabeled codes aren’t trusted. In a{" "}
+            <Source href="https://surveyinsights.org/?p=20208">
+              2025 national survey
+            </Source>
+            , 38% typed the web address instead of scanning.
+          </>
+        }
+      />
+      <Decision
+        n={11}
+        title="Chrome on one small arrow"
+        research={
+          <>
+            The{" "}
+            <Source href="https://lawsofux.com/von-restorff-effect/">
+              Von Restorff effect
+            </Source>
+            : one item stands out only when nothing near it looks the same.
+          </>
+        }
+      />
+      <Decision
+        n={12}
+        title="On the navy side, name largest, then title, then contact, with room around them"
+        research={
+          <>
+            NN/g on{" "}
+            <Source href="https://www.nngroup.com/articles/visual-hierarchy-ux-definition/">
+              visual hierarchy
+            </Source>
+            : make the most important thing biggest, use no more than 3 sizes,
+            and leave space around it.
+          </>
+        }
+      />
+      <Decision
+        n={13}
+        title="No “Zero Errors” tagline"
+        research={
+          <>
+            The FTC requires{" "}
+            <Source href="https://www.ftc.gov/legal-library/browse/ftc-policy-statement-regarding-advertising-substantiation">
+              evidence for factual claims
+            </Source>
+            , and in{" "}
+            <Source href="https://www.nngroup.com/articles/concise-scannable-and-objective-how-to-write-for-the-web/">
+              Nielsen’s tests
+            </Source>
+            , cutting promotional language made a site easier to use, because
+            readers stopped questioning the claims.
+          </>
+        }
       />
       <CardDirections caption="Including the logo explorations. Contact details are blurred for privacy." />
     </>
@@ -879,7 +887,12 @@ export const SECTIONS: CaseStudySection[] = [
     id: "decisions",
     title: "Design decisions",
     headline: "Clear over clever: every choice points to Book a Call.",
-    content: E.principles,
+    content: (
+      <>
+        {E.principles}
+        {E.cards}
+      </>
+    ),
   },
   {
     id: "system",
@@ -889,7 +902,6 @@ export const SECTIONS: CaseStudySection[] = [
       <>
         {E.systemFacts}
         {E.palette}
-        {E.cards}
       </>
     ),
   },

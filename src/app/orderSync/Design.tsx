@@ -38,7 +38,14 @@ import {
 import BeforeHero, { BeforeFindings } from "./BeforeHero";
 import CompetitorLandscape from "./CompetitorLandscape";
 import LiveHero from "./LiveHero";
-import { ErrorsCard, NewFaqs } from "./ShippedPieces";
+import {
+  ChromePillPiece,
+  ErrorsCard,
+  HeadlinePiece,
+  HeroButtonsPiece,
+  NewFaqs,
+  StillTypingPiece,
+} from "./ShippedPieces";
 import UserJourney from "./UserJourney";
 
 // The research is Erin's own, written before any visual design: DESIGN.md,
@@ -79,6 +86,38 @@ function ResearchFinding({
       <div className="max-w-measure">
         <p className="font-serif text-column-title text-site-ink">{title}</p>
         <p className="mt-2 text-body-sm text-site-ink/75">{text}</p>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// A design decision, numbered like the Problem findings, with the research
+// that supports it and, where there is one, the piece of the shipped page.
+function Decision({
+  n,
+  title,
+  research,
+  children,
+}: {
+  n: number;
+  title: string;
+  research: ReactNode;
+  children?: ReactNode;
+}) {
+  return (
+    <div className="mt-6 flex flex-col gap-4 md:mt-8">
+      <div className="relative max-w-measure">
+        <div className="flex items-baseline gap-3 md:block">
+          <span
+            aria-hidden="true"
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-site-ink font-mono text-body-sm text-site-paper md:absolute md:-left-12 md:top-0"
+          >
+            {n}
+          </span>
+          <p className="font-serif text-column-title text-site-ink">{title}</p>
+        </div>
+        <p className="mt-2 text-body-sm text-site-ink/75">{research}</p>
       </div>
       {children}
     </div>
@@ -503,100 +542,143 @@ export const E = {
           },
         ]}
       />
-      <HeaderCompare caption="The header before and after: Get Started became Book a Call, a button of its own, and Sign In became a plain link." />
       <H3>The research behind each decision</H3>
-      <Table
-        head={["Decision", "Research behind it"]}
-        rows={[
-          [
-            "A plain headline, with the line under it saying what OrderSync does",
-            <>
-              <Source href="https://www.nngroup.com/articles/homepage-design-principles/">
-                NN/g’s homepage guidelines
-              </Source>
-              : say plainly what the company does, in users’ words. In{" "}
-              <Source href="https://www.nngroup.com/articles/concise-scannable-and-objective-how-to-write-for-the-web/">
-                Nielsen’s tests
-              </Source>
-              , objective copy beat promotional copy.
-            </>,
-          ],
-          [
-            "One filled button, Book a Call, and Sign In as a plain link",
-            <>
-              NN/g on{" "}
-              <Source href="https://www.nngroup.com/articles/utility-navigation/">
-                utility navigation
-              </Source>
-              : sign-in is a secondary action that can be played down if it
-              stays top right. NN/g’s homepage guidelines add that emphasizing
-              everything leaves nothing prominent.
-            </>,
-          ],
-          [
-            "Book a Call as the only chrome button",
-            <>
-              The{" "}
-              <Source href="https://lawsofux.com/von-restorff-effect/">
-                Von Restorff effect
-              </Source>
-              : the one item that looks different is the one people remember, as
-              long as the emphasis is used sparingly.
-            </>,
-          ],
-          [
-            "An FAQ on setup time, IT and SPS before the call",
-            <>
-              NN/g on{" "}
-              <Source href="https://www.nngroup.com/articles/faqs-deliver-value/">
-                FAQs
-              </Source>
-              : prospects judge a vendor by whether its FAQ lets them set their
-              concerns aside before spending money.
-            </>,
-          ],
-          [
-            "Free tools as a second path",
-            <>
-              NN/g’s{" "}
-              <Source href="https://www.nngroup.com/articles/b2b-usability/">
-                B2B research
-              </Source>
-              : buyers resist handing over contact details, so a vendor has to
-              earn credibility first.
-            </>,
-          ],
-          [
-            "No gradients, orbs or glass, in a calm, typical layout",
-            <>
-              <Source href="https://research.google/pubs/the-role-of-visual-complexity-and-prototypicality-regarding-first-impression-of-websites-working-towards-understanding-aesthetic-judgments/">
-                Google’s study
-              </Source>
-              : simple, typical company sites made the best first impression, in
-              as little as 17 milliseconds.
-            </>,
-          ],
-          [
-            "Copy in buyers’ words",
-            <>
-              Nielsen’s{" "}
-              <Source href="https://www.nngroup.com/articles/ten-usability-heuristics/">
-                heuristic #2
-              </Source>
-              : use the user’s language, not the company’s.
-            </>,
-          ],
-          [
-            "One system for every page",
-            <>
-              Nielsen’s heuristic #4,{" "}
-              <Source href="https://www.nngroup.com/articles/consistency-and-standards/">
-                consistency and standards
-              </Source>
-              : a consistent site is predictable and easier to learn.
-            </>,
-          ],
-        ]}
+      <Decision
+        n={1}
+        title="A plain headline, with the line under it saying what OrderSync does"
+        research={
+          <>
+            <Source href="https://www.nngroup.com/articles/homepage-design-principles/">
+              NN/g’s homepage guidelines
+            </Source>
+            : say plainly what the company does, in users’ words. In{" "}
+            <Source href="https://www.nngroup.com/articles/concise-scannable-and-objective-how-to-write-for-the-web/">
+              Nielsen’s tests
+            </Source>
+            , objective copy beat promotional copy.
+          </>
+        }
+      >
+        <HeadlinePiece />
+      </Decision>
+      <Decision
+        n={2}
+        title="One filled button, Book a Call, and Sign In as a plain link"
+        research={
+          <>
+            NN/g on{" "}
+            <Source href="https://www.nngroup.com/articles/utility-navigation/">
+              utility navigation
+            </Source>
+            : sign-in is a secondary action that can be played down if it stays
+            top right. NN/g’s homepage guidelines add that emphasizing
+            everything leaves nothing prominent.
+          </>
+        }
+      >
+        <HeaderCompare caption="The header before and after: Get Started became Book a Call, a button of its own, and Sign In became a plain link." />
+      </Decision>
+      <Decision
+        n={3}
+        title="Book a Call as the only chrome button"
+        research={
+          <>
+            The{" "}
+            <Source href="https://lawsofux.com/von-restorff-effect/">
+              Von Restorff effect
+            </Source>
+            : the one item that looks different is the one people remember, as
+            long as the emphasis is used sparingly.
+          </>
+        }
+      >
+        <ChromePillPiece />
+      </Decision>
+      <Decision
+        n={4}
+        title="An FAQ on setup time, IT and SPS before the call"
+        research={
+          <>
+            NN/g on{" "}
+            <Source href="https://www.nngroup.com/articles/faqs-deliver-value/">
+              FAQs
+            </Source>
+            : prospects judge a vendor by whether its FAQ lets them set their
+            concerns aside before spending money.{" "}
+            <a href="#secondary" className={inlineLink}>
+              See the FAQ in Research
+            </a>
+            .
+          </>
+        }
+      />
+      <Decision
+        n={5}
+        title="Free tools as a second path"
+        research={
+          <>
+            NN/g’s{" "}
+            <Source href="https://www.nngroup.com/articles/b2b-usability/">
+              B2B research
+            </Source>
+            : buyers resist handing over contact details, so a vendor has to
+            earn credibility first.
+          </>
+        }
+      >
+        <HeroButtonsPiece />
+      </Decision>
+      <Decision
+        n={6}
+        title="No gradients, orbs or glass, in a calm, typical layout"
+        research={
+          <>
+            <Source href="https://research.google/pubs/the-role-of-visual-complexity-and-prototypicality-regarding-first-impression-of-websites-working-towards-understanding-aesthetic-judgments/">
+              Google’s study
+            </Source>
+            : simple, typical company sites made the best first impression, in
+            as little as 17 milliseconds.
+          </>
+        }
+      >
+        <Shots
+          items={[
+            { ...SHOTS.oldHero, label: "Before" },
+            { ...SHOTS.heroLight, label: "After" },
+          ]}
+        />
+      </Decision>
+      <Decision
+        n={7}
+        title="Copy in buyers’ words"
+        research={
+          <>
+            Nielsen’s{" "}
+            <Source href="https://www.nngroup.com/articles/ten-usability-heuristics/">
+              heuristic #2
+            </Source>
+            : use the user’s language, not the company’s.
+          </>
+        }
+      >
+        <StillTypingPiece />
+      </Decision>
+      <Decision
+        n={8}
+        title="One system for every page"
+        research={
+          <>
+            Nielsen’s heuristic #4,{" "}
+            <Source href="https://www.nngroup.com/articles/consistency-and-standards/">
+              consistency and standards
+            </Source>
+            : a consistent site is predictable and easier to learn.{" "}
+            <a href="#system" className={inlineLink}>
+              See the system
+            </a>
+            .
+          </>
+        }
       />
       <P>
         One place the research pushes back: in{" "}

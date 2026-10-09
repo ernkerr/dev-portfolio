@@ -658,7 +658,7 @@ export const E = {
         The brand’s navy lived in the code under 4 names, so every tweak meant
         hunting through hex codes and names. I turned the look into a small
         system: 5 navies, 9 color roles that flip on their own in dark mode, and
-        4 shared components, a button, a section, a heading and a label.
+        4 shared components.
       </P>
       <Stats
         items={[
@@ -876,7 +876,7 @@ export const SECTIONS: CaseStudySection[] = [
   {
     id: "decisions",
     title: "Design decisions",
-    headline: "8 decisions, and the research behind each one.",
+    headline: "Clear over clever: every choice points to Book a Call.",
     content: E.principles,
   },
   {

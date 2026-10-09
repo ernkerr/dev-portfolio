@@ -38,9 +38,12 @@ export const frameClass =
 export default function AnnotatedPage({
   data,
   name,
+  kind = "portfolio",
 }: {
   data: Annotation;
   name: string;
+  /** What the screenshot is of, for its description. */
+  kind?: string;
 }) {
   const frameRef = useRef<HTMLDivElement>(null);
   const noteRef = useRef<HTMLDivElement>(null);
@@ -149,7 +152,7 @@ export default function AnnotatedPage({
               width={capture.width}
               height={capture.height}
               sizes="(min-width: 1024px) 720px, 86vw"
-              alt={`Screenshot of ${name}’s portfolio with ${count} numbered highlights.`}
+              alt={`Screenshot of ${name}’s ${kind} with ${count} numbered highlights.`}
               className="block h-auto w-full"
             />
 

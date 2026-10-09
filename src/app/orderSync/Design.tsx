@@ -31,13 +31,13 @@ import {
   UserFlow,
   VisualDirection,
   FlowPlanLink,
-  CompetitorFinding,
   Personas,
   SHOTS,
   ShineDemo,
   Shots,
 } from "./figures";
 import BeforeHero, { BeforeFindings } from "./BeforeHero";
+import CompetitorLandscape from "./CompetitorLandscape";
 import LiveHero from "./LiveHero";
 import { ErrorsCard, NewFaqs } from "./ShippedPieces";
 import UserJourney from "./UserJourney";
@@ -324,27 +324,23 @@ export const E = {
       <KeyFinding>
         Competitors all asked for a demo, and almost none showed the product.
       </KeyFinding>
-      <div className="flex flex-col gap-10">
-        <CompetitorFinding
-          name="truecommerce"
-          title="Everyone asked for a demo."
-          text="All 7 with a readable button asked for a demo or a meeting, like TrueCommerce’s Book a Demo. OrderSync’s says Book a Call: 30 minutes with James."
-        />
-        <CompetitorFinding
-          name="workist"
-          title="Headlines said what they do."
-          text="5 of 9 said what they do with orders, like Workist’s “Automate order entry – from inbox to ERP within seconds.” OrderSync’s already did: “One System for All Your Orders.”"
-        />
-        <CompetitorFinding
-          name="conexiom"
-          title="Almost nobody showed the product."
-          text="Only Conexiom did. OrderSync’s hero now shows every format going into the ERP."
-        />
-        <Caption>
-          Homepages from the Wayback Machine, May 2026. The counts include every
-          competitor homepage whose text could be read.
-        </Caption>
-      </div>
+      <Columns
+        items={[
+          {
+            title: "Everyone asked for a demo.",
+            text: "All 7 with a readable button asked for a demo or a meeting. OrderSync’s says Book a Call: 30 minutes with James.",
+          },
+          {
+            title: "Headlines said what they do.",
+            text: "5 of 9 said what they do with orders. OrderSync’s already did: “One System for All Your Orders.”",
+          },
+          {
+            title: "Almost nobody showed the product.",
+            text: "Only Conexiom did. OrderSync’s hero now shows every format going into the ERP.",
+          },
+        ]}
+      />
+      <CompetitorLandscape />
     </>
   ),
   wireframes: (

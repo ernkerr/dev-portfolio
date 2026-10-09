@@ -23,6 +23,7 @@ import { BuildNote } from "@/components/site/appStudy";
 import {
   BusinessCard,
   CardDirections,
+  CardIterations,
   ChromeRules,
   DropOff,
   Directions,
@@ -691,6 +692,7 @@ export const E = {
         one action.
       </P>
       <BusinessCard caption="The card we went with, both sides. His surname, number and the QR code are blurred for privacy." />
+      <CardIterations />
       <Table
         head={["Decision", "Research behind it"]}
         rows={[

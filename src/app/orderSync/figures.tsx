@@ -218,34 +218,39 @@ export function DropOff({ caption }: { caption?: ReactNode }) {
 // details. All 1050 × 600.
 const CARDS = `${IMG}/cards`;
 
+// Pages 1 and 2 of her export (Front.png and 2.png).
 const CARD_FINAL = [
   {
-    name: "final-front",
-    alt: "The light side of the card: James, then a blurred surname and phone number, then OrderSync, centered in a typewriter face on pale gray.",
+    name: "final-front-navy",
+    alt: "The front of the card: OrderSync at the top left, the chrome O in the middle and “Zero Errors. Zero Manual Entry.” at the bottom right, in white on navy.",
   },
   {
     name: "final-back",
-    alt: "The navy side of the card: James and a blurred surname in a large serif, Founder, a blurred phone number and www.ordersync.io. A vertical BOOK NOW label sits beside a blurred QR code at the bottom left, and a small chrome arrow cursor at the top right.",
+    alt: "The back of the card: James and a blurred surname in a large serif, Founder, a blurred phone number and www.ordersync.io. A vertical BOOK NOW label sits beside a blurred QR code at the bottom left, and a small chrome arrow cursor at the top right.",
+  },
+];
+
+// The front's other versions, in export order (Back.png, 4, 5 and 9).
+const CARD_ITERATIONS = [
+  {
+    name: "iter-white",
+    alt: "The same front with OrderSync set a little higher and further left.",
+  },
+  {
+    name: "iter-swapped",
+    alt: "Navy card with the chrome O in the middle, “Zero Manual Entry. Zero Errors.” at the top left and OrderSync at the bottom right.",
+  },
+  {
+    name: "iter-gray",
+    alt: "The front's layout with OrderSync and the tagline in gray.",
+  },
+  {
+    name: "iter-sans",
+    alt: "Navy card with the chrome O in the middle and “Zero Manual Entry. Zero Errors.” below it in a gray sans serif.",
   },
 ];
 
 const CARD_DIRECTIONS = [
-  {
-    name: "dir-zero-top",
-    alt: "Navy card with the chrome O mark in the middle, “Zero Manual Entry. Zero Errors.” at the top left and OrderSync at the bottom right.",
-  },
-  {
-    name: "dir-zero-bottom",
-    alt: "Navy card with OrderSync at the top left, the chrome O in the middle and “Zero Errors. Zero Manual Entry.” at the bottom right.",
-  },
-  {
-    name: "dir-zero-white",
-    alt: "The same layout with the type in white.",
-  },
-  {
-    name: "dir-zero-sans",
-    alt: "Navy card with the chrome O in the middle and “Zero Manual Entry. Zero Errors.” below it in a gray sans serif.",
-  },
   {
     name: "dir-scale",
     alt: "Navy card with the chrome O on the left, and OrderSync with “Scale Your Orders, Not Your Workload.” on the right.",
@@ -279,6 +284,10 @@ const CARD_DIRECTIONS = [
     alt: "Pale gray card with a large chrome O, OrderSync spaced out below it, and JAMES with a blurred surname on the right.",
   },
   {
+    name: "dir-typewriter",
+    alt: "Pale gray card with James, a blurred surname and phone number, then OrderSync, centered in a typewriter face.",
+  },
+  {
     name: "dir-embossed",
     alt: "Pale gray paper with the OrderSync wordmark embossed in silver, and JAMES with a blurred surname and a signature line at the bottom left.",
   },
@@ -307,6 +316,21 @@ export function BusinessCard({ caption }: { caption?: ReactNode }) {
     <figure>
       <div className="grid gap-6 sm:grid-cols-2">
         {CARD_FINAL.map((c) => (
+          <Card key={c.name} {...c} />
+        ))}
+      </div>
+      {caption && <Caption>{caption}</Caption>}
+    </figure>
+  );
+}
+
+/** The other versions of the card's front, 4 across. */
+export function CardIterations({ caption }: { caption?: ReactNode }) {
+  return (
+    <figure>
+      <p className={`${label} mb-3`}>Iterations of the front</p>
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        {CARD_ITERATIONS.map((c) => (
           <Card key={c.name} {...c} />
         ))}
       </div>

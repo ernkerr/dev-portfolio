@@ -921,7 +921,7 @@ export function BeforeAfter() {
           <p className={label}>2026</p>
           <Image
             src={`${IMG}/after-home-desktop.png`}
-            alt="The 2026 homepage: “I'm Erin, a product designer who engineers.” beside the experience list, the switch below, and the OrderSync and Carpoolio tiles."
+            alt="The 2026 homepage: “I'm Erin, a designer who engineers.” beside the experience list, the switch below, and the OrderSync and Portfolio Redesign tiles."
             width={1440}
             height={900}
             sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"

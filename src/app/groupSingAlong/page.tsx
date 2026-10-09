@@ -6,7 +6,7 @@ import Engineering from "./Engineering";
 export const metadata: Metadata = {
   title: "Group Sing Along",
   description:
-    "How Erin Kerr designed Group Sing Along: one host picks a song and every phone in the room opens its lyrics, with no account or download.",
+    "How Erin Kerr built Group Sing Along: one host picks a song and every phone in the room opens its lyrics, with no account or download.",
   alternates: { canonical: "/groupSingAlong" },
 };
 

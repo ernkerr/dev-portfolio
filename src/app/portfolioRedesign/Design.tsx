@@ -567,7 +567,7 @@ const SECTIONS: CaseStudySection[] = [
           src={`${IMG}/after-home-full.png`}
           alt="The full 2026 homepage: the headline and switch, the experience list, then 2 columns of project tiles."
           width={1440}
-          height={2384}
+          height={2706}
           caption="The 2026 homepage."
         />
       </>
@@ -595,10 +595,6 @@ const SECTIONS: CaseStudySection[] = [
           20 and pulled the job posts on October 1. Curation turned out to be
           the top portfolio ask, and knowing that sooner might have saved me the
           design page I threw away.
-        </P>
-        <P>
-          Next: finish the reviewer sessions and write the design side of every
-          case study.
         </P>
       </>
     ),

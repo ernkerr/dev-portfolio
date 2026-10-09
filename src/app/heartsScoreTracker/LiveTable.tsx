@@ -124,7 +124,7 @@ export default function LiveTable() {
 
   return (
     <div className="bg-[#F4C6B8] px-6 py-8 md:py-10">
-      <p className="mb-3 text-center font-mono text-label uppercase text-site-ink/60">
+      <p className="mb-3 text-center font-mono text-label uppercase text-site-ink/75">
         Tap Add Round, then ☾ to shoot the moon
       </p>
       <div className="mx-auto max-w-64">
@@ -360,7 +360,7 @@ export default function LiveTable() {
               setRounds(START);
               setOpen(false);
             }}
-            className={`font-mono text-label uppercase text-site-ink/60 transition-colors hover:text-site-blue ${focusRing}`}
+            className={`font-mono text-label uppercase text-site-ink/75 transition-colors hover:text-site-blue ${focusRing}`}
           >
             Reset the game
           </button>

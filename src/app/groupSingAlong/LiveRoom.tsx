@@ -5,7 +5,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { LuMic, LuMinus, LuPlus, LuSearch, LuShare } from "react-icons/lu";
 import { focusRing } from "@/components/site/links";
 import LivePhone from "@/components/site/LivePhone";
-import { label } from "@/components/site/prose";
+import { labelOnBrand } from "@/components/site/prose";
 
 // The Group Sing Along room as it looked in January 2025 (web@6a337b4),
 // rebuilt from its code so reviewers can try the one thing the product does:
@@ -184,7 +184,7 @@ export default function LiveRoom() {
     <div className="bg-[#E4DDFB] px-6 py-8 md:px-10 md:py-10">
       <div className="mx-auto grid max-w-64 gap-8 sm:max-w-xl sm:grid-cols-2">
         <div>
-          <p className={`${label} mb-3 text-center`}>
+          <p className={`${labelOnBrand} mb-3 text-center`}>
             Host’s phone · tap a song
           </p>
           <Phone>
@@ -220,7 +220,7 @@ export default function LiveRoom() {
           </Phone>
         </div>
         <div>
-          <p className={`${label} mb-3 text-center`}>Singer’s phone</p>
+          <p className={`${labelOnBrand} mb-3 text-center`}>Singer’s phone</p>
           <Phone>
             <Header />
             <div className="px-6 py-3" aria-live="polite">

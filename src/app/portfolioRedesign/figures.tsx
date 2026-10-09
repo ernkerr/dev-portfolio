@@ -350,7 +350,7 @@ export function AsksChart() {
               return (
                 <tr
                   key={a.ask}
-                  className={`border-b border-site-line transition-colors hover:bg-site-line/50 ${
+                  className={`group border-b border-site-line transition-colors hover:bg-site-line/50 ${
                     a.focus ? "bg-site-line/50" : ""
                   }`}
                 >
@@ -391,7 +391,12 @@ export function AsksChart() {
                     {a.portfolio}%
                   </td>
                   <td
-                    className={`${serif} py-3 pl-2 pr-2 text-right text-[16px] tabular-nums text-site-muted sm:pl-4 sm:text-[18px]`}
+                    className={`${serif} py-3 pl-2 pr-2 text-right text-[16px] tabular-nums sm:pl-4 sm:text-[18px] ${
+                      // Muted is under 4.5:1 on the highlighted row.
+                      a.focus
+                        ? "text-site-ink/70"
+                        : "text-site-muted group-hover:text-site-ink/70"
+                    }`}
                   >
                     {a.post}%
                   </td>

@@ -13,6 +13,9 @@ const body = `text-body text-site-ink/80 ${strongInk}`;
 const measure = "max-w-measure";
 
 export const label = "font-mono text-label uppercase text-site-muted";
+// A label on a project's brand color: muted gray drops under 4.5:1 on the
+// pastel fields, so these use ink.
+export const labelOnBrand = "font-mono text-label uppercase text-site-ink/75";
 
 /** A link inside running text, as on About. */
 export const inlineLink = `text-site-ink underline decoration-site-line underline-offset-4 transition-colors hover:text-site-blue hover:decoration-site-blue ${focusRing}`;
@@ -30,9 +33,15 @@ export function Lead({ children }: { children: ReactNode }) {
   );
 }
 
-export function H3({ children }: { children: ReactNode }) {
+/** An H3; pass `id` to link to it (it clears the sticky header). */
+export function H3({ children, id }: { children: ReactNode; id?: string }) {
   return (
-    <h3 className="mt-10 font-serif text-subhead text-site-ink">{children}</h3>
+    <h3
+      id={id}
+      className="mt-10 scroll-mt-24 font-serif text-subhead text-site-ink"
+    >
+      {children}
+    </h3>
   );
 }
 

@@ -36,11 +36,15 @@ export default function CaseStudy({
       {writeUp ?? (
         <ComingSoon project={project} engineer={engineer} onFlip={flip} />
       )}
-      <SideSwitch
-        engineer={engineer}
-        onFlip={flip}
-        className="fixed bottom-5 right-5 z-50 h-12 w-24 shadow-switch ring-1 ring-white/15 md:bottom-8 md:right-8 md:h-14 md:w-28"
-      />
+      {/* Outside SiteShell's main, so it gets its own landmark for screen
+          readers that move between regions. */}
+      <aside aria-label="Design or engineering side">
+        <SideSwitch
+          engineer={engineer}
+          onFlip={flip}
+          className="fixed bottom-5 right-5 z-50 h-12 w-24 shadow-switch ring-1 ring-white/15 md:bottom-8 md:right-8 md:h-14 md:w-28"
+        />
+      </aside>
     </>
   );
 }

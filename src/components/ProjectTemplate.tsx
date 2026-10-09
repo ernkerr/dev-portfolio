@@ -55,30 +55,30 @@ export default function ProjectTemplate({
     <div className="bg-slate-900 text-white">
       {header}
 
-      <div className="flex flex-col p-8 md:p-12 lg:px-48">
+      <main className="flex flex-col p-8 md:p-12 lg:px-48">
         <h1
           className={`${pressStart.className} pb-8 text-2xl sm:text-4xl md:text-5xl`}
         >
           {title}
         </h1>
-        <h3
+        <div
           className={`py-8 text-sm md:max-w-[70%] lg:max-w-[80%] lg:py-16 lg:text-[16px]`}
         >
           {description}
-        </h3>
+        </div>
         <div className="flex flex-row gap-4 py-8 md:gap-32">
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Type</h3>
+            <h2 className="font-bold md:text-lg">Type</h2>
             <p>{type}</p>
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Tech Stack</h3>
+            <h2 className="font-bold md:text-lg">Tech Stack</h2>
             {stack.map((tech, index) => (
               <p key={index}>{tech}</p>
             ))}
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Live</h3>
+            <h2 className="font-bold md:text-lg">Live</h2>
             <Link href={link} className="cursor-pointer text-blue-500">
               {link?.includes("erinkerr.me")
   ? "Acquired"
@@ -202,7 +202,7 @@ export default function ProjectTemplate({
         <p className="text-xs sm:max-w-[80%] sm:text-sm lg:max-w-[90%] lg:text-[16px]">
           {lessons}
         </p>
-      </div>
+      </main>
     </div>
   );
 }

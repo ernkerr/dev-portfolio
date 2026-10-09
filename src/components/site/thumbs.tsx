@@ -226,7 +226,8 @@ const spaceMono = Space_Mono({
 // rebuilt in the case study's LiveBoard): 2px black borders, hard black
 // shadows, Space Mono, and its #26ABFF. The martini glass stands in for
 // "Gin", the same icon the app puts on a round won by gin. The two buttons
-// are the app's own; the platform is from the case study's Facts.
+// are the app's own; the platform is from the case study's Facts. The blue
+// one has black text, not the app's white, which is 2.5:1 on that blue.
 const GIN_BLUE = "#26ABFF";
 const ginHard = "0.7cqw 0.7cqw 0 #000";
 
@@ -248,7 +249,7 @@ export function GinMark() {
           Mobile app
         </div>
         <div
-          className="mt-[2.4cqw] flex h-[6.4cqw] items-center justify-center rounded-[0.8cqw] border-[0.3cqw] border-black font-sans text-[length:2.4cqw] font-semibold text-white"
+          className="mt-[2.4cqw] flex h-[6.4cqw] items-center justify-center rounded-[0.8cqw] border-[0.3cqw] border-black font-sans text-[length:2.4cqw] font-semibold text-black"
           style={{ boxShadow: ginHard, background: GIN_BLUE }}
         >
           iPhone and iPad

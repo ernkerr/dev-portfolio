@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Caption, inlineLink, label } from "./prose";
+import { Caption, inlineLink, label, labelOnBrand } from "./prose";
 
 // Figures for the app case studies (Carpoolio, Group Sing Along, Gin and
 // Hearts). Like the home tiles, app art sits on the project's own brand color
@@ -90,7 +90,9 @@ export function Screens({
                   className={`mt-3 text-center ${
                     dark
                       ? "font-mono text-label uppercase text-white/70"
-                      : label
+                      : bg
+                        ? labelOnBrand
+                        : label
                   }`}
                 >
                   {s.label}

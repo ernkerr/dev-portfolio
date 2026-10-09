@@ -49,11 +49,19 @@ const NEW_FAQS = [
     q: "How long does it take to go live?",
     a: "Most customers are processing live orders within a week. There are no templates to build, so onboarding is mostly connecting your store or ERP and forwarding a few sample orders so OrderSync can learn your partners’ formats.",
   },
+  {
+    q: "Do I need an IT team to set this up?",
+    a: "No. OrderSync is built for ops teams, not engineers. Connect your store or ERP, point your order inbox at OrderSync, and you’re running. No mapping spreadsheets, no developer time.",
+  },
+  {
+    q: "How is this different from SPS Commerce?",
+    a: "SPS Commerce is built for big retailers with strict EDI mandates and requires per-trading-partner setup. OrderSync handles EDI, PDF, email, and spreadsheet orders in one place, learns mappings automatically, and is priced for distributors and merchants — not enterprise.",
+  },
 ];
 
 /**
- * The go-live question the redesign added to the FAQ, live and open. It opens
- * and closes like OrderSync's.
+ * The 3 questions the redesign added to the FAQ, live, with the go-live one
+ * open. They open and close like OrderSync's.
  */
 export function NewFaqs() {
   const [open, setOpen] = useState<number | null>(0);

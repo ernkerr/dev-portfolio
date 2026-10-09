@@ -214,13 +214,13 @@ export const E = {
         reinvented, so he wanted the site to feel clean and expected, with
         nothing too innovative.
       </P>
-      <figure className="max-w-measure">
+      <figure>
         <Image
           src={`${PROCESS}/james-reference.webp`}
           alt="The reference James shared: ElevenLabs’ Sound Effects page, a white app with a plain sidebar, a row of image tiles and a simple list of sounds with play buttons."
           width={1800}
           height={1195}
-          sizes="(min-width: 768px) 40rem, 100vw"
+          sizes="(min-width: 1024px) 896px, 100vw"
           className="h-auto w-full border border-site-line"
         />
         <Caption>
@@ -231,6 +231,10 @@ export const E = {
 
       <hr className="mt-16 border-site-line" />
       <H3 id="secondary">Secondary research and reviews</H3>
+      <P>
+        Published data and competitors’ reviews showed what buyers worry about,
+        and 2 of those worries changed the homepage.
+      </P>
       <ResearchFinding
         title="Mistakes cost suppliers real money."
         text={
@@ -247,7 +251,7 @@ export const E = {
       </ResearchFinding>
       <ResearchFinding
         title="Setups that run for months are the worry."
-        text="Reviews of SPS Commerce and TrueCommerce describe setups quoted in weeks that ran for months, so the FAQ now answers how long it takes to go live."
+        text="Reviews of SPS Commerce and TrueCommerce describe setups quoted in weeks that ran for months, so the FAQ now answers how long it takes to go live. The redesign added 2 more questions with it, on IT and on SPS Commerce."
       >
         <NewFaqs />
       </ResearchFinding>

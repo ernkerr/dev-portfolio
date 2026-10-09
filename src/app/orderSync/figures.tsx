@@ -703,35 +703,38 @@ export function ChromeRules() {
 }
 
 // The 3 buyer personas in DESIGN.md, "from competitor customer data", May 18.
-// Titles and company are DESIGN.md's; each quote is checked word
+// Titles, company and trigger are DESIGN.md's; each quote is checked word
 // for word in docs/ordersync-research/stat-check.md. "On the page" says where
 // the page speaks to them.
 const PERSONAS = [
   {
     name: "Forced into EDI",
-    who: "CEO of a consumer goods or food brand",
+    who: "CEO, president or VP of operations at a consumer goods or food brand",
+    trigger: "A big retailer, like Walmart or Target, requires EDI.",
     quote: "They said it would be 6-8 weeks. It’s been 9 months. And we’re not done",
-    source: "Jennifer N., CEO, reviewing SPS Commerce on Capterra, 2022",
+    source: "Jennifer N., CEO, in a 1-star Capterra review of SPS Commerce, 2022",
     page: "FAQs: “How long does it take to go live?” and “How is this different from SPS Commerce?”",
   },
   {
     name: "Drowning in manual orders",
-    who: "Customer service director at a manufacturer or distributor",
+    who: "Director of customer service or CSR supervisor at a manufacturer or distributor",
+    trigger: "Reps worn out by typing, more errors, and talk of hiring just for data entry.",
     quote:
       "CSRs were constantly struggling with the push and pull of rushing to key in a new order, and then dealing with customer inquiries about existing ones.",
-    source: "Darlene Bardin, Genpak, in a Conexiom story, 2022",
+    source: "Darlene Bardin, Genpak, in a Conexiom customer story, 2022",
     page: "The closing call to action: “Still Typing Orders Into Your ERP?”",
   },
   {
     name: "Outgrown legacy EDI",
-    who: "CTO or EDI lead at a brand growing into retail",
+    who: "CTO, VP of operations or EDI lead at a brand growing into retail",
+    trigger: "Slow onboarding, outages and legacy systems they can’t see into.",
     quote: "Sub-par integrations, unresponsive customer service, heinous billing practices",
-    source: "Jessica K., VP, reviewing SPS Commerce on Capterra, 2021",
-    page: "The headline, “One System for All Your Orders,” and the diagram of every format.",
+    source: "Jessica K., VP, in a 2-star Capterra review of SPS Commerce, 2021",
+    page: "The headline, “One System for All Your Orders,” and the diagram of every format going into the ERP.",
   },
 ];
 
-/** The 3 proto-personas as cards: who, their words, the page. */
+/** The 3 proto-personas as cards: who, trigger, their words, the page. */
 export function Personas({ caption }: { caption?: ReactNode }) {
   return (
     <figure>
@@ -750,6 +753,12 @@ export function Personas({ caption }: { caption?: ReactNode }) {
               <p className="mt-1 text-body-sm text-site-ink/75">{p.who}</p>
             </div>
             <dl className="flex flex-1 flex-col gap-4 p-5">
+              <div>
+                <dt className={label}>Trigger</dt>
+                <dd className="mt-1 text-body-sm text-site-ink/80">
+                  {p.trigger}
+                </dd>
+              </div>
               <div>
                 <dt className={label}>In their words</dt>
                 <dd className="mt-1">

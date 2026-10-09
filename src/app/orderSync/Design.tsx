@@ -29,7 +29,6 @@ import {
   HeaderCompare,
   UserFlow,
   VisualDirection,
-  WireframeToFinal,
   FlowPlanLink,
   Personas,
   SHOTS,
@@ -363,14 +362,17 @@ export const E = {
 
       <H3 id="wireframes">Wireframes</H3>
       <P>
-        I wireframed the homepage 3 times, and the third only added the research
-        behind each section in the margin. Most of the layout carried through to
-        the final design, but the stats section didn’t ship, and the free tools
-        stayed at 6 instead of the 3 I’d cut them to.
+        I{" "}
+        <a
+          href={`${PROCESS}/wireframe-v2.webp`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={inlineLink}
+        >
+          wireframed the homepage
+        </a>{" "}
+        3 times, and most of the layout carried through to the final design.
       </P>
-      <div className="max-w-measure">
-        <WireframeToFinal caption="The wireframe’s stats are blurred because they were never checked. Click either page to see it full size." />
-      </div>
     </>
   ),
   visual: (

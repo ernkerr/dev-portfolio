@@ -28,10 +28,10 @@ import {
   DropOff,
   Directions,
   HeaderCompare,
-  UserFlow,
   VisualDirection,
   FlowPlanLink,
   LandscapeShots,
+  MeasurementPlan,
   Personas,
   SHOTS,
   ShineDemo,
@@ -193,11 +193,11 @@ export const E = {
         flagged the biggest gap: clicks on Book a Call were tracked, but not
         whether anyone finished booking.
       </P>
-      <UserFlow
+      <MeasurementPlan
         caption={
           <>
-            Rebuilt from my user flow and measurement plan, May 18, 2026.{" "}
-            <FlowPlanLink />
+            4 of the 12 events in my measurement plan, May 18, 2026, in its own
+            words. Results comes back to each one. <FlowPlanLink />
           </>
         }
       />
@@ -718,6 +718,9 @@ export const E = {
       <P>
         PostHog started recording on June 26, a week after launch, so these
         numbers show how the new site performs rather than a before and after.
+        {/* Drafted for Erin to rewrite in her own words. */}
+        Both critical gaps from my May plan are tracked now: who reaches the
+        calendar, and who finishes booking.
       </P>
       <DropOff caption="From PostHog, June 26 to October 8, 2026, not counting OrderSync’s own team. Hover a step to see what it counts." />
       <P>

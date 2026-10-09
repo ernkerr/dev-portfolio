@@ -2,7 +2,13 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import Shine from "@/components/Shine";
 import { focusRing, mono } from "@/components/site/links";
-import { Caption, Figure, inlineLink, label } from "@/components/site/prose";
+import {
+  Caption,
+  Figure,
+  inlineLink,
+  label,
+  TipLabel,
+} from "@/components/site/prose";
 
 // Figures for the OrderSync design write-up. The process images are from the
 // files Erin made on May 18, 2026 in the ordersync-static repo
@@ -172,6 +178,221 @@ export function LandscapeShots({ caption }: { caption?: ReactNode }) {
               className="h-auto w-full border border-site-line"
             />
           </div>
+        ))}
+      </div>
+      {caption && <Caption>{caption}</Caption>}
+    </figure>
+  );
+}
+
+/* ---------- After launch ---------- */
+
+type FunnelStep = {
+  label: string;
+  count: number;
+  note?: string;
+  tip: string;
+};
+
+// PostHog, June 26 (its first recorded event) to October 8, 2026, with
+// OrderSync's own team filtered out. Small numbers, so each bar shows its
+// count. Bars are one ink, scaled to the group's first step.
+const DROP_OFF: { name: string; steps: FunnelStep[] }[] = [
+  {
+    name: "From the homepage to a booking",
+    steps: [
+      {
+        label: "Started on the homepage",
+        count: 52,
+        tip: "People whose first page was the homepage.",
+      },
+      {
+        label: "Clicked Book a Call",
+        count: 4,
+        note: "4 of 52",
+        tip: "Of those 52, people who then clicked any Book a Call button.",
+      },
+      {
+        label: "Opened the booking window",
+        count: 3,
+        note: "3 of 4",
+        tip: "Of those 4, people who then opened the window to pick a time. Finished bookings aren’t tracked.",
+      },
+    ],
+  },
+  {
+    name: "How far down the homepage",
+    steps: [
+      {
+        label: "Went on to another page",
+        count: 45,
+        tip: "Homepage visits that went on to another page. Scroll depth can only be measured for these.",
+      },
+      {
+        label: "Reached the bottom third",
+        count: 12,
+        note: "12 of 45",
+        tip: "Of those 45, visits that scrolled past two thirds of the page, where the FAQ and the closing call to action are.",
+      },
+    ],
+  },
+];
+
+/** Where homepage visitors drop off, as plain bars with their counts. */
+export function DropOff({ caption }: { caption?: ReactNode }) {
+  return (
+    <figure className="flex flex-col gap-8">
+      {DROP_OFF.map((group) => {
+        const top = group.steps[0].count;
+        return (
+          <div key={group.name}>
+            <p className={`${label} border-b border-site-line pb-2`}>
+              {group.name}
+            </p>
+            <ol className="mt-4 flex flex-col gap-4">
+              {group.steps.map((step) => (
+                <li
+                  key={step.label}
+                  className="grid gap-x-6 gap-y-2 sm:grid-cols-[minmax(0,14rem)_minmax(0,1fr)]"
+                >
+                  <span className={`relative ${label}`}>
+                    <TipLabel id={`drop-${step.label}`} tip={step.tip}>
+                      {step.label}
+                    </TipLabel>
+                  </span>
+                  <span className="flex items-center gap-3 border-l border-site-line">
+                    <span
+                      aria-hidden="true"
+                      className="h-5 bg-site-ink/80"
+                      style={{ width: `${(step.count / top) * 100}%` }}
+                    />
+                    <span className="shrink-0 text-body-sm text-site-ink">
+                      {step.note ?? step.count}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        );
+      })}
+      {caption && <Caption>{caption}</Caption>}
+    </figure>
+  );
+}
+
+/* ---------- Business cards ---------- */
+
+// James’s business cards, from Erin’s exports. His surname, phone, email and
+// the QR code are blurred for privacy until she sends versions with generic
+// details. All 1050 × 600.
+const CARDS = `${IMG}/cards`;
+
+const CARD_FINAL = [
+  {
+    name: "final-front",
+    alt: "The light side of the card: James, then a blurred surname and phone number, then OrderSync, centered in a typewriter face on pale gray.",
+  },
+  {
+    name: "final-back",
+    alt: "The navy side of the card: James and a blurred surname in a large serif, Founder, a blurred phone number and www.ordersync.io. A vertical BOOK NOW label sits beside a blurred QR code at the bottom left, and a small chrome arrow cursor at the top right.",
+  },
+];
+
+const CARD_DIRECTIONS = [
+  {
+    name: "dir-zero-top",
+    alt: "Navy card with the chrome O mark in the middle, “Zero Manual Entry. Zero Errors.” at the top left and OrderSync at the bottom right.",
+  },
+  {
+    name: "dir-zero-bottom",
+    alt: "Navy card with OrderSync at the top left, the chrome O in the middle and “Zero Errors. Zero Manual Entry.” at the bottom right.",
+  },
+  {
+    name: "dir-zero-white",
+    alt: "The same layout with the type in white.",
+  },
+  {
+    name: "dir-zero-sans",
+    alt: "Navy card with the chrome O in the middle and “Zero Manual Entry. Zero Errors.” below it in a gray sans serif.",
+  },
+  {
+    name: "dir-scale",
+    alt: "Navy card with the chrome O on the left, and OrderSync with “Scale Your Orders, Not Your Workload.” on the right.",
+  },
+  {
+    name: "dir-name-left",
+    alt: "Navy card with the chrome O and “Scale Your Orders, Not Your Workload.” on the left, and OrderSync, James, Founder and blurred contact details on the right.",
+  },
+  {
+    name: "dir-wordmark-scale",
+    alt: "Navy card with a thick 3D chrome OrderSync wordmark and “Scale Your Orders, Not Your Workload.” below it.",
+  },
+  {
+    name: "dir-wordmark-name",
+    alt: "Navy card with a flatter chrome OrderSync wordmark and JAMES with a blurred surname below it.",
+  },
+  {
+    name: "dir-o-name",
+    alt: "Navy card with the chrome O in the middle and James with a blurred surname below it.",
+  },
+  {
+    name: "dir-name-o-right",
+    alt: "Navy card with JAMES and a blurred surname on the left and the chrome O on the right.",
+  },
+  {
+    name: "dir-o-only",
+    alt: "Navy card with only the chrome O in the middle.",
+  },
+  {
+    name: "dir-light-o",
+    alt: "Pale gray card with a large chrome O, OrderSync spaced out below it, and JAMES with a blurred surname on the right.",
+  },
+  {
+    name: "dir-embossed",
+    alt: "Pale gray paper with the OrderSync wordmark embossed in silver, and JAMES with a blurred surname and a signature line at the bottom left.",
+  },
+  {
+    name: "dir-cursors",
+    alt: "Pale gray card with the chrome O between a chrome arrow and a chrome cursor.",
+  },
+];
+
+function Card({ name, alt }: { name: string; alt: string }) {
+  return (
+    <Image
+      src={`${CARDS}/${name}.webp`}
+      alt={alt}
+      width={1050}
+      height={600}
+      sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"
+      className="h-auto w-full border border-site-line"
+    />
+  );
+}
+
+/** The card James uses, both sides. */
+export function BusinessCard({ caption }: { caption?: ReactNode }) {
+  return (
+    <figure>
+      <div className="grid gap-6 sm:grid-cols-2">
+        {CARD_FINAL.map((c) => (
+          <Card key={c.name} {...c} />
+        ))}
+      </div>
+      {caption && <Caption>{caption}</Caption>}
+    </figure>
+  );
+}
+
+/** Every card direction Erin didn't take, 3 across. */
+export function CardDirections({ caption }: { caption?: ReactNode }) {
+  return (
+    <figure>
+      <p className={`${label} mb-3`}>Directions I didn’t take</p>
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+        {CARD_DIRECTIONS.map((c) => (
+          <Card key={c.name} {...c} />
         ))}
       </div>
       {caption && <Caption>{caption}</Caption>}
@@ -370,8 +591,8 @@ export function MoodBoard() {
       </div>
       <Caption>
         The logo renders are AI-generated, from February 2026. The rest I
-        collected between February and May 2026, including the OrderSync
-        board I made on Pinterest.
+        collected between February and May 2026, including the OrderSync board I
+        made on Pinterest.
       </Caption>
     </figure>
   );
@@ -484,127 +705,466 @@ export function ChromeRules() {
   );
 }
 
-type Step = { name: string; state: "done" | "doing" | "todo" };
+type Artifact = {
+  name: string;
+  /** Where on this page the artifact is shown, or a file to open. */
+  href?: string;
+  /** `left` keeps a page screenshot's headline in the crop. */
+  img?: { src: string; width: number; height: number; left?: boolean };
+  /** Shown in place of an image for an artifact that's mostly words. */
+  text?: string;
+};
 
-// Erin's process tracker (design-process.html), as her screenshot of it
-// showed it on May 18, 2026, before any visual design.
-const PHASES: { name: string; steps: Step[] }[] = [
+// What each phase of the May 18 plan produced, from the ordersync-static repo
+// (DESIGN.md, the 3 wireframes and sitemap-flow.html, committed at 2:03 PM
+// Pacific in bfe0798) and Erin's screenshots from that day. The site map was
+// never committed; Erin's 1:33 PM screenshot is the only copy.
+const PHASES: { name: string; when: string; artifacts: Artifact[] }[] = [
   {
     name: "Discover",
-    steps: [
-      { name: "Problem definition and core challenge", state: "done" },
-      { name: "Market research", state: "done" },
-      { name: "Competitor analysis", state: "done" },
-      { name: "Target audience", state: "done" },
-      { name: "User research", state: "done" },
+    when: "May 18",
+    artifacts: [
+      {
+        name: "Stakeholder interview",
+        href: "#interview",
+        img: { src: `${PROCESS}/james-reference.webp`, width: 1800, height: 1195 },
+      },
+      {
+        name: "Proto-personas",
+        href: "#personas",
+        text: "Forced into EDI. Drowning in manual orders. Outgrown legacy EDI.",
+      },
+      {
+        name: "Competitive analysis",
+        href: "#competitors",
+        text: "7 competitors, from SPS Commerce to Canals.ai.",
+      },
     ],
   },
   {
     name: "Define",
-    steps: [
-      { name: "Landing page requirements", state: "done" },
-      { name: "User journey map", state: "done" },
-      { name: "Information architecture", state: "done" },
+    when: "May 18",
+    artifacts: [
+      {
+        name: "Requirements",
+        text: "Keep every URL, the SEO and the stack. Redesign the landing page only.",
+      },
+      {
+        name: "User flow",
+        href: "#journey",
+        img: { src: `${PROCESS}/user-flow-measurement.webp`, width: 1050, height: 2490 },
+      },
+      {
+        name: "Information architecture",
+        href: `${PROCESS}/site-map.webp`,
+        img: { src: `${PROCESS}/site-map.webp`, width: 1280, height: 1337 },
+      },
     ],
   },
   {
     name: "Ideate",
-    steps: [
-      { name: "Low-fidelity wireframe", state: "done" },
-      { name: "CTA strategy", state: "done" },
-      { name: "Content structure", state: "doing" },
+    when: "May 18",
+    artifacts: [
+      {
+        name: "Wireframes v1 to v3",
+        href: "#wireframes",
+        img: { src: `${PROCESS}/wireframe-v3.webp`, width: 1280, height: 3514 },
+      },
+      {
+        name: "CTA strategy",
+        href: "#wireframes",
+        text: "3 touch points: the header, the hero and mid-page.",
+      },
     ],
   },
   {
     name: "Design",
-    steps: [
-      { name: "Visual system", state: "todo" },
-      { name: "High-fidelity mockups", state: "todo" },
+    when: "May 18 to June 10",
+    artifacts: [
+      {
+        name: "2 directions",
+        href: "#directions",
+        img: { src: `${PROCESS}/direction-light.webp`, width: 1800, height: 1125, left: true },
+      },
+      {
+        name: "Design system",
+        href: "#system",
+        img: { src: `${PROCESS}/chrome-rules.webp`, width: 1936, height: 1120 },
+      },
     ],
   },
   {
-    name: "Test",
-    steps: [
-      { name: "Build", state: "todo" },
-      { name: "QA and ship", state: "todo" },
+    name: "Ship",
+    when: "June 19",
+    artifacts: [
+      {
+        name: "8 pull requests",
+        href: "#results",
+        img: { src: `${IMG}/after-hero.png`, width: 2880, height: 1800, left: true },
+      },
     ],
   },
 ];
 
-const STATE_TEXT = {
-  done: "done",
-  doing: "in progress",
-  todo: "not started",
-} as const;
+function ArtifactTile({ a }: { a: Artifact }) {
+  const external = a.href && !a.href.startsWith("#");
+  const body = (
+    <>
+      <div className="aspect-[4/3] overflow-hidden border border-site-line bg-white">
+        {a.img ? (
+          <Image
+            src={a.img.src}
+            alt=""
+            width={a.img.width}
+            height={a.img.height}
+            sizes="(min-width: 768px) 10rem, 45vw"
+            className={`h-full w-full object-cover ${a.img.left ? "object-left-top" : "object-top"} transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100`}
+          />
+        ) : (
+          <p className="h-full bg-site-paper p-3 font-serif text-body-sm text-site-ink">
+            {a.text}
+          </p>
+        )}
+      </div>
+      <p
+        className={`mt-2 text-caption text-site-ink ${
+          a.href ? "transition-colors group-hover:text-site-blue" : ""
+        }`}
+      >
+        {a.name}
+        {external && <span aria-hidden="true"> ↗</span>}
+      </p>
+    </>
+  );
+  if (!a.href) return <div>{body}</div>;
+  return (
+    <a
+      href={a.href}
+      {...(external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : undefined)}
+      className={`group block ${focusRing}`}
+    >
+      {body}
+    </a>
+  );
+}
 
-/** The process tracker, rebuilt live from Erin's May 18 screenshot. */
-export function ProcessTracker({ caption }: { caption?: ReactNode }) {
+/**
+ * The 5 phases, each with what it produced. Each artifact links to where
+ * this page shows it.
+ */
+export function ProcessMap({ caption }: { caption?: ReactNode }) {
   return (
     <figure>
-      <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3">
-        {PHASES.map((phase) => (
-          <div key={phase.name}>
+      <ol className="grid gap-x-4 gap-y-8 md:grid-cols-5">
+        {PHASES.map((phase, i) => (
+          <li key={phase.name}>
             <p className={`${label} border-b border-site-line pb-2`}>
-              {phase.name}
+              <span className="text-site-ink">
+                {i + 1}. {phase.name}
+              </span>
+              <span className="block">{phase.when}</span>
             </p>
-            <ul className="mt-3 flex flex-col gap-2">
-              {phase.steps.map((step) => (
-                <li
-                  key={step.name}
-                  className={`flex items-baseline gap-3 text-body-sm ${
-                    step.state === "done" ? "text-site-muted" : "text-site-ink"
-                  }`}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`inline-block h-3 w-3 shrink-0 translate-y-px border ${
-                      step.state === "done"
-                        ? "border-site-ink bg-site-ink"
-                        : step.state === "doing"
-                          ? "border-site-ink"
-                          : "border-site-line"
-                    }`}
-                  />
-                  <span>
-                    {step.name}
-                    <span className="sr-only">, {STATE_TEXT[step.state]}</span>
-                  </span>
+            <ul className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-1">
+              {phase.artifacts.map((a) => (
+                <li key={a.name}>
+                  <ArtifactTile a={a} />
                 </li>
               ))}
             </ul>
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
       {caption && <Caption>{caption}</Caption>}
     </figure>
   );
 }
 
-/** The top of the May 18 user flow and measurement plan. */
-export function UserFlow() {
+// The 3 buyer personas in DESIGN.md, "from competitor customer data", May 18.
+// Titles, company and trigger are DESIGN.md's; each quote is checked word
+// for word in docs/ordersync-research/stat-check.md. "On the page" says where
+// the page speaks to them.
+const PERSONAS = [
+  {
+    name: "Forced into EDI",
+    who: "CEO, president or VP of operations at a consumer goods or food brand",
+    trigger: "A big retailer, like Walmart or Target, requires EDI.",
+    quote: "They said it would be 6-8 weeks. It’s been 9 months. And we’re not done",
+    source: "Jennifer N., CEO, in a 1-star Capterra review of SPS Commerce, 2022",
+    page: "FAQs: “How long does it take to go live?” and “How is this different from SPS Commerce?”",
+  },
+  {
+    name: "Drowning in manual orders",
+    who: "Director of customer service or CSR supervisor at a manufacturer or distributor",
+    trigger: "Reps worn out by typing, more errors, and talk of hiring just for data entry.",
+    quote:
+      "CSRs were constantly struggling with the push and pull of rushing to key in a new order, and then dealing with customer inquiries about existing ones.",
+    source: "Darlene Bardin, Genpak, in a Conexiom customer story, 2022",
+    page: "The closing call to action: “Still Typing Orders Into Your ERP?”",
+  },
+  {
+    name: "Outgrown legacy EDI",
+    who: "CTO, VP of operations or EDI lead at a brand growing into retail",
+    trigger: "Slow onboarding, outages and legacy systems they can’t see into.",
+    quote: "Sub-par integrations, unresponsive customer service, heinous billing practices",
+    source: "Jessica K., VP, in a 2-star Capterra review of SPS Commerce, 2021",
+    page: "The headline, “One System for All Your Orders,” and the diagram of every format going into the ERP.",
+  },
+];
+
+/** The 3 proto-personas as cards: who, trigger, their words, the page. */
+export function Personas({ caption }: { caption?: ReactNode }) {
   return (
     <figure>
-      <Figure
-        src={`${PROCESS}/user-flow-measurement.webp`}
-        alt="The user flow and measurement plan from May 18. Each homepage section is paired with the question a visitor asks at that moment: 0 to 3 seconds, “Does this solve my problem?” at the hero; 3 to 10 seconds, “Who else uses this?” at the customer logos; 10 to 30 seconds, “How does it work?” at the diagram. Beside each section are the events to track, marked live or to add."
-        width={1050}
-        height={2490}
-        crop={920}
-      />
-      <Caption>
-        My user flow and measurement plan, May 18, 2026: the question a visitor
-        asks at each point on the page, and what to track there. It flagged
-        that bookings weren’t tracked past the calendar link.{" "}
-        <a
-          href={`${PROCESS}/user-flow-measurement.webp`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={inlineLink}
-        >
-          Open the whole plan
-        </a>
-      </Caption>
+      {/* Subgrid lines up the cards' headers and sections across a row. */}
+      <ul className="grid gap-x-6 gap-y-6 md:grid-cols-3 md:grid-rows-[auto_auto] md:gap-y-0">
+        {PERSONAS.map((p, i) => (
+          <li
+            key={p.name}
+            className="flex flex-col border border-site-line md:row-span-2 md:grid md:grid-rows-subgrid"
+          >
+            <div className="border-b border-site-line p-5">
+              <p className={label}>Persona {i + 1}</p>
+              <p className="mt-2 font-serif text-column-title text-site-ink">
+                {p.name}
+              </p>
+              <p className="mt-1 text-body-sm text-site-ink/75">{p.who}</p>
+            </div>
+            <dl className="flex flex-1 flex-col gap-4 p-5">
+              <div>
+                <dt className={label}>Trigger</dt>
+                <dd className="mt-1 text-body-sm text-site-ink/80">
+                  {p.trigger}
+                </dd>
+              </div>
+              <div>
+                <dt className={label}>In their words</dt>
+                <dd className="mt-1">
+                  <p className="font-serif text-body text-site-ink">
+                    “{p.quote}”
+                  </p>
+                  <p className="mt-1 text-caption text-site-muted">
+                    {p.source}
+                  </p>
+                </dd>
+              </div>
+              <div className="mt-auto border-t border-site-line pt-4">
+                <dt className={label}>On the page</dt>
+                <dd className="mt-1 text-body-sm text-site-ink/80">{p.page}</dd>
+              </div>
+            </dl>
+          </li>
+        ))}
+      </ul>
+      {caption && <Caption>{caption}</Caption>}
     </figure>
+  );
+}
+
+type Tracked = { event: string; state: "live" | "add" | "need" };
+
+// The user flow and measurement plan from sitemap-flow.html, May 18, 2026
+// ("Landing Page User Flow & Engagement Measurement"): each homepage stop,
+// the question a visitor asks there and the events to track. Its estimated drop-off rates are left out; they weren't sourced.
+const JOURNEY: {
+  when: string;
+  /** The visitor's question, or the plan's own name for a stop without one. */
+  asks: string;
+  quoted?: false;
+  answer: string;
+  track: Tracked[];
+}[] = [
+  {
+    when: "0–3 sec",
+    asks: "Does this solve my problem?",
+    answer: "Hero: one headline, 2 buttons",
+    track: [
+      { event: "book_demo_click", state: "live" },
+      { event: "section_viewed", state: "add" },
+    ],
+  },
+  {
+    when: "3–10 sec",
+    asks: "Who else uses this?",
+    answer: "Customer logos",
+    track: [{ event: "section_viewed", state: "add" }],
+  },
+  {
+    when: "10–30 sec",
+    asks: "How does it work?",
+    answer: "Every format flowing into the ERP",
+    track: [{ event: "flow_node_clicked", state: "add" }],
+  },
+  {
+    when: "30–60 sec",
+    asks: "Will it fit my workflow?",
+    answer: "3 feature cards, proof points and a testimonial",
+    track: [{ event: "section_viewed", state: "add" }],
+  },
+  {
+    when: "60+ sec",
+    asks: "Can I try before committing?",
+    answer: "3 free tools",
+    track: [{ event: "free_tool_clicked", state: "add" }],
+  },
+  {
+    when: "Decision",
+    asks: "Decision point",
+    quoted: false,
+    answer: "“Still Typing Orders Into Your ERP?” and Book a Call, 30 minutes with James",
+    track: [
+      { event: "calendar_page_view", state: "need" },
+      { event: "booking_complete", state: "need" },
+    ],
+  },
+  {
+    when: "Then",
+    asks: "Objection handling",
+    quoted: false,
+    answer: "7 FAQs, 3 of them new: go-live time, IT and SPS",
+    track: [{ event: "faq_opened", state: "add" }],
+  },
+];
+
+const TRACK_TEXT = {
+  live: "Tracked",
+  add: "Add in the build",
+  need: "Gap: not tracked",
+};
+
+function TrackDot({ state }: { state: Tracked["state"] }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`inline-block h-2 w-2 shrink-0 rounded-full border ${
+        state === "live"
+          ? "border-site-ink bg-site-ink"
+          : state === "need"
+            ? "border-site-blue bg-site-blue"
+            : "border-site-muted"
+      }`}
+    />
+  );
+}
+
+/**
+ * The May 18 user flow, rebuilt live: a lane for what the visitor asks,
+ * what the page answers with and what gets tracked, stop by stop.
+ */
+export function UserFlow({ caption }: { caption?: ReactNode }) {
+  const lanes = ["Visitor asks", "Page answers", "Track"];
+  return (
+    <figure>
+      <div className="border-t border-site-line md:grid md:grid-cols-[6.5rem_repeat(7,minmax(0,1fr))]">
+        {/* Lane names, on the left from 768px. */}
+        <div className="hidden md:contents">
+          <span />
+          {JOURNEY.map((s) => (
+            <p
+              key={s.when}
+              className={`${label} border-l border-site-line px-3 py-3`}
+            >
+              {s.when}
+            </p>
+          ))}
+          {lanes.map((lane, i) => (
+            <div key={lane} className="contents">
+              <p className={`${label} border-t border-site-line py-3`}>
+                {lane}
+              </p>
+              {JOURNEY.map((s) => (
+                <div
+                  key={s.when}
+                  className="border-l border-t border-site-line px-3 py-3"
+                >
+                  {i === 0 && <Asks stop={s} />}
+                  {i === 1 && (
+                    <p className="text-caption text-site-ink/80">{s.answer}</p>
+                  )}
+                  {i === 2 && <TrackList items={s.track} />}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        {/* Stop by stop on a phone. */}
+        <ol className="flex flex-col md:hidden">
+          {JOURNEY.map((s) => (
+            <li key={s.when} className="border-b border-site-line py-4">
+              <p className={label}>{s.when}</p>
+              <div className="mt-2">
+                <Asks stop={s} />
+              </div>
+              <p className="mt-1 text-body-sm text-site-ink/80">{s.answer}</p>
+              <div className="mt-3">
+                <TrackList items={s.track} />
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p className={`${label} mt-4 flex flex-wrap gap-x-6 gap-y-2`}>
+        {(["live", "add", "need"] as const).map((state) => (
+          <span key={state} className="inline-flex items-center gap-2">
+            <TrackDot state={state} />
+            {TRACK_TEXT[state]}
+          </span>
+        ))}
+      </p>
+      {caption && <Caption>{caption}</Caption>}
+    </figure>
+  );
+}
+
+function Asks({ stop }: { stop: (typeof JOURNEY)[number] }) {
+  return stop.quoted === false ? (
+    <p className="text-caption text-site-muted">{stop.asks}</p>
+  ) : (
+    <p className="font-serif text-body-sm text-site-ink">“{stop.asks}”</p>
+  );
+}
+
+function TrackList({ items }: { items: Tracked[] }) {
+  return (
+    <ul className="flex flex-col gap-1.5">
+      {items.map((t) => (
+        <li
+          key={t.event}
+          className="flex items-center gap-2 font-mono text-caption text-site-ink/75"
+        >
+          <TrackDot state={t.state} />
+          <span className="min-w-0">
+            {/* Wrap only after an underscore. */}
+            {t.event.split("_").map((part, i) => (
+              <span key={i}>
+                {i > 0 && (
+                  <>
+                    _<wbr />
+                  </>
+                )}
+                {part}
+              </span>
+            ))}
+            <span className="sr-only">, {TRACK_TEXT[t.state]}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Link to the full May 18 plan, as Erin made it. */
+export function FlowPlanLink() {
+  return (
+    <a
+      href={`${PROCESS}/user-flow-measurement.webp`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={inlineLink}
+    >
+      Open the original plan
+    </a>
   );
 }
 

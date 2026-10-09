@@ -12,7 +12,7 @@ import { Caption, Code, Figure, label } from "@/components/site/prose";
 // career-ops/output/ordersync-case-study-master.md, with tabs to switch
 // between them, so Erin can compare them in the real layout before picking.
 // Each section opens on a recommended version. E is the research-led rewrite
-// from ./new, split to match these sections.
+// from ../Design, split to match these sections.
 // ◆ marks suggested reasoning to keep or cut; [brackets] mark fill-ins.
 
 export type V = "A" | "B" | "C" | "D" | "E";
@@ -44,7 +44,7 @@ export const VERSIONS: { id: V; name: string; about: string }[] = [
     id: "E",
     name: "Research-led",
     about:
-      "Research first, every number checked, with the landscape, mood board, process files and a live hero. In its own order at /orderSync/new.",
+      "Research first, every number checked, with the landscape, mood board, process files and a live hero. In its own order at /orderSync.",
   },
 ];
 

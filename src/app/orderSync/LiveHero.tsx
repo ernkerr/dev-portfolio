@@ -24,7 +24,7 @@ const HERO_H = 700;
 const STAGE_H = HEADER_H + HERO_H;
 
 /** Scale a fixed-size stage to the width of its box. */
-function useFit(width: number) {
+export function useFit(width: number) {
   const box = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
   useLayoutEffect(() => {

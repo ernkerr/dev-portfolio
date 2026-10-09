@@ -48,7 +48,7 @@ import {
   HERO as E_HERO,
   LABEL as E_LABEL,
   TITLE as E_TITLE,
-} from "./new/Design";
+} from "../Design";
 
 // Every version of the write-up from
 // career-ops/output/ordersync-case-study-master.md, section by section, so

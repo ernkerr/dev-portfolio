@@ -4,15 +4,14 @@ import { isEngineerSide } from "@/components/site/side";
 import Design from "./Design";
 import Engineering from "../Engineering";
 
-// The rewrite in the Gin and portfolio-redesign format, kept beside the
-// tabbed drafts at /orderSync so Erin can compare the copy. Once she picks,
-// one of them moves to /orderSync and this route goes.
+// The earlier drafts, up to 5 versions per section with tabs, kept for
+// reference. The finished case study is at /orderSync.
 export const metadata: Metadata = {
-  title: "OrderSync (new draft)",
+  title: "OrderSync (drafts)",
   robots: { index: false },
 };
 
-export default async function OrderSyncNew({
+export default async function OrderSyncDrafts({
   searchParams,
 }: {
   searchParams: Promise<{ side?: string }>;

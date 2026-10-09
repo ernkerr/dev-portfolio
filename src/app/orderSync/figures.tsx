@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import Shine from "@/components/Shine";
-import { focusRing, mono } from "@/components/site/links";
+import { mono } from "@/components/site/links";
 import {
   Caption,
   Figure,
@@ -145,39 +145,38 @@ const LANDSCAPE = [
   },
 ];
 
-/** OrderSync's old first screen beside 5 competitors', 2 across. */
-export function LandscapeShots({ caption }: { caption?: ReactNode }) {
-  // Conexiom shows its product; Workist and TrueCommerce show the navy and
-  // the demo button most competitors had.
-  const shots = [
-    ...LANDSCAPE.filter((s) =>
-      ["conexiom", "workist", "truecommerce"].includes(s.name),
-    ).map((s) => ({
-      src: `${IMG}/landscape/${s.name}.webp`,
-      alt: s.alt,
-      label: s.label,
-      width: 1440,
-      height: 900,
-    })),
-  ];
+/**
+ * A competitor's finding with its homepage beside it, so each screenshot
+ * backs the claim next to it.
+ */
+export function CompetitorFinding({
+  name,
+  title,
+  text,
+}: {
+  name: string;
+  title: string;
+  text: ReactNode;
+}) {
+  const shot = LANDSCAPE.find((s) => s.name === name);
+  if (!shot) return null;
   return (
-    <figure>
-      <div className="grid gap-6 sm:grid-cols-2 min-[1328px]:grid-cols-3">
-        {shots.map((s) => (
-          <div key={s.src}>
-            <p className={`${label} mb-3`}>{s.label}</p>
-            <Image
-              src={s.src}
-              alt={s.alt}
-              width={s.width}
-              height={s.height}
-              sizes="(min-width: 1024px) 440px, (min-width: 640px) 50vw, 100vw"
-              className="h-auto w-full border border-site-line"
-            />
-          </div>
-        ))}
+    <figure className="grid items-start gap-x-8 gap-y-4 border-t border-site-line pt-6 md:grid-cols-2">
+      <div>
+        <p className="font-serif text-column-title text-site-ink">{title}</p>
+        <p className="mt-2 text-body-sm text-site-ink/75">{text}</p>
       </div>
-      {caption && <Caption>{caption}</Caption>}
+      <div>
+        <p className={`${label} mb-3`}>{shot.label}</p>
+        <Image
+          src={`${IMG}/landscape/${shot.name}.webp`}
+          alt={shot.alt}
+          width={1440}
+          height={900}
+          sizes="(min-width: 1328px) 34rem, (min-width: 768px) 45vw, 100vw"
+          className="h-auto w-full border border-site-line"
+        />
+      </div>
     </figure>
   );
 }

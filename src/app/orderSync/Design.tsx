@@ -29,14 +29,13 @@ import {
   Directions,
   HeaderCompare,
   UserFlow,
+  VisualDirection,
   FlowPlanLink,
   LandscapeShots,
-  MoodBoard,
   Personas,
   SHOTS,
   ShineDemo,
   Shots,
-  WireframeRounds,
 } from "./figures";
 import BeforeHero, { BeforeFindings } from "./BeforeHero";
 import LiveHero from "./LiveHero";
@@ -345,31 +344,32 @@ export const E = {
         />
       </Wide>
 
-      <H3 id="wireframes">Low-fidelity wireframes</H3>
+      <H3 id="wireframes">Wireframes</H3>
       <P>
-        I wireframed the homepage 3 times. Version 1 had 6 free tools, a “Stop
-        Paying for Complexity” card and 3 calls to action. Version 2 traded the
-        price card for “Catch Errors Before They Cost You,” added 3 FAQs from
-        buyers’ objections, and changed the closing line from “Ready to Simplify
-        Order Processing?” to “Still Typing Orders Into Your ERP?” In version 3,
-        I wrote the research behind each section in the margin.
+        I wireframed the homepage 3 times in one day. Between rounds, the price
+        card became “Catch Errors Before They Cost You,” 3 FAQs were added, and
+        the closing line became “Still Typing Orders Into Your ERP?” Version 3
+        has the research behind each section written in the margin.
       </P>
-      <WireframeRounds caption="Wireframes v1 to v3, May 18, 2026. Open one to read it." />
-      <AnnotatedWireframe />
+      <Wide>
+        <AnnotatedWireframe />
+      </Wide>
     </>
   ),
   visual: (
     <>
-      <H3>Mood board</H3>
+      <H3>Visual direction</H3>
       <P>
         The logo started as a full chrome wordmark, and we simplified it to just
         the O. For the site, the question was how much chrome to bring onto the
         page. I collected chrome I liked, and left out the directions that went
         too far, because they didn’t match who we were selling to.
       </P>
-      <MoodBoard />
+      <Wide>
+        <VisualDirection />
+      </Wide>
 
-      <H3 id="directions">2 directions, then a rule</H3>
+      <H3 id="directions">Design directions</H3>
       <P>
         The same day as the wireframes, I built 2 directions in code: everything
         on near-black, or light with chrome on a few accents. In between, I

@@ -399,7 +399,14 @@ export function CardDirections({ caption }: { caption?: ReactNode }) {
 
 /* ---------- Mood board ---------- */
 
-type Pin = { name: string; alt: string; width: number; height: number };
+type Pin = {
+  name: string;
+  alt: string;
+  width: number;
+  height: number;
+  /** Where a square crop keeps the subject, if not the middle. */
+  focus?: "right";
+};
 
 // Chrome wordmark renders from February 25, 2026 (AI-generated; 2 carry
 // Gemini's sparkle), then the mark OrderSync kept: just the O.
@@ -459,6 +466,7 @@ const CHROME: Pin[] = [
   {
     name: "chrome-send",
     alt: "A comment field with a chrome Send button at its right end.",
+    focus: "right",
     width: 900,
     height: 372,
   },
@@ -494,21 +502,39 @@ const CHROME: Pin[] = [
   },
 ];
 
-// Saved on Erin's OrderSync Pinterest board (screenshots from April 1, 2026),
-// the Founder Haiku poster (March 24) and a type experiment she saved on
-// May 18: the directions she left out.
-const NOT_TAKEN: Pin[] = [
+// Single pins cropped out of Erin's OrderSync board on Pinterest (her
+// screenshots from April 1, 2026), and the Founder Haiku poster (March 24):
+// the chrome-everywhere looks she left out.
+const LEFT_OUT: Pin[] = [
   {
-    name: "pinterest-1",
-    alt: "Erin’s OrderSync board on Pinterest: a futuristic robotics site that says “Touching tomorrow, today,” the Raftel studio’s chrome R, a design studio site with “Studio” in chrome script, silver perfume packaging, and lettering pressed into gray metal.",
-    width: 700,
-    height: 1330,
+    name: "pin-touching-tomorrow",
+    alt: "A futuristic robotics site: “Touching tomorrow, today” over a row of phones, on pale gray.",
+    width: 318,
+    height: 440,
   },
   {
-    name: "pinterest-2",
-    alt: "More of Erin’s OrderSync board on Pinterest: a jewelry site with a glass blob, a poster spelling PROGRAMMER in chrome letters, an orange Ctrl key under “Everything is under,” a glass paper plane and a chrome cursor.",
-    width: 700,
-    height: 1241,
+    name: "pin-raftel",
+    alt: "The Raftel studio’s R, a thick chrome letter pressed into brushed metal.",
+    width: 318,
+    height: 385,
+  },
+  {
+    name: "pin-studio",
+    alt: "A design studio’s site with “Studio” in huge chrome script.",
+    width: 318,
+    height: 318,
+  },
+  {
+    name: "pin-programmer",
+    alt: "A poster spelling PROGRAMMER in chrome letters.",
+    width: 318,
+    height: 452,
+  },
+  {
+    name: "pin-jewelry",
+    alt: "A jewelry site with a melting glass blob in the middle of a gray page.",
+    width: 318,
+    height: 230,
   },
   {
     name: "founder-haiku",
@@ -516,39 +542,57 @@ const NOT_TAKEN: Pin[] = [
     width: 645,
     height: 900,
   },
-  {
-    name: "type-experiment",
-    alt: "A type experiment: a regular g plus a pixel g equals a g made of rounded blobs.",
-    width: 527,
-    height: 229,
-  },
 ];
 
-function PinImage({ pin }: { pin: Pin }) {
+// The chrome-as-an-accent references she kept: a button, a cursor, a send
+// button, an arrow and 2 cards.
+const KEPT = [
+  "chrome-pill",
+  "chrome-send",
+  "chrome-cursor",
+  "chrome-arrow",
+  "foil-card",
+  "embossed-card",
+];
+
+/** A reference, cropped to a square tile so the board lines up. */
+function Tile({ pin }: { pin: Pin }) {
   return (
-    <Image
-      src={`${IMG}/mood/${pin.name}.webp`}
-      alt={pin.alt}
-      width={pin.width}
-      height={pin.height}
-      sizes="(min-width: 768px) 18rem, 50vw"
-      className="mb-3 h-auto w-full break-inside-avoid border border-site-line"
-    />
+    <div className="aspect-square overflow-hidden border border-site-line bg-white">
+      <Image
+        src={`${IMG}/mood/${pin.name}.webp`}
+        alt={pin.alt}
+        width={pin.width}
+        height={pin.height}
+        sizes="(min-width: 1328px) 11rem, (min-width: 768px) 16vw, 33vw"
+        className={`h-full w-full object-cover ${
+          pin.focus === "right" ? "object-right" : ""
+        }`}
+      />
+    </div>
   );
 }
 
 /**
- * The chrome Erin collected from February to May 2026, next to the chrome
- * OrderSync's brand already had, then the directions she didn't take.
+ * The visual direction: the logo exploration that ended at the O, then a
+ * row of the chrome kept as an accent and a row of the chrome-everywhere
+ * looks left out.
  */
-export function MoodBoard() {
+export function VisualDirection() {
+  const rows = [
+    {
+      label: "Kept: chrome as an accent",
+      pins: KEPT.map((n) => CHROME.find((p) => p.name === n)!),
+    },
+    { label: "Left out: chrome as the whole look", pins: LEFT_OUT },
+  ];
   return (
     <figure className="flex flex-col gap-10">
       <div>
-        <p className={label}>Logo directions</p>
+        <p className={label}>Logo exploration</p>
         {/* Cropped to the same 3:2 box so the wordmarks line up; each sits
             in the middle of a lot of empty space. */}
-        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3">
+        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-5">
           {[...LOGOS, FINAL_MARK].map((pin) => (
             <div key={pin.name}>
               <div className="aspect-[3/2] overflow-hidden border border-site-line bg-white">
@@ -557,39 +601,33 @@ export function MoodBoard() {
                   alt={pin.alt}
                   width={pin.width}
                   height={pin.height}
-                  sizes="(min-width: 768px) 18rem, 50vw"
+                  sizes="(min-width: 768px) 14rem, 50vw"
                   className={`h-full w-full ${
                     pin === FINAL_MARK ? "object-contain p-4" : "object-cover"
                   }`}
                 />
               </div>
               {pin === FINAL_MARK && (
-                <p className={`${label} mt-3`}>Where we landed</p>
+                <p className={`${label} mt-3`}>The final mark</p>
               )}
             </div>
           ))}
         </div>
       </div>
-      <div>
-        <p className={label}>Chrome I pulled from</p>
-        <div className="mt-3 columns-2 gap-3 md:columns-3">
-          {CHROME.map((pin) => (
-            <PinImage key={pin.name} pin={pin} />
-          ))}
+      {rows.map((row) => (
+        <div key={row.label}>
+          <p className={label}>{row.label}</p>
+          <div className="mt-3 grid grid-cols-3 gap-3 md:grid-cols-6">
+            {row.pins.map((pin) => (
+              <Tile key={pin.name} pin={pin} />
+            ))}
+          </div>
         </div>
-      </div>
-      <div>
-        <p className={label}>Too far out for this audience</p>
-        <div className="mt-3 columns-2 gap-3 md:columns-3">
-          {NOT_TAKEN.map((pin) => (
-            <PinImage key={pin.name} pin={pin} />
-          ))}
-        </div>
-      </div>
+      ))}
       <Caption>
-        The logo renders are AI-generated, from February 2026. The rest I
-        collected between February and May 2026, including the OrderSync board I
-        made on Pinterest.
+        The logo renders are AI-generated, from February 2026. The references
+        are from my OrderSync board on Pinterest and other saves, February to
+        May 2026.
       </Caption>
     </figure>
   );
@@ -606,58 +644,17 @@ export function Directions({ caption }: { caption?: ReactNode }) {
       items={[
         {
           src: `${PROCESS}/direction-dark.webp`,
-          label: "1. All dark, all chrome",
+          label: "A. Dark, all chrome",
           alt: "Direction 1: the homepage on near-black, with “One System for All Your Orders” in white fading to chrome gray, a white Book a free intro call pill and a gray Try Free Tools button.",
         },
         {
           src: `${PROCESS}/direction-light.webp`,
-          label: "2. Light, with chrome accents",
+          label: "B. Light, chrome as an accent (chosen)",
           alt: "Direction 2: a white page with the same headline in black fading to chrome gray, a chrome Book a free intro call pill, and a black panel showing PDF, email, EDI and CSV flowing into OrderSync and then an ERP.",
         },
       ]}
       caption={caption}
     />
-  );
-}
-
-const ROUNDS = [
-  { file: "wireframe", name: "v1", height: 4701 },
-  { file: "wireframe-v2", name: "v2", height: 4258 },
-  { file: "wireframe-v3", name: "v3", height: 3514 },
-];
-
-/**
- * The 3 wireframe rounds side by side at the same scale, so the page
- * visibly gets shorter.
- */
-export function WireframeRounds({ caption }: { caption?: ReactNode }) {
-  return (
-    <figure>
-      <div className="grid grid-cols-3 items-start gap-3 sm:gap-6">
-        {ROUNDS.map((r) => (
-          <a
-            key={r.file}
-            href={`${PROCESS}/${r.file}.webp`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group block ${focusRing}`}
-          >
-            <p className={`${label} mb-3 group-hover:text-site-blue`}>
-              {r.name}
-            </p>
-            <Image
-              src={`${PROCESS}/${r.file}.webp`}
-              alt={`Wireframe ${r.name} of the homepage, full length. Open it to read it.`}
-              width={1280}
-              height={r.height}
-              sizes="(min-width: 1024px) 18rem, 33vw"
-              className="h-auto w-full border border-site-line"
-            />
-          </a>
-        ))}
-      </div>
-      {caption && <Caption>{caption}</Caption>}
-    </figure>
   );
 }
 

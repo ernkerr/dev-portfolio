@@ -277,15 +277,15 @@ export const E = {
       <hr className="mt-16 border-site-line" />
       <H3 id="journey-map">User journey map</H3>
       <KeyFinding>
-        They arrive panicked, so the page has to reassure them and make
-        booking easy.
+        Every path starts with stress, so each page has to reassure them and
+        make the next step easy.
       </KeyFinding>
       <P>
-        Persona 1’s happy path, from the retailer’s email to a booked call, and
-        where the page meets them at each stage.
+        2 paths for each persona, from what sets them off to a booked call, or
+        to staying in touch. Pick one to switch the map.
       </P>
       <Wide>
-        <UserJourney caption="Made for this case study from the May research. The first 3 feelings come from that research; Reassured and Ready are what the page is designed to do." />
+        <UserJourney caption="Made for this case study from the May research and the pages that shipped. Feelings at the start come from the research; the later ones are what each page is designed to make them feel." />
       </Wide>
     </>
   ),

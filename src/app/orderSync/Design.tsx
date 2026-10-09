@@ -21,7 +21,6 @@ import {
 } from "@/components/site/prose";
 import { BuildNote } from "@/components/site/appStudy";
 import {
-  AnnotatedWireframe,
   BusinessCard,
   CardDirections,
   ChromeRules,
@@ -30,6 +29,7 @@ import {
   HeaderCompare,
   UserFlow,
   VisualDirection,
+  WireframeRounds,
   FlowPlanLink,
   Personas,
   SHOTS,
@@ -354,22 +354,21 @@ export const E = {
       <Wide>
         <Figure
           src={`${PROCESS}/site-map.webp`}
-          alt="My site map from May 18: ordersync.io branching into the landing page and its 10 sections, Free Tools with 11 tools and an index, the Blog, EDI Guides, Programmatic SEO pages and the App. Below it, the conversion flow from search to the landing page, then to Book a Call or the newsletter."
+          alt="My site map: ordersync.io branching into the landing page and its 10 sections, Free Tools with 11 tools and an index, the Blog, EDI Guides, Programmatic SEO pages and the App. Below it, the conversion flow from search to the landing page, then to Book a Call or the newsletter."
           width={1280}
           height={1337}
-          caption="My site map, May 18, 2026. 389 indexed pages, with the landing page as the redesign’s scope."
+          caption="My site map. 389 indexed pages, with the landing page as the redesign’s scope."
         />
       </Wide>
 
       <H3 id="wireframes">Wireframes</H3>
       <P>
-        I wireframed the homepage 3 times in one day. Between rounds, the price
-        card became “Catch Errors Before They Cost You,” 3 FAQs were added, and
-        the closing line became “Still Typing Orders Into Your ERP?” Version 3
-        has the research behind each section written in the margin.
+        I wireframed the homepage 3 times. Most sections kept their copy because
+        it already brought in search traffic, so each round changed only a few,
+        and some of those changes didn’t make it to the final site.
       </P>
       <Wide>
-        <AnnotatedWireframe />
+        <WireframeRounds caption="Only the sections that changed. The third wireframe kept the second’s layout and added the research behind each section in the margin. Faded means it didn’t ship." />
       </Wide>
     </>
   ),
@@ -388,15 +387,15 @@ export const E = {
 
       <H3 id="directions">Design directions</H3>
       <P>
-        The same day as the wireframes, I built 2 directions in code: everything
-        on near-black, or light with chrome on a few accents. In between, I
-        wrote the rule I kept for the rest of the project: “Chrome is an accent,
-        not a personality.” The light direction followed it.
+        After the wireframes, I built 2 directions in code: everything on
+        near-black, or light with chrome on a few accents. In between, I wrote
+        the rule I kept for the rest of the project: “Chrome is an accent, not a
+        personality.” The light direction followed it.
       </P>
-      <Directions caption="The 2 directions I built on May 18, 2026." />
+      <Directions caption="The 2 directions I built." />
       <ChromeRules />
       <P>
-        On May 29 the near-black became the navy already in OrderSync’s code,
+        Later, the near-black became the navy already in OrderSync’s code,
         #0E172B, with 1 name instead of 4.
       </P>
     </>

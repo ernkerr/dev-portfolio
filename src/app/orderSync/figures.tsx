@@ -591,30 +591,273 @@ export function Directions({ caption }: { caption?: ReactNode }) {
   );
 }
 
-/** The top of wireframe v3, with its research notes in the margin. */
-export function AnnotatedWireframe() {
+/* ---------- Wireframe rounds ---------- */
+
+// The homepage sections that changed between Erin's wireframes, and what
+// shipped. From wireframe.html, wireframe-v2.html and wireframe-v3.html in
+// the ordersync-static repo (v3 kept v2's layout and only added research
+// notes, so they share a column), checked against src/components/Home on
+// OrderSync's main branch. The proof section shipped as LiveCounter and
+// CustomerQuote and came off the homepage a few days after launch (467ea74).
+// The wireframes' stats aren't drawn, because they were never verified.
+
+const ROUND_NAMES = ["Wireframe 1", "Wireframes 2 and 3", "Shipped"];
+
+/** A wireframe placeholder line. */
+function Line({ className = "w-full" }: { className?: string }) {
+  return <span className={`block h-1.5 bg-site-line ${className}`} />;
+}
+
+function Sketch({ children }: { children: ReactNode }) {
+  return <div className="border border-site-line p-2">{children}</div>;
+}
+
+function CardsSketch({ third }: { third: string }) {
+  return (
+    <div className="grid grid-cols-4 gap-1.5">
+      {[0, 1].map((i) => (
+        <Sketch key={i}>
+          <div className="flex flex-col gap-1.5">
+            <Line />
+            <Line className="w-2/3" />
+          </div>
+        </Sketch>
+      ))}
+      <div className="col-span-2">
+        <Sketch>
+          <p className="text-caption text-site-ink">{third}</p>
+        </Sketch>
+      </div>
+    </div>
+  );
+}
+
+function ProofSketch({ quote = false }: { quote?: boolean }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <div className="grid grid-cols-4 gap-1.5">
+        {[0, 1, 2, 3].map((i) => (
+          <Sketch key={i}>
+            <div className="flex flex-col gap-1.5">
+              <span className="block h-3 w-2/3 bg-site-line" />
+              <Line />
+            </div>
+          </Sketch>
+        ))}
+      </div>
+      {quote && (
+        <Sketch>
+          <div className="flex flex-col gap-1.5">
+            <span className="font-serif text-body-sm leading-none text-site-muted">
+              “
+            </span>
+            <Line />
+            <Line className="w-1/2" />
+          </div>
+        </Sketch>
+      )}
+    </div>
+  );
+}
+
+function OffPage() {
+  return (
+    <div className="border border-dashed border-site-line px-2 py-4 text-center text-caption text-site-muted">
+      Not on the homepage
+    </div>
+  );
+}
+
+function ToolsSketch({ count }: { count: number }) {
+  return (
+    <div className="grid grid-cols-3 gap-1.5">
+      {Array.from({ length: count }, (_, i) => (
+        <Sketch key={i}>
+          <Line className="w-2/3" />
+        </Sketch>
+      ))}
+    </div>
+  );
+}
+
+function ClosingSketch({ line }: { line: string }) {
+  return (
+    <Sketch>
+      <div className="flex flex-col items-center gap-2 py-2 text-center">
+        <p className="text-body-sm font-medium text-site-ink">{line}</p>
+        <span className="border border-site-line px-2 text-caption text-site-muted">
+          Book a Call
+        </span>
+      </div>
+    </Sketch>
+  );
+}
+
+const ADDED_FAQS = [
+  "How long does it take to go live?",
+  "Do I need an IT team to set this up?",
+  "How is this different from SPS Commerce?",
+];
+
+function FaqSketch({ added = false }: { added?: boolean }) {
+  const rows: ReactNode[] = [
+    ...[0, 1, 2, 3].map((i) => <Line key={i} className="w-3/4" />),
+    ...(added
+      ? ADDED_FAQS.map((q) => (
+          <span key={q} className="text-caption text-site-ink">
+            {q}
+          </span>
+        ))
+      : []),
+  ];
+  return (
+    <Sketch>
+      <ul>
+        {rows.map((row, i) => (
+          <li
+            key={i}
+            className="flex items-center justify-between gap-2 border-b border-site-line py-1.5 last:border-b-0"
+          >
+            {row}
+            <span className="text-caption leading-none text-site-muted">+</span>
+          </li>
+        ))}
+      </ul>
+    </Sketch>
+  );
+}
+
+type Round = { sketch: ReactNode; note: string; dropped?: boolean };
+
+const ROUNDS: { section: string; rounds: [Round, Round, Round] }[] = [
+  {
+    section: "The third feature card",
+    rounds: [
+      {
+        sketch: <CardsSketch third="Stop Paying for Complexity" />,
+        note: "About price: no per-transaction or VAN fees.",
+        dropped: true,
+      },
+      {
+        sketch: <CardsSketch third="Catch Errors Before They Cost You" />,
+        note: "About errors instead, because chargebacks cost suppliers real money.",
+      },
+      {
+        sketch: <CardsSketch third="Catch Errors Before They Cost You" />,
+        note: "Shipped.",
+      },
+    ],
+  },
+  {
+    section: "Why Teams Switch to OrderSync",
+    rounds: [
+      {
+        sketch: <ProofSketch />,
+        note: "4 industry stats, for buyers to send to their boss.",
+        dropped: true,
+      },
+      {
+        sketch: <ProofSketch quote />,
+        note: "4 stats from OrderSync’s own blog, and a customer quote.",
+        dropped: true,
+      },
+      {
+        sketch: <OffPage />,
+        note: "I built it with OrderSync’s own order numbers, but it came off the homepage after launch.",
+      },
+    ],
+  },
+  {
+    section: "Free tools",
+    rounds: [
+      { sketch: <ToolsSketch count={6} />, note: "All 6 tools." },
+      {
+        sketch: <ToolsSketch count={3} />,
+        note: "Cut to the 3 strongest.",
+        dropped: true,
+      },
+      {
+        sketch: <ToolsSketch count={5} />,
+        note: "The homepage kept every tool: 6 at launch, 5 today.",
+      },
+    ],
+  },
+  {
+    section: "The closing call to action",
+    rounds: [
+      {
+        sketch: <ClosingSketch line="Ready to Simplify Order Processing?" />,
+        note: "The line already on the site.",
+        dropped: true,
+      },
+      {
+        sketch: <ClosingSketch line="Still Typing Orders Into Your ERP?" />,
+        note: "Closer to how buyers describe the problem in reviews.",
+      },
+      {
+        sketch: <ClosingSketch line="Still Typing Orders Into Your ERP?" />,
+        note: "Shipped.",
+      },
+    ],
+  },
+  {
+    section: "FAQ",
+    rounds: [
+      {
+        sketch: <FaqSketch />,
+        note: "The 4 questions already on the site.",
+        dropped: true,
+      },
+      {
+        sketch: <FaqSketch added />,
+        note: "3 more, from the worries buyers wrote about in reviews.",
+      },
+      { sketch: <FaqSketch added />, note: "Shipped, all 7." },
+    ],
+  },
+];
+
+/**
+ * Each homepage section that changed between wireframes, across the rounds
+ * and what shipped. A direction that didn't ship is faded.
+ */
+export function WireframeRounds({ caption }: { caption?: ReactNode }) {
   return (
     <figure>
-      <Figure
-        src={`${PROCESS}/wireframe-v3.webp`}
-        alt="Wireframe v3 of the homepage with a yellow margin of research notes. Next to the header: “TrustRadius: 86% of buyers shortlist products they already know. If they’re here, they’re ready.” Next to the hero: “75% of POs still arrive via email or fax.” Next to the feature cards: SPS Commerce pricing and its 6 to 8 week quote that took 9 months, and chargeback costs."
-        width={1280}
-        height={3514}
-        crop={1640}
-      />
-      <Caption>
-        Wireframe v3, May 18, 2026, with the note behind each section in the
-        margin. A few numbers in these notes didn’t hold up when I rechecked
-        them, so the copy on this page uses the corrected ones.{" "}
-        <a
-          href={`${PROCESS}/wireframe-v3.webp`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={inlineLink}
-        >
-          Open the whole page
-        </a>
-      </Caption>
+      <div className="hidden grid-cols-3 gap-6 border-b border-site-line pb-2 sm:grid">
+        {ROUND_NAMES.map((name) => (
+          <p key={name} className={label}>
+            {name}
+          </p>
+        ))}
+      </div>
+      <div className="flex flex-col gap-10 sm:mt-6">
+        {ROUNDS.map((row) => (
+          <div key={row.section}>
+            <p className="font-serif text-column-title text-site-ink">
+              {row.section}
+            </p>
+            <div className="mt-3 grid gap-6 sm:grid-cols-3">
+              {row.rounds.map((round, i) => (
+                <div key={i}>
+                  <p className={`${label} mb-2 sm:hidden`}>{ROUND_NAMES[i]}</p>
+                  <div className={round.dropped ? "opacity-50" : undefined}>
+                    {round.sketch}
+                  </div>
+                  <p
+                    className={`mt-3 text-caption ${
+                      round.dropped ? "text-site-muted" : "text-site-ink/75"
+                    }`}
+                  >
+                    {round.note}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      {caption && <Caption>{caption}</Caption>}
     </figure>
   );
 }
@@ -624,10 +867,10 @@ export function ChromeRules() {
   return (
     <Figure
       src={`${PROCESS}/chrome-rules.webp`}
-      alt="From the May 18 design-system sheet, Chrome / Metal Accents: “Chrome is an accent, not a personality. Used for: stat numbers, key headline words, card top-edge highlights, badges, dividers. Never for backgrounds or large surfaces.” Below it, stat numbers, the words All Your Orders and 3 pills in chrome gray."
+      alt="From the design-system sheet, Chrome / Metal Accents: “Chrome is an accent, not a personality. Used for: stat numbers, key headline words, card top-edge highlights, badges, dividers. Never for backgrounds or large surfaces.” Below it, stat numbers, the words All Your Orders and 3 pills in chrome gray."
       width={1936}
       height={1120}
-      caption="From the design-system sheet I made on May 18, 2026."
+      caption="From the design-system sheet I made."
     />
   );
 }
@@ -641,14 +884,17 @@ const PERSONAS = [
     name: "Forced into EDI",
     who: "CEO, president or VP of operations at a consumer goods or food brand",
     trigger: "A big retailer, like Walmart or Target, requires EDI.",
-    quote: "They said it would be 6-8 weeks. It’s been 9 months. And we’re not done",
-    source: "Jennifer N., CEO, in a 1-star Capterra review of SPS Commerce, 2022",
+    quote:
+      "They said it would be 6-8 weeks. It’s been 9 months. And we’re not done",
+    source:
+      "Jennifer N., CEO, in a 1-star Capterra review of SPS Commerce, 2022",
     page: "FAQs: “How long does it take to go live?” and “How is this different from SPS Commerce?”",
   },
   {
     name: "Drowning in manual orders",
     who: "Director of customer service or CSR supervisor at a manufacturer or distributor",
-    trigger: "Reps worn out by typing, more errors, and talk of hiring just for data entry.",
+    trigger:
+      "Reps worn out by typing, more errors, and talk of hiring just for data entry.",
     quote:
       "CSRs were constantly struggling with the push and pull of rushing to key in a new order, and then dealing with customer inquiries about existing ones.",
     source: "Darlene Bardin, Genpak, in a Conexiom customer story, 2022",
@@ -658,7 +904,8 @@ const PERSONAS = [
     name: "Outgrown legacy EDI",
     who: "CTO, VP of operations or EDI lead at a brand growing into retail",
     trigger: "Slow onboarding, outages and legacy systems they can’t see into.",
-    quote: "Sub-par integrations, unresponsive customer service, heinous billing practices",
+    quote:
+      "Sub-par integrations, unresponsive customer service, heinous billing practices",
     source: "Jessica K., VP, in a 2-star Capterra review of SPS Commerce, 2021",
     page: "The headline, “One System for All Your Orders,” and the diagram of every format going into the ERP.",
   },
@@ -763,7 +1010,8 @@ const JOURNEY: {
     when: "Decision",
     asks: "Decision point",
     quoted: false,
-    answer: "“Still Typing Orders Into Your ERP?” and Book a Call, 30 minutes with James",
+    answer:
+      "“Still Typing Orders Into Your ERP?” and Book a Call, 30 minutes with James",
     track: [
       { event: "calendar_page_view", state: "need" },
       { event: "booking_complete", state: "need" },

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import CaseStudy from "@/components/site/CaseStudy";
 import { isEngineerSide } from "@/components/site/side";
-import Design from "./Design";
 import Engineering from "./Engineering";
 
 export const metadata: Metadata = {
@@ -21,7 +20,7 @@ export default async function GroupSingAlong({
     <CaseStudy
       project="Group Sing Along"
       engineerFirst={isEngineerSide(side)}
-      design={<Design />}
+      // The design side is coming soon; its draft stays in Design.tsx.
       engineering={<Engineering />}
     />
   );

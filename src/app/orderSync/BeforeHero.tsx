@@ -605,21 +605,21 @@ export function BeforeFindings() {
     <>
       <OrderSyncCss />
       {FINDINGS.map(({ title, kind, text, Evidence }, i) => (
-        <div key={title} className="mt-2 flex flex-col gap-4 md:mt-4">
-          <div className="flex max-w-measure gap-3">
-            <span
-              aria-hidden="true"
-              className="flex h-6 w-6 shrink-0 items-center justify-center bg-site-ink font-mono text-label text-site-paper"
-            >
-              {i + 1}
-            </span>
-            <div>
-              <p className="font-serif text-column-title text-site-ink">
-                {title}
-              </p>
-              <p className={`${label} mt-1`}>{kind}</p>
-              <p className="mt-2 text-body-sm text-site-ink/75">{text}</p>
+        // Number and title on one line; everything under them lines up with
+        // the column's edge, like the piece of the page below.
+        <div key={title} className="mt-10 flex flex-col gap-5 md:mt-14">
+          <div className="max-w-measure">
+            <div className="flex items-center gap-4">
+              <span
+                aria-hidden="true"
+                className="flex h-8 w-8 shrink-0 items-center justify-center bg-site-ink font-mono text-body-sm text-site-paper"
+              >
+                {i + 1}
+              </span>
+              <p className="font-serif text-subhead text-site-ink">{title}</p>
             </div>
+            <p className={`${label} mt-3`}>{kind}</p>
+            <p className="mt-2 text-body-sm text-site-ink/75">{text}</p>
           </div>
           <Evidence />
         </div>

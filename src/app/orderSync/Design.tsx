@@ -28,6 +28,7 @@ import {
   DropOff,
   Directions,
   HeaderCompare,
+  UserFlow,
   VisualDirection,
   FlowPlanLink,
   LandscapeShots,
@@ -99,46 +100,6 @@ function Source({ href, children }: { href: string; children: ReactNode }) {
     </a>
   );
 }
-
-// 3 assumptions from Erin's user flow and measurement plan (sitemap-flow.html,
-// May 18, 2026): Book a Call is "the primary conversion checkpoint", visitors
-// who are "not ready yet" keep scrolling to the FAQ, and a tool click is a
-// "high-intent secondary path". Goal states them; Results answers each one
-// with the PostHog numbers in DropOff. Drafted for Erin to rewrite.
-const ASSUMED: { title: string; text: string; happened: ReactNode }[] = [
-  {
-    title: "The homepage drives the calls.",
-    text: "Book a Call is the main way in, so people who start on the homepage should click it more than visitors anywhere else.",
-    happened: (
-      <>
-        <strong>It held up.</strong> People who start on the homepage click
-        Book a Call at more than twice the rate of the site as a whole: 4 of 52,
-        against 11 of 349.
-      </>
-    ),
-  },
-  {
-    title: "Visitors who aren’t ready keep scrolling.",
-    text: "If the top doesn’t convince them, they scroll on to the FAQ for more proof.",
-    happened: (
-      <>
-        <strong>Most don’t get that far.</strong> 12 of 45 visits reach the
-        bottom third, where the FAQ is, so its answers should move higher.
-      </>
-    ),
-  },
-  {
-    title: "The free tools are a side path.",
-    text: "Visitors who try a tool are exploring, so the tools come second to the homepage.",
-    happened: (
-      <>
-        <strong>They’re the front door.</strong> 3.4 times as many visits start
-        on the EDI Inspector as on the homepage, so it needs a clearer path to
-        a call.
-      </>
-    ),
-  },
-];
 
 // The case study in parts, so the drafts page at /orderSync/drafts can offer
 // each one as version E of its matching section. SECTIONS below puts them
@@ -225,50 +186,32 @@ export const E = {
           },
         ]}
       />
-      <H3 id="assumptions">What I assumed</H3>
-      <figure>
-        <Columns items={ASSUMED} />
-        <Caption>
-          From my{" "}
-          <FlowPlanLink>user flow and measurement plan</FlowPlanLink>, May 18,
-          2026.
-        </Caption>
-      </figure>
+      <H3 id="journey">User flow and measurement plan</H3>
+      <P>
+        I mapped the path down the homepage: the question a visitor has at each
+        section, the section that answers it, and what to track there. It
+        flagged the biggest gap: clicks on Book a Call were tracked, but not
+        whether anyone finished booking.
+      </P>
+      <UserFlow
+        caption={
+          <>
+            Rebuilt from my user flow and measurement plan, May 18, 2026.{" "}
+            <FlowPlanLink />
+          </>
+        }
+      />
     </>
   ),
   research: (
     <>
-      <P>
-        To answer this, I used 5 methods: a{" "}
-        <a href="#interview" className={inlineLink}>
-          stakeholder interview
-        </a>
-        ,{" "}
-        <a href="#secondary" className={inlineLink}>
-          secondary research
-        </a>
-        ,{" "}
-        <a href="#personas" className={inlineLink}>
-          proto-personas
-        </a>
-        , a{" "}
-        <a href="#journey-map" className={inlineLink}>
-          user journey map
-        </a>{" "}
-        and a{" "}
-        <a href="#competitors" className={inlineLink}>
-          competitive analysis
-        </a>
-        .
-      </P>
-
       <H3 id="interview">Stakeholder interview</H3>
       <KeyFinding>Clean and expected, with nothing too innovative.</KeyFinding>
       <P>
         I started with James, OrderSync’s founder, and we talked about who the
-        site was for. His buyers are people who work in industry, not in tech,
-        so they want something familiar, with nothing too foreign. He wanted
-        the site to feel clean and expected, with nothing too innovative.
+        site was for. His buyers are business people who don’t want the wheel
+        reinvented, so he wanted the site to feel clean and expected, with
+        nothing too innovative.
       </P>
       <figure>
         <Image
@@ -777,15 +720,19 @@ export const E = {
         numbers show how the new site performs rather than a before and after.
       </P>
       <DropOff caption="From PostHog, June 26 to October 8, 2026, not counting OrderSync’s own team. Hover a step to see what it counts." />
-      <Table
-        head={["What I assumed", "What happened"]}
-        rows={ASSUMED.map((a) => [a.title, a.happened])}
-      />
       <P>
-        3 of the 4 who click Book a Call go on to open the booking window, so
-        the step from button to booking works. The tracking needs a fix, though:
-        PostHog has 8 finished bookings since June 26, but 6 of them came from
-        visits with no page view, so they can’t be traced back to a page.
+        People who start on the homepage click Book a Call at more than twice
+        the rate of the site as a whole: 4 of 52, against 11 of 349. And 3 of
+        the 4 who click go on to open the booking window, so the step from
+        button to booking works.
+      </P>
+      <P>
+        Next: move the FAQ’s answers higher, since 12 of 45 visits reach the
+        bottom of the homepage, and give the EDI Inspector a clearer path to a
+        call, since 3.4 times as many visits start there as on the homepage. The
+        tracking needs a fix too: PostHog has 8 finished bookings since June 26,
+        but 6 of them came from visits with no page view, so they can’t be
+        traced back to a page.
       </P>
       <InProgress title="What didn’t ship">
         The proof stats and the testimonial from wireframe v3 aren’t on the
@@ -839,7 +786,7 @@ export const SECTIONS: CaseStudySection[] = [
     id: "research",
     title: "Research",
     headline:
-      "Who buys OrderSync, and what do they need to see before they book a call?",
+      "Buyers worry about 2 things: errors that cost them money, and setups that drag on for months.",
     content: (
       <>
         {E.research}

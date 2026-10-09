@@ -780,8 +780,200 @@ export function Personas({ caption }: { caption?: ReactNode }) {
   );
 }
 
+type Tracked = { event: string; state: "live" | "add" | "need" };
+
+// The user flow and measurement plan from sitemap-flow.html, May 18, 2026
+// ("Landing Page User Flow & Engagement Measurement"): each homepage stop,
+// the question a visitor asks there and the events to track. Its estimated drop-off rates are left out; they weren't sourced.
+const JOURNEY: {
+  when: string;
+  /** The visitor's question, or the plan's own name for a stop without one. */
+  asks: string;
+  quoted?: false;
+  answer: string;
+  track: Tracked[];
+}[] = [
+  {
+    when: "0–3 sec",
+    asks: "Does this solve my problem?",
+    answer: "Hero: one headline, 2 buttons",
+    track: [
+      { event: "book_demo_click", state: "live" },
+      { event: "section_viewed", state: "add" },
+    ],
+  },
+  {
+    when: "3–10 sec",
+    asks: "Who else uses this?",
+    answer: "Customer logos",
+    track: [{ event: "section_viewed", state: "add" }],
+  },
+  {
+    when: "10–30 sec",
+    asks: "How does it work?",
+    answer: "Every format flowing into the ERP",
+    track: [{ event: "flow_node_clicked", state: "add" }],
+  },
+  {
+    when: "30–60 sec",
+    asks: "Will it fit my workflow?",
+    answer: "3 feature cards, proof points and a testimonial",
+    track: [{ event: "section_viewed", state: "add" }],
+  },
+  {
+    when: "60+ sec",
+    asks: "Can I try before committing?",
+    answer: "3 free tools",
+    track: [{ event: "free_tool_clicked", state: "add" }],
+  },
+  {
+    when: "Decision",
+    asks: "Decision point",
+    quoted: false,
+    answer: "“Still Typing Orders Into Your ERP?” and Book a Call, 30 minutes with James",
+    track: [
+      { event: "calendar_page_view", state: "need" },
+      { event: "booking_complete", state: "need" },
+    ],
+  },
+  {
+    when: "Then",
+    asks: "Objection handling",
+    quoted: false,
+    answer: "7 FAQs, 3 of them new: go-live time, IT and SPS",
+    track: [{ event: "faq_opened", state: "add" }],
+  },
+];
+
+const TRACK_TEXT = {
+  live: "Tracked",
+  add: "Add in the build",
+  need: "Gap: not tracked",
+};
+
+function TrackDot({ state }: { state: Tracked["state"] }) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`inline-block h-2 w-2 shrink-0 rounded-full border ${
+        state === "live"
+          ? "border-site-ink bg-site-ink"
+          : state === "need"
+            ? "border-site-blue bg-site-blue"
+            : "border-site-muted"
+      }`}
+    />
+  );
+}
+
+/**
+ * The May 18 user flow, rebuilt live: a lane for what the visitor asks,
+ * what the page answers with and what gets tracked, stop by stop.
+ */
+export function UserFlow({ caption }: { caption?: ReactNode }) {
+  const lanes = ["Visitor asks", "Page answers", "Track"];
+  return (
+    <figure>
+      <div className="border-t border-site-line md:grid md:grid-cols-[6.5rem_repeat(7,minmax(0,1fr))]">
+        {/* Lane names, on the left from 768px. */}
+        <div className="hidden md:contents">
+          <span />
+          {JOURNEY.map((s) => (
+            <p
+              key={s.when}
+              className={`${label} border-l border-site-line px-3 py-3`}
+            >
+              {s.when}
+            </p>
+          ))}
+          {lanes.map((lane, i) => (
+            <div key={lane} className="contents">
+              <p className={`${label} border-t border-site-line py-3`}>
+                {lane}
+              </p>
+              {JOURNEY.map((s) => (
+                <div
+                  key={s.when}
+                  className="border-l border-t border-site-line px-3 py-3"
+                >
+                  {i === 0 && <Asks stop={s} />}
+                  {i === 1 && (
+                    <p className="text-caption text-site-ink/80">{s.answer}</p>
+                  )}
+                  {i === 2 && <TrackList items={s.track} />}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        {/* Stop by stop on a phone. */}
+        <ol className="flex flex-col md:hidden">
+          {JOURNEY.map((s) => (
+            <li key={s.when} className="border-b border-site-line py-4">
+              <p className={label}>{s.when}</p>
+              <div className="mt-2">
+                <Asks stop={s} />
+              </div>
+              <p className="mt-1 text-body-sm text-site-ink/80">{s.answer}</p>
+              <div className="mt-3">
+                <TrackList items={s.track} />
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p className={`${label} mt-4 flex flex-wrap gap-x-6 gap-y-2`}>
+        {(["live", "add", "need"] as const).map((state) => (
+          <span key={state} className="inline-flex items-center gap-2">
+            <TrackDot state={state} />
+            {TRACK_TEXT[state]}
+          </span>
+        ))}
+      </p>
+      {caption && <Caption>{caption}</Caption>}
+    </figure>
+  );
+}
+
+function Asks({ stop }: { stop: (typeof JOURNEY)[number] }) {
+  return stop.quoted === false ? (
+    <p className="text-caption text-site-muted">{stop.asks}</p>
+  ) : (
+    <p className="font-serif text-body-sm text-site-ink">“{stop.asks}”</p>
+  );
+}
+
+function TrackList({ items }: { items: Tracked[] }) {
+  return (
+    <ul className="flex flex-col gap-1.5">
+      {items.map((t) => (
+        <li
+          key={t.event}
+          className="flex items-center gap-2 font-mono text-caption text-site-ink/75"
+        >
+          <TrackDot state={t.state} />
+          <span className="min-w-0">
+            {/* Wrap only after an underscore. */}
+            {t.event.split("_").map((part, i) => (
+              <span key={i}>
+                {i > 0 && (
+                  <>
+                    _<wbr />
+                  </>
+                )}
+                {part}
+              </span>
+            ))}
+            <span className="sr-only">, {TRACK_TEXT[t.state]}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** Link to the full May 18 plan, as Erin made it. */
-export function FlowPlanLink({ children }: { children: ReactNode }) {
+export function FlowPlanLink() {
   return (
     <a
       href={`${PROCESS}/user-flow-measurement.webp`}
@@ -789,7 +981,7 @@ export function FlowPlanLink({ children }: { children: ReactNode }) {
       rel="noopener noreferrer"
       className={inlineLink}
     >
-      {children}
+      Open the original plan
     </a>
   );
 }

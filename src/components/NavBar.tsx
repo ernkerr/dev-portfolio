@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 export default function NavBar() {
+  const router = useRouter();
+  // About is heavy (the room illustration): preload it on intent only.
+  const preloadAbout = () => router.prefetch("/about/");
   return (
     <nav className="flex w-full items-center justify-between p-10">
       <Link
@@ -26,6 +30,10 @@ export default function NavBar() {
         </Link>
         <Link
           href="/about/"
+          prefetch={false}
+          onMouseEnter={preloadAbout}
+          onFocus={preloadAbout}
+          onTouchStart={preloadAbout}
           className="med:text-med transform-gpu rounded-md px-3 py-2 text-xs font-medium text-gray-300 transition-all duration-700 ease-in-out will-change-transform hover:bg-blue-600/20 hover:text-white sm:text-sm lg:text-lg"
         >
           About

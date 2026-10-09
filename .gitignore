@@ -45,3 +45,4 @@ next-env.d.ts
 
 # Photos left on the About page camera while developing locally
 /.data/
+.env*.local

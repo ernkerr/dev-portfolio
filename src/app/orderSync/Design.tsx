@@ -113,8 +113,8 @@ export const E = {
       </Lead>
       <Lead>
         I redesigned its marketing site and built the design system behind it,
-        so every page, from the homepage to the billing screen, looks like the
-        same company.
+        so every page, from the homepage to the billing screen, has visual
+        consistency.
       </Lead>
       <Stats
         items={[

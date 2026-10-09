@@ -185,12 +185,12 @@ export const E = {
   research: (
     <>
       <H3 id="interview">Stakeholder interview</H3>
-      <KeyFinding>Keep it clean and simple. Nothing futuristic.</KeyFinding>
+      <KeyFinding>Clean and expected, with nothing too innovative.</KeyFinding>
       <P>
         I started with James, OrderSync’s founder, and we talked about who the
-        site was for. His buyers are business people expecting nothing fancy,
-        because they don’t want the wheel reinvented. He didn’t want the site to
-        be too futuristic either. He wanted it clean and simple.
+        site was for. His buyers are business people who don’t want the wheel
+        reinvented, so he wanted the site to feel clean and expected, with
+        nothing too innovative.
       </P>
       <figure>
         <Image
@@ -479,7 +479,7 @@ export const E = {
           },
           {
             title: "Chrome is an accent",
-            text: "The logo was already chrome, but James wanted it clean and not futuristic. So: beyond the logo, chrome on one button and a silver glint on key words.",
+            text: "The logo was already chrome, but James wanted the site clean and expected, with nothing too innovative. So: beyond the logo, chrome on one button and a silver glint on key words.",
           },
         ]}
       />

@@ -46,7 +46,7 @@ What Claude needs from you. Your local folder `~/projects/Apps/Gin Score Tracker
 
 The finished version is at `/orderSync` (`src/app/orderSync/Design.tsx`). The tabbed drafts are at `/orderSync/drafts`. Research notes and the stat check are in `docs/ordersync-research/`. James stays first name only.
 
-- [x] What James said: he didn't want to reinvent the wheel or be too futuristic, and wanted it clean and simple. It's in Research.
+- [x] What James said: his buyers don't want the wheel reinvented, so he wanted the site clean and expected, with nothing too innovative. It's in Research.
 - [x] Mood board photos: logo directions (Feb 25, 2026) ending at the O, and the Pinterest boards (Apr 1), Founder Haiku poster (Mar 24) and type experiment (May 18) as the directions not taken.
 - [x] The chrome logo renders were AI-generated. The mood board caption says so.
 - [x] Business cards added to The system, with 14 directions not taken. James's surname, phone, email and the QR code are blurred for now.

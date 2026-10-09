@@ -33,7 +33,6 @@ import {
   LandscapeShots,
   MoodBoard,
   Personas,
-  ProcessMap,
   SHOTS,
   ShineDemo,
   Shots,
@@ -54,6 +53,17 @@ import UserJourney from "./UserJourney";
 // checked in docs/ordersync-research/stat-check.md.
 
 const PROCESS = "/images/orderSync/process";
+
+// A method's key finding in a few words, so its value reads before the
+// evidence under it.
+function KeyFinding({ children }: { children: ReactNode }) {
+  return (
+    <div className="max-w-measure">
+      <p className={label}>Key finding</p>
+      <p className="mt-2 font-serif text-subhead text-site-ink">{children}</p>
+    </div>
+  );
+}
 
 // Published research, opened in a new tab. Sources and caveats are in the
 // research notes: docs/ordersync-research/audience-research.md.
@@ -174,12 +184,8 @@ export const E = {
   ),
   research: (
     <>
-      <Wide>
-        <ProcessMap caption="What each phase produced. The research and wireframes were committed at 2:03 PM on May 18, 2026, and the first visual design file is from 2:51 PM that day." />
-      </Wide>
-
-      <hr className="mt-10 border-site-line" />
       <H3 id="interview">Stakeholder interview</H3>
+      <KeyFinding>Keep it clean and simple. Nothing futuristic.</KeyFinding>
       <P>
         I started with James, OrderSync’s founder, and we talked about who the
         site was for. His buyers are business people expecting nothing fancy,
@@ -201,8 +207,9 @@ export const E = {
         </Caption>
       </figure>
 
-      <hr className="mt-10 border-site-line" />
+      <hr className="mt-16 border-site-line" />
       <H3 id="secondary">Secondary research</H3>
+      <p className={label}>Key findings</p>
       <Columns
         count={2}
         items={[
@@ -258,6 +265,10 @@ export const E = {
   ),
   personas: (
     <>
+      <KeyFinding>
+        3 buyers, 3 triggers: a retailer’s EDI rules, too much typing, and a
+        system they’ve outgrown.
+      </KeyFinding>
       <P>
         I had no buyers to interview, so I mined what buyers had already
         written: competitors’ reviews and customer stories. 3 personas kept
@@ -267,7 +278,12 @@ export const E = {
         <Personas caption="Proto-personas, built from reviews and customer stories rather than interviews. Every quote is word for word." />
       </Wide>
 
+      <hr className="mt-16 border-site-line" />
       <H3 id="journey-map">User journey map</H3>
+      <KeyFinding>
+        They arrive panicked, so the page has to reassure them and make
+        booking easy.
+      </KeyFinding>
       <P>
         Persona 1’s happy path, from the retailer’s email to a booked call, and
         where the page meets them at each stage.
@@ -279,17 +295,7 @@ export const E = {
   ),
   competitors: (
     <>
-      <P>
-        In May I compared how 7 competitors positioned themselves, from SPS
-        Commerce, the incumbent in EDI, to AI startups like Canals.ai. SPS
-        Commerce and Orderful only handled EDI, which left OrderSync something
-        to own: every format in one system. For this case study, I went back to
-        their homepages as they were that month.
-      </P>
-      <Wide>
-        <LandscapeShots caption="First screens from the Wayback Machine, May 2026. The other 7 sites didn’t archive cleanly, so they only count below where their text could be read." />
-      </Wide>
-      <H3>What the competitors showed</H3>
+      <p className={label}>Key findings</p>
       <Columns
         count={2}
         items={[
@@ -311,6 +317,19 @@ export const E = {
           },
         ]}
       />
+
+      <hr className="mt-16 border-site-line" />
+      <H3>The homepages</H3>
+      <P>
+        In May I compared how 7 competitors positioned themselves, from SPS
+        Commerce, the incumbent in EDI, to AI startups like Canals.ai. SPS
+        Commerce and Orderful only handled EDI, which left OrderSync something
+        to own: every format in one system. For this case study, I went back to
+        their homepages as they were that month.
+      </P>
+      <Wide>
+        <LandscapeShots caption="First screens from the Wayback Machine, May 2026. The other 7 sites didn’t archive cleanly, so they only count in the findings above where their text could be read." />
+      </Wide>
     </>
   ),
   wireframes: (
@@ -581,16 +600,6 @@ export const E = {
       </P>
       <Stats
         items={[
-          {
-            label: "Color references",
-            value: "450 → 3",
-            tip: "Places in the code that set a brand color. They now point to 3 navy values instead of loose hex codes under 4 names.",
-          },
-          {
-            label: "Gradients",
-            value: "155 → 6",
-            tip: "Gradient classes in the site’s code, just before and just after the redesign merged on June 19, 2026.",
-          },
           {
             label: "Color roles used",
             value: "2,480",

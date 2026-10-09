@@ -40,6 +40,7 @@ import {
 } from "./figures";
 import BeforeHero, { BeforeFindings } from "./BeforeHero";
 import LiveHero from "./LiveHero";
+import { ErrorsCard, NewFaqs } from "./ShippedPieces";
 import UserJourney from "./UserJourney";
 
 // The research is Erin's own, written before any visual design: DESIGN.md,
@@ -61,6 +62,27 @@ function KeyFinding({ children }: { children: ReactNode }) {
     <div className="max-w-measure">
       <p className={label}>Key finding</p>
       <p className="mt-2 font-serif text-subhead text-site-ink">{children}</p>
+    </div>
+  );
+}
+
+// A research finding, then the piece of the shipped page it changed.
+function ResearchFinding({
+  title,
+  text,
+  children,
+}: {
+  title: string;
+  text: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <div className="mt-4 flex flex-col gap-4">
+      <div className="max-w-measure">
+        <p className="font-serif text-column-title text-site-ink">{title}</p>
+        <p className="mt-2 text-body-sm text-site-ink/75">{text}</p>
+      </div>
+      {children}
     </div>
   );
 }
@@ -208,59 +230,32 @@ export const E = {
       </figure>
 
       <hr className="mt-16 border-site-line" />
-      <H3 id="secondary">Secondary research</H3>
-      <p className={label}>Key findings</p>
-      <Columns
-        count={2}
-        items={[
-          {
-            title: "Buyers come to confirm, not to be convinced.",
-            text: (
-              <>
-                In{" "}
-                <Source href="https://go.trustradius.com/rs/827-FOI-687/images/2024%20B2B%20Buying%20Disconnect%20Year%20of%20the%20Brand%20Crisis.pdf">
-                  TrustRadius’s 2024 survey
-                </Source>{" "}
-                of 2,164 buyers, 78% of those with a shortlist already knew the
-                products on it, and 71% bought their first choice. So Book a
-                Call goes in the header of every page.
-              </>
-            ),
-          },
-          {
-            title: "The barrier is inertia, not doubt.",
-            text: (
-              <>
-                In{" "}
-                <Source href="https://parseur.com/blog/manual-data-entry-report">
-                  Parseur’s 2025 survey
-                </Source>{" "}
-                of 500 U.S. workers, 46% had never used automation, and 27% said
-                the decision wasn’t theirs to make. So the free tools stay, as a
-                way to try it first.
-              </>
-            ),
-          },
-          {
-            title: "Mistakes cost suppliers real money.",
-            text: (
-              <>
-                <Source href="https://www.supplychaindive.com/news/walmart-on-time-in-full-87-suppliers/550083/">
-                  Walmart charges suppliers 3%
-                </Source>{" "}
-                of the cost of goods on cases that miss its on-time, in-full
-                standard. So the third card became “Catch Errors Before They
-                Cost You.”
-              </>
-            ),
-          },
-          {
-            title: "Setups that run for months are the worry.",
-            text: "Reviews of SPS Commerce and TrueCommerce describe setups that ran long. So the FAQ answers “How long does it take to go live?”",
-          },
-        ]}
-      />
-
+      <H3 id="secondary">Secondary research and reviews</H3>
+      <P>
+        Published data and competitors’ reviews showed what buyers worry about,
+        and 2 of those worries changed the homepage.
+      </P>
+      <ResearchFinding
+        title="Mistakes cost suppliers real money."
+        text={
+          <>
+            <Source href="https://www.supplychaindive.com/news/walmart-on-time-in-full-87-suppliers/550083/">
+              Walmart charges suppliers 3%
+            </Source>{" "}
+            of the cost of goods on cases that miss its on-time, in-full
+            standard, so the homepage got a third card about catching errors,
+            where wireframe v1 had one about price.
+          </>
+        }
+      >
+        <ErrorsCard />
+      </ResearchFinding>
+      <ResearchFinding
+        title="Setups that run for months are the worry."
+        text="Reviews of SPS Commerce and TrueCommerce describe setups quoted in weeks that ran for months, so the FAQ now answers how long it takes to go live. The redesign added 2 more questions with it, on IT and on SPS Commerce."
+      >
+        <NewFaqs />
+      </ResearchFinding>
     </>
   ),
   personas: (
@@ -791,7 +786,8 @@ export const SECTIONS: CaseStudySection[] = [
   {
     id: "research",
     title: "Research",
-    headline: "Buyers come to confirm, not to be convinced.",
+    headline:
+      "Buyers worry about 2 things: errors that cost them money, and setups that drag on for months.",
     content: (
       <>
         {E.research}

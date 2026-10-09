@@ -499,50 +499,6 @@ export const E = {
   ),
   principles: (
     <>
-      <Columns
-        count={2}
-        items={[
-          {
-            title: "Look like what buyers already know",
-            text: (
-              <>
-                James’s buyers don’t want the wheel reinvented. So: a familiar
-                layout, a literal headline, navy and white. Research backs this:
-                in{" "}
-                <Source href="https://research.google/pubs/the-role-of-visual-complexity-and-prototypicality-regarding-first-impression-of-websites-working-towards-understanding-aesthetic-judgments/">
-                  Google’s study of company homepages
-                </Source>
-                , simple, typical sites made the best first impression, and most
-                competitors used blue or navy.
-              </>
-            ),
-          },
-          {
-            title: "One clear next step",
-            text: "71% of buyers bought their first choice, which makes the page’s job to confirm. So: Book a Call in the header on every page, and Sign In, for returning customers, as a plain link.",
-          },
-          {
-            title: "Answer the worry before the call",
-            text: (
-              <>
-                Reviews of the big EDI vendors described setups that ran for
-                months. So: an FAQ on go-live time, next to ones on IT and SPS
-                Commerce. Research on B2B buying explains why: in a{" "}
-                <Source href="https://betaisthenewnormal.com/wp-content/uploads/2018/09/CEB_Google_promotion-emotion-whitepaper-full_beta_2018.pdf">
-                  CEB and Google survey of 3,000 buyers
-                </Source>
-                , they feared losing time, credibility or their job over a bad
-                purchase.
-              </>
-            ),
-          },
-          {
-            title: "Chrome is an accent",
-            text: "The logo was already chrome, but James wanted the site clean and expected, with nothing too innovative. So: beyond the logo, chrome on one button and a silver glint on key words.",
-          },
-        ]}
-      />
-      <H3>The research behind each decision</H3>
       <Decision
         n={1}
         title="A plain headline, with the line under it saying what OrderSync does"
@@ -920,7 +876,7 @@ export const SECTIONS: CaseStudySection[] = [
   {
     id: "decisions",
     title: "Design decisions",
-    headline: "4 principles, from the research and from James.",
+    headline: "8 decisions, and the research behind each one.",
     content: E.principles,
   },
   {

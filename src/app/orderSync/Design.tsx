@@ -29,6 +29,7 @@ import {
   HeaderCompare,
   UserFlow,
   VisualDirection,
+  WireframeToFinal,
   FlowPlanLink,
   Personas,
   SHOTS,
@@ -40,7 +41,6 @@ import CompetitorLandscape from "./CompetitorLandscape";
 import LiveHero from "./LiveHero";
 import { ErrorsCard, NewFaqs } from "./ShippedPieces";
 import UserJourney from "./UserJourney";
-import WireframeRounds from "./WireframeRounds";
 
 // The research is Erin's own, written before any visual design: DESIGN.md,
 // the 3 wireframes and target-audience-segments.html, committed to the
@@ -363,14 +363,14 @@ export const E = {
 
       <H3 id="wireframes">Wireframes</H3>
       <P>
-        I wireframed the homepage 3 times. Most sections kept their copy because
-        it already brought in search traffic, so the rounds changed only a few,
-        and the third added the research behind each section in the margin. Here
-        are 3 of those changes, from wireframe to what shipped.
+        I wireframed the homepage 3 times, and the third only added the research
+        behind each section in the margin. Most of the layout carried through to
+        the final design, but the stats section didn’t ship, and the free tools
+        stayed at 6 instead of the 3 I’d cut them to.
       </P>
-      <Wide>
-        <WireframeRounds />
-      </Wide>
+      <div className="max-w-measure">
+        <WireframeToFinal caption="The wireframe’s stats are blurred because they were never checked. Click either page to see it full size." />
+      </div>
     </>
   ),
   visual: (

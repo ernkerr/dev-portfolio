@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import Shine from "@/components/Shine";
-import { mono } from "@/components/site/links";
+import { focusRing, mono } from "@/components/site/links";
 import {
   Caption,
   Figure,
@@ -588,6 +588,62 @@ export function Directions({ caption }: { caption?: ReactNode }) {
       ]}
       caption={caption}
     />
+  );
+}
+
+// Wireframe 2 (wireframe-v2.html, screenshotted by Erin), cropped to the
+// page and with its 4 stats blurred, since they were never checked. The
+// final design is after-home.png, the homepage on July 1, 2026, with all 6
+// free tools. Each column's width matches its image's shape, so the 2 pages
+// end at the same height.
+const WIREFRAME_TO_FINAL = [
+  {
+    label: "Wireframe 2",
+    src: `${PROCESS}/wireframe-final.webp`,
+    width: 962,
+    height: 3707,
+    alt: "My second homepage wireframe in grays: header, hero, customer logos, the document flow, 3 feature cards, a Why Teams Switch section with 4 stats (blurred) and a placeholder quote, 3 free tools, Still Typing Orders Into Your ERP?, 7 FAQs, the blog, a newsletter row and the footer.",
+  },
+  {
+    label: "Final design",
+    src: `${IMG}/after-home.png`,
+    width: 2880,
+    height: 14726,
+    alt: "The homepage as it shipped: the hero with the order diagram, customer logos, Any Document, Any Format, 3 feature cards ending with Catch Errors Before They Cost You, 6 free tools on navy, Still Typing Orders Into Your ERP?, 7 FAQs, the blog, the newsletter and the footer. There's no stats section.",
+  },
+];
+
+/** The last wireframe next to the homepage as it shipped, side by side. */
+export function WireframeToFinal({ caption }: { caption?: ReactNode }) {
+  return (
+    <figure>
+      <div className="flex items-start gap-4 md:gap-6">
+        {WIREFRAME_TO_FINAL.map((page) => (
+          <div
+            key={page.label}
+            style={{ flex: `${(100 * page.width) / page.height} 1 0` }}
+          >
+            <p className={`${label} mb-3`}>{page.label}</p>
+            <a
+              href={page.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`block ${focusRing}`}
+            >
+              <Image
+                src={page.src}
+                alt={page.alt}
+                width={page.width}
+                height={page.height}
+                sizes="(min-width: 768px) 360px, 50vw"
+                className="h-auto w-full border border-site-line"
+              />
+            </a>
+          </div>
+        ))}
+      </div>
+      {caption && <Caption>{caption}</Caption>}
+    </figure>
   );
 }
 

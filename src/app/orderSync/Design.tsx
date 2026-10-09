@@ -233,9 +233,9 @@ export const E = {
       <KeyFinding>Clean and expected, with nothing too innovative.</KeyFinding>
       <P>
         I started with James, OrderSync’s founder, and we talked about who the
-        site was for. His buyers are people who work in industry, not in tech,
-        so they want something familiar, with nothing too foreign. He wanted
-        the site to feel clean and expected, with nothing too innovative.
+        site was for. His buyers are business people who don’t want the wheel
+        reinvented, so he wanted the site to feel clean and expected, with
+        nothing too innovative.
       </P>
       <figure>
         <Image

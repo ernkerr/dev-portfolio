@@ -4,11 +4,11 @@ import { useState } from "react";
 import Shine from "@/components/Shine";
 
 // Pieces of OrderSync's homepage as it shipped, rebuilt from its code on
-// origin/main (Home/FeaturesWithImage and Home/FAQ, copy from
-// dictionary/en.json) to show what a research finding changed. Colors and
-// sizes are OrderSync's (navy-1 #0E172B, content-muted #64748B, line
-// #E5E7EB, navy-3 #1C274C), not this site's tokens; the type is Geist here,
-// not Satoshi.
+// origin/main (Home/FeaturesWithImage, Home/CallToAction and Home/FAQ, copy
+// from dictionary/en.json) to show what a research finding changed. Colors
+// and sizes are OrderSync's (navy-1 #0E172B, content-muted #64748B, line
+// #E5E7EB, navy-3 #1C274C, and Tailwind's slate for the closing call to
+// action), not this site's tokens; the type is Geist here, not Satoshi.
 
 /** The third feature card, which the chargeback research added. */
 export function ErrorsCard() {
@@ -27,8 +27,8 @@ export function ErrorsCard() {
           </p>
           <p className="text-[16px] leading-relaxed text-[#64748B]">
             Catches and fixes common mistakes automatically so orders are
-            processed the first time. Validates every line against your
-            catalog and partner rules before they hit your ERP.
+            processed the first time. Validates every line against your catalog
+            and partner rules before they hit your ERP.
           </p>
         </div>
         <div className="flex flex-col items-center justify-center rounded-xl border border-[#E5E7EB] bg-white p-8 text-center lg:p-10">
@@ -39,6 +39,48 @@ export function ErrorsCard() {
             faster order processing
           </p>
         </div>
+      </div>
+    </div>
+  );
+}
+
+/** The closing call to action, which the buyers' own words rewrote. */
+export function ClosingCta() {
+  return (
+    <div
+      aria-hidden="true"
+      className="border border-site-line bg-[#0F172A] px-4 py-16 text-center md:py-20"
+    >
+      <div className="mx-auto max-w-[650px]">
+        <p className="mb-6 text-[30px] font-bold leading-tight tracking-[-1.6px] text-white md:text-[35px]">
+          Still Typing Orders
+          <br />
+          <Shine>Into Your ERP?</Shine>
+        </p>
+        <p className="mb-10 text-[18px] text-[#CBD5E1]">
+          30-minute intro call. We’ll show you what automation{" "}
+          <br className="hidden sm:block" />
+          looks like for your specific workflow.
+        </p>
+        <span className="inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 font-semibold tracking-[-0.2px] text-[#0F172A] shadow-[0_0_25px_rgba(255,255,255,0.25)]">
+          Book a Call
+          <svg
+            className="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 7l5 5m0 0l-5 5m5-5H6"
+            />
+          </svg>
+        </span>
+        <p className="mt-3 text-[14px] text-[#94A3B8]">
+          No credit card required. No commitment.
+        </p>
       </div>
     </div>
   );

@@ -29,7 +29,6 @@ import {
   HeaderCompare,
   UserFlow,
   VisualDirection,
-  WireframeRounds,
   FlowPlanLink,
   Personas,
   SHOTS,
@@ -41,6 +40,7 @@ import CompetitorLandscape from "./CompetitorLandscape";
 import LiveHero from "./LiveHero";
 import { ErrorsCard, NewFaqs } from "./ShippedPieces";
 import UserJourney from "./UserJourney";
+import WireframeRounds from "./WireframeRounds";
 
 // The research is Erin's own, written before any visual design: DESIGN.md,
 // the 3 wireframes and target-audience-segments.html, committed to the
@@ -364,11 +364,12 @@ export const E = {
       <H3 id="wireframes">Wireframes</H3>
       <P>
         I wireframed the homepage 3 times. Most sections kept their copy because
-        it already brought in search traffic, so each round changed only a few,
-        and some of those changes didn’t make it to the final site.
+        it already brought in search traffic, so the rounds changed only a few,
+        and the third added the research behind each section in the margin. Here
+        are 3 of those changes, from wireframe to what shipped.
       </P>
       <Wide>
-        <WireframeRounds caption="Only the sections that changed. The third wireframe kept the second’s layout and added the research behind each section in the margin. Faded means it didn’t ship." />
+        <WireframeRounds />
       </Wide>
     </>
   ),

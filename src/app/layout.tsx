@@ -44,20 +44,14 @@ export const metadata: Metadata = {
     siteName: "Erin Kerr",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/ek.png",
-        width: 225,
-        height: 225,
-        alt: "Erin Kerr",
-      },
-    ],
+    // The image is opengraph-image.png in this folder: the homepage's first
+    // screen, 1200 × 630.
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/ek.png"],
+    // twitter-image.png in this folder, the same picture.
   },
   robots: {
     index: true,

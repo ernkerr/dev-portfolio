@@ -282,7 +282,7 @@ export const E = {
       </KeyFinding>
       <P>
         2 paths for each persona, from what sets them off to a booked call, or
-        to staying in touch. Pick one to switch the map.
+        to staying in touch. Pick a persona and a path to switch the map.
       </P>
       <Wide>
         <UserJourney caption="Made for this case study from the May research and the pages that shipped. Feelings at the start come from the research; the later ones are what each page is designed to make them feel. The numbers are from OrderSync’s PostHog, June 26 to October 9, 2026, not counting its own team. PostHog can’t tell personas apart, so paths through the same pages share numbers." />

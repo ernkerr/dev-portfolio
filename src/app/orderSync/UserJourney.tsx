@@ -348,51 +348,48 @@ const PERSONAS = [1, 2, 3];
  * thinking, feeling and what the page does.
  */
 export default function UserJourney({ caption }: { caption?: ReactNode }) {
-  const [index, setIndex] = useState(0);
-  const stages = JOURNEYS[index].stages;
+  const [persona, setPersona] = useState(1);
+  const [path, setPath] = useState(1);
+  const journey =
+    JOURNEYS.find((j) => j.persona === persona && j.path === path) ??
+    JOURNEYS[0];
+  const stages = journey.stages;
 
   return (
     <figure>
-      <div
-        role="tablist"
-        aria-label="Persona and path"
-        className="mb-6 grid gap-x-8 gap-y-4 md:grid-cols-3"
-      >
-        {PERSONAS.map((n) => (
-          <div key={n}>
-            <p className={label}>
-              Persona {n}: {PERSONA_NAMES[n]}
-            </p>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {JOURNEYS.map((j, i) =>
-                j.persona === n ? (
-                  <button
-                    key={j.path}
-                    type="button"
-                    role="tab"
-                    aria-selected={i === index}
-                    aria-controls="journey-panel"
-                    onClick={() => setIndex(i)}
-                    className={`${mono} border px-3 py-1 text-label uppercase transition-colors ${
-                      i === index
-                        ? "border-site-ink bg-site-ink text-site-paper"
-                        : "border-site-line text-site-ink hover:border-site-ink"
-                    } ${focusRing}`}
-                  >
-                    Path {j.path}: {j.name}
-                  </button>
-                ) : null,
-              )}
-            </div>
-          </div>
-        ))}
+      {/* Personas on one row, their paths on the next. */}
+      <div className="mb-6 flex flex-col gap-3">
+        <div role="group" aria-label="Persona" className="flex flex-wrap gap-2">
+          {PERSONAS.map((n) => (
+            <Choice
+              key={n}
+              on={n === persona}
+              onClick={() => {
+                setPersona(n);
+                setPath(1);
+              }}
+            >
+              Persona {n}
+            </Choice>
+          ))}
+        </div>
+        <div role="group" aria-label="Path" className="flex flex-wrap gap-2">
+          {[1, 2].map((n) => (
+            <Choice key={n} on={n === path} onClick={() => setPath(n)}>
+              Path {n}
+            </Choice>
+          ))}
+        </div>
+        <p className={label}>
+          {PERSONA_NAMES[persona]} • {journey.name}
+        </p>
       </div>
 
-      <div id="journey-panel" role="tabpanel">
+      <div>
         <div className="mb-6 border-t border-site-line pt-4">
           <p className={label}>What PostHog shows</p>
           <ul className="mt-3 grid gap-x-8 gap-y-4 sm:grid-cols-3">
-            {JOURNEYS[index].data.map((d) => (
+            {journey.data.map((d) => (
               <li key={d.label}>
                 <p className="font-serif text-subhead text-site-ink">
                   {d.value}
@@ -478,6 +475,32 @@ export default function UserJourney({ caption }: { caption?: ReactNode }) {
 
       {caption && <Caption>{caption}</Caption>}
     </figure>
+  );
+}
+
+/** One of the persona or path buttons, pressed when it's the one shown. */
+function Choice({
+  on,
+  onClick,
+  children,
+}: {
+  on: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-pressed={on}
+      onClick={onClick}
+      className={`${mono} border px-3 py-1 text-label uppercase transition-colors ${
+        on
+          ? "border-site-ink bg-site-ink text-site-paper"
+          : "border-site-line text-site-ink hover:border-site-ink"
+      } ${focusRing}`}
+    >
+      {children}
+    </button>
   );
 }
 

@@ -29,8 +29,8 @@ import {
   Directions,
   HeaderCompare,
   VisualDirection,
+  FlowPlanLink,
   LandscapeShots,
-  MeasurementPlan,
   Personas,
   SHOTS,
   ShineDemo,
@@ -99,6 +99,46 @@ function Source({ href, children }: { href: string; children: ReactNode }) {
     </a>
   );
 }
+
+// 3 assumptions from Erin's user flow and measurement plan (sitemap-flow.html,
+// May 18, 2026): Book a Call is "the primary conversion checkpoint", visitors
+// who are "not ready yet" keep scrolling to the FAQ, and a tool click is a
+// "high-intent secondary path". Goal states them; Results answers each one
+// with the PostHog numbers in DropOff. Drafted for Erin to rewrite.
+const ASSUMED: { title: string; text: string; happened: ReactNode }[] = [
+  {
+    title: "The homepage drives the calls.",
+    text: "Book a Call is the main way in, so people who start on the homepage should click it more than visitors anywhere else.",
+    happened: (
+      <>
+        <strong>It held up.</strong> People who start on the homepage click
+        Book a Call at more than twice the rate of the site as a whole: 4 of 52,
+        against 11 of 349.
+      </>
+    ),
+  },
+  {
+    title: "Visitors who aren’t ready keep scrolling.",
+    text: "If the top doesn’t convince them, they scroll on to the FAQ for more proof.",
+    happened: (
+      <>
+        <strong>Most don’t get that far.</strong> 12 of 45 visits reach the
+        bottom third, where the FAQ is, so its answers should move higher.
+      </>
+    ),
+  },
+  {
+    title: "The free tools are a side path.",
+    text: "Visitors who try a tool are exploring, so the tools come second to the homepage.",
+    happened: (
+      <>
+        <strong>They’re the front door.</strong> 3.4 times as many visits start
+        on the EDI Inspector as on the homepage, so it needs a clearer path to
+        a call.
+      </>
+    ),
+  },
+];
 
 // The case study in parts, so the drafts page at /orderSync/drafts can offer
 // each one as version E of its matching section. SECTIONS below puts them
@@ -185,14 +225,15 @@ export const E = {
           },
         ]}
       />
-      <H3 id="journey">User flow and measurement plan</H3>
-      <P>
-        I mapped the path down the homepage: the question a visitor has at each
-        section, the section that answers it, and what to track there. It
-        flagged the biggest gap: clicks on Book a Call were tracked, but not
-        whether anyone finished booking.
-      </P>
-      <MeasurementPlan />
+      <H3 id="assumptions">What I assumed</H3>
+      <figure>
+        <Columns items={ASSUMED} />
+        <Caption>
+          From my{" "}
+          <FlowPlanLink>user flow and measurement plan</FlowPlanLink>, May 18,
+          2026.
+        </Caption>
+      </figure>
     </>
   ),
   research: (
@@ -710,24 +751,17 @@ export const E = {
       <P>
         PostHog started recording on June 26, a week after launch, so these
         numbers show how the new site performs rather than a before and after.
-        {/* Drafted for Erin to rewrite in her own words. */}
-        Both critical gaps from my May plan are tracked now: who reaches the
-        calendar, and who finishes booking.
       </P>
       <DropOff caption="From PostHog, June 26 to October 8, 2026, not counting OrderSync’s own team. Hover a step to see what it counts." />
+      <Table
+        head={["What I assumed", "What happened"]}
+        rows={ASSUMED.map((a) => [a.title, a.happened])}
+      />
       <P>
-        People who start on the homepage click Book a Call at more than twice
-        the rate of the site as a whole: 4 of 52, against 11 of 349. And 3 of
-        the 4 who click go on to open the booking window, so the step from
-        button to booking works.
-      </P>
-      <P>
-        Next: move the FAQ’s answers higher, since 12 of 45 visits reach the
-        bottom of the homepage, and give the EDI Inspector a clearer path to a
-        call, since 3.4 times as many visits start there as on the homepage. The
-        tracking needs a fix too: PostHog has 8 finished bookings since June 26,
-        but 6 of them came from visits with no page view, so they can’t be
-        traced back to a page.
+        3 of the 4 who click Book a Call go on to open the booking window, so
+        the step from button to booking works. The tracking needs a fix, though:
+        PostHog has 8 finished bookings since June 26, but 6 of them came from
+        visits with no page view, so they can’t be traced back to a page.
       </P>
       <InProgress title="What didn’t ship">
         The proof stats and the testimonial from wireframe v3 aren’t on the

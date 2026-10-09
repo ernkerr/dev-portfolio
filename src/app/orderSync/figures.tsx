@@ -4,11 +4,9 @@ import Shine from "@/components/Shine";
 import { focusRing, mono } from "@/components/site/links";
 import {
   Caption,
-  Code,
   Figure,
   inlineLink,
   label,
-  Table,
   TipLabel,
 } from "@/components/site/prose";
 
@@ -782,91 +780,8 @@ export function Personas({ caption }: { caption?: ReactNode }) {
   );
 }
 
-type Tracked = "live" | "add" | "need";
-
-// 4 of the 12 events in the measurement plan in sitemap-flow.html, May 18,
-// 2026, in its own words: the 4 that Results answers with PostHog. Status
-// labels are the plan's legend. booking_complete's note drops its last line,
-// how to build it.
-const PLAN: { event: string; state: Tracked; tells: string }[] = [
-  {
-    event: "book_demo_click",
-    state: "live",
-    tells: "Which CTA drives bookings (hero vs. mid-page vs. header)",
-  },
-  {
-    event: "calendar_page_view",
-    state: "need",
-    tells:
-      "Did they actually reach the calendar? Drop-off between click and calendar.",
-  },
-  {
-    event: "booking_complete",
-    state: "need",
-    tells: "Did they actually book? This closes the funnel.",
-  },
-  {
-    event: "scroll_depth_max",
-    state: "add",
-    tells: "How far down the page visitors get before leaving",
-  },
-];
-
-const TRACK_TEXT = {
-  live: "Already tracking",
-  add: "Implement during build",
-  need: "Critical gap",
-};
-
-function TrackDot({ state }: { state: Tracked }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={`inline-block h-2 w-2 shrink-0 rounded-full border ${
-        state === "live"
-          ? "border-site-ink bg-site-ink"
-          : state === "need"
-            ? "border-site-blue bg-site-blue"
-            : "border-site-muted"
-      }`}
-    />
-  );
-}
-
-/** The rows of the May 18 measurement plan that Results comes back to. */
-export function MeasurementPlan({ caption }: { caption?: ReactNode }) {
-  return (
-    <figure>
-      <Table
-        head={["Event", "Status", "What it tells you"]}
-        rows={PLAN.map((row) => [
-          <Code key="event">
-            {/* Wrap only after an underscore. */}
-            {row.event.split("_").map((part, i) => (
-              <span key={i}>
-                {i > 0 && (
-                  <>
-                    _<wbr />
-                  </>
-                )}
-                {part}
-              </span>
-            ))}
-          </Code>,
-          <span key="state" className="inline-flex items-center gap-2">
-            <TrackDot state={row.state} />
-            {TRACK_TEXT[row.state]}
-          </span>,
-          row.tells,
-        ])}
-      />
-      {caption && <Caption>{caption}</Caption>}
-    </figure>
-  );
-}
-
 /** Link to the full May 18 plan, as Erin made it. */
-export function FlowPlanLink() {
+export function FlowPlanLink({ children }: { children: ReactNode }) {
   return (
     <a
       href={`${PROCESS}/user-flow-measurement.webp`}
@@ -874,7 +789,7 @@ export function FlowPlanLink() {
       rel="noopener noreferrer"
       className={inlineLink}
     >
-      Open the original plan
+      {children}
     </a>
   );
 }

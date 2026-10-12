@@ -201,6 +201,14 @@ Engineering side (/orderSync?side=engineer): the order agent.
 - I threw out my first direction and started from a blank page, froze the old site at /archive/2025 (an idea from Lynn Fisher's archive), and prototyped in code.
 - It tests 8 ideas, like the headline "I'm Erin, a designer who engineers." and the designer/engineer switch. The goal: in a first-click test, a design reviewer's first click on the homepage lands on a design case study within 20 seconds. Testing is still in progress.
 
+### Fred (/fred)
+- An AI agent that hunts apartments in New York: you tell Fred what you want, and it searches the listing sites, checks each building against NYC Open Data and keeps likely scams out of your inbox. Engineering side (/fred?side=engineer): how it's built.
+- James Darby and I built it in one day, October 11, 2026, at the AI Engineer NYC hackathon. I did the research, the product design and the web app (37 commits that day); James built the backend and the agent. There's a live demo at https://fredandginger.jamesjuliusdarby.com/demo.
+- Research: 8,205 App Store reviews from 31 rental apps. Of the 4,190 one and two star reviews, 12% were about scams, 11% about search ignoring criteria and 0.5% about slow alerts. 56 of the 72 reviews from 2026 that mention AI gave 1 or 2 stars. So Fred is built for trust and precision, and stays quiet.
+- I explored 3 directions (Doorman, a warm character; Express, a clipped subway-announcement voice; Markup, just a name with a highlighter), then built it in Jack & Jill's layout (sidebar, chat, inbox) and kept the best of each.
+- The mark is a portrait window whose panes light up yellow only while Fred works. Fred's thinking is one line instead of a work log, the search card has a skyline whose windows light up as Fred looks, listings open in a modal with 4 facts (monthly cost, move-in, availability, broker fee, or Unknown), a mini map and a building score, and on Profile a nice-to-have is one tap from important and two from a dealbreaker.
+- Built with Next.js, Tailwind CSS, the Vercel AI SDK and MapLibre on Cloudflare Workers (OpenNext). The agent is Mastra on Claude Sonnet 5.5 at low effort, with 25 typed Zod tools and 15 scripted evals; the API is Hono on a Worker with D1 and R2, and one Zod contract generates the app's types. Listings come from Apify crawlers on 7 sites plus landlords' own, started on demand. Research uses Nimble, photos use Gemini, errors go to Sentry. We each worked with a few Claude Code agents that coordinated on a shared message board.
+
 ### Gin Score Tracker (/ginScoreTracker)
 - Keeps score for 2-player Gin Rummy: who won each hand, the bonuses and the running total to 100. It came from playing Gin with my family. It was my first fully shipped mobile app, on the App Store for iPhone and iPad since June 2, 2025. I designed and built it solo.
 - The goal was the "grandpa test": if my grandpa can understand it, anyone can.

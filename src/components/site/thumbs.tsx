@@ -259,6 +259,33 @@ export function GinMark() {
   );
 }
 
+// Fred's mark and name as they sit in its sidebar, on the sidebar's color.
+// One pane is lit; hovering the tile lights them in turn, the way they do
+// while Fred works (.fred-tile-mark in globals.css).
+export function FredBrand() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-[#F5F5F2]">
+      <div className="flex items-center gap-[3cqw] text-[#141413]">
+        <svg
+          viewBox="0 0 20 26"
+          aria-hidden="true"
+          className="fred-tile-mark h-[15.6cqw] w-[12cqw]"
+        >
+          <rect className="fred-pane" x="2.5" y="2.5" width="6.5" height="9.5" />
+          <rect className="fred-pane fred-pane-2" x="11" y="2.5" width="6.5" height="9.5" />
+          <rect className="fred-pane fred-pane-3" x="2.5" y="14" width="6.5" height="9.5" />
+          <rect className="fred-pane fred-pane-4" x="11" y="14" width="6.5" height="9.5" />
+          <rect x="1.5" y="1.5" width="17" height="23" rx="2" fill="none" stroke="currentColor" strokeWidth="1.25" />
+          <path d="M10 1.5v23M1.5 13h17" stroke="currentColor" strokeWidth="1.25" fill="none" />
+        </svg>
+        <span className="text-[length:10.4cqw] font-semibold leading-none tracking-[-0.04em]">
+          Fred
+        </span>
+      </div>
+    </div>
+  );
+}
+
 // The 2025 homepage, whole, on its own background, so the old bento grid
 // keeps its margins. Light mode for the designer side, dark for the engineer
 // side; both shot from /archive/2025 at 1440 × 900 at the same moment. In

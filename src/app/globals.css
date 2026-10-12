@@ -132,3 +132,98 @@ body {
 .shine-on-hover[data-shine="true"] {
   animation: shine-sweep 1.4s ease;
 }
+
+/* ---- Ported from Fred (used by the Fred case study) ---- */
+
+/* The mark's panes light up yellow in turn while Fred works: top left, top
+   right, bottom right, bottom left, 0.6s apart. Hovering Fred's tile on Work
+   does the same. */
+.fred-pane {
+  fill: transparent;
+}
+.fred-tile-mark .fred-pane-2 {
+  fill: #ffdd55;
+}
+.fred-working .fred-pane,
+.group:hover .fred-tile-mark .fred-pane {
+  animation: fred-pane 2.4s infinite;
+}
+.fred-working .fred-pane-2,
+.group:hover .fred-tile-mark .fred-pane-2 {
+  animation-delay: 0.6s;
+}
+.fred-working .fred-pane-4,
+.group:hover .fred-tile-mark .fred-pane-4 {
+  animation-delay: 1.2s;
+}
+.fred-working .fred-pane-3,
+.group:hover .fred-tile-mark .fred-pane-3 {
+  animation-delay: 1.8s;
+}
+@keyframes fred-pane {
+  0%,
+  30% {
+    fill: #ffdd55;
+  }
+  45%,
+  100% {
+    fill: transparent;
+  }
+}
+
+/* Fred's live status text, e.g. "Watching for new places…" */
+.fred-shimmer {
+  background: linear-gradient(
+    90deg,
+    #6b6a64 0%,
+    #6b6a64 40%,
+    #141413 50%,
+    #6b6a64 60%,
+    #6b6a64 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fred-shimmer 2.6s linear infinite;
+}
+@keyframes fred-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -150% 0;
+  }
+}
+
+/* A label floating over the search card's skyline: in, hold, out. */
+.fred-chip {
+  animation: fred-chip 1.8s ease both;
+}
+@keyframes fred-chip {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  15%,
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fred-working .fred-pane,
+  .group:hover .fred-tile-mark .fred-pane,
+  .fred-chip {
+    animation: none;
+  }
+  .fred-shimmer {
+    animation: none;
+    background: none;
+    color: #6b6a64;
+  }
+}

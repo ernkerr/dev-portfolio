@@ -14,6 +14,11 @@ export const CASE_STUDIES: CaseStudyLink[] = [
     title: "Turning a developer portfolio into a design portfolio",
   },
   {
+    name: "Fred",
+    slug: "fred",
+    title: "An AI agent that hunts apartments in New York",
+  },
+  {
     name: "Gin Score Tracker",
     slug: "ginScoreTracker",
     title: "Gin Rummy scores, round by round",

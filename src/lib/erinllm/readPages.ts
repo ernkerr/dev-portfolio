@@ -21,6 +21,7 @@ const ALIASES: Record<string, string[]> = {
   groupSingAlong: ["sing along", "singalong", "sing-along"],
   orderSync: ["order sync"],
   portfolioRedesign: ["redesign"],
+  fred: ["apartment", "apartments"],
 };
 
 const escape = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

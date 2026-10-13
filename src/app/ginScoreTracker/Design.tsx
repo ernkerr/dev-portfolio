@@ -533,7 +533,6 @@ const SECTIONS: CaseStudySection[] = [
           who="App Store review, June 2026"
         />
 
-        <H3>By the numbers</H3>
         <SalesNumbers />
       </>
     ),

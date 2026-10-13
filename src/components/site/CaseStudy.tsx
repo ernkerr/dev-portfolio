@@ -22,7 +22,10 @@ export default function CaseStudy({
   design?: ReactNode;
   engineering?: ReactNode;
 }) {
-  const [engineer, setEngineer] = useState(engineerFirst);
+  // Opens on the side that's written, so a link never lands on "coming soon".
+  const [engineer, setEngineer] = useState(
+    design && engineering ? engineerFirst : !design,
+  );
   const writeUp = engineer ? engineering : design;
 
   function flip(next: boolean) {

@@ -46,13 +46,13 @@ export default function GroupSingAlong() {
             its flexibility, component-based architecture, and ability to handle
             real-time updates efficiently. Styling is done with{" "}
             <strong>Tailwind CSS</strong>, allowing for full customization.
-            <strong>Vercel Postgres (via Prisma) </strong>handles database
-            operations, storing song lyrics and user session data securely. The
-            app is hosted on
-            <strong>Vercel</strong>, which offers fast, serverless deployment,
-            ensuring accessibility with minimal setup. This stack was chosen to
-            keep the project lightweight, scalable, and easy to maintain,
-            allowing for smooth real-time interactions between users.
+            <strong>Pusher</strong> sends each song to every phone in the group
+            in real time. There&apos;s no database: a group lasts as long as its
+            host&apos;s session. The app is hosted on <strong>Vercel</strong>,
+            which offers fast, serverless deployment, ensuring accessibility
+            with minimal setup. This stack was chosen to keep the project
+            lightweight, scalable, and easy to maintain, allowing for smooth
+            real-time interactions between users.
           </>
         }
         stackimg="/stackLogos/react.png"
@@ -62,20 +62,19 @@ export default function GroupSingAlong() {
         img3="/images/groupSingAlong/groupsing3.png"
         problems={
           <>
-            One of the biggest challenges I faced was ensuring that the first
-            user to join became the conductor, controlling the song selection
-            for the group. I had to implement logic to assign this role
-            automatically and handle edge cases where the conductor left or
-            disconnected. Another issue was making sure that late joiners still
-            received the current lyrics before the next real-time update. Since
-            Pusher broadcasts only new events, users who joined mid-song
-            wouldn&apos;t see any lyrics until the next update. To fix this, I
-            had to fetch and display the latest lyrics from the database upon
-            joining, ensuring that everyone stayed in sync regardless of when
-            they entered the session.
+            One of the biggest challenges I faced was making sure the person who
+            creates the group becomes the host, controlling the song selection
+            for the group, and handling the case where the host leaves or
+            disconnects: everyone in the group is told the session has ended.
+            Another issue was making sure that late joiners still received the
+            current lyrics before the next real-time update. Since Pusher
+            broadcasts only new events, users who joined mid-song wouldn&apos;t
+            see any lyrics until the next update. To fix this, a new phone
+            announces itself when it joins and the host&apos;s phone sends it
+            the current song, so everyone stays in sync regardless of when they
+            entered the session.
           </>
         }
-        img4="/images/groupSingAlong/group.jpg"
         lessons={
           <>
             One of the biggest technical takeaways from this project was

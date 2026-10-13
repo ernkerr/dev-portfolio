@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import {
   Caption,
   Facts,
-  InProgress,
   label,
   H3,
   P,
@@ -17,8 +16,7 @@ import {
 } from "./sales";
 
 // The case study's live numbers from App Store Connect and the App Store,
-// counted at most once a day. Until the API key is set up, Results says so
-// and the top shows nothing.
+// counted at most once a day. Until the API key is set up, they show nothing.
 
 async function load<T>(what: string, get: () => Promise<T | null>) {
   try {
@@ -110,61 +108,59 @@ export async function HeadlineNumbers() {
 export default async function SalesNumbers() {
   const sales = await load<GinSales>("sales", getGinSales);
   if (!sales) {
-    return (
-      <InProgress title="Numbers">
-        Downloads and Premium purchases show here, updated daily, once the App
-        Store Connect API key is set up.
-      </InProgress>
-    );
+    return null;
   }
   const through = new Date(`${sales.through}T00:00:00Z`).toLocaleDateString(
     "en-US",
     { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" },
   );
   return (
-    <figure>
-      <Facts
-        items={[
-          {
-            label: "Unique users",
-            value: count(sales.users),
-            tip: "Each Apple Account that downloaded it, counted once.",
-          },
-          {
-            label: "Total downloads",
-            value: count(sales.downloads),
-            tip: "Every download, including reinstalls and new devices.",
-          },
-          {
-            label: "Premium purchases",
-            value: count(sales.purchases),
-            tip: "One-time unlocks and new subscriptions, not renewals or promo codes.",
-          },
-          {
-            label: "Conversion rate",
-            value: `${((100 * sales.purchases) / sales.users).toFixed(1)}%`,
-            tip: "Premium purchases per unique user.",
-          },
-          {
-            label: "Countries",
-            value: count(sales.countries.length),
-            tip: `Countries where at least 1 person downloaded it. Most are in ${place(
-              sales.countries[0][0],
-            )}, then ${and(
-              sales.countries.slice(1, 4).map(([code]) => place(code)),
-            )}.`,
-          },
-          {
-            tip: "Unique users who downloaded it on an iPhone, not an iPad or Mac.",
-            label: "On iPhone",
-            value: `${deviceShares(sales).find((d) => d.device === "iPhone")?.share ?? 0}%`,
-          },
-        ]}
-      />
-      <Caption>
-        Since launch in June 2025, through {through}, from App Store Connect.
-      </Caption>
-    </figure>
+    <>
+      <H3>By the numbers</H3>
+      <figure>
+        <Facts
+          items={[
+            {
+              label: "Unique users",
+              value: count(sales.users),
+              tip: "Each Apple Account that downloaded it, counted once.",
+            },
+            {
+              label: "Total downloads",
+              value: count(sales.downloads),
+              tip: "Every download, including reinstalls and new devices.",
+            },
+            {
+              label: "Premium purchases",
+              value: count(sales.purchases),
+              tip: "One-time unlocks and new subscriptions, not renewals or promo codes.",
+            },
+            {
+              label: "Conversion rate",
+              value: `${((100 * sales.purchases) / sales.users).toFixed(1)}%`,
+              tip: "Premium purchases per unique user.",
+            },
+            {
+              label: "Countries",
+              value: count(sales.countries.length),
+              tip: `Countries where at least 1 person downloaded it. Most are in ${place(
+                sales.countries[0][0],
+              )}, then ${and(
+                sales.countries.slice(1, 4).map(([code]) => place(code)),
+              )}.`,
+            },
+            {
+              tip: "Unique users who downloaded it on an iPhone, not an iPad or Mac.",
+              label: "On iPhone",
+              value: `${deviceShares(sales).find((d) => d.device === "iPhone")?.share ?? 0}%`,
+            },
+          ]}
+        />
+        <Caption>
+          Since launch in June 2025, through {through}, from App Store Connect.
+        </Caption>
+      </figure>
+    </>
   );
 }
 

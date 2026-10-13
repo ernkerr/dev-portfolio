@@ -27,7 +27,13 @@ Setup notes and screenshots: `~/Desktop/first-click-test/setup.md`
 
 ## Site
 
-- [ ] Once the homepage's first screen is final, ask Claude to swap the two "In progress" placeholders in the redesign case study (under the Overview, and the 2026 half of the before/after in Results) for real screenshots
+- [x] Swap the "In progress" placeholders in the redesign case study for real screenshots. The 2026 homepage shots in Results were retaken on October 9; if the homepage changes, ask Claude to retake them.
+- [ ] Group Sing Along's design side shows "coming soon" for now (the page opens on the engineering side). Its draft and open questions are in `src/app/groupSingAlong/Design.tsx`.
+
+## Live product sites
+
+- [ ] groupsingalong.com (`~/code/sing-along/groupsingalong/src/app/page.tsx`): take out the 3 placeholder testimonials, the Testimonials nav link, and "Join thousands of families and friends who are already using Group Sing Along".
+- [ ] Hearts Score Tracker's App Store description promises streaks and stats the app doesn't have: rewrite it with the next version.
 - [x] Fix the site-wide link preview in `src/app/layout.tsx`: it still says "Software Engineer & Developer Content Creator" (finding 6 in the redesign case study)
 
 ## Gin Score Tracker case study

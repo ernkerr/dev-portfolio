@@ -6,6 +6,7 @@ import SiteShell from "@/components/site/SiteShell";
 import Tile, { type TileItem } from "@/components/site/Tile";
 import {
   CarpoolioMark,
+  FredBrand,
   GinMark,
   OrderSyncFlow,
   OrderSyncTokens,
@@ -59,6 +60,17 @@ const WORK: TileItem[] = [
         node: <PortfolioBefore mode="dark" />,
       },
     },
+  },
+  {
+    href: "/fred",
+    title: "An AI agent that hunts apartments in New York",
+    meta: ["Fred", "Built in 1 day"],
+    art: {
+      kind: "custom",
+      alt: "Fred’s mark, a window with one yellow pane lit, next to the name Fred.",
+      node: <FredBrand />,
+    },
+    aspect: "aspect-[4/3]",
   },
   {
     href: "/ginScoreTracker",

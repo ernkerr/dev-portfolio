@@ -34,9 +34,8 @@ export const metadata: Metadata = {
     template: "%s | Erin Kerr",
   },
   description: siteDescription,
-  alternates: {
-    canonical: "/",
-  },
+  // No canonical here: pages inherit it, so every page would point at the
+  // homepage. Each page sets its own.
   openGraph: {
     title: siteTitle,
     description: siteDescription,

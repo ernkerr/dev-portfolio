@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import HeroHeadline from "@/components/site/HeroHeadline";
@@ -15,6 +16,10 @@ import {
 import { EMAIL, focusRing, mono } from "@/components/site/links";
 import { isEngineerSide } from "@/components/site/side";
 import { EXPERIENCE } from "@/data/experience";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 // The work in order: first here is first on phones, and from 768px it reads
 // left to right in rows of two. Every tile is 4:3, so the rows line up.

@@ -13,7 +13,9 @@ type Photo = { id: string; src: string; at: number; waiting: boolean };
 const label = "font-mono text-label uppercase";
 const action = `${label} text-site-ink transition-colors hover:text-site-blue disabled:text-site-muted ${focusRing}`;
 
-export default function Review() {
+// inline: shown on /review alongside the other reviews, which has the
+// one sign-out button
+export default function Review({ inline = false }: { inline?: boolean }) {
   const [photos, setPhotos] = useState<Photo[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -22,10 +24,11 @@ export default function Review() {
   const call = (method: string, query = "") =>
     fetch(`/api/camera?review${query}`, { method, cache: "no-store" });
 
-  // Signed out (it lasts 7 days): back to /review, then here again
+  // Signed out (it lasts 7 days): back to /review, then to whichever page
+  // this is on again
   const signedOut = (res: Response | null) => {
     if (res?.status !== 401) return false;
-    location.assign("/review?next=/about/review");
+    location.assign(`/review?next=${location.pathname}`);
     return true;
   };
 
@@ -142,9 +145,11 @@ export default function Review() {
           )}
         </>
       )}
-      <div className="mt-12">
-        <SignOut />
-      </div>
+      {!inline && (
+        <div className="mt-12">
+          <SignOut />
+        </div>
+      )}
     </div>
   );
 }

@@ -25,7 +25,9 @@ const date = (ms: number) =>
     minute: "2-digit",
   });
 
-export default function Questions() {
+// inline: shown on /review alongside the other reviews, which has the
+// one sign-out button
+export default function Questions({ inline = false }: { inline?: boolean }) {
   const [questions, setQuestions] = useState<Kept[] | null>(null);
   const [canKeep, setCanKeep] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -36,10 +38,11 @@ export default function Questions() {
   const call = (method: string, query = "") =>
     fetch(`/api/erinllm?review${query}`, { method, cache: "no-store" });
 
-  // Signed out (it lasts 7 days): back to /review, then here again
+  // Signed out (it lasts 7 days): back to /review, then to whichever page
+  // this is on again
   const signedOut = (res: Response | null) => {
     if (res?.status !== 401) return false;
-    location.assign("/review?next=/erinllm/review");
+    location.assign(`/review?next=${location.pathname}`);
     return true;
   };
 
@@ -145,9 +148,11 @@ export default function Questions() {
             : "No one’s asked anything yet."}
         </p>
       )}
-      <div className="mt-12">
-        <SignOut />
-      </div>
+      {!inline && (
+        <div className="mt-12">
+          <SignOut />
+        </div>
+      )}
     </div>
   );
 }

@@ -12,7 +12,9 @@ import type { Fish } from "@/lib/aquarium";
 const label = "font-mono text-label uppercase";
 const action = `${label} text-site-ink transition-colors hover:text-site-blue disabled:text-site-muted ${focusRing}`;
 
-export default function Review() {
+// inline: shown on /review alongside the other reviews, which has the
+// one sign-out button
+export default function Review({ inline = false }: { inline?: boolean }) {
   const [fish, setFish] = useState<Fish[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -23,7 +25,7 @@ export default function Review() {
 
   const signedOut = (res: Response | null) => {
     if (res?.status !== 401) return false;
-    location.assign("/review?next=/fun/aquarium/review");
+    location.assign(`/review?next=${location.pathname}`);
     return true;
   };
 
@@ -113,9 +115,11 @@ export default function Review() {
           {list(fish.filter((f) => !f.waiting), "Swimming", "No fish yet.")}
         </>
       )}
-      <div className="mt-12">
-        <SignOut />
-      </div>
+      {!inline && (
+        <div className="mt-12">
+          <SignOut />
+        </div>
+      )}
     </div>
   );
 }

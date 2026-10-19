@@ -117,8 +117,12 @@ export default function IdeationPage() {
           </figure>
         </div>
       </div>
-      {/* Under them, each thing on the bookshelf, version by version */}
-      <div className="mt-section">
+      {/* Under them, each thing on the bookshelf, version by version. Each
+          piece draws the whole bookshelf round it, so a piece at the end of
+          a row reaches past the window; clipped sideways at the window's
+          sides, like the strip above, so the page doesn't scroll sideways
+          but a lamp's glow still spills to them and notes open below. */}
+      <div className="mx-[calc(50%-50vw)] mt-section overflow-x-clip px-[calc(50vw-50%)]">
         <Versions />
       </div>
     </SiteShell>

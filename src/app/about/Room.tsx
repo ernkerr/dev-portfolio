@@ -3,6 +3,7 @@ import { TipLabel } from "@/components/site/prose";
 import DraggableCord from "./DraggableCord";
 import LampSwitch from "./LampSwitch";
 import PlugInDeck from "./PlugInDeck";
+import BookSpot from "./BookSpot";
 import OpusQuadLive from "./OpusQuadLive";
 import {
   DECK_BUTTONS,
@@ -1741,12 +1742,12 @@ function TurningBook({
     height: pct(h, VIEW.height),
   };
   const faces = (
-    <div className="relative h-full w-full transition-transform duration-500 ease-switch [transform-origin:right_center] [transform-style:preserve-3d] group-hover:delay-150 group-hover:[transform:rotateY(-90deg)] group-focus:delay-150 group-focus:[transform:rotateY(-90deg)] motion-reduce:transition-none">
+    <div className="relative h-full w-full transition-transform duration-500 ease-switch [transform-origin:right_center] group-hover:delay-150 group-hover:[transform:rotateY(-90deg)] group-focus:delay-150 group-focus:[transform:rotateY(-90deg)] group-data-[live]:[transform-style:preserve-3d] motion-reduce:transition-none">
       <svg
         viewBox={`0 0 ${sw} ${sh}`}
         preserveAspectRatio="none"
         aria-hidden="true"
-        className={`absolute inset-0 h-full w-full [backface-visibility:hidden] ${dim ? "[filter:saturate(0.7)_brightness(0.93)]" : ""}`}
+        className={`absolute inset-0 h-full w-full group-data-[live]:[backface-visibility:hidden] ${dim ? "[filter:saturate(0.7)_brightness(0.93)]" : ""}`}
       >
         {book.spine}
         {finish && (
@@ -1765,7 +1766,7 @@ function TurningBook({
         viewBox={`0 0 ${cw} ${ch}`}
         preserveAspectRatio="none"
         aria-hidden="true"
-        className="absolute left-full top-0 h-full [backface-visibility:hidden] [transform-origin:left_center] [transform:rotateY(90deg)]"
+        className="absolute left-full top-0 hidden h-full [backface-visibility:hidden] [transform-origin:left_center] [transform:rotateY(90deg)] group-data-[live]:block"
         style={{ width: pct(d, t) }}
       >
         {book.cover}
@@ -1796,7 +1797,7 @@ function TurningBook({
     const shift = (slide: number) =>
       (((1 - scale) / 2 + slide / 100) / scale) * 100;
     return (
-      <div
+      <BookSpot
         tabIndex={0}
         role="img"
         aria-label={book.title}
@@ -1804,7 +1805,7 @@ function TurningBook({
         style={{ ...box, perspective: `${700 * scale}px` }}
       >
         <div
-          className="pointer-events-none absolute left-0 top-0 origin-top-left transition-transform delay-150 duration-300 ease-switch [transform-style:preserve-3d] [transform:var(--rest)] group-hover:delay-0 group-hover:[transform:var(--pull)] group-focus:delay-0 group-focus:[transform:var(--pull)] motion-reduce:transition-none"
+          className="pointer-events-none absolute left-0 top-0 origin-top-left transition-transform delay-150 duration-300 ease-switch [transform:var(--rest)] group-hover:delay-0 group-hover:[transform:var(--pull)] group-focus:delay-0 group-focus:[transform:var(--pull)] group-data-[live]:[transform-style:preserve-3d] motion-reduce:transition-none"
           style={
             {
               width: `${scale * 100}%`,
@@ -1816,7 +1817,7 @@ function TurningBook({
         >
           {faces}
         </div>
-      </div>
+      </BookSpot>
     );
   }
 
@@ -1826,7 +1827,7 @@ function TurningBook({
     // back, and the one opening goes over it straight away. Focusing it
     // (Tab, or a tap on a phone) opens it too.
     return (
-      <div
+      <BookSpot
         tabIndex={0}
         role="img"
         aria-label={book.title}
@@ -1834,17 +1835,17 @@ function TurningBook({
         style={box}
       >
         <div
-          className="pointer-events-none h-full w-full transition-transform delay-150 duration-300 ease-switch [transform-style:preserve-3d] group-hover:delay-0 group-hover:[transform:var(--pull)] group-focus:delay-0 group-focus:[transform:var(--pull)] motion-reduce:transition-none"
+          className="pointer-events-none h-full w-full transition-transform delay-150 duration-300 ease-switch group-hover:delay-0 group-hover:[transform:var(--pull)] group-focus:delay-0 group-focus:[transform:var(--pull)] group-data-[live]:[transform-style:preserve-3d] motion-reduce:transition-none"
           style={pull}
         >
           {faces}
         </div>
-      </div>
+      </BookSpot>
     );
   }
 
   return (
-    <div
+    <BookSpot
       aria-label={book.title}
       className="group absolute [perspective:700px] hover:z-10"
       style={box}
@@ -1861,12 +1862,12 @@ function TurningBook({
         }}
       />
       <div
-        className="h-full w-full transition-transform delay-150 duration-300 ease-switch [transform-style:preserve-3d] group-hover:delay-0 group-hover:[transform:var(--pull)] motion-reduce:transition-none"
+        className="h-full w-full transition-transform delay-150 duration-300 ease-switch group-hover:delay-0 group-hover:[transform:var(--pull)] group-data-[live]:[transform-style:preserve-3d] motion-reduce:transition-none"
         style={pull}
       >
         {faces}
       </div>
-    </div>
+    </BookSpot>
   );
 }
 

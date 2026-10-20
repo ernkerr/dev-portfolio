@@ -7,7 +7,7 @@ import { FinalRoom } from "./Room";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Erin Kerr is a product and UI/UX designer who engineers. Before design: 500+ research interviews at SRI International and brain-computer interface tools at Wispr AI.",
+    "Erin Kerr is a UI/UX developer. Before design: 500+ research interviews at SRI International and brain-computer interface tools at Wispr AI.",
   alternates: { canonical: "/about" },
 };
 

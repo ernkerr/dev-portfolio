@@ -17,8 +17,9 @@ export default function IdeationPage() {
   return (
     <SiteShell>
       {/* How I worked, in the About page's note's style: the title, then
-          what I did, in the order I did it */}
-      <div className="pt-10 md:pt-16">
+          what I did, in the order I did it. It sits over the shelves' strip,
+          which reaches up behind it for a lamp's glow. */}
+      <div className="relative z-10 pt-10 md:pt-16">
         <h1 className="font-serif text-subhead text-site-ink">Ideation</h1>
         <div className="mt-2 space-y-4">
           <P>
@@ -75,50 +76,58 @@ export default function IdeationPage() {
           never does and the header always spans it. The strip runs the full
           width of the window, padded back to the page's edges, so a lit
           lamp's glow only stops at the window's sides and under the header.
-          It's as far under the note as the About page's room is. */}
-      <div className="mx-[calc(50%-50vw)] overflow-x-auto px-[calc(50vw-50%)] pt-12 md:pt-16">
-        <div className="flex w-max gap-x-10">
-          {SHELVES.map(
-            ({
-              version,
-              plant,
-              books,
-              basket,
-              headphones,
-              dj,
-              camera,
-              lava,
-              cuttings,
-              clock,
-            }) => (
-              <figure key={version} className="shrink-0">
-                <Room
-                  lamp={version}
-                  plant={plant?.version}
-                  books={books?.version}
-                  basket={basket?.version}
-                  headphones={headphones?.version}
-                  dj={dj?.version}
-                  camera={camera?.version}
-                  lava={lava?.version}
-                  cuttings={cuttings?.version}
-                  clock={clock?.version}
-                />
-                <figcaption className="mt-3 font-mono text-label text-site-muted">
-                  {String(version).padStart(2, "0")}
-                </figcaption>
-              </figure>
-            ),
-          )}
-          {/* Past the shelves: the window, the desk under it and my
-              closet, as they are */}
-          <figure className="shrink-0">
-            <WindowAndCloset />
-          </figure>
+          It's as far under the note as the About page's room is. A scroller
+          clips up and down too, so it reaches up behind the note (pt-60
+          -mt-60) and the glow fades out at its top instead of stopping in a
+          line. */}
+      <div className="pt-12 md:pt-16">
+        <div className="mx-[calc(50%-50vw)] -mt-60 overflow-x-auto px-[calc(50vw-50%)] pt-60 [mask-image:linear-gradient(to_bottom,transparent,black_8rem)]">
+          <div className="flex w-max gap-x-10">
+            {SHELVES.map(
+              ({
+                version,
+                plant,
+                books,
+                basket,
+                headphones,
+                dj,
+                camera,
+                lava,
+                cuttings,
+                clock,
+              }) => (
+                <figure key={version} className="shrink-0">
+                  <Room
+                    lamp={version}
+                    plant={plant?.version}
+                    books={books?.version}
+                    basket={basket?.version}
+                    headphones={headphones?.version}
+                    dj={dj?.version}
+                    camera={camera?.version}
+                    lava={lava?.version}
+                    cuttings={cuttings?.version}
+                    clock={clock?.version}
+                  />
+                  <figcaption className="mt-3 font-mono text-label text-site-muted">
+                    {String(version).padStart(2, "0")}
+                  </figcaption>
+                </figure>
+              ),
+            )}
+            {/* Past the shelves: the window, the desk under it and my
+                closet, as they are */}
+            <figure className="shrink-0">
+              <WindowAndCloset />
+            </figure>
+          </div>
         </div>
       </div>
-      {/* Under them, each thing on the bookshelf, version by version */}
-      <div className="mt-section">
+      {/* Under them, each thing on the bookshelf, version by version. Each
+          is drawn on its whole bookshelf, which reaches past it unseen, so
+          that's cut off at the window's sides, or the page would be wider
+          than a phone. Only sideways: what's pulled out can still rise. */}
+      <div className="-mx-gutter mt-section overflow-x-clip px-gutter">
         <Versions />
       </div>
     </SiteShell>

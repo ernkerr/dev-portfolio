@@ -7091,11 +7091,16 @@ export function WindowAndCloset() {
 export function FinalRoom() {
   const last = SHELVES[SHELVES.length - 1];
   const across = VIEW.width + WALL + CLOSET_WIDTH + LANTERN_WIDTH;
+  // On a phone the room scrolls sideways, and a scroller clips up and down
+  // too, which cut off the lamp's glow and a book pulled out to read where
+  // they rise above the room. So the scroller reaches up over the words
+  // above it (pt-60 -mt-60) and lets taps there through to them; the glow
+  // fades out at its top instead of stopping in a line.
   return (
     <div>
-      <div className="-mx-gutter snap-x snap-mandatory scroll-px-gutter overflow-x-auto [container-type:inline-size] md:mx-0 md:snap-none md:scroll-px-0 md:overflow-visible">
+      <div className="pointer-events-none -mx-gutter -mt-60 snap-x snap-mandatory scroll-px-gutter overflow-x-auto pt-60 [container-type:inline-size] [mask-image:linear-gradient(to_bottom,transparent,black_8rem)] md:pointer-events-auto md:mx-0 md:mt-0 md:snap-none md:scroll-px-0 md:overflow-visible md:pt-0 md:[mask-image:none]">
         <div
-          className="mx-auto flex w-max items-start px-gutter [--room-unit:var(--phone)] *:snap-center md:px-0 md:[--room-unit:var(--fit)] [&>*:last-child]:snap-end"
+          className="pointer-events-auto mx-auto flex w-max items-start px-gutter [--room-unit:var(--phone)] *:snap-center md:px-0 md:[--room-unit:var(--fit)] [&>*:last-child]:snap-end"
           style={
             {
               "--fit": `min(calc(80cqw / ${across}), calc((100svh - 18rem) / ${VIEW.height.toFixed(2)}))`,

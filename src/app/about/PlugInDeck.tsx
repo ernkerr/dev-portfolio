@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import DraggableCord from "./DraggableCord";
 
 type Pt = [number, number];
@@ -10,7 +10,9 @@ type Pt = [number, number];
 // (it pulses while the cord's held, to show where) and it plugs in: the
 // deck turns on and comes out bigger, like a pulled book, grown about the
 // jack so the plug stays in. Pull the plug back out and it shrinks back
-// and switches off. Room draws the deck off and on and passes both in.
+// and switches off. Clicking the deck plugs the cord in for you, since a
+// thin cord is hard to grab on a phone. Room draws the deck off and on
+// and passes both in.
 export default function PlugInDeck({
   deck,
   lights,
@@ -30,13 +32,16 @@ export default function PlugInDeck({
 }) {
   const [plugged, setPlugged] = useState(false);
   const [holding, setHolding] = useState(false);
+  const plugIn = useRef<(() => void) | null>(null);
   const [jx, jy] = jack;
 
   return (
     <g>
       <g
-        className={`transition-transform duration-700 ease-switch [transform-box:view-box] motion-reduce:transition-none ${plugged ? "scale-150" : "scale-100"}`}
+        className={`${plugged ? "" : "cursor-pointer"} transition-transform duration-700 ease-switch [transform-box:view-box] motion-reduce:transition-none ${plugged ? "scale-150" : "scale-100"}`}
         style={{ transformOrigin: `${jx}px ${jy}px` }}
+        pointerEvents={plugged ? "none" : "all"}
+        onClick={() => plugIn.current?.()}
       >
         {deck}
         {plugged && (
@@ -59,6 +64,7 @@ export default function PlugInDeck({
         jack={jack}
         onPlugChange={setPlugged}
         onHoldChange={setHolding}
+        plugIn={plugIn}
       />
     </g>
   );

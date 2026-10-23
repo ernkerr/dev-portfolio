@@ -15,9 +15,11 @@ export type DeckSpot = { center: number; width: number; floor: number };
 // The Opus Quad to plug the headphones into, for DJ 4, with the headphone
 // cord in front of it. It lies flat on the board, seen straight on. Drag
 // the cord's plug to its headphone jack (it pulses while the cord's held)
-// and it plugs in: the deck comes out to the middle of the bookcase, twice
-// as big, tilting up as it comes so its top turns into view, and turns
-// on, like a pulled book turning to show its cover. The plug goes with
+// and it plugs in (or click the deck, and the cord plugs itself in, since
+// a thin cord is hard to grab on a phone): the deck comes out to the
+// middle of the bookcase, twice as big, tilting up as it comes so its top
+// turns into view, and turns on, like a pulled book turning to show its
+// cover. The plug goes with
 // the jack. Pull the plug out, click anywhere outside it, or press Escape,
 // and it switches off and goes back flat.
 // Room draws the deck straight on, tilted, and tilted and lit, in each
@@ -83,6 +85,8 @@ export default function TiltingDeck({
   const rootRef = useRef<SVGGElement>(null);
   // Pulls the cord's plug out (DraggableCord fills it in)
   const unplug = useRef<(() => void) | null>(null);
+  // And plugs it in (DraggableCord fills that in too)
+  const plugIn = useRef<(() => void) | null>(null);
   const flatRef = useRef<SVGGElement>(null);
   const tiltedRef = useRef<SVGGElement>(null);
   // Where it comes out to this time
@@ -214,7 +218,14 @@ export default function TiltingDeck({
 
   return (
     <g ref={rootRef}>
-      <g ref={flatRef} transform={start.flat}>
+      {/* Lying flat, the deck plugs the cord in when it's clicked */}
+      <g
+        ref={flatRef}
+        transform={start.flat}
+        pointerEvents={plugged ? "none" : "all"}
+        className={plugged ? undefined : "cursor-pointer"}
+        onClick={() => plugIn.current?.()}
+      >
         {flat}
       </g>
       <g ref={tiltedRef} transform={start.tilted} opacity={0}>
@@ -241,6 +252,7 @@ export default function TiltingDeck({
         onPlugChange={onPlugChange}
         onHoldChange={setHolding}
         unplug={unplug}
+        plugIn={plugIn}
       />
     </g>
   );

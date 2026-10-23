@@ -851,7 +851,7 @@ export default function CameraOnShelf({
         return;
       }
       streamRef.current = stream;
-      if (videoRef.current) videoRef.current.srcObject = stream;
+      if (videoRef.current) showStream(videoRef.current, stream);
       setStreaming(true);
     } catch (e) {
       setMode("photos");
@@ -866,11 +866,29 @@ export default function CameraOnShelf({
     }
   };
 
+  // The live picture on its screen. iPhone Safari only plays a camera's
+  // stream in a video that's muted as an attribute (React only sets the
+  // property) and told to play once it has the stream, so it's both here;
+  // otherwise the screen stays black and the shutter has nothing to take.
+  const showStream = (video: HTMLVideoElement, stream: MediaStream) => {
+    video.muted = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+    video.srcObject = stream;
+    video.play().catch(() => {});
+  };
+
   // The picture, as the screen shows it: 4 by 3 from the middle, mirrored
   // like a selfie, up to 800 wide
   const capture = () => {
     const video = videoRef.current;
-    if (!video || !video.videoWidth) return;
+    if (!video || !video.videoWidth) {
+      // Still starting up (or stalled): nudge it and say so, rather than
+      // the shutter doing nothing
+      video?.play().catch(() => {});
+      say("The camera's still starting. Try again in a second.");
+      return;
+    }
     const { videoWidth: vw, videoHeight: vh } = video;
     const sw = Math.min(vw, (vh * 4) / 3);
     const sh = (sw * 3) / 4;
@@ -1115,7 +1133,7 @@ export default function CameraOnShelf({
                             streamRef.current &&
                             v.srcObject !== streamRef.current
                           )
-                            v.srcObject = streamRef.current;
+                            showStream(v, streamRef.current);
                         }}
                         autoPlay
                         playsInline
@@ -1377,7 +1395,7 @@ export default function CameraOnShelf({
         aria-haspopup="dialog"
         aria-label="My camera. Open it to take a photo or see the ones people left."
         onClick={pickUp}
-        className={`absolute transition-transform duration-300 ease-switch hover:-translate-y-0.5 motion-reduce:transition-none ${focusRing} ${open ? "invisible" : ""}`}
+        className={`absolute transition-transform duration-300 ease-switch before:absolute before:-inset-x-2 before:-inset-y-4 before:content-[''] hover:-translate-y-0.5 motion-reduce:transition-none ${focusRing} ${open ? "invisible" : ""}`}
         style={box}
       >
         {lies ? (

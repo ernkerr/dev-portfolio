@@ -1700,6 +1700,7 @@ const PULL = {
 const READ_HEIGHT = 280;
 const READ_ABOVE = BOOK_BOARD - (BOARDS[0] + BOARD); // the top of the gap above the books
 
+const BOOK_MARGIN = 4; // the least room kept between a pulled book and the room's sides
 const pct = (v: number, total: number) => `${(v / total) * 100}%`;
 
 function TurningBook({
@@ -1728,8 +1729,17 @@ function TurningBook({
   const [sw, sh] = book.spineBox ?? [t, h];
   const [cw, ch] = book.coverBox ?? [d, h];
   // The turned cover spans t to t + d across the spine's box; scaled about
-  // the spine's center, this slide puts it where the spine stood.
-  const slideX = ((-scale * (t + d)) / (2 * t)) * 100;
+  // the spine's center, this slide puts it where the spine stood. A book
+  // near either end of the shelf moves over so its cover stays inside the
+  // room (on a phone, the room's scroller cuts off anything past it).
+  const coverHalf = (scale * d) / 2;
+  const spineMid = x + t / 2;
+  const nudge =
+    Math.min(
+      VIEW.left + VIEW.width - BOOK_MARGIN - coverHalf,
+      Math.max(VIEW.left + BOOK_MARGIN + coverHalf, spineMid),
+    ) - spineMid;
+  const slideX = ((-scale * (t + d)) / (2 * t) + nudge / t) * 100;
   // Its foot stays near the board, or, to read, comes up to the top of the
   // gap above the books.
   const slideY = read
@@ -1855,7 +1865,7 @@ function TurningBook({
       <div
         className="pointer-events-none absolute group-hover:pointer-events-auto"
         style={{
-          left: pct(t / 2 - (scale * d) / 2, t),
+          left: pct(t / 2 - coverHalf + nudge, t),
           width: pct(scale * d, t),
           top: pct(h * (1 - scale) - lift, h),
           height: pct(scale * h, h),
@@ -7094,14 +7104,15 @@ export function FinalRoom() {
   const across = VIEW.width + WALL + CLOSET_WIDTH + LANTERN_WIDTH;
   // On a phone the room scrolls sideways, and a scroller clips up and down
   // too, which cut off the lamp's glow and a book pulled out to read where
-  // they rise above the room. So the scroller reaches up over the words
-  // above it (pt-60 -mt-60) and lets taps there through to them; the glow
-  // fades out at its top instead of stopping in a line.
+  // they rise above the room. So the scroller reaches up behind the words
+  // above it (pt-60 -mt-60). It takes the pointer itself, with no mask:
+  // iPhone Safari won't swipe a scroller that has pointer-events: none,
+  // and a mask would lift it over the words, taking their taps.
   return (
     <div>
-      <div className="pointer-events-none -mx-gutter -mt-60 snap-x snap-mandatory scroll-px-gutter overflow-x-auto pt-60 [container-type:inline-size] [mask-image:linear-gradient(to_bottom,transparent,black_8rem)] md:pointer-events-auto md:mx-0 md:mt-0 md:snap-none md:scroll-px-0 md:overflow-visible md:pt-0 md:[mask-image:none]">
+      <div className="-mx-gutter -mt-60 snap-x snap-mandatory scroll-px-gutter overflow-x-auto overscroll-x-contain pt-60 [container-type:inline-size] [touch-action:pan-x_pan-y] md:mx-0 md:mt-0 md:snap-none md:scroll-px-0 md:overflow-visible md:pt-0">
         <div
-          className="pointer-events-auto mx-auto flex w-max items-start px-gutter [--room-unit:var(--phone)] *:snap-center md:px-0 md:[--room-unit:var(--fit)] [&>*:last-child]:snap-end"
+          className="mx-auto flex w-max items-start px-gutter [--room-unit:var(--phone)] *:snap-center md:px-0 md:[--room-unit:var(--fit)] [&>*:last-child]:snap-end"
           style={
             {
               "--fit": `min(calc(80cqw / ${across}), calc((100svh - 18rem) / ${VIEW.height.toFixed(2)}))`,

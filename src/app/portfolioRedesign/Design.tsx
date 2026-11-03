@@ -84,6 +84,24 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
+    id: "results",
+    title: "Results",
+    headline: "The first screen now leads with design work.",
+    content: (
+      <>
+        <BeforeAfter />
+        <Compare />
+        <Figure
+          src={`${IMG}/after-home-full.png`}
+          alt="The full 2026 homepage: the headline and switch, the experience list, then 2 columns of project tiles."
+          width={1440}
+          height={2706}
+          caption="The 2026 homepage."
+        />
+      </>
+    ),
+  },
+  {
     id: "problem",
     title: "Problem",
     headline:
@@ -552,24 +570,6 @@ const SECTIONS: CaseStudySection[] = [
           <li>Motion respects reduced-motion settings.</li>
           <li>Every tile has alt text that describes what’s in it.</li>
         </List>
-      </>
-    ),
-  },
-  {
-    id: "results",
-    title: "Results",
-    headline: "The first screen now leads with design work.",
-    content: (
-      <>
-        <BeforeAfter />
-        <Compare />
-        <Figure
-          src={`${IMG}/after-home-full.png`}
-          alt="The full 2026 homepage: the headline and switch, the experience list, then 2 columns of project tiles."
-          width={1440}
-          height={2706}
-          caption="The 2026 homepage."
-        />
       </>
     ),
   },

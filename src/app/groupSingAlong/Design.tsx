@@ -69,6 +69,26 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
+    id: "results",
+    title: "Results",
+    content: (
+      <>
+        <P>
+          The first version took about 2 weeks: my first commit was December 27,
+          2024, and search worked in production on January 6, 2025. It has been
+          live ever since, and it became an installable web app in February
+          2025.
+        </P>
+        <InProgress title="Usage">
+          Add the number of people who use it, with its source and date (Google
+          Analytics or Vercel Analytics), and any real moment you saw it used.
+          The homepage says about 155 active users; that number needs a source
+          before it stays.
+        </InProgress>
+      </>
+    ),
+  },
+  {
     id: "problem",
     title: "Problem",
     headline:
@@ -334,26 +354,6 @@ const SECTIONS: CaseStudySection[] = [
           The app is built but not on the App Store. Add whether it went to
           review and what’s next. The web app has had the same 3-person limit
           since December 2025, with no way to upgrade on the web.
-        </InProgress>
-      </>
-    ),
-  },
-  {
-    id: "results",
-    title: "Results",
-    content: (
-      <>
-        <P>
-          The first version took about 2 weeks: my first commit was December 27,
-          2024, and search worked in production on January 6, 2025. It has been
-          live ever since, and it became an installable web app in February
-          2025.
-        </P>
-        <InProgress title="Usage">
-          Add the number of people who use it, with its source and date (Google
-          Analytics or Vercel Analytics), and any real moment you saw it used.
-          The homepage says about 155 active users; that number needs a source
-          before it stays.
         </InProgress>
       </>
     ),

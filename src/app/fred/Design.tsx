@@ -87,6 +87,48 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
+    id: "results",
+    title: "Results",
+    headline: "Live, with a demo anyone can try.",
+    content: (
+      <>
+        <P>
+          Fred runs on our own domain, and{" "}
+          <a
+            href={DEMO}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={inlineLink}
+          >
+            the demo
+          </a>{" "}
+          signs you in as a fresh guest with an example search, so you can try
+          the real app, real listings and the real Fred without an account.
+        </P>
+        <Stats
+          items={[
+            { label: "Built in", value: "1 day" },
+            {
+              label: "My commits",
+              value: "37",
+              tip: "My commits to the Fred repo on October 11, 2026, not counting merges.",
+            },
+            {
+              label: "Demo inbox",
+              value: "195",
+              tip: "Places in a new demo guest’s inbox on October 12, 2026, for 1 bed or more under $4,500 in Williamsburg, Greenpoint and the East Village.",
+            },
+          ]}
+        />
+        <BuildNote href="/fred">
+          Next.js on Cloudflare, the Vercel AI SDK for the streaming chat and
+          MapLibre for the maps, talking to James’s Mastra agent through one
+          typed contract.
+        </BuildNote>
+      </>
+    ),
+  },
+  {
     id: "problem",
     title: "Problem",
     headline:
@@ -435,48 +477,6 @@ const SECTIONS: CaseStudySection[] = [
             { src: `${IMG}/phone-map.jpg`, ...phone, label: "Map", alt: "The map view on a phone, with price pills." },
           ]}
         />
-      </>
-    ),
-  },
-  {
-    id: "results",
-    title: "Results",
-    headline: "Live, with a demo anyone can try.",
-    content: (
-      <>
-        <P>
-          Fred runs on our own domain, and{" "}
-          <a
-            href={DEMO}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={inlineLink}
-          >
-            the demo
-          </a>{" "}
-          signs you in as a fresh guest with an example search, so you can try
-          the real app, real listings and the real Fred without an account.
-        </P>
-        <Stats
-          items={[
-            { label: "Built in", value: "1 day" },
-            {
-              label: "My commits",
-              value: "37",
-              tip: "My commits to the Fred repo on October 11, 2026, not counting merges.",
-            },
-            {
-              label: "Demo inbox",
-              value: "195",
-              tip: "Places in a new demo guest’s inbox on October 12, 2026, for 1 bed or more under $4,500 in Williamsburg, Greenpoint and the East Village.",
-            },
-          ]}
-        />
-        <BuildNote href="/fred">
-          Next.js on Cloudflare, the Vercel AI SDK for the streaming chat and
-          MapLibre for the maps, talking to James’s Mastra agent through one
-          typed contract.
-        </BuildNote>
       </>
     ),
   },

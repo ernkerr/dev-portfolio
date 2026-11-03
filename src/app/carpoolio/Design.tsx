@@ -57,6 +57,21 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
+    id: "results",
+    title: "Results",
+    content: (
+      <>
+        <P>
+          Carpoolio went from a coded prototype in October 2024 to the App Store
+          in July 2025: 4 iOS releases, with the first approved in about a day.
+          In January 2026 another company with an app called Carpoolio bought
+          the name from me. I had used it first, with carpoolio.co live since
+          January 2025, and as part of the sale I took my app down.
+        </P>
+      </>
+    ),
+  },
+  {
     id: "problem",
     title: "Problem",
     headline:
@@ -276,21 +291,6 @@ const SECTIONS: CaseStudySection[] = [
           ]}
           caption="The iOS app as it shipped. From my App Store screenshots."
         />
-      </>
-    ),
-  },
-  {
-    id: "results",
-    title: "Results",
-    content: (
-      <>
-        <P>
-          Carpoolio went from a coded prototype in October 2024 to the App Store
-          in July 2025: 4 iOS releases, with the first approved in about a day.
-          In January 2026 another company with an app called Carpoolio bought
-          the name from me. I had used it first, with carpoolio.co live since
-          January 2025, and as part of the sale I took my app down.
-        </P>
       </>
     ),
   },

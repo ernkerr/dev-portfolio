@@ -89,6 +89,20 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
+    id: "results",
+    title: "Results",
+    content: (
+      <>
+        <P>
+          Hearts went from first commit to the App Store in 2 days, with 23
+          commits in about 23 hours. It has had 3 public versions since December
+          2025 and is rated 5.0 from 2 ratings as of October 2026. Across the
+          family, 4 score trackers are live, with 9 ratings, all 5 stars.
+        </P>
+      </>
+    ),
+  },
+  {
     id: "problem",
     title: "Problem",
     headline:
@@ -232,20 +246,6 @@ const SECTIONS: CaseStudySection[] = [
             the rest: a black field with red and cream.
           </Caption>
         </figure>
-      </>
-    ),
-  },
-  {
-    id: "results",
-    title: "Results",
-    content: (
-      <>
-        <P>
-          Hearts went from first commit to the App Store in 2 days, with 23
-          commits in about 23 hours. It has had 3 public versions since December
-          2025 and is rated 5.0 from 2 ratings as of October 2026. Across the
-          family, 4 score trackers are live, with 9 ratings, all 5 stars.
-        </P>
       </>
     ),
   },

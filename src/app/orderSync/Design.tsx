@@ -897,6 +897,16 @@ export const E = {
 export const SECTIONS: CaseStudySection[] = [
   { id: "overview", title: "Overview", content: E.overview },
   {
+    id: "results",
+    title: "Results",
+    content: (
+      <>
+        {E.rollout}
+        {E.finalDesigns}
+      </>
+    ),
+  },
+  {
     id: "problem",
     title: "Problem",
     headline:
@@ -952,16 +962,6 @@ export const SECTIONS: CaseStudySection[] = [
     content: (
       <>
         {E.systemFacts}
-      </>
-    ),
-  },
-  {
-    id: "results",
-    title: "Results",
-    content: (
-      <>
-        {E.rollout}
-        {E.finalDesigns}
       </>
     ),
   },

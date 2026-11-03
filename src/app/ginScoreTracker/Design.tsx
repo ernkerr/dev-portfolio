@@ -69,6 +69,54 @@ const SECTIONS: CaseStudySection[] = [
     ),
   },
   {
+    id: "results",
+    title: "Results",
+    headline: "People found it, kept it, and paid for it.",
+    content: (
+      <>
+        <P>
+          6 versions on the App Store since June 2025, rated 5.0 from the 5
+          ratings since my June 2026 update. It’s free to play, with 1 opponent
+          and games to 100. Premium unlocks more opponents and games and higher
+          targets.
+        </P>
+        <H3>It passes the grandpa test</H3>
+        <P>
+          Everyone I’ve talked to, ages 8 to 94, has been able to figure it out.
+        </P>
+        <Review
+          stars={5}
+          quote="Got a love a simple, clean app with no ads popping up in your face every 5 seconds. Love how easy this app is to use."
+          who="App Store review, June 2026"
+        />
+        <NewUsersChart focus={["2026-01", "2026-07"]}>
+          <P>
+            New users jumped in January 2026 and again in July. My guess is the
+            holidays and summer vacations, when families play cards together.
+          </P>
+        </NewUsersChart>
+
+        <H3>People keep it</H3>
+        <Stats
+          items={[
+            {
+              label: "Installed my June 2026 update",
+              value: "52%",
+              tip: "Of everyone who had downloaded it by then.",
+            },
+          ]}
+        />
+        <Review
+          stars={5}
+          quote="We love this app! It’s clean and simple to use. Had been great for keeping a long running score going. So far we’re at 35 games and it’s still pretty neck and neck"
+          who="App Store review, June 2026"
+        />
+
+        <SalesNumbers />
+      </>
+    ),
+  },
+  {
     id: "problem",
     title: "Problem",
     headline:
@@ -486,54 +534,6 @@ const SECTIONS: CaseStudySection[] = [
           quote="Love the little icons for gin or an undercut and that you can change the rules for each opponent since I know people who play different versions of the game."
           who="App Store review, July 2025"
         />
-      </>
-    ),
-  },
-  {
-    id: "results",
-    title: "Results",
-    headline: "People found it, kept it, and paid for it.",
-    content: (
-      <>
-        <P>
-          6 versions on the App Store since June 2025, rated 5.0 from the 5
-          ratings since my June 2026 update. It’s free to play, with 1 opponent
-          and games to 100. Premium unlocks more opponents and games and higher
-          targets.
-        </P>
-        <H3>It passes the grandpa test</H3>
-        <P>
-          Everyone I’ve talked to, ages 8 to 94, has been able to figure it out.
-        </P>
-        <Review
-          stars={5}
-          quote="Got a love a simple, clean app with no ads popping up in your face every 5 seconds. Love how easy this app is to use."
-          who="App Store review, June 2026"
-        />
-        <NewUsersChart focus={["2026-01", "2026-07"]}>
-          <P>
-            New users jumped in January 2026 and again in July. My guess is the
-            holidays and summer vacations, when families play cards together.
-          </P>
-        </NewUsersChart>
-
-        <H3>People keep it</H3>
-        <Stats
-          items={[
-            {
-              label: "Installed my June 2026 update",
-              value: "52%",
-              tip: "Of everyone who had downloaded it by then.",
-            },
-          ]}
-        />
-        <Review
-          stars={5}
-          quote="We love this app! It’s clean and simple to use. Had been great for keeping a long running score going. So far we’re at 35 games and it’s still pretty neck and neck"
-          who="App Store review, June 2026"
-        />
-
-        <SalesNumbers />
       </>
     ),
   },

@@ -7,7 +7,7 @@ import { inlineLink, label } from "@/components/site/prose";
 // Web3Forms emails each message to me. The access key only says which inbox
 // to send to, so it's meant to be public (docs.web3forms.com, FAQ), and on
 // the free plan it only takes messages sent from the browser, not a server.
-const ACCESS_KEY = "530d949b-a013-4894-b0af-db8983cce412";
+const ACCESS_KEY = "2fb6e00a-b2bb-46b3-9d2c-3ecb68810b27";
 
 const field = `mt-3 w-full border border-site-line bg-site-paper px-3 py-2 text-body text-site-ink ${focusRing}`;
 

@@ -13,7 +13,7 @@ import path from "node:path";
 import { splitAnswer } from "@/lib/erinllm/answer";
 import { asksAbout, readCaseStudies } from "@/lib/erinllm/readPages";
 import { mayKeep, tooManyQuestions } from "@/lib/erinllm/limits";
-import { MODEL, instructions } from "@/lib/erinllm/prompt";
+import { JOB_MODEL, MODEL, instructions } from "@/lib/erinllm/prompt";
 import {
   MAX,
   type Anchors,
@@ -136,6 +136,11 @@ const withAttached = (messages: ErinMessage[]) =>
         ? "(Here's a job description. How would Erin fit this role?)"
         : `(I'm asking about this: ${attached.label}${attached.href ? `, ${attached.href}` : ""})`,
       attached.text ? `"""\n${attached.text}\n"""` : "",
+      // Flash-Lite sometimes lists "on site in New York" as a gap despite
+      // the rule in prompt.ts, so repeat it right after the posting
+      attached.kind === "job"
+        ? "(Where the job is, on-site or in-office work and relocation are never gaps. Don't list them as something Erin lacks.)"
+        : "",
       m.parts.map((p) => (p.type === "text" ? p.text : "")).join(""),
     ];
     return {
@@ -255,8 +260,9 @@ export async function POST(request: Request) {
       p.sections.map((s) => s.id),
     ]),
   );
+  const askedJobFit = messages.some((m) => m.metadata?.attached?.kind === "job");
   const result = streamText({
-    model: MODEL,
+    model: askedJobFit ? JOB_MODEL : MODEL,
     instructions: instructions(page, read),
     messages: await convertToModelMessages(withAttached(messages)),
     // Gemini's thinking counts toward this, so it leaves room for both;

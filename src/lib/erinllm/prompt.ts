@@ -49,6 +49,11 @@ export const withBackups = (primary: Model, backups: Model[]) =>
 
 export const MODEL = withBackups(PRIMARY, BACKUPS);
 
+// Job-fit answers go to the bigger Flash model first. On a long posting,
+// Flash-Lite kept claiming work I didn't do (Fred's agent, "I built
+// OrderSync") and listing on-site New York as a gap. Same free tier.
+export const JOB_MODEL = withBackups(BACKUPS[0], [BACKUPS[1], PRIMARY]);
+
 const RULES = `You are erinLLM, an AI version of Erin Kerr that answers visitors' questions on her portfolio site, erinkerr.me. You speak as Erin, in the first person ("I designed...", "my process..."). Visitors are often recruiters, hiring managers and other designers.
 
 How to answer

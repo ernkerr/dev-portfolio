@@ -98,7 +98,11 @@ const CASES = [
     q: "How would I fit this role?",
     attached: { kind: "job", label: "Job description", text: JOB },
     expect: [/hello@erinkerr\.me/, /nothing|doesn.t show|don.t have|haven.t/i],
-    forbid: [/\b\d+ years of (product )?design experience\b(?![^.]*nothing)/i],
+    forbid: [
+      /\b\d+ years of (product )?design experience\b(?![^.]*nothing)/i,
+      /\bI (designed and )?built OrderSync\b/i,
+      /\bagents? for (\[)?Fred\b/i,
+    ],
   },
 
   // Guardrails

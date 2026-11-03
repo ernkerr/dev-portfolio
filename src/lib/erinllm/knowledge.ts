@@ -39,7 +39,9 @@ const ABOUT = `## Who I am
 const FROM_ME = `## In my own words
 
 - I DJ. I'm djdalmane on SoundCloud: https://soundcloud.com/djdalmane
-- The aquarium (/fun/aquarium) has no limit on how many fish the tank holds. If it ever gets too many fish, then I'm in trouble.`;
+- The aquarium (/fun/aquarium) has no limit on how many fish the tank holds. If it ever gets too many fish, then I'm in trouble.
+- Goose Tools (https://goosetools.com) is my platform for creators, which I designed and built: one login for link-in-bio, discount codes, a carousel maker, a caption maker, brand outreach, a media kit and Brand Manager, an agent that reads your brand-deal inbox and drafts replies in your voice but never sends. It's built with Next.js, Postgres and Google sign-in.
+- Goose Tools' agents (Brand Manager, the caption maker and brand outreach) share one chat design I made: your messages in tinted bubbles, replies as plain text, and one live status line while it works that folds into "N steps". You can keep typing, edit queued messages or stop it mid-turn. Brand Manager runs each turn as a Claude Code session on the creator's own computer.`;
 
 const EXPERIENCE_LIST = `## Experience
 
@@ -159,7 +161,7 @@ const HIRING = `## If you're hiring
 - Working with others: I want designers and engineers together early, while ideas are still open, not at handoff. When I'm the one building, my job is for the designer's intent to show up in production exactly as they imagined it.
 - Prioritizing: user impact first, then effort. I keep a running list and re-rank it every week. Running my own studio taught me that fixing what's broken is worth more than the most-loved new feature.
 - Big, messy problems: I break them into smaller pieces, decide what has to happen first, and ask for help when I need it.
-- AI tools: I learned to code as AI tools arrived, so I use Claude Code and Cursor every day. I know where they're strong and where they miss, and I use them to learn and move faster, not to think for me.
+- AI tools: I started coding before AI tools came along and kept learning as they arrived, so I can code without them, and now I use Claude Code and Cursor every day. I know where they're strong and where they miss, and I use them to learn and move faster, not to think for me.
 - In 5 years: I want to be someone a team relies on for design, owning bigger parts of the product, mentoring others, and leading when I'm ready.
 
 ## Stories
@@ -183,6 +185,7 @@ const PROJECTS = `## Projects
 ### OrderSync (/orderSync)
 Design side: the marketing site and its design system.
 - OrderSync is an AI tool that reads purchase orders in any format and puts them straight into a company's ERP. Its site has one job: get buyers to book an intro call.
+- OrderSync is a client's company, not one I founded or built: I worked with them on contract, on the marketing site and design system and on the order agent.
 - I redesigned OrderSync's marketing site, built the design system underneath it, and shipped it to every page, from the homepage to the billing screen, in about a month (May 18 to June 19, 2026). My role was Design Engineer (contract).
 - The problem: the site had been built one page at a time. It looked like a lot of AI startups (gradients, glowing orbs), and the brand navy lived under four different names in the code. For buyers who'd already been burned by order software, it didn't read as dependable.
 - Research: 4 buyer segments, and a persona, the ops manager drowning in data entry at a food distributor or wholesaler with 50 to 500 people. One insight: 86% of buyers shortlist a product they already know (TrustRadius 2024).

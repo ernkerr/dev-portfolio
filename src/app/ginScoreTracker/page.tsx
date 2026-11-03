@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ginScoreTracker" },
 };
 
+// Once a day the live numbers are counted from App Store Connect, which takes
+// about 10 seconds. Vercel's default limit is 10, so that visit (or Google's
+// crawl) got a 504 and the count was never cached.
+export const maxDuration = 60;
+
 export default async function GinScoreTracker({
   searchParams,
 }: {

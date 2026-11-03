@@ -4,7 +4,7 @@ export const SOCIALS = [
   { href: "https://linkedin.com/in/erinkerr17", label: "LinkedIn" },
   { href: "https://github.com/ernkerr", label: "GitHub" },
   { href: "https://instagram.com/erin.codes", label: "Instagram" },
-  { href: `mailto:${EMAIL}`, label: "Email" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export const focusRing =

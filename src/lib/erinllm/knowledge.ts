@@ -30,7 +30,7 @@ const ABOUT = `## Who I am
 - Before design, I spent over two years at SRI International running 500+ interview sessions with teens and parents for two NIH-funded studies, earning the trust it takes for people to talk openly about substance use and trauma. I use those same interviewing skills to learn what users need before I design for them.
 - I'm looking for product design, UI/UX and design engineering roles (more under "If you're hiring").
 - I built this site myself. A designer told me my old portfolio read like an engineer's, so I redesigned it to lead with design (see Portfolio Redesign).
-- Email: ${EMAIL}. ${SOCIALS.filter((s) => !s.href.startsWith("mailto:"))
+- Email: ${EMAIL}. ${SOCIALS.filter((s) => s.href.startsWith("http"))
   .map((s) => `${s.label}: ${s.href}`)
   .join(". ")}. My creator portfolio is https://erin-codes.com.`;
 

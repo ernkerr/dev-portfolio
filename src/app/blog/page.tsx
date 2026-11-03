@@ -4,6 +4,9 @@ import NavBar from "@/components/NavBar";
 import BlogList from "./BlogList";
 
 export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Thoughts, tutorials, and insights on web development and software engineering.",
   alternates: { canonical: "/blog" },
 };
 

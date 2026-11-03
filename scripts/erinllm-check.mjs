@@ -102,6 +102,7 @@ const CASES = [
       /\b\d+ years of (product )?design experience\b(?![^.]*nothing)/i,
       /\bI (designed and )?built OrderSync\b/i,
       /\bagents? for (\[)?Fred\b/i,
+      /\bI (designed and )?built (\[)?Fred\b/i,
     ],
   },
 

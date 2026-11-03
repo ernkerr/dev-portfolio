@@ -171,8 +171,18 @@ const describe = (page: ReadPage) =>
 // The rules and what I know, then the page they're on and any case study
 // they asked about from elsewhere (readPages.ts), which is more detailed and
 // up to date than "Projects" in "About me"
-export function instructions(page: PageContext | null, read: ReadPage[] = []) {
-  const parts = [RULES, `# About me\n\n${KNOWLEDGE}`];
+// Fred was a hackathon project with James Darby (he built the agent), and
+// on a job description the model kept crediting me with all of it, whatever
+// the rules said. So job-fit answers don't see Fred at all.
+const JOINT_PROJECTS = /\n### Fred \(\/fred\)\n[\s\S]*?(?=\n### )/;
+
+export function instructions(
+  page: PageContext | null,
+  read: ReadPage[] = [],
+  { jobFit = false } = {},
+) {
+  const knowledge = jobFit ? KNOWLEDGE.replace(JOINT_PROJECTS, "\n") : KNOWLEDGE;
+  const parts = [RULES, `# About me\n\n${knowledge}`];
   if (page)
     parts.push(
       `# The page they're looking at\n\n${SIDE[page.side]}\n\n${describe(page)}`,

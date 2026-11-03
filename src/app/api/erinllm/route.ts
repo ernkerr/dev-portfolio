@@ -126,6 +126,22 @@ function readMessages(value: unknown): ErinMessage[] | null {
   return messages.at(-1)?.role === "user" ? messages : null;
 }
 
+// Sentences about where the job is. They're cut from a posting before the
+// model reads it: even told that location is never a gap, it sometimes
+// listed "on site in Manhattan" as something I lack
+const WHERE =
+  /\b(on[- ]?site|in[- ]office|in the office|from the office|office days|hybrid|remote(ly)?|relocat\w*|commut\w*|location)\b/i;
+const withoutWhere = (text: string) =>
+  text
+    .split("\n")
+    .map((line) =>
+      line
+        .split(/(?<=[.!?])\s+/)
+        .filter((sentence) => !WHERE.test(sentence))
+        .join(" "),
+    )
+    .join("\n");
+
 // What the visitor attached goes into their question for the model
 const withAttached = (messages: ErinMessage[]) =>
   messages.map((m) => {
@@ -135,7 +151,9 @@ const withAttached = (messages: ErinMessage[]) =>
       attached.kind === "job"
         ? "(Here's a job description. How would Erin fit this role?)"
         : `(I'm asking about this: ${attached.label}${attached.href ? `, ${attached.href}` : ""})`,
-      attached.text ? `"""\n${attached.text}\n"""` : "",
+      attached.text
+        ? `"""\n${attached.kind === "job" ? withoutWhere(attached.text) : attached.text}\n"""`
+        : "",
       // Flash-Lite sometimes lists "on site in New York" as a gap despite
       // the rule in prompt.ts, so repeat it right after the posting
       attached.kind === "job"
@@ -263,7 +281,7 @@ export async function POST(request: Request) {
   const askedJobFit = messages.some((m) => m.metadata?.attached?.kind === "job");
   const result = streamText({
     model: askedJobFit ? JOB_MODEL : MODEL,
-    instructions: instructions(page, read),
+    instructions: instructions(page, read, { jobFit: askedJobFit }),
     messages: await convertToModelMessages(withAttached(messages)),
     // Gemini's thinking counts toward this, so it leaves room for both;
     // minimal thinking keeps answers quick

@@ -39,9 +39,8 @@ const SECTIONS: CaseStudySection[] = [
           first as a web app and then as an iOS app that shipped in July 2025.
         </Lead>
         <P>
-          It was the first full-stack app I built and designed. In January 2026
-          I sold the Carpoolio name to a company with an app of the same name,
-          and took mine off the App Store as part of the sale.
+          It was the first cross-platform full-stack app I built and designed.
+          In January 2026 Carpoolio was acquired.
         </P>
         <Facts
           items={[
@@ -64,9 +63,7 @@ const SECTIONS: CaseStudySection[] = [
         <P>
           Carpoolio went from a coded prototype in October 2024 to the App Store
           in July 2025: 4 iOS releases, with the first approved in about a day.
-          In January 2026 another company with an app called Carpoolio bought
-          the name from me. I had used it first, with carpoolio.co live since
-          January 2025, and as part of the sale I took my app down.
+          In January 2026 it was acquired.
         </P>
       </>
     ),

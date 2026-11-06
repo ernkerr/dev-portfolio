@@ -15,11 +15,9 @@ export default function Carpoolio() {
         title="Carpoolio"
         description={
           <>
-            <strong>Status:</strong> The Carpoolio brand was acquired to avoid
-            marketplace confusion with another product. As part of that
-            acquisition, the app was delisted and the project is no longer
-            active. This page documents the work and lessons learned building
-            it.
+            <strong>Status:</strong> Carpoolio was acquired, and the project is
+            no longer active. This page documents the work and lessons learned
+            building it.
             <br />
             <br />
             Carpoolio was the first full-stack web application I built and
@@ -38,7 +36,7 @@ export default function Carpoolio() {
             create trips, add vehicles, and assign seats through a playful
             interface.
             <br />
-            Prior to being delisted, Carpoolio was available as both a web
+            Before it was acquired, Carpoolio was available as both a web
             application and an iOS mobile app, making it easy for groups to
             coordinate rides, plan trips, and assign seats on the go.
             <br />

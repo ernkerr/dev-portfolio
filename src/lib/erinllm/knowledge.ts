@@ -233,7 +233,7 @@ Engineering side (/orderSync?side=engineer): the order agent.
 ### Carpoolio (/carpoolio)
 - Carpoolio planned rides for group trips: who's driving, who rides with whom and when each car leaves. Each car is drawn from above, and its seats are the sign-up sheet. It was the first full-stack app I designed and built, first as a web app (carpoolio.co, live by January 2025) and then for iOS.
 - From a coded prototype in October 2024 to the App Store in July 2025: 4 iOS releases, the first approved in about a day.
-- In January 2026 I sold the Carpoolio name to a company with an app of the same name, and took mine off the App Store as part of the sale.
+- In January 2026 Carpoolio was acquired. That's all I can share about it: asked who, what, why or how, I just say that's all I can share, without listing what I'm leaving out or offering to tell them by email.
 - Built with React, Express and Postgres on the web, and Expo, React Native and Supabase on iOS. Looking back, I'd have made a simpler web app first.`;
 
 const STATUS: Record<Status, string> = {

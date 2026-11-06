@@ -53,9 +53,9 @@ const SECTIONS: CaseStudySection[] = [
           building against city data and keeps likely scams out of your inbox.
         </Lead>
         <P>
-          James Darby and I built it in one day at the AI Engineer NYC
-          hackathon. I did the research, the product design and the web app,
-          and James built the backend and Fred himself. It’s live, and{" "}
+          We built it in one day at the AI Engineer NYC hackathon. I did the
+          research, the product design and the web app, and my teammate built
+          the backend and Fred himself. It’s live, and{" "}
           <a
             href={DEMO}
             target="_blank"
@@ -69,7 +69,6 @@ const SECTIONS: CaseStudySection[] = [
         <Facts
           items={[
             { label: "Role", value: "Research, product design and frontend" },
-            { label: "Team", value: "Me and James Darby" },
             { label: "Timeline", value: "1 day, October 11, 2026" },
             {
               label: "Built with",
@@ -122,7 +121,7 @@ const SECTIONS: CaseStudySection[] = [
         />
         <BuildNote href="/fred">
           Next.js on Cloudflare, the Vercel AI SDK for the streaming chat and
-          MapLibre for the maps, talking to James’s Mastra agent through one
+          MapLibre for the maps, talking to our Mastra agent through one
           typed contract.
         </BuildNote>
       </>
@@ -136,7 +135,7 @@ const SECTIONS: CaseStudySection[] = [
     content: (
       <>
         <P>
-          James and I are apartment hunting in New York right now, and it’s
+          We’re apartment hunting in New York right now, and it’s
           really a full-time job. Zillow, Apartments.com and Zumper all
           launched AI chat search in the last two years, so another chatbot
           wasn’t the answer. Jack &amp; Jill, an AI agent for job hunting, turns
@@ -172,7 +171,7 @@ const SECTIONS: CaseStudySection[] = [
     id: "goal",
     title: "Goal",
     headline:
-      "Build something James and I would trust with our own hunt, in one day.",
+      "Build something we would trust with our own hunt, in one day.",
     content: (
       <div className="border-t border-site-line pt-5">
         <p className={label}>What it had to do</p>

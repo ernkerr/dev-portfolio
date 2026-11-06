@@ -21,7 +21,8 @@ import {
 // October 11 and 12, 2026: README.md, cloud/src/agent (Fred and his 25
 // tools), cloud/src/ingest.ts (the crawler sources), evals/fred.ts (15
 // scripted conversations), cloud/wrangler.jsonc (Claude Sonnet 5.5 at low
-// effort) and web/. James built the API, agent and crawlers; I built web/.
+// effort) and web/. My teammate built the API, agent and crawlers; I built
+// web/.
 
 const DEMO = "https://fredandginger.jamesjuliusdarby.com/demo";
 
@@ -38,7 +39,7 @@ const SECTIONS: CaseStudySection[] = [
           the places that fit, while the app shows each step as it happens.
         </Lead>
         <P>
-          <strong>Why we built it.</strong> James and I built Fred at the AI
+          <strong>Why we built it.</strong> We built Fred at the AI
           Engineer NYC hackathon on October 11, 2026, because we’re hunting for
           an apartment ourselves and were tired of checking every site and
           alert email by hand. It had to be live by the end of the day, so we
@@ -50,7 +51,7 @@ const SECTIONS: CaseStudySection[] = [
           items={[
             {
               label: "Role",
-              value: "I built the web app; James built the API, the agent and the crawlers",
+              value: "I built the web app; my teammate built the API, the agent and the crawlers",
             },
             {
               label: "Stack",
@@ -215,7 +216,7 @@ const SECTIONS: CaseStudySection[] = [
             },
             {
               title: "A contract both sides build from",
-              text: "The app’s types are generated from the Zod schemas, and CI fails if they’re stale. When I wanted a dealbreaker level, my agent asked James’s agent on the board, the contract changed first, and my Profile change shipped on top of it.",
+              text: "The app’s types are generated from the Zod schemas, and CI fails if they’re stale. When I wanted a dealbreaker level, my agent asked my teammate’s agent on the board, the contract changed first, and my Profile change shipped on top of it.",
             },
             {
               title: "Every place has a URL",

@@ -9,7 +9,7 @@ export const deskYogaMetadata: ProjectMetadata = {
   category: "App",
   platform: "Mobile",
   stack: ["React Native", "Expo", "TypeScript", "NativeWind", "MMKV"],
-  link: "https://ernkerr.github.io/demos/desk-yoga/",
+  link: "https://apps.apple.com/us/app/desk-yoga-stretch-at-work/id6759360269",
   thumbnail: "/images/deskYoga/icon.png",
   featured: false,
   order: 3,

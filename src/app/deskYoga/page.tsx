@@ -48,10 +48,10 @@ export default function DeskYoga() {
           <div className="flex flex-col gap-4 text-sm">
             <h3 className="font-bold md:text-lg">Live</h3>
             <Link
-              href="https://ernkerr.github.io/demos/desk-yoga/"
+              href="https://apps.apple.com/us/app/desk-yoga-stretch-at-work/id6759360269"
               className="cursor-pointer text-blue-500"
             >
-              View Site
+              App Store
             </Link>
           </div>
         </div>

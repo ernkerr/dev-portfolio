@@ -198,6 +198,19 @@ const ALL: QuestGroup[] = [
         },
       },
       {
+        name: "Watchlisted",
+        what: "Track the movies people tell you to watch",
+        year: "2026",
+        status: "app-store",
+        href: "https://apps.apple.com/us/app/watchlisted/id6804006511",
+        art: {
+          src: "/images/fun/watchlisted.png",
+          bg: "#ECECEC",
+          width: 0.5,
+          icon: true,
+        },
+      },
+      {
         name: "Desk Yoga",
         what: "Short yoga sessions you can do at your desk",
         year: "2025",
@@ -218,18 +231,6 @@ const ALL: QuestGroup[] = [
         art: {
           src: "/images/fun/farkle.png",
           bg: "#FBF3D0",
-          width: 0.5,
-          icon: true,
-        },
-      },
-      {
-        name: "Watchlisted",
-        what: "Track the movies people tell you to watch",
-        year: "2026",
-        status: "in-progress",
-        art: {
-          src: "/images/fun/watchlisted.png",
-          bg: "#ECECEC",
           width: 0.5,
           icon: true,
         },

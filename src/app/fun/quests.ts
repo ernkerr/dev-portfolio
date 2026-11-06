@@ -110,8 +110,7 @@ const ALL: QuestGroup[] = [
         name: "Timelapse Timestamps",
         what: "Puts the real clock time on timelapse videos",
         year: "2026",
-        status: "github",
-        href: "https://github.com/ernkerr/timelapse-timestamps",
+        status: "private",
         art: { glyph: "12:00" },
       },
       {

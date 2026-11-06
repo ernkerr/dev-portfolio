@@ -213,8 +213,8 @@ const ALL: QuestGroup[] = [
         name: "Desk Yoga",
         what: "Short yoga sessions you can do at your desk",
         year: "2025",
-        status: "demo",
-        href: "https://ernkerr.github.io/demos/desk-yoga/",
+        status: "app-store",
+        href: "https://apps.apple.com/us/app/desk-yoga-stretch-at-work/id6759360269",
         art: {
           src: "/images/deskYoga/icon.png",
           bg: "#D9E2D0",

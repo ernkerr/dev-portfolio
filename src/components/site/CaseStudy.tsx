@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
+import { CaseStudySide } from "./SideContext";
 import SideSwitch from "./SideSwitch";
 import SiteShell from "./SiteShell";
 import { focusRing } from "./links";
@@ -35,7 +36,7 @@ export default function CaseStudy({
   }
 
   return (
-    <>
+    <CaseStudySide.Provider value={{ engineer, flip }}>
       {writeUp ?? (
         <ComingSoon project={project} engineer={engineer} onFlip={flip} />
       )}
@@ -48,7 +49,7 @@ export default function CaseStudy({
           className="fixed bottom-5 right-5 z-50 h-12 w-24 shadow-switch ring-1 ring-white/15 md:bottom-8 md:right-8 md:h-14 md:w-28"
         />
       </aside>
-    </>
+    </CaseStudySide.Provider>
   );
 }
 

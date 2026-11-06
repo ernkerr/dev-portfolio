@@ -1,7 +1,7 @@
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import { Caption, inlineLink, label, labelOnBrand } from "./prose";
+import { EngineeringSideLink } from "./SideContext";
 
 // Figures for the app case studies (Carpoolio, Group Sing Along, Gin and
 // Hearts). Like the home tiles, app art sits on the project's own brand color
@@ -157,9 +157,9 @@ export function BuildNote({
       <p className={label}>How I built it</p>
       <p className="mt-3 text-body-sm text-site-ink/75">
         {children}{" "}
-        <Link href={`${href}?side=engineer`} className={inlineLink}>
+        <EngineeringSideLink href={href} className={inlineLink}>
           The engineering side
-        </Link>{" "}
+        </EngineeringSideLink>{" "}
         has the details.
       </p>
     </div>

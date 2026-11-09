@@ -28,6 +28,7 @@ ${caseStudies}
 - [Blog](${baseUrl}/blog)
 - [Agents](${baseUrl}/agents)
 - [Archive](${baseUrl}/archive): every past version of the site, kept as it was
+- Resumes (PDF): [Designer](${baseUrl}/resume/erin-kerr-resume-designer.pdf), [Design engineer](${baseUrl}/resume/erin-kerr-resume-design-engineer.pdf), [Engineer](${baseUrl}/resume/erin-kerr-resume-engineer.pdf)
 
 Also see Erin's creator portfolio at https://erin-codes.com.
 

@@ -128,6 +128,7 @@ export default function SideSwitch({
       aria-checked={knob}
       aria-label="Engineer mode"
       data-side={engineer ? "engineer" : "designer"}
+      data-side-switch
       onClick={flip}
       className={`rounded-full bg-site-ink ${focusRing} ${className}`}
     >

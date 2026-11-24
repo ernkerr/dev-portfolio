@@ -1,6 +1,6 @@
 import SiteHeader from "./SiteHeader";
 import { SOCIALS, focusRing } from "./links";
-import ResumeMenu from "./ResumeMenu";
+import { RESUMES } from "./resumes";
 
 // Page frame for the 2026 edition: sticky header, content, footer.
 export default function SiteShell({ children }: { children: React.ReactNode }) {
@@ -15,11 +15,15 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
           className={`mx-auto flex max-w-page flex-col gap-4 px-gutter py-6 font-mono text-label uppercase text-site-muted md:flex-row md:items-center md:justify-between`}
         >
           <p>Designed + coded by Erin</p>
-          {/* Relative so the Resume menu opens above the whole list on
-              phones, where the links wrap; from md it sits above its link. */}
-          <ul className="relative flex flex-wrap gap-x-6 gap-y-2">
-            <li className="md:relative">
-              <ResumeMenu />
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            <li>
+              <a
+                href={RESUMES.designEngineer}
+                download
+                className={`transition-colors hover:text-site-blue ${focusRing}`}
+              >
+                Resume
+              </a>
             </li>
             {SOCIALS.map(({ href, label }) => (
               <li key={label}>

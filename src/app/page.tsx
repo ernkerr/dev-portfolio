@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import HeroHeadline from "@/components/site/HeroHeadline";
+import ResumeButton from "@/components/site/ResumeButton";
 import { SideProvider } from "@/components/site/SideContext";
 import SiteShell from "@/components/site/SiteShell";
 import Tile, { type TileItem } from "@/components/site/Tile";
@@ -144,12 +145,15 @@ export default async function Home({
         <section className="grid gap-10 pb-12 pt-16 md:pt-28 lg:grid-cols-2 lg:gap-6 lg:pt-40">
           <div>
             <HeroHeadline />
-            <a
-              href={`mailto:${EMAIL}`}
-              className={`${mono} mt-6 inline-block text-[13px] uppercase tracking-[0.04em] text-site-blue underline-offset-4 hover:underline md:hidden ${focusRing}`}
-            >
-              <span aria-hidden="true">✦ </span>Get in touch
-            </a>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4 md:mt-10">
+              <ResumeButton />
+              <a
+                href={`mailto:${EMAIL}`}
+                className={`${mono} inline-block text-[13px] uppercase tracking-[0.04em] text-site-blue underline-offset-4 hover:underline md:hidden ${focusRing}`}
+              >
+                <span aria-hidden="true">✦ </span>Get in touch
+              </a>
+            </div>
           </div>
 
           <dl className="self-start text-[15px]">

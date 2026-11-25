@@ -110,25 +110,26 @@ export default function ProjectTemplate({
           </p>
         </div>
 
+        {/* Stack logos are decorative: the stack is listed in text above. */}
         <div className="flex flex-row justify-end gap-4">
           <div className="mt-16 flex w-96 flex-col items-center gap-4 ">
             <Image
               src={stackimg}
-              alt={title}
+              alt=""
               width={700}
               height={700}
               className="max-h-24 w-auto object-contain"
             />
             <Image
               src={stackimg2}
-              alt={title}
+              alt=""
               width={700}
               height={700}
               className="max-h-24 w-auto object-contain"
             />
             <Image
               src={stackimg3}
-              alt={title}
+              alt=""
               width={700}
               height={400}
               className="max-h-24 w-auto object-contain"

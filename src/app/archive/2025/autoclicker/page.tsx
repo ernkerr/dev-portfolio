@@ -26,7 +26,7 @@ export default function AutoClicker() {
         type="Tool"
         stack={["Swift", "SwiftUI", "Accessibility APIs", "Xcode"]}
         link="/downloads/AutoClicker.zip"
-        img="/images/autoclicker/autoclicker-main.png"
+        img="/images/autoClicker/autoclicker-main.png"
         purpose={
           <>
             The idea for AutoClicker came from a simple need: automating
@@ -78,8 +78,8 @@ export default function AutoClicker() {
         stackimg2="/stackLogos/xcode.png"
         stackimg3="/stackLogos/swiftui.png"
         stackImages
-        img2="/images/autoclicker/autoclicker-running.png"
-        img3="/images/autoclicker/autoclicker-settings.png"
+        img2="/images/autoClicker/autoclicker-running.png"
+        img3="/images/autoClicker/autoclicker-settings.png"
         problems={
           <>
             The biggest challenge wasn&apos;t technical — it was navigating
@@ -107,7 +107,7 @@ export default function AutoClicker() {
             requested the right entitlements.
           </>
         }
-        img4="/images/autoclicker/autoclicker-promo.png"
+        img4="/images/autoClicker/autoclicker-promo.png"
         lessons={
           <>
             This project taught me a lot about the realities of macOS

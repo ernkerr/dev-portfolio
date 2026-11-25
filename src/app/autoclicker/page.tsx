@@ -13,7 +13,7 @@ export default function AutoClicker() {
             <br />
             <br />
             It&apos;s a simple auto-clicker tool for macOS that lets users set
-            up automatic mouse clicks at customizable intervals — useful for
+            up automatic mouse clicks at customizable intervals, useful for
             idle games, repetitive tasks, or accessibility needs.
             <br />
             <br />
@@ -26,7 +26,7 @@ export default function AutoClicker() {
         type="Tool"
         stack={["Swift", "SwiftUI", "Accessibility APIs", "Xcode"]}
         link="/downloads/AutoClicker.zip"
-        img="/images/autoclicker/autoclicker-main.png"
+        img="/images/autoClicker/autoclicker-main.png"
         purpose={
           <>
             The idea for AutoClicker came from a simple need: automating
@@ -36,15 +36,15 @@ export default function AutoClicker() {
             available.
             <br />
             <br />I wanted to build something{" "}
-            <strong>lightweight and focused</strong>
-            — no bloat, no ads, just a tool that does one thing well. Users can
+            <strong>lightweight and focused</strong>:
+            no bloat, no ads, just a tool that does one thing well. Users can
             configure the click interval, set a target location on screen, and
             let the app handle the rest.
             <br />
             <br />
             The app was fully functional and ready for release, but Apple&apos;s
             review team determined that using accessibility services for
-            automated clicking doesn&apos;t align with their intended purpose —
+            automated clicking doesn&apos;t align with their intended purpose,
             even though the app itself isn&apos;t malicious or harmful.
           </>
         }
@@ -57,7 +57,7 @@ export default function AutoClicker() {
             The core functionality relies on macOS{" "}
             <strong>Accessibility APIs</strong> (CGEvent) to programmatically
             generate click events. This is the same system that powers assistive
-            technologies like Switch Control and Voice Control — legitimate
+            technologies like Switch Control and Voice Control, legitimate
             tools for users who can&apos;t interact with their devices
             conventionally.
             <br />
@@ -78,11 +78,11 @@ export default function AutoClicker() {
         stackimg2="/stackLogos/xcode.png"
         stackimg3="/stackLogos/swiftui.png"
         stackImages
-        img2="/images/autoclicker/autoclicker-running.png"
-        img3="/images/autoclicker/autoclicker-settings.png"
+        img2="/images/autoClicker/autoclicker-running.png"
+        img3="/images/autoClicker/autoclicker-settings.png"
         problems={
           <>
-            The biggest challenge wasn&apos;t technical — it was navigating
+            The biggest challenge wasn&apos;t technical: it was navigating
             Apple&apos;s review process. The app worked exactly as intended, but
             Apple&apos;s Guideline 2.5.1 prohibits using public APIs in
             &quot;unapproved&quot; ways.
@@ -97,8 +97,8 @@ export default function AutoClicker() {
             <br />
             <br />
             This was frustrating because the accessibility APIs are the{" "}
-            <em>only</em> way to achieve this functionality on macOS —
-            there&apos;s no alternative approach I found that would satisfy both
+            <em>only</em> way to achieve this functionality on macOS.
+            There&apos;s no alternative approach I found that would satisfy both
             the technical requirements and Apple&apos;s guidelines.
             <br />
             <br />
@@ -107,7 +107,7 @@ export default function AutoClicker() {
             requested the right entitlements.
           </>
         }
-        img4="/images/autoclicker/autoclicker-promo.png"
+        img4="/images/autoClicker/autoclicker-promo.png"
         lessons={
           <>
             This project taught me a lot about the realities of macOS
@@ -115,7 +115,7 @@ export default function AutoClicker() {
             <br />
             <br />
             <strong>Platform gatekeeping is real.</strong> You can build
-            something fully functional, well-designed, and useful — and still
+            something fully functional, well-designed, and useful, and still
             get rejected because it doesn&apos;t fit Apple&apos;s vision for
             their platform. It&apos;s a reminder that when you build for someone
             else&apos;s ecosystem, you play by their rules.

@@ -16,26 +16,26 @@ export default function AsciiCam() {
         >
           ASCII Cam
         </h1>
-        <h3 className="py-8 text-sm md:max-w-[70%] lg:max-w-[80%] lg:py-16 lg:text-[16px]">
+        <div className="py-8 text-sm md:max-w-[70%] lg:max-w-[80%] lg:py-16 lg:text-[16px]">
           A real-time webcam and image to ASCII art converter with 9+ character
           sets, customizable colors, and export to PNG, MP4, and GIF. Built in
           about 2 hours.
-        </h3>
+        </div>
 
         <div className="flex flex-row gap-4 py-8 md:gap-32">
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Type</h3>
+            <h2 className="font-bold md:text-lg">Type</h2>
             <p>Web App</p>
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Tech Stack</h3>
+            <h2 className="font-bold md:text-lg">Tech Stack</h2>
             <p>React</p>
             <p>TypeScript</p>
             <p>Vite</p>
             <p>Canvas API</p>
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Live</h3>
+            <h2 className="font-bold md:text-lg">Live</h2>
             <Link
               href="https://ascii-cam.com/"
               className="cursor-pointer text-blue-500"
@@ -62,7 +62,7 @@ export default function AsciiCam() {
           </h2>
           <p className="md:text-md text-xs sm:text-sm md:max-w-[80%] lg:text-[16px]">
             Wanted to see how fast I could ship something. Picked a familiar
-            stack to iterate quickly — took about 2 hours from idea to deployed.
+            stack to iterate quickly, and it took about 2 hours from idea to deployed.
           </p>
         </div>
 

@@ -41,8 +41,8 @@ export default function Blogger() {
         img="/images/blogger/blogger-main.png"
         purpose={
           <>
-            The goal was to compress the entire SEO workflow — research,
-            strategy, writing, and distribution — into one tool, while keeping a{" "}
+            The goal was to compress the entire SEO workflow (research,
+            strategy, writing, and distribution) into one tool, while keeping a{" "}
             <strong>human-in-the-loop</strong> editing experience.
             <br />
             <br />
@@ -94,7 +94,7 @@ export default function Blogger() {
           <>
             <strong>LLM output isn&apos;t reliable by default.</strong> I
             enforced structured prompts (JSON/HTML), added extraction fallbacks,
-            and designed flows that fail softly — users can regenerate or edit
+            and designed flows that fail softly: users can regenerate or edit
             rather than hitting a dead end.
             <br />
             <br />
@@ -144,7 +144,7 @@ export default function Blogger() {
             <strong>
               sanitization, rendering safety, and portability
             </strong>{" "}
-            early — not as an afterthought.
+            early, not as an afterthought.
           </>
         }
       />

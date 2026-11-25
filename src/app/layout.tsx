@@ -23,7 +23,7 @@ const newsreader = Newsreader({
 
 // What people see when erinkerr.me is pasted into an application or a
 // message. Words from the header and the homepage headline.
-const siteTitle = "Erin Kerr — UI/UX developer";
+const siteTitle = "Erin Kerr | UI/UX developer";
 const siteDescription =
   "I’m Erin, a designer who engineers. Case studies of my shipped work, from OrderSync’s design system to my App Store apps.";
 

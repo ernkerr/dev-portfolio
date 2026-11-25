@@ -61,45 +61,30 @@ const getAccessToken = async () => {
   // if there is a token that was created in the last hour
   // use that token
   if (accessToken && tokenCreatedAt && currentTime - tokenCreatedAt < oneHour) {
-    console.log("🔒 Using existing access token.");
     return accessToken;
   }
-  // else
-  console.log("refreshing token..");
   return await refreshAccessToken();
 };
 
-//
 // get currently playing song
 const getCurrentlyPlaying = async (access_token) => {
-  // console.log("🎵 Fetching currently playing song...");
-
   try {
     const response = await fetch(now_playing_endpoint, {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
     });
-    // console.log("Spotify Response:", response.json());
 
-    if (response.status === 204 || response.status > 400) {
-      console.warn("⚠️ No song is currently playing or error occurred.");
-      return null;
-    }
-    console.log("Spotify Response Status:", response.status);
-    const song = await response.json();
-
-    return song;
+    // 204 means nothing is playing
+    if (response.status === 204 || response.status > 400) return null;
+    return await response.json();
   } catch {
-    console.warn("⚠️ No song is currently playing or error occurred.");
     return null;
   }
 };
 
 // get the active device
 const getCurrentDevice = async (access_token) => {
-  console.log("fetching active device");
-
   try {
     const response = await fetch(device_endpoint, {
       headers: {
@@ -107,26 +92,13 @@ const getCurrentDevice = async (access_token) => {
       },
     });
 
+    if (response.status === 204 || response.status > 400) return null;
     const data = await response.json();
-
-    // console.log("📦 Device API Response Data:", JSON.stringify(data, null, 2));
-
-    if (response.status === 204 || response.status > 400) {
-      console.warn(
-        "⚠️ No device is currently being used or an error occurred.",
-      );
-      return null;
-    }
 
     // find the active device:
     const activeDevice = data.devices.find((device) => device.is_active);
 
-    if (!activeDevice || data.devices.length === 0) {
-      console.warn("⚠️ No active device found.");
-      // console.log("Devices:", data.devices);
-      console.log("Active Device:", activeDevice);
-      return null;
-    }
+    if (!activeDevice) return null;
 
     // name changes
     const deviceName = activeDevice.name.toLowerCase().includes("iphone")
@@ -139,9 +111,6 @@ const getCurrentDevice = async (access_token) => {
       volume_percent: activeDevice.volume_percent,
     };
   } catch {
-    console.warn(
-      "⚠️ an error occurred while trying to retrieve the active device",
-    );
     return null;
   }
 };
@@ -175,5 +144,3 @@ export default async function handler(req, res) {
       .json({ error: "Failed to fetch now playing", details: error.message });
   }
 }
-
-// In essence, serverless functions are bundles of code that are automatically executed and managed by a third-party service, such as AWS Lambda or Google Cloud Functions. These functions can be triggered by various events, such as HTTP requests, scheduled timers, or other cloud services, and are billed on a per-execution or per-resource basis, making them cost-effective, especially for low-frequency or sporadic workloads.

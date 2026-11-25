@@ -1,6 +1,6 @@
 "use client";
 
-import { pressStart } from "../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import Link from "next/link";
@@ -16,7 +16,7 @@ export default function DeskYoga() {
         >
           Desk Yoga
         </h1>
-        <h3 className="py-8 text-sm md:max-w-[70%] lg:max-w-[80%] lg:py-16 lg:text-[16px]">
+        <div className="py-8 text-sm md:max-w-[70%] lg:max-w-[80%] lg:py-16 lg:text-[16px]">
           Feel better while you work, not before or after it.
           <br />
           <br />
@@ -30,15 +30,15 @@ export default function DeskYoga() {
           Reset, and Mouse Hand Relief, or let the smart session engine build a
           flow based on your constraints: sitting vs standing, camera on or off,
           and whether you need your hands free for typing.
-        </h3>
+        </div>
 
         <div className="flex flex-row gap-4 py-8 md:gap-32">
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Type</h3>
+            <h2 className="font-bold md:text-lg">Type</h2>
             <p>Mobile App</p>
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Tech Stack</h3>
+            <h2 className="font-bold md:text-lg">Tech Stack</h2>
             <p>React Native</p>
             <p>Expo</p>
             <p>TypeScript</p>
@@ -46,7 +46,7 @@ export default function DeskYoga() {
             <p>MMKV</p>
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Live</h3>
+            <h2 className="font-bold md:text-lg">Live</h2>
             <Link
               href="https://apps.apple.com/us/app/desk-yoga-stretch-at-work/id6759360269"
               className="cursor-pointer text-blue-500"

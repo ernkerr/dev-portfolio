@@ -334,7 +334,7 @@ const SECTIONS: CaseStudySection[] = [
     content: (
       <>
         <P>
-          Before writing any code, I took a sharpie and a blank page and
+          Before writing any code, I took a Sharpie and a blank page and
           sketched the 2 screens I’d use most, the game and entering a score.
         </P>
         <Sketches />
@@ -376,7 +376,7 @@ const SECTIONS: CaseStudySection[] = [
   {
     id: "testing",
     title: "Prototyping & testing",
-    headline: "People were adding the bonus twice",
+    headline: "People were adding the bonus twice.",
     content: (
       <>
         <P>
@@ -550,7 +550,7 @@ const SECTIONS: CaseStudySection[] = [
         </P>
         <P>
           The review taught me that where a paywall sits is a design decision.{" "}
-          The limit was fine, the moment it showed up was wrong.
+          The limit was fine, but the moment it showed up was wrong.
         </P>
         <P>
           Reviews, of other apps and of my own, turned out to be some of my best

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { BlogPost } from "@/types/blog";
-import { pressStart, geistMono } from "../../public/fonts/fonts";
+import { pressStart, geistMono } from "@/lib/fonts";
 
 interface BlogCardProps {
   post: BlogPost;

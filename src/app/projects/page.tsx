@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import NavBar from "@/components/NavBar";
-import { pressStart } from "../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import { allProjects } from "@/data/projects";
 import { allAgents } from "@/data/agents";
 import ProjectCard from "@/components/ProjectCard";

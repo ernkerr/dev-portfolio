@@ -14,7 +14,7 @@ export default function myTeaCupboard() {
           </>
         }
         type="Web App"
-        stack={["HTML", "CS", "Vanilla JavaScript", "Github Pages"]}
+        stack={["HTML", "CSS", "Vanilla JavaScript", "GitHub Pages"]}
         link="https://ernkerr.github.io/TeaCupboard/index.html"
         img="/images/myTeaCupboard/oolong.jpg"
         purpose={
@@ -70,8 +70,8 @@ export default function myTeaCupboard() {
             It&apos;s used here to save the list of teas so they persist even
             after the user closes the browser.
             <br />
-            <br />I chose <strong>GitHub Pages </strong>
-            A free hosting service from GitHub that serves static websites
+            <br />I chose <strong>GitHub Pages</strong>,
+            a free hosting service from GitHub that serves static websites
             directly <br /> from a repository. It&apos;s perfect for projects
             like this that don&apos;t require server-side processing.
           </>

@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { pressStart } from "../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import Link from "next/link";
@@ -110,25 +110,26 @@ export default function ProjectTemplate({
           </p>
         </div>
 
+        {/* Stack logos are decorative: the stack is listed in text above. */}
         <div className="flex flex-row justify-end gap-4">
           <div className="mt-16 flex w-96 flex-col items-center gap-4 ">
             <Image
               src={stackimg}
-              alt={title}
+              alt=""
               width={700}
               height={700}
               className="max-h-24 w-auto object-contain"
             />
             <Image
               src={stackimg2}
-              alt={title}
+              alt=""
               width={700}
               height={700}
               className="max-h-24 w-auto object-contain"
             />
             <Image
               src={stackimg3}
-              alt={title}
+              alt=""
               width={700}
               height={400}
               className="max-h-24 w-auto object-contain"
@@ -146,15 +147,6 @@ export default function ProjectTemplate({
           </div>
         </div>
 
-        {/* <div className="flex justify-center">
-          <Image src={img} alt={title} width={700} height={500} />
-        </div>
-        <div className="flex justify-center">
-          <Image src={img} alt={title} width={700} height={500} />
-        </div>
-        <div className="flex justify-center">
-          <Image src={img} alt={title} width={700} height={500} />
-        </div> */}
         <div className={`mt-8 flex justify-center ${stackImages ? "flex-col items-center gap-8" : "flex-row gap-4 sm:gap-8 md:gap-16"}`}>
           <Image
             src={img2}

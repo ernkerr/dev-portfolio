@@ -81,7 +81,7 @@ Keep running text, captions and section headlines within `max-w-measure`.
 - `Tile`: project tile. Thumbnails are a brand-colored field with one thing on it (app icon, logo or one UI component), never a page screenshot.
 - `SideSwitch` + `SideContext`: the designer/engineer switch and its state.
 - `erinllm/`: erinLLM, the chat bot in the header (the only thing in its top right) that answers questions about me. Its panel is `w-chat` (26rem) from 768px. What it knows is `src/lib/erinllm/knowledge.ts` (add facts that aren't on the site to its "In my own words" list), plus the page someone is on, and any case study they ask about by name, which it reads live (`readPages.ts`), so editing a case study is enough. After changing what it knows or its rules, run `npm run erinllm:check` with the dev server running (about 3 minutes): it asks about 30 questions and fails on privacy, pay, refusal or broken-link problems. Its API is `src/app/api/erinllm`, and the questions people ask are at `/erinllm/review`.
-- Review pages (`/about/review`, `/erinllm/review`) are only for me: each calls `requireSignIn` (`src/app/review/guard.ts`), and their APIs check `reviewing()` (`src/lib/serverStore.ts`). I sign in at `/review` with `REVIEW_KEY`. `src/middleware.ts` doesn't run in this project (the top-level `pages/` folder means Next never picks it up), so don't put protection there.
+- Review pages (`/about/review`, `/erinllm/review`) are only for me: each calls `requireSignIn` (`src/app/review/guard.ts`), and their APIs check `reviewing()` (`src/lib/serverStore.ts`). I sign in at `/review` with `REVIEW_KEY`. Middleware doesn't run in this project (the top-level `pages/` folder means Next never picks up `src/middleware.ts`), so don't put protection there. The scheduler subdomain is handled by `next.config.ts` and the homepage instead.
 
 ### Voice
 
@@ -90,7 +90,7 @@ First person and plain ("I'm Erin, a product designer who engineers."). Short li
 ### Not part of this system
 
 - The OrderSync navy (`navy-1`–`navy-4`), the `accent` gradient, `.dot-grid` and `.shine-on-hover` belong to the OrderSync case study only.
-- The Fred case study (`src/app/fred/`) rebuilds pieces of Fred in Fred's own colors, and its `.fred-*` classes in globals.css belong to it only.
+- The Fred case study (`src/app/fred/`) rebuilds pieces of Fred in Fred's own colors: its `fred-*` colors in tailwind.config.ts and `.fred-*` classes in globals.css belong to it (and its home tile) only.
 - The `room-*` colors belong to the About page's room illustration (`src/app/about/Room.tsx`) only.
 - The `tank-*` colors belong to the Fun page's aquarium (`src/app/fun/aquarium/`) only.
 - `src/app/archive/` holds frozen past editions of the site. Don't restyle them.

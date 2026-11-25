@@ -18,7 +18,7 @@ export default function HeartsScoreTracker() {
             <br />
             While the app serves a different game, it was intentionally designed
             <br />
-            using the same underlying architecture as Gin Score Tracker —
+            using the same underlying architecture as Gin Score Tracker,
             allowing
             <br />
             me to move faster, stay consistent, and iterate with confidence.
@@ -76,7 +76,7 @@ export default function HeartsScoreTracker() {
         problems={
           <>
             The main challenge with Hearts Score Tracker wasn’t building from
-            scratch — it was adapting an existing structure to fit a
+            scratch: it was adapting an existing structure to fit a
             fundamentally different game.
             <br />
             <br />
@@ -103,7 +103,7 @@ export default function HeartsScoreTracker() {
             <br />
             <br />
             This project helped solidify my confidence in scaling ideas beyond a
-            single app — turning one successful project into a foundation for
+            single app, turning one successful project into a foundation for
             many.
             <br />
             <br />

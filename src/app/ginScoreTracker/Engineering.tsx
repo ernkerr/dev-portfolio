@@ -10,13 +10,13 @@ export default function GinScoreTracker() {
         title="Gin Score Tracker"
         description={
           <>
-            Gin Score Tracker, was and is, my first mobile app.
+            Gin Score Tracker was, and is, my first mobile app.
             <br />
             <br />
             It was designed to enhance the experience of playing Gin by allowing
             <br />
-            users to track scores, manage multiple games, and review past games{" "}
-            <br />— all within a clean, intuitive interface.
+            users to track scores, manage multiple games, and review past games,{" "}
+            <br />all within a clean, intuitive interface.
           </>
         }
         type="Mobile App"
@@ -74,8 +74,7 @@ export default function GinScoreTracker() {
               <a href="https://dribbble.com/shots/26273903-Gin-Score-Tracker">
                 Neo Brutalism UI
               </a>
-            </strong>{" "}
-            — embracing bold colors, thick borders,
+            </strong>, embracing bold colors, thick borders,
             <br />
             raw geometry, and a deliberately &apos;unpolished&apos; aesthetic{" "}
             <br />
@@ -98,14 +97,14 @@ export default function GinScoreTracker() {
             <br />
             <br />
             Another challenge was designing an interface that worked well <br />
-            for non-technical users - including older family members and friends
+            for non-technical users, including older family members and friends
             who play Gin.
           </>
         }
         img4="/images/ginScoreTracker/ginScreenshots.png"
         lessons={
           <>
-            This was my first fully shipped mobile app — and what made me my
+            This was my first fully shipped mobile app, and what made me my
             first internet dollar.
             <br />
             <br />I learned how to scope a project tightly, prioritize user
@@ -115,13 +114,13 @@ export default function GinScoreTracker() {
             using local storage for persistent data, and gathering feedback from
             real users. <br />
             <br />
-            Choosing a small but meaningful idea that solved a real need —{" "}
+            Choosing a small but meaningful idea that solved a real need{" "}
             <br />
-            in this case, for friends and family — made development faster and
+            (in this case, for friends and family) made development faster and
             more focused.
             <br />
             <br />
-            However probably the most important thing I&apos;ve learned from
+            However, probably the most important thing I&apos;ve learned from
             launching this app is that I am an app developer. <br /> I am not
             only capable but I&apos;m becoming more confident in my ability to
             create the products I want to see in the world.

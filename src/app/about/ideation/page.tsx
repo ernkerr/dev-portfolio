@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import SiteShell from "@/components/site/SiteShell";
 import { List, P } from "@/components/site/prose";
 import Room, { SHELVES, Versions, WindowAndCloset } from "../Room";
@@ -6,12 +7,12 @@ import Room, { SHELVES, Versions, WindowAndCloset } from "../Room";
 // How the room on my About page came together: every bookshelf as I
 // designed them, side by side, numbered, then each thing on them, version
 // by version. The About page shows the room as it is (FinalRoom).
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Ideation",
   description:
     "How the room on Erin Kerr's About page came together: every version of each thing in it, side by side.",
-  alternates: { canonical: "/about/ideation" },
-};
+  path: "/about/ideation",
+});
 
 export default function IdeationPage() {
   return (

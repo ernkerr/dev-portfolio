@@ -2,7 +2,7 @@ import { a } from "@/app/archive/2025/_lib/base";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { geistMono } from "../../../../../public/fonts/fonts";
+import { geistMono } from "@/lib/fonts";
 
 export default function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);

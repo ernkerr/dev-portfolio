@@ -2,7 +2,7 @@
 
 import { a } from "@/app/archive/2025/_lib/base";
 import NavBar from "@/app/archive/2025/_components/NavBar";
-import { pressStart } from "../../../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";

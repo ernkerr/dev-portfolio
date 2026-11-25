@@ -26,9 +26,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/components/BentoGrid.tsx",
-    "pages/api/getCurrentlyPlaying.js"
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

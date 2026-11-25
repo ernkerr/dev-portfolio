@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import CaseStudy from "@/components/site/CaseStudy";
 import { isEngineerSide } from "@/components/site/side";
 import Design from "./Design";
 import Engineering from "./Engineering";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Carpoolio",
   description:
     "How Erin Kerr designed Carpoolio, a group travel app where each car's seats are the sign-up sheet, from a coded prototype to the App Store.",
-  alternates: { canonical: "/carpoolio" },
-};
+  path: "/carpoolio",
+});
 
 export default async function Carpoolio({
   searchParams,

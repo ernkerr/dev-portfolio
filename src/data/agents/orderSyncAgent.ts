@@ -4,7 +4,7 @@ export const orderSyncAgentMetadata: AgentMetadata = {
   slug: "orderSyncAgent",
   title: "OrderSync Order Agent",
   shortDescription:
-    "An AI agent that reads inbound customer orders — email, EDI, PDF, spreadsheets — and turns them into validated, structured orders.",
+    "An AI agent that reads inbound customer orders (email, EDI, PDF, spreadsheets) and turns them into validated, structured orders.",
   type: "AI Order Agent",
   role: "Autonomous document-processing agent built on Mastra and Claude. It extracts line items, matches them to the product catalog and customer, prices and validates the order, and escalates to a human when it isn't sure.",
   stack: [

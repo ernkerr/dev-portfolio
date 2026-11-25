@@ -2,7 +2,7 @@
 
 import { useRef, useState, type Ref } from "react";
 import Image from "next/image";
-import { geistMono } from "../../../../../public/fonts/fonts";
+import { geistMono } from "@/lib/fonts";
 
 type Img = { src: string; w: number; h: number };
 

@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import CaseStudy from "@/components/site/CaseStudy";
 import { isEngineerSide } from "@/components/site/side";
 import Design from "./Design";
 import Engineering from "./Engineering";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Hearts Score Tracker",
   description:
     "How Erin Kerr designed Hearts Score Tracker for a whole table of players, shipped it in 2 days on Gin's foundation, and turned it into the base for a family of score-tracker apps.",
-  alternates: { canonical: "/heartsScoreTracker" },
-};
+  path: "/heartsScoreTracker",
+});
 
 export default async function HeartsScoreTracker({
   searchParams,

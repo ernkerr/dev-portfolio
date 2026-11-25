@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import SiteShell from "@/components/site/SiteShell";
 import { focusRing } from "@/components/site/links";
 import { FinalRoom } from "./Room";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
     "Erin Kerr is a UI/UX developer. Before design: 500+ research interviews at SRI International and brain-computer interface tools at Wispr AI.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 // A note on what the room's for, then the room as it is, as big as fits,
 // and under it the way to every version of it I made along the way
@@ -22,7 +23,7 @@ export default function AboutPage() {
           Explore and get to know me
         </h1>
         <p className="mt-2 max-w-measure text-body text-site-ink/80">
-          Inspired from subletting across NY.
+          Inspired by subletting across NY.
           <br />
           I&apos;m learning how much you can learn about a person by spending
           time in their space.

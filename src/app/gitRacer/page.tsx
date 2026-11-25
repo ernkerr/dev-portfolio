@@ -1,6 +1,6 @@
 "use client";
 
-import { pressStart } from "../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import Link from "next/link";
@@ -16,7 +16,7 @@ export default function GitRacer() {
         >
           Git Racer
         </h1>
-        <h3 className="py-8 text-sm md:max-w-[70%] lg:max-w-[80%] lg:py-16 lg:text-[16px]">
+        <div className="py-8 text-sm md:max-w-[70%] lg:max-w-[80%] lg:py-16 lg:text-[16px]">
           Race your friends, race famous developers, and turn your GitHub
           contributions into a competitive sport.
           <br />
@@ -28,15 +28,15 @@ export default function GitRacer() {
           Features include 1v1 head-to-head duels, goal-based challenges, league
           tiers, streak tracking, contribution graphs, shareable race links, and
           social sharing across Twitter, LinkedIn, Discord, Slack, and more.
-        </h3>
+        </div>
 
         <div className="flex flex-row gap-4 py-8 md:gap-32">
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Type</h3>
+            <h2 className="font-bold md:text-lg">Type</h2>
             <p>Web App</p>
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Tech Stack</h3>
+            <h2 className="font-bold md:text-lg">Tech Stack</h2>
             <p>React</p>
             <p>TypeScript</p>
             <p>Hono</p>
@@ -45,7 +45,7 @@ export default function GitRacer() {
             <p>Three.js</p>
           </div>
           <div className="flex flex-col gap-4 text-sm">
-            <h3 className="font-bold md:text-lg">Live</h3>
+            <h2 className="font-bold md:text-lg">Live</h2>
             <Link
               href="https://git-racer.vercel.app"
               className="cursor-pointer text-blue-500"
@@ -72,7 +72,7 @@ export default function GitRacer() {
           </h2>
           <p className="md:text-md text-xs sm:text-sm md:max-w-[80%] lg:text-[16px]">
             Wanted to make open-source contributions feel competitive and
-            social. No global leaderboard — the focus is on personal, meaningful
+            social. No global leaderboard. The focus is on personal, meaningful
             1v1 races against friends, colleagues, or anyone on GitHub.
           </p>
         </div>
@@ -143,7 +143,7 @@ export default function GitRacer() {
           <p className="text-xs sm:px-8 sm:text-sm lg:max-w-[80%] lg:text-[16px]">
             <strong>Blending multiple GitHub data sources.</strong> Accurate
             commit counts required pulling from GitHub Archive, GraphQL, and the
-            Events API — each with different coverage, latency, and rate limits.
+            Events API, each with different coverage, latency, and rate limits.
             Also handled cold-start crashes with @vercel/og image generation and
             StrictMode double-mount issues with the Three.js Hyperspeed
             animation.
@@ -156,7 +156,7 @@ export default function GitRacer() {
         </h2>
         <p className="text-xs sm:max-w-[80%] sm:text-sm lg:max-w-[90%] lg:text-[16px]">
           Building a social product around real data is harder than building the
-          features — the data pipeline (ingestion, deduplication, accuracy)
+          features. The data pipeline (ingestion, deduplication, accuracy)
           ended up being the core challenge, not the UI.
         </p>
       </div>

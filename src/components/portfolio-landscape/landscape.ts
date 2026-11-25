@@ -134,7 +134,8 @@ export const LANDSCAPE: LandscapeEntry[] = [
   {
     slug: "miggy-fajardo",
     name: "Miggy Fajardo",
-    href: "https://miggyfajardo.com/",
+    // His own domain now shows a host's "Site not found" page.
+    href: "https://web.archive.org/web/20251202144745/https://miggyfajardo.com/",
     track: "Product designer",
     hired: "Product Designer at Discord, 2025",
     path: "Industrial design graduate and Dropbox product design intern.",

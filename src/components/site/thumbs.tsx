@@ -264,8 +264,8 @@ export function GinMark() {
 // while Fred works (.fred-tile-mark in globals.css).
 export function FredBrand() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-[#F5F5F2]">
-      <div className="flex items-center gap-[3cqw] text-[#141413]">
+    <div className="absolute inset-0 flex items-center justify-center bg-fred-paper">
+      <div className="flex items-center gap-[3cqw] text-fred-ink">
         <svg
           viewBox="0 0 20 26"
           aria-hidden="true"

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import Shine from "@/components/Shine";
-import { mono } from "@/components/site/links";
 import {
   Caption,
   Figure,
@@ -932,7 +931,7 @@ export function ShineDemo({ caption }: { caption?: ReactNode }) {
     <figure>
       <div className="flex min-h-56 flex-col justify-center border border-site-line bg-white px-6 py-10">
         <p
-          className={`${mono} text-[12px] uppercase tracking-[0.06em] text-[#64748B]`}
+          className="font-mono text-label uppercase text-[#64748B]"
         >
           Silver glint
         </p>

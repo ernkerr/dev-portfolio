@@ -11,7 +11,6 @@ export const groupSingAlongMetadata: ProjectMetadata = {
   stack: ["React", "Next.js", "Tailwind", "Vercel"],
   link: "https://groupsingalong.com",
   thumbnail: "/images/groupSingAlong/thumbnail.jpg",
-  video: "/images/groupSingAlong/demo.mp4",
   featured: false,
   order: 5,
 };

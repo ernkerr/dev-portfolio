@@ -606,7 +606,7 @@ export default function Design() {
     <SiteShell>
       <CaseStudyArticle
         hero={<LiveHome2026 />}
-        label="Portfolio redesign • 2026"
+        label="Portfolio Redesign • 2026"
         title="Turning a developer portfolio into a design portfolio"
         sections={SECTIONS}
       />

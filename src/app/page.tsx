@@ -14,7 +14,7 @@ import {
   OrderSyncTokens,
   PortfolioBefore,
 } from "@/components/site/thumbs";
-import { EMAIL, focusRing, mono } from "@/components/site/links";
+import { EMAIL, focusRing } from "@/components/site/links";
 import { isEngineerSide } from "@/components/site/side";
 import { EXPERIENCE } from "@/data/experience";
 
@@ -149,7 +149,7 @@ export default async function Home({
               <ResumeButton />
               <a
                 href={`mailto:${EMAIL}`}
-                className={`${mono} inline-block text-[13px] uppercase tracking-[0.04em] text-site-blue underline-offset-4 hover:underline md:hidden ${focusRing}`}
+                className={`inline-block font-mono text-nav uppercase text-site-blue underline-offset-4 hover:underline md:hidden ${focusRing}`}
               >
                 <span aria-hidden="true">✦ </span>Get in touch
               </a>
@@ -162,7 +162,7 @@ export default async function Home({
                 key={e.company}
                 className="grid grid-cols-[4.5rem_1fr] gap-x-4 py-1.5 sm:grid-cols-[5.5rem_1fr_1.7fr]"
               >
-                <dt className={`${mono} pt-[2px] text-[13px] text-site-muted`}>
+                <dt className="pt-0.5 font-mono text-date text-site-muted">
                   {e.year}
                 </dt>
                 <dd>{e.company}</dd>

@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { getAllBlogPosts } from "@/data/blogs";
 import NavBar from "@/components/NavBar";
 import BlogList from "./BlogList";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Blog",
   description:
     "Thoughts, tutorials, and insights on web development and software engineering.",
-  alternates: { canonical: "/blog" },
-};
+  path: "/blog",
+});
 
 export default function Blog() {
   // Fetch all blog posts at build time (Server Component)

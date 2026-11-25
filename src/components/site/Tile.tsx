@@ -99,9 +99,6 @@ export default function Tile({
 }: {
   item: TileItem;
   sizes: string;
-  /** Ignored: tiles always load lazily (see Art). Still accepted so pages
-   *  that pass it keep compiling. */
-  priority?: boolean;
   /** Put the meta line under the title instead of beside it (narrow grids). */
   stacked?: boolean;
 }) {

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import NavBar from "@/components/NavBar";
-import { pressStart } from "../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import TabsHeader from "@/components/expoWest2026/TabsHeader";
 import DayFilter from "@/components/expoWest2026/DayFilter";
 import EventCard from "@/components/expoWest2026/EventCard";

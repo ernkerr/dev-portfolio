@@ -3,7 +3,14 @@
 // (output/cv-erin-kerr-site-*.pdf), the same ones my email agent attaches.
 export const RESUMES = {
   designer: "/resume/erin-kerr-resume-designer.pdf",
-  engineer: "/resume/erin-kerr-resume-engineer.pdf",
-  // The umbrella one, linked from the footer on every page.
   designEngineer: "/resume/erin-kerr-resume-design-engineer.pdf",
+  engineer: "/resume/erin-kerr-resume-engineer.pdf",
 };
+
+// The footer menu's choices. `side` is the switch side each one matches, so
+// the menu can mark it; the design engineer one matches neither.
+export const RESUME_CHOICES = [
+  { label: "Designer", side: "designer", href: RESUMES.designer },
+  { label: "Design engineer", side: null, href: RESUMES.designEngineer },
+  { label: "Engineer", side: "engineer", href: RESUMES.engineer },
+];

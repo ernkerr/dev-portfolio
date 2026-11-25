@@ -66,7 +66,7 @@ const PLACES: Place[] = [
 ];
 
 const spinner =
-  "size-[11px] shrink-0 animate-spin rounded-full border-[1.5px] border-[#E7E6E1] border-t-[#141413] motion-reduce:animate-none";
+  "size-[11px] shrink-0 animate-spin rounded-full border-[1.5px] border-fred-line border-t-fred-ink motion-reduce:animate-none";
 
 const reducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -141,7 +141,7 @@ export default function LiveSearch() {
   const elapsed = running && now > since ? Math.round((now - since) / 1000) : 0;
 
   return (
-    <div ref={box} className="bg-[#F5F5F2] px-6 py-8 md:px-10 md:py-10">
+    <div ref={box} className="bg-fred-paper px-6 py-8 md:px-10 md:py-10">
       <div className="mx-auto flex max-w-[34rem] flex-col gap-4">
         <div className="flex items-center justify-between gap-4">
           <p className={label}>Fred’s search card · live</p>
@@ -154,29 +154,31 @@ export default function LiveSearch() {
           </button>
         </div>
 
-        <p className="max-w-[85%] self-end rounded-2xl border border-[#E7E6E1] bg-white px-3.5 py-2.5 text-[14.5px] text-[#141413]">
+        <p className="max-w-[85%] self-end rounded-2xl border border-fred-line bg-white px-3.5 py-2.5 text-[14.5px] text-fred-ink">
           Find me a 1 bed in Williamsburg, Greenpoint or the East Village under
           $4,500
         </p>
 
         <section
           aria-label="Apartment search"
-          className="w-full overflow-hidden rounded-xl border border-[#E7E6E1] bg-white text-[#141413]"
+          className="w-full overflow-hidden rounded-xl border border-fred-line bg-white text-fred-ink"
         >
           <header
-            className={`flex items-center gap-3 px-4 py-3 ${open ? "border-b border-[#E7E6E1]" : ""}`}
+            className={`flex items-center gap-3 px-4 py-3 ${open ? "border-b border-fred-line" : ""}`}
           >
-            <h3 className="text-[15px] font-semibold tracking-tight">
+            {/* Not a heading: this demo sits above the page's h1, and the
+                section is already labelled. */}
+            <p className="text-[15px] font-semibold tracking-tight">
               Apartment search
-            </h3>
+            </p>
             <span aria-live="polite" className="ml-auto">
               {running ? (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F0EFEB] px-2.5 py-1 text-[13px] font-medium">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-fred-chip px-2.5 py-1 text-[13px] font-medium">
                   <span className={spinner} aria-hidden="true" />
                   Searching
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2E9E5B]/10 px-2.5 py-1 text-[13px] font-medium text-[#2E9E5B]">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-fred-green/10 px-2.5 py-1 text-[13px] font-medium text-fred-green">
                   <LuCheck size={13} strokeWidth={2} aria-hidden="true" />
                   Done
                 </span>
@@ -186,7 +188,7 @@ export default function LiveSearch() {
               type="button"
               aria-expanded={open}
               onClick={() => setOpen(!open)}
-              className={`rounded-md p-1 text-[#6B6A64] hover:bg-[#F0EFEB] hover:text-[#141413] ${focusRing}`}
+              className={`rounded-md p-1 text-fred-muted hover:bg-fred-chip hover:text-fred-ink ${focusRing}`}
             >
               <LuChevronDown
                 size={16}
@@ -203,7 +205,7 @@ export default function LiveSearch() {
           {open && (
             <>
               <div className="px-4 pb-4 pt-3">
-                <div className="flex justify-between text-[12.5px] text-[#6B6A64]">
+                <div className="flex justify-between text-[12.5px] text-fred-muted">
                   <span>Step</span>
                   <span>Listings checked</span>
                 </div>
@@ -219,8 +221,8 @@ export default function LiveSearch() {
                         <span
                           className={`grid size-7 shrink-0 place-items-center rounded-full border text-[12.5px] tabular-nums ${
                             done
-                              ? "border-[#141413]/15 text-[#141413]"
-                              : "border-[#E7E6E1] text-[#6B6A64]"
+                              ? "border-fred-ink/15 text-fred-ink"
+                              : "border-fred-line text-fred-muted"
                           }`}
                         >
                           {done ? (
@@ -230,14 +232,14 @@ export default function LiveSearch() {
                           )}
                         </span>
                         <span
-                          className={`shrink-0 text-[14px] ${done || active ? "font-medium" : "text-[#6B6A64]"}`}
+                          className={`shrink-0 text-[14px] ${done || active ? "font-medium" : "text-fred-muted"}`}
                         >
                           {name}
                         </span>
                         {active && (
                           <>
                             <span className={spinner} aria-hidden="true" />
-                            <span className="min-w-0 truncate text-[13px] text-[#6B6A64]">
+                            <span className="min-w-0 truncate text-[13px] text-fred-muted">
                               {DETAILS[i]}
                               {elapsed >= 2 ? ` · ${elapsed}s` : ""}
                             </span>
@@ -255,7 +257,7 @@ export default function LiveSearch() {
                 <Skyline labels={running ? LABELS[step] : []} live={running} />
               </div>
               {!running && (
-                <ul className="border-t border-[#E7E6E1]">
+                <ul className="border-t border-fred-line">
                   {PLACES.map((p) => (
                     <PlaceRow key={p.title} place={p} />
                   ))}
@@ -281,24 +283,24 @@ function countUp(set: (n: number) => void) {
 
 function PlaceRow({ place }: { place: Place }) {
   return (
-    <li className="grid grid-cols-[40px_minmax(0,1fr)_auto] items-center gap-3 border-t border-[#E7E6E1] px-4 py-2.5 first:border-t-0">
+    <li className="grid grid-cols-[40px_minmax(0,1fr)_auto] items-center gap-3 border-t border-fred-line px-4 py-2.5 first:border-t-0">
       <BuildingTile kind={place.tile} />
       <div className="min-w-0">
         <p className="truncate text-[14.5px] font-semibold tabular-nums">
           {place.title}
         </p>
-        <p className="truncate text-[12.5px] text-[#6B6A64]">{place.facts}</p>
+        <p className="truncate text-[12.5px] text-fred-muted">{place.facts}</p>
       </div>
       <div className="flex items-center gap-1.5 text-[12.5px]">
         <span
-          className={`mr-1 hidden font-medium sm:inline ${place.over ? "text-[#B86E14]" : "text-[#2E9E5B]"}`}
+          className={`mr-1 hidden font-medium sm:inline ${place.over ? "text-[#B86E14]" : "text-fred-green"}`}
         >
           {place.fit}
         </span>
-        <span className="grid size-7 place-items-center rounded-full border border-[#E7E6E1] text-[#6B6A64]">
+        <span className="grid size-7 place-items-center rounded-full border border-fred-line text-fred-muted">
           <LuCheck size={13} aria-label="Save" />
         </span>
-        <span className="grid size-7 place-items-center rounded-full border border-[#E7E6E1] text-[#6B6A64]">
+        <span className="grid size-7 place-items-center rounded-full border border-fred-line text-fred-muted">
           <LuX size={13} aria-label="Pass" />
         </span>
       </div>
@@ -311,7 +313,7 @@ function BuildingTile({ kind }: { kind: Place["tile"] }) {
   return (
     <span
       aria-hidden="true"
-      className="grid size-10 place-items-end overflow-hidden rounded-[9px] bg-[#F0EFEB]"
+      className="grid size-10 place-items-end overflow-hidden rounded-[9px] bg-fred-chip"
     >
       {kind === "brick" && (
         <svg width="30" height="34" viewBox="0 0 34 38">
@@ -501,7 +503,7 @@ function Skyline({ labels, live }: { labels: string[]; live: boolean }) {
       {text && chip && (
         <span
           key={chip.n}
-          className="fred-chip absolute whitespace-nowrap rounded-full border border-[#E7E6E1] bg-white px-2 py-0.5 text-[12px] font-medium shadow-sm"
+          className="fred-chip absolute whitespace-nowrap rounded-full border border-fred-line bg-white px-2 py-0.5 text-[12px] font-medium shadow-sm"
           style={{ left: `${chip.x}%`, top: `${chip.y}%` }}
         >
           {text}

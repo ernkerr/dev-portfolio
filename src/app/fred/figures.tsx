@@ -12,7 +12,8 @@ import { Caption, label } from "@/components/site/prose";
 // October 2026) in Fred's own colors, sizes and type, not the portfolio's.
 // Fred's palette: ink #141413, muted text #6B6A64, borders #E7E6E1, muted
 // fills #F0EFEB, the chat #FBFBF9, the sidebar #F5F5F2, and the yellow
-// #FFDD55, which only lights up while Fred works.
+// #FFDD55, which only lights up while Fred works. The ones used as classes
+// are the fred-* colors in tailwind.config.ts.
 
 const youngSerif = Young_Serif({ weight: "400", subsets: ["latin"], display: "swap" });
 const archivo = Archivo({ weight: "800", subsets: ["latin"], display: "swap" });
@@ -45,7 +46,7 @@ function useOnView(ref: React.RefObject<HTMLElement | null>, fn: () => void) {
 function Stage({
   name,
   control,
-  bg = "bg-[#F5F5F2]",
+  bg = "bg-fred-paper",
   caption,
   children,
 }: {
@@ -118,12 +119,12 @@ export function MarkDemo() {
       }
       caption="The panes light in a circle, top left, top right, bottom right, bottom left, 0.6 seconds apart. In the sidebar the mark sits still next to Fred’s name."
     >
-      <div className="grid items-center gap-8 text-[#141413] sm:grid-cols-[auto_1fr] sm:gap-14">
+      <div className="grid items-center gap-8 text-fred-ink sm:grid-cols-[auto_1fr] sm:gap-14">
         <FredMark working={working} className="w-24 justify-self-center sm:w-32" />
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2">
             <p className={label}>Sidebar · 20 × 26</p>
-            <span className="inline-flex items-center gap-2.5 self-start rounded-[10px] border border-[#E7E6E1] bg-white px-3.5 py-2.5 text-[17px] font-semibold tracking-tight">
+            <span className="inline-flex items-center gap-2.5 self-start rounded-[10px] border border-fred-line bg-white px-3.5 py-2.5 text-[17px] font-semibold tracking-tight">
               <FredMark className="h-[26px] w-5" />
               Fred
             </span>
@@ -141,8 +142,8 @@ export function MarkDemo() {
 /** Fred's status line in the chat: the small mark and what Fred's doing. */
 function LiveLine({ working, text }: { working: boolean; text: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 text-[14px] text-[#6B6A64]">
-      <FredMark working={working} className="h-[17px] w-[13px] shrink-0 text-[#141413]" />
+    <span className="inline-flex items-center gap-2 text-[14px] text-fred-muted">
+      <FredMark working={working} className="h-[17px] w-[13px] shrink-0 text-fred-ink" />
       <span className={working ? "fred-shimmer" : undefined}>{text}</span>
     </span>
   );
@@ -151,9 +152,9 @@ function LiveLine({ working, text }: { working: boolean; text: ReactNode }) {
 // ---------------------------------------------------------- the thinking
 
 const bubble =
-  "max-w-[86%] self-end rounded-2xl border border-[#E7E6E1] bg-white px-3.5 py-2.5 text-[14.5px] text-[#141413]";
+  "max-w-[86%] self-end rounded-2xl border border-fred-line bg-white px-3.5 py-2.5 text-[14.5px] text-fred-ink";
 const pane =
-  "flex min-h-[17rem] flex-col gap-3 rounded-xl border border-[#E7E6E1] bg-[#FBFBF9] p-4 text-[#141413]";
+  "flex min-h-[17rem] flex-col gap-3 rounded-xl border border-fred-line bg-[#FBFBF9] p-4 text-fred-ink";
 
 /** The first version's work log next to the one line that shipped. */
 export function Thinking() {
@@ -189,8 +190,8 @@ export function Thinking() {
           <p className={label}>First version</p>
           <div className={pane}>
             <p className={bubble}>Does 292 Nassau take dogs?</p>
-            <div className="flex flex-col gap-2 rounded-[10px] border border-[#E7E6E1] bg-white px-3.5 py-3 text-[13.5px] text-[#6B6A64]">
-              <p className="text-[14px] font-semibold text-[#141413]">
+            <div className="flex flex-col gap-2 rounded-[10px] border border-fred-line bg-white px-3.5 py-3 text-[13.5px] text-fred-muted">
+              <p className="text-[14px] font-semibold text-fred-ink">
                 Checked 212 new listings since 7:00 AM
               </p>
               <ul className="flex flex-col gap-1.5">
@@ -200,14 +201,14 @@ export function Thinking() {
                   "Checked pet policy and laundry on 14",
                 ].map((t) => (
                   <li key={t} className="grid grid-cols-[14px_1fr] items-start gap-2">
-                    <LuCheck size={12} strokeWidth={2.5} aria-hidden="true" className="mt-1 text-[#2E9E5B]" />
+                    <LuCheck size={12} strokeWidth={2.5} aria-hidden="true" className="mt-1 text-fred-green" />
                     <span>{t}</span>
                   </li>
                 ))}
                 <li className="grid grid-cols-[14px_1fr] items-start gap-2">
                   <span
                     aria-hidden="true"
-                    className="mt-1 size-[11px] animate-spin rounded-full border-[1.5px] border-[#E7E6E1] border-t-[#141413] motion-reduce:animate-none"
+                    className="mt-1 size-[11px] animate-spin rounded-full border-[1.5px] border-fred-line border-t-fred-ink motion-reduce:animate-none"
                   />
                   <span className="fred-shimmer">Asking 2 landlords about dogs…</span>
                 </li>
@@ -227,9 +228,9 @@ export function Thinking() {
               />
             ) : (
               <>
-                <span className="inline-flex items-center gap-2 text-[14px] text-[#6B6A64]">
-                  <FredMark className="h-[17px] w-[13px] shrink-0 text-[#141413]" />
-                  <span className="font-medium text-[#141413]">2 steps</span>
+                <span className="inline-flex items-center gap-2 text-[14px] text-fred-muted">
+                  <FredMark className="h-[17px] w-[13px] shrink-0 text-fred-ink" />
+                  <span className="font-medium text-fred-ink">2 steps</span>
                   <LuChevronRight size={13} aria-hidden="true" />
                 </span>
                 <p className="text-[15px] leading-relaxed">
@@ -240,7 +241,7 @@ export function Thinking() {
                   {["Yes, ask them", "Not now"].map((t) => (
                     <span
                       key={t}
-                      className="rounded-full border border-[#E7E6E1] bg-white px-3 py-1.5 text-[13.5px] font-medium"
+                      className="rounded-full border border-fred-line bg-white px-3 py-1.5 text-[13.5px] font-medium"
                     >
                       {t}
                     </span>
@@ -454,9 +455,9 @@ const TAP: Record<Weight, string> = {
   must: "Tap to make it nice to have",
 };
 const WEIGHT_CLASS: Record<Weight, string> = {
-  nice: "border-[#E7E6E1] bg-white",
-  important: "border-[#141413] bg-white font-medium",
-  must: "border-[#141413] bg-[#141413] font-medium text-white",
+  nice: "border-fred-line bg-white",
+  important: "border-fred-ink bg-white font-medium",
+  must: "border-fred-ink bg-fred-ink font-medium text-white",
 };
 
 /** Profile's nice-to-haves: tap once for important, twice for a dealbreaker. */
@@ -468,9 +469,9 @@ export function NiceToHaves() {
   ]);
   return (
     <Stage name="Nice-to-haves · tap one" bg="bg-white">
-      <div className="flex flex-col gap-3 text-[#141413]">
-        <p className="text-[13px] text-[#6B6A64]">
-          <span className="font-medium text-[#141413]">Nice to have</span> · Tap
+      <div className="flex flex-col gap-3 text-fred-ink">
+        <p className="text-[13px] text-fred-muted">
+          <span className="font-medium text-fred-ink">Nice to have</span> · Tap
           once for important, twice for a dealbreaker
         </p>
         <ul className="flex flex-wrap gap-2">
@@ -506,23 +507,23 @@ const NOTES = [
 export function MemoryNotes() {
   return (
     <Stage name="What Fred remembers · example notes" bg="bg-white">
-      <div className="flex flex-col gap-4 text-[#141413]">
+      <div className="flex flex-col gap-4 text-fred-ink">
         <div>
           <p className="text-[16px] font-semibold tracking-tight">What Fred remembers</p>
-          <p className="text-[13px] text-[#6B6A64]">
+          <p className="text-[13px] text-fred-muted">
             Notes Fred keeps from your chats and uses in every search. Fix or
             delete anything that’s wrong.
           </p>
         </div>
         {NOTES.map((n) => (
           <div key={n.text} className="flex flex-col gap-1.5">
-            <p className="text-[12.5px] font-semibold text-[#6B6A64]">{n.kind}</p>
-            <p className="flex items-center gap-3 rounded-[10px] border border-[#E7E6E1] px-3 py-2 text-[14.5px]">
+            <p className="text-[12.5px] font-semibold text-fred-muted">{n.kind}</p>
+            <p className="flex items-center gap-3 rounded-[10px] border border-fred-line px-3 py-2 text-[14.5px]">
               <span>
                 {n.text}
-                {n.guess && <span className="text-[#6B6A64]"> · Fred’s guess</span>}
+                {n.guess && <span className="text-fred-muted"> · Fred’s guess</span>}
               </span>
-              <span className="ml-auto flex gap-2.5 text-[#6B6A64]" aria-hidden="true">
+              <span className="ml-auto flex gap-2.5 text-fred-muted" aria-hidden="true">
                 <LuPencil size={13} strokeWidth={1.5} />
                 <LuX size={13} strokeWidth={1.5} />
               </span>

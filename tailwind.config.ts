@@ -57,6 +57,16 @@ export default {
           bubble: "#F2FBFD",
           rim: "#1E1D1B", // the tank's black frame
         },
+        // Fred's own colors, for the pieces of Fred rebuilt in its case
+        // study (src/app/fred) and its tile. Not part of the site palette.
+        fred: {
+          ink: "#141413",
+          muted: "#6B6A64",
+          line: "#E7E6E1",
+          paper: "#F5F5F2",
+          chip: "#F0EFEB", // the Searching pill
+          green: "#2E9E5B", // Done
+        },
         // The room illustration on About (src/app/about/Room.tsx), picked
         // from a photo of my old bedroom. Not part of the site palette.
         room: {

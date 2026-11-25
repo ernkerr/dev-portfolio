@@ -221,7 +221,7 @@ export default function PortfolioLandscape() {
             <span className="sr-only">, opens their portfolio</span>
           </a>
         </h4>
-        <p className="mt-2 max-w-[40rem] text-[16px] leading-[1.7] text-site-ink/80">
+        <p className="mt-2 max-w-measure text-body text-site-ink/80">
           <span className="font-medium text-site-ink">{active.hired}.</span>{" "}
           {active.path}
         </p>
@@ -241,14 +241,14 @@ export default function PortfolioLandscape() {
           ))}
         </dl>
 
-        <div className="mt-6 max-w-[40rem] border-l-2 border-site-blue pl-4">
+        <div className="mt-6 max-w-measure border-l-2 border-site-blue pl-4">
           <p className={label}>What it suggests for my design</p>
           <p className="mt-1.5 text-[17px] leading-[1.65] text-site-ink">
             {active.suggests}
           </p>
         </div>
 
-        <p className="mt-5 max-w-[40rem] text-[13px] leading-relaxed text-site-muted">
+        <p className="mt-5 max-w-measure text-caption text-site-muted">
           Select a numbered highlight to see why I called it out.{" "}
           {active.source.text}{" "}
           <a

@@ -17,7 +17,6 @@ export const carpoolioMetadata: ProjectMetadata = {
   ],
   link: "https://erinkerr.me/carpoolio",
   thumbnail: "/images/carpoolio/thumbnail.png",
-  video: "/images/carpoolio/demo.mp4",
   featured: true,
   order: 4,
 };

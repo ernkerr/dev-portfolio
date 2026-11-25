@@ -11,7 +11,6 @@ export const ginScoreTrackerMetadata: ProjectMetadata = {
   stack: ["React Native", "Expo Go", "Nativewind"],
   link: "https://apps.apple.com/us/app/gin-score-tracker/id6746460027",
   thumbnail: "/images/ginScoreTracker/thumbnail.png",
-  video: "/images/ginScoreTracker/demo.mp4",
   featured: false,
   order: 6,
 };

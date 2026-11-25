@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import SiteShell from "@/components/site/SiteShell";
 import { FieldNotesMark } from "@/components/site/thumbs";
 import { GROUPS as QUEST_GROUPS } from "./quests";
 import SideQuests, { type QuestGroup } from "./SideQuests";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Fun",
   description:
     "Erin Kerr's side quests: minigames, tools, apps, web apps and skills for Claude Code.",
-  alternates: { canonical: "/fun" },
-};
+  path: "/fun",
+});
 
 // Hand-built thumbnails, by quest name. They stay out of quests.ts so it
 // stays plain data.

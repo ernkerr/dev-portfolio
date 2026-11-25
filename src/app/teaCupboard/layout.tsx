@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "My Tea Cupboard",
   description:
     "A platform for tea enthusiasts to track their tea collections and share their favorite teas with others.",
-  alternates: { canonical: "/teaCupboard" },
-};
+  path: "/teaCupboard",
+});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children;

@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import CaseStudy from "@/components/site/CaseStudy";
 import { isEngineerSide } from "@/components/site/side";
 import Design from "./Design";
 import Engineering from "./Engineering";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "OrderSync",
   description:
     "How Erin Kerr redesigned ordersync.io for skeptical B2B buyers: research first, a calm navy design system, and one clear way to book a call.",
-  alternates: { canonical: "/orderSync" },
-};
+  path: "/orderSync",
+});
 
 export default async function OrderSync({
   searchParams,

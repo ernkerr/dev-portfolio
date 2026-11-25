@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import CaseStudy from "@/components/site/CaseStudy";
 import { isEngineerSide } from "@/components/site/side";
 import Engineering from "./Engineering";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Group Sing Along",
   description:
     "How Erin Kerr built Group Sing Along: one host picks a song and every phone in the room opens its lyrics, with no account or download.",
-  alternates: { canonical: "/groupSingAlong" },
-};
+  path: "/groupSingAlong",
+});
 
 export default async function GroupSingAlong({
   searchParams,

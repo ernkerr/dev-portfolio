@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { EDITIONS } from "@/data/editions";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Archive",
   description: "Every past version of erinkerr.me, kept exactly as it was.",
-  alternates: { canonical: "/archive" },
-};
+  path: "/archive",
+});
 
 const linkClass =
   "underline-offset-4 decoration-wavy decoration-1 hover:underline hover:text-[#001AFF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#001AFF]";

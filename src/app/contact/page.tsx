@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { Lead } from "@/components/site/prose";
 import SiteShell from "@/components/site/SiteShell";
 import ContactForm from "./ContactForm";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description: "Send Erin Kerr a message.",
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

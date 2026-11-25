@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import CaseStudy from "@/components/site/CaseStudy";
 import { isEngineerSide } from "@/components/site/side";
 import Design from "./Design";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Portfolio Redesign",
   description:
     "How Erin Kerr rebuilt her portfolio to lead with product and UI/UX design: an audit of the 2025 site, research on 265 designer job posts, and a redesign from a blank page.",
-  alternates: { canonical: "/portfolioRedesign" },
-};
+  path: "/portfolioRedesign",
+});
 
 export default async function PortfolioRedesign({
   searchParams,

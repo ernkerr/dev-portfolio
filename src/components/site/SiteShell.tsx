@@ -16,15 +16,6 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
         >
           <p>Designed + coded by Erin</p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            <li>
-              <a
-                href={RESUMES.designEngineer}
-                download
-                className={`transition-colors hover:text-site-blue ${focusRing}`}
-              >
-                Resume
-              </a>
-            </li>
             {SOCIALS.map(({ href, label }) => (
               <li key={label}>
                 <a
@@ -38,6 +29,16 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
                 </a>
               </li>
             ))}
+            {/* Next to Contact, the other way to reach me. */}
+            <li>
+              <a
+                href={RESUMES.designEngineer}
+                download
+                className={`transition-colors hover:text-site-blue ${focusRing}`}
+              >
+                Resume
+              </a>
+            </li>
           </ul>
         </div>
       </footer>

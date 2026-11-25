@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import { ClickTracking } from "@/components/ClickTracking";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -112,6 +113,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {children}
+        <ClickTracking />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-3PHYR9V46Y"
           strategy="afterInteractive"

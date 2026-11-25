@@ -83,9 +83,12 @@ function QuestLink({
   children: React.ReactNode;
 } & React.HTMLAttributes<HTMLElement>) {
   const { href, status } = quest;
+  // Its name in click tracking (src/components/ClickTracking.tsx), so the
+  // ASCII art and caption don't end up in the report.
+  const track = { "data-track": quest.name };
   if (status === "download") {
     return (
-      <a href={href} download className={className} {...hover}>
+      <a href={href} download className={className} {...track} {...hover}>
         {children}
       </a>
     );
@@ -97,6 +100,7 @@ function QuestLink({
         target="_blank"
         rel="noopener noreferrer"
         className={className}
+        {...track}
         {...hover}
       >
         {children}
@@ -104,7 +108,7 @@ function QuestLink({
     );
   }
   return (
-    <Link href={href} className={className} {...hover}>
+    <Link href={href} className={className} {...track} {...hover}>
       {children}
     </Link>
   );
@@ -239,6 +243,7 @@ function HappinessGenerator({ quest, n }: { quest: Quest; n: number }) {
       type="button"
       onClick={fetchDog}
       className={`group block w-full text-left ${focusRing}`}
+      data-track={quest.name}
       {...hover}
     >
       {dog ? (
@@ -325,7 +330,13 @@ function Row({
   let body: React.ReactNode;
   if (quest.play) {
     body = (
-      <button type="button" onClick={onPlay} className={grid} {...handlers}>
+      <button
+        type="button"
+        onClick={onPlay}
+        className={grid}
+        data-track={quest.name}
+        {...handlers}
+      >
         {cells}
       </button>
     );

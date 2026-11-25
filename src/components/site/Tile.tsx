@@ -115,6 +115,9 @@ export default function Tile({
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`group block ${focusRing}`}
+      // Its name in click tracking (src/components/ClickTracking.tsx), so the
+      // text inside the art doesn't end up in the report.
+      data-track={title}
     >
       <div
         className={`relative overflow-hidden border border-site-line [container-type:inline-size] ${aspect}`}

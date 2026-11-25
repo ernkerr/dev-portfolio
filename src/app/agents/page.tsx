@@ -47,7 +47,7 @@ export default function Agents() {
           Agents
         </h1>
         <p className="max-w-2xl text-base text-gray-300 md:text-lg lg:text-xl">
-          AI agents I&apos;ve built for real production work — systems that read
+          AI agents I&apos;ve built for real production work: systems that read
           messy real-world inputs, reason with tools, and take action, with a
           human in the loop where it counts.
         </p>

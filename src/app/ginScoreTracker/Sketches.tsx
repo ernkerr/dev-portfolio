@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Caption, label } from "@/components/site/prose";
 
-// Erin's sharpie sketches from before she started building, each next to
+// Erin's Sharpie sketches from before she started building, each next to
 // the screen it became. The game screen is today's app in the iPhone
 // Simulator; the score screen is New Score as it shipped in 1.0, from the App
 // Store screenshots.
@@ -69,7 +69,7 @@ export default function Sketches() {
         ))}
       </div>
       <Caption>
-        My sharpie sketches from before I started building, next to the screens
+        My Sharpie sketches from before I started building, next to the screens
         they became.
       </Caption>
     </figure>

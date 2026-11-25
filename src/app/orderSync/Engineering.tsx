@@ -33,13 +33,21 @@ function Reveal({
   );
 }
 
-function Eyebrow({ children }: { children: ReactNode }) {
+// A small pill label. Sections whose only title is the pill render it as
+// their h2, so screen reader users can still jump to them.
+function Eyebrow({
+  children,
+  as: Tag = "span",
+}: {
+  children: ReactNode;
+  as?: "span" | "h2";
+}) {
   return (
-    <span
+    <Tag
       className={`${geistMono.className} inline-block rounded-full border border-white/15 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-white/60`}
     >
       {children}
-    </span>
+    </Tag>
   );
 }
 
@@ -58,12 +66,12 @@ const PIPELINE = [
   {
     n: "01",
     t: "Order lands in the inbox",
-    d: "A customer emails a purchase order — in the body, or as a PDF, spreadsheet, or EDI attachment. The Laravel backend pulls it in over the Gmail API and queues it for the agent.",
+    d: "A customer emails a purchase order, in the body or as a PDF, spreadsheet, or EDI attachment. The Laravel backend pulls it in over the Gmail API and queues it for the agent.",
   },
   {
     n: "02",
     t: "The agent reads it",
-    d: "A fresh agent spins up per request and picks the right extractor for the format — pulling the customer, PO number, and every line item out of unstructured text, scanned pages, or X12 EDI.",
+    d: "A fresh agent spins up per request and picks the right extractor for the format, pulling the customer, PO number, and every line item out of unstructured text, scanned pages, or X12 EDI.",
   },
   {
     n: "03",
@@ -72,8 +80,8 @@ const PIPELINE = [
   },
   {
     n: "04",
-    t: "It acts — or asks",
-    d: "Confident orders are written straight to the system and pushed to the ERP. Anything ambiguous — an unknown product, a price mismatch, a cancellation — becomes a typed escalation for a human to review.",
+    t: "It acts, or asks",
+    d: "Confident orders are written straight to the system and pushed to the ERP. Anything ambiguous (an unknown product, a price mismatch, a cancellation) becomes a typed escalation for a human to review.",
   },
 ];
 
@@ -84,11 +92,11 @@ const PROBLEMS = [
   },
   {
     t: "Ops teams retype it by hand",
-    d: "Someone reads each order and keys line items into the ERP — slow, and a single transposed quantity becomes a wrong shipment.",
+    d: "Someone reads each order and keys line items into the ERP. It's slow, and a single transposed quantity becomes a wrong shipment.",
   },
   {
     t: "The hard cases are the costly ones",
-    d: "An unrecognized SKU or an off-catalog price is exactly where a silent mistake hurts most — and where naive automation fails quietly.",
+    d: "An unrecognized SKU or an off-catalog price is exactly where a silent mistake hurts most, and where naive automation fails quietly.",
   },
   {
     t: "Trust requires a paper trail",
@@ -117,19 +125,19 @@ const TOOL_GROUPS = [
 const PROUD = [
   {
     t: "Confidence-gated escalation",
-    d: "Instead of guessing, the agent raises one of a dozen typed escalations — unknown product, price mismatch, customer not found, cancellation requested — each with a priority. Edge cases land in a human's queue instead of becoming bad orders.",
+    d: "Instead of guessing, the agent raises one of a dozen typed escalations (unknown product, price mismatch, customer not found, cancellation requested), each with a priority. Edge cases land in a human's queue instead of becoming bad orders.",
   },
   {
     t: "Every field traces back to the source",
-    d: "Extracted values carry source spans — character offsets in text, and pixel bounding boxes on PDFs — so the review UI can highlight exactly where on the original document each number came from.",
+    d: "Extracted values carry source spans (character offsets in text, and pixel bounding boxes on PDFs), so the review UI can highlight exactly where on the original document each number came from.",
   },
   {
     t: "A decision log, not a black box",
-    d: "Customer match, product match, price validation, order creation — every step the agent takes is logged as a typed decision, so an operator can audit the whole chain of reasoning after the fact.",
+    d: "Customer match, product match, price validation, order creation: every step the agent takes is logged as a typed decision, so an operator can audit the whole chain of reasoning after the fact.",
   },
   {
     t: "Per-request tools that capture their effects",
-    d: "Each request builds its own tool set bound to the tenant; side effects (created order IDs, escalations, decisions) accumulate in capture buckets the response is assembled from — no shared global state between concurrent orders.",
+    d: "Each request builds its own tool set bound to the tenant; side effects (created order IDs, escalations, decisions) accumulate in capture buckets the response is assembled from, with no shared global state between concurrent orders.",
   },
 ];
 
@@ -177,8 +185,8 @@ export default function OrderSyncAgent() {
               <Shine>Email to order, on its own</Shine>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
-              A production AI agent that reads inbound B2B purchase orders — in
-              any format a customer sends — and turns them into validated,
+              A production AI agent that reads inbound B2B purchase orders, in
+              any format a customer sends, and turns them into validated,
               structured orders. It matches products, prices the order, and writes
               it to the system, escalating to a human the moment it isn&apos;t
               sure.
@@ -224,7 +232,7 @@ export default function OrderSyncAgent() {
             <p className="mt-4 max-w-2xl text-white/70">
               Distributors take orders the way their customers want to send them.
               That means an inbox full of forwarded emails, scanned POs,
-              spreadsheets, and EDI files — each one read and retyped into the ERP
+              spreadsheets, and EDI files, each one read and retyped into the ERP
               by hand. It&apos;s slow, and the mistakes are expensive.
             </p>
           </Reveal>
@@ -250,7 +258,7 @@ export default function OrderSyncAgent() {
               Inbox in, structured order out.
             </h2>
             <p className="mt-4 max-w-2xl text-white/70">
-              Four stages, fully autonomous on the happy path — with a human
+              Four stages, fully autonomous on the happy path, with a human
               pulled in exactly when the agent decides it needs one.
             </p>
           </Reveal>
@@ -291,7 +299,7 @@ export default function OrderSyncAgent() {
             </h3>
             <p className="mt-3 max-w-2xl text-white/70">
               Built on <code>Mastra</code> with Claude as the model. Each order
-              gets its own agent that works in a loop — up to forty steps — calling
+              gets its own agent that works in a loop (up to forty steps), calling
               real tools and reacting to what they return, instead of trying to
               one-shot the answer. A Sonnet&nbsp;→&nbsp;Haiku fallback and ephemeral
               prompt caching keep it resilient and cheap.
@@ -306,8 +314,8 @@ export default function OrderSyncAgent() {
               Thirty-five tools across the whole order lifecycle.
             </h3>
             <p className="mt-3 max-w-2xl text-white/70">
-              Every real action — extract, match, price, validate, write,
-              escalate — is a typed tool with a <code>Zod</code> schema. The model
+              Every real action (extract, match, price, validate, write,
+              escalate) is a typed tool with a <code>Zod</code> schema. The model
               never touches the database directly; it composes these tools, and
               each one is bound to the tenant making the request.
             </p>
@@ -381,7 +389,7 @@ export default function OrderSyncAgent() {
         {/* BY THE NUMBERS */}
         <section className="bg-navy-3/40 px-8 py-20 md:px-16 lg:px-24">
           <Reveal>
-            <Eyebrow>By the numbers</Eyebrow>
+            <Eyebrow as="h2">By the numbers</Eyebrow>
           </Reveal>
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {NUMBERS.map((n, i) => (
@@ -410,7 +418,7 @@ export default function OrderSyncAgent() {
         {/* WHAT'S NEXT */}
         <section className="bg-navy-1 px-8 py-20 md:px-16 lg:px-24">
           <Reveal>
-            <Eyebrow>What I&apos;d do next</Eyebrow>
+            <Eyebrow as="h2">What I&apos;d do next</Eyebrow>
             <ul className="mt-8 max-w-2xl space-y-3 text-white/70">
               {NEXT.map((n) => (
                 <li key={n} className="flex gap-3">

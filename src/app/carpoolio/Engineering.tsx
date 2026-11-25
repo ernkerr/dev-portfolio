@@ -59,8 +59,8 @@ export default function Carpoolio() {
             <br />
             <br />
             Unlike traditional carpooling apps focused on daily commutes or
-            ride-sharing with strangers, Carpoolio ws tailored for{" "}
-            <strong>pre-existing groups</strong>—people who already know each
+            ride-sharing with strangers, Carpoolio was tailored for{" "}
+            <strong>pre-existing groups</strong>: people who already know each
             other but need a better way to organize their rides. Whether
             it&apos;s a road trip, a festival, or an out-of-town event, the app
             provided a dedicated space to plan rides, assign seats, and ensure
@@ -78,7 +78,7 @@ export default function Carpoolio() {
             <strong>Vanilla CSS</strong> for custom styling initially, however I
             ended up installing
             <strong> Tailwind</strong> because I found it to be far less
-            complicated than managing classes and css files.
+            complicated than managing classes and CSS files.
             <br />
             <br />
             For the backend, I used <strong>Node.js</strong> and
@@ -94,7 +94,7 @@ export default function Carpoolio() {
             <br />
             <br />
             When converting it to a mobile app, I switched to{" "}
-            <strong> React Native</strong> and <strong> Nativewind</strong> for
+            <strong> React Native</strong> and <strong> NativeWind</strong> for
             styling.
           </>
         }
@@ -135,10 +135,10 @@ export default function Carpoolio() {
         img4="/images/carpoolio/carpoolioLanding2.png"
         lessons={
           <>
-            Knowing what I know now, I would probably have made a more simple
-            web app as carpoolio&apos;s functionality was quite complex for a
-            novice developer. As the app grew, I found managing state (
-            especially user-related data) across multiple components a bit
+            Knowing what I know now, I would probably have made a simpler
+            web app, as Carpoolio&apos;s functionality was quite complex for a
+            novice developer. As the app grew, I found managing state
+            (especially user-related data) across multiple components a bit
             difficult. It forced me to learn the importance of lifting state up
             and prop drilling.
             <br />
@@ -148,7 +148,7 @@ export default function Carpoolio() {
             variables. I needed to add the IP address of the Wi-Fi network I was
             connected to for the backend to function properly. However, every
             time I worked on Carpoolio from a different location (coffee shops,
-            friend&apos;s houses, etc.), I would have to manually update the IP
+            friends&apos; houses, etc.), I would have to manually update the IP
             address in my configuration files. This process became tedious and
             error-prone, so I started using environment variables to store
             values like IP addresses and API keys. This made the application

@@ -45,7 +45,7 @@ export default function GroupSingAlong() {
             Group Sing Along is built with <strong>Next.js (React)</strong> for
             its flexibility, component-based architecture, and ability to handle
             real-time updates efficiently. Styling is done with{" "}
-            <strong>Tailwind CSS</strong>, allowing for full customization.
+            <strong>Tailwind CSS</strong>, allowing for full customization.{" "}
             <strong>Pusher</strong> sends each song to every phone in the group
             in real time. There&apos;s no database: a group lasts as long as its
             host&apos;s session. The app is hosted on <strong>Vercel</strong>,

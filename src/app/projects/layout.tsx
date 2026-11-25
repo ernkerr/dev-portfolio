@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Projects",
   description:
-    "A showcase of my work, highlighting my growth as a developer through continuous learning and gaining new skills every day.",
+    "Erin Kerr's apps, tools, design work and AI agents, filterable by type and platform.",
   path: "/projects",
 });
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { pressStart } from "../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import Link from "next/link";
@@ -146,15 +146,6 @@ export default function ProjectTemplate({
           </div>
         </div>
 
-        {/* <div className="flex justify-center">
-          <Image src={img} alt={title} width={700} height={500} />
-        </div>
-        <div className="flex justify-center">
-          <Image src={img} alt={title} width={700} height={500} />
-        </div>
-        <div className="flex justify-center">
-          <Image src={img} alt={title} width={700} height={500} />
-        </div> */}
         <div className={`mt-8 flex justify-center ${stackImages ? "flex-col items-center gap-8" : "flex-row gap-4 sm:gap-8 md:gap-16"}`}>
           <Image
             src={img2}

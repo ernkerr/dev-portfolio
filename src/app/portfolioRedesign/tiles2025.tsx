@@ -6,7 +6,7 @@ import Link from "next/link";
 import Disco from "@/app/archive/2025/_components/Disco";
 import { a } from "@/app/archive/2025/_lib/base";
 import { Caption } from "@/components/site/prose";
-import { geistMono, poiretOne, pressStart } from "../../../public/fonts/fonts";
+import { geistMono, poiretOne, pressStart } from "@/lib/fonts";
 
 // The three 2025 homepage tiles that findings 1–3 point at, rendered from the
 // 2025 code instead of cropped from a screenshot. Disco is the archived

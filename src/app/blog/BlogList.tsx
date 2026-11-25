@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { BlogPost } from "@/types/blog";
 import BlogCard from "@/components/BlogCard";
-import { pressStart } from "../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 
 // Animation variants for staggered card reveal
 const containerVariants = {

@@ -4,7 +4,7 @@ import { a } from "@/app/archive/2025/_lib/base";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { pressStart, poiretOne, geistMono } from "../../../../../public/fonts/fonts";
+import { pressStart, poiretOne, geistMono } from "@/lib/fonts";
 import ern from "../../../../../public/erin.jpg";
 import DarkModeToggle from "./DarkModeToggle";
 import Disco from "./Disco";

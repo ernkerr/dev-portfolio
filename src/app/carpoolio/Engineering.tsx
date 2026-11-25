@@ -1,12 +1,8 @@
 "use client";
 
-// import DarkModeToggle from "@/components/DarkModeToggle";
-// import { pressStart } from "../../../public/fonts/fonts";
-// import Image from "next/image";
-// import NavBar from "@/components/NavBar";
-// import Link from "next/link";
 import ProjectTemplate from "@/components/ProjectTemplate";
 import SiteHeader from "@/components/site/SiteHeader";
+
 export default function Carpoolio() {
   return (
     <div>

@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import SiteHeader from "@/components/site/SiteHeader";
 import Shine from "@/components/Shine";
 import { PolkaDots } from "@/components/ui/PolkaDots";
-import { geistSans, geistMono } from "../../../public/fonts/fonts";
+import { geistSans, geistMono } from "@/lib/fonts";
 
 /* ---------- small local helpers ---------- */
 

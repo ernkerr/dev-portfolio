@@ -1,6 +1,6 @@
 "use client";
 
-import { pressStart } from "../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import Link from "next/link";

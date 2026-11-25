@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { AgentMetadata } from "@/types/agent";
-import { pressStart, geistMono } from "../../public/fonts/fonts";
+import { pressStart, geistMono } from "@/lib/fonts";
 
 interface AgentCardProps {
   agent: AgentMetadata;

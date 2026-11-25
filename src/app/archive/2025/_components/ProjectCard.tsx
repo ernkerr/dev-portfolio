@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ProjectMetadata } from "@/types/project";
-import { pressStart, geistMono } from "../../../../../public/fonts/fonts";
+import { pressStart, geistMono } from "@/lib/fonts";
 
 interface ProjectCardProps {
   project: ProjectMetadata;

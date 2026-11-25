@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { pressStart } from "../../../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import Image from "next/image";
 import NavBar from "@/app/archive/2025/_components/NavBar";
 import Link from "next/link";

@@ -1,4 +1,5 @@
-// fonts.ts
+// The 2025 edition's fonts, still used by the older project pages and the
+// archive. The 2026 edition loads its own in src/app/layout.tsx.
 import {
   Geist,
   Geist_Mono,

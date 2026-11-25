@@ -9,8 +9,6 @@ export default function VolumeBar({ isListening, volume }: VolumeBarProps) {
   // convert volume_percent str into a num
   const volumeLevel = parseInt(volume) || 0;
 
-  console.log("VolumeBar props:", { isListening, volume, volumeLevel });
-
   // if not listening, hide the volume bar
   if (!isListening) return null;
 

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import NavBar from "@/app/archive/2025/_components/NavBar";
-import { pressStart } from "../../../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 import { allAgents } from "@/data/agents";
 import AgentCard from "@/app/archive/2025/_components/AgentCard";
 

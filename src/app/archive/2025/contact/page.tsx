@@ -2,7 +2,7 @@
 
 import NavBar from "@/app/archive/2025/_components/NavBar";
 import { FiGithub, FiGlobe, FiInstagram, FiLinkedin } from "react-icons/fi";
-import { pressStart } from "../../../../../public/fonts/fonts";
+import { pressStart } from "@/lib/fonts";
 
 const socials = [
   {

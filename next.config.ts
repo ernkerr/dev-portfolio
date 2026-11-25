@@ -9,15 +9,8 @@ const nextConfig: NextConfig = {
     pagesBufferLength: 50,
   },
   images: {
-    domains: ["i.scdn.co", "covers.openlibrary.org"],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "your-image-host.com",
-        port: "",
-        pathname: "/**",
-      },
-    ],
+    // Album art for the 2025 edition's "last song played" card.
+    remotePatterns: [{ protocol: "https", hostname: "i.scdn.co" }],
   },
   async redirects() {
     return [
@@ -52,8 +45,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
-// CL tool
-// ifconfig en0
-// what your computer's local IP address is
-// use to connect to your local network followed by port # on different devices

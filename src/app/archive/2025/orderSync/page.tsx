@@ -8,7 +8,7 @@ import NavBar from "@/app/archive/2025/_components/NavBar";
 import Shine from "@/app/archive/2025/_components/Shine";
 import { PolkaDots } from "@/app/archive/2025/_components/ui/PolkaDots";
 import CompareScroll from "@/app/archive/2025/_components/CompareScroll";
-import { geistSans, geistMono } from "../../../../../public/fonts/fonts";
+import { geistSans, geistMono } from "@/lib/fonts";
 
 /* ---------- small local helpers ---------- */
 
